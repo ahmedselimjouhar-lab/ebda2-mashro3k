@@ -7,24 +7,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fafafa;
+            --bg-color: #f5f5f7;
             --card-bg: #ffffff;
             --text-primary: #1d1d1f;
-            --text-secondary: #86868b;
+            --text-secondary: #6e6e73;
             --accent: #0071e3;
-            --border: #d2d2d7;
-            --financial-bg: #fbfbfd;
-            --radius: 16px;
-            --transition: all 0.3s ease-in-out;
+            --accent-hover: #0077ed;
+            --border: #e5e5ea;
+            --financial-bg: #fafafa;
+            --radius: 20px;
+            --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body.dark-mode {
-            --bg-color: #0b0b0c;
-            --card-bg: #161618;
+            --bg-color: #000000;
+            --card-bg: #141416;
             --text-primary: #f5f5f7;
-            --text-secondary: #a1a1a6;
+            --text-secondary: #98989d;
             --accent: #0a84ff;
-            --border: #38383a;
+            --accent-hover: #409cff;
+            --border: #2c2c2e;
             --financial-bg: #1c1c1e;
         }
 
@@ -42,44 +44,63 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.8;
-            padding: 20px;
+            font-size: 0.9rem;
+            line-height: 1.85;
+            padding: 32px 20px;
             transition: var(--transition);
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 740px;
+            margin: 48px auto;
         }
 
-        .theme-toggle {
+        /* أزرار التنقل العلوية الموحدة مع الصفحة الرئيسية */
+        .top-nav {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 24px;
+            left: 24px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
             background: var(--card-bg);
             color: var(--text-primary);
             border: 1px solid var(--border);
-            padding: 8px 14px;
-            border-radius: 20px;
+            padding: 7px 16px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 52px;
+            margin-top: 16px;
         }
 
+        /* حاوية اللوجو التفاعلي */
         .interactive-logo-container {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 16px auto;
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 22px auto;
             border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             cursor: pointer;
             position: relative;
             background: var(--card-bg);
@@ -112,28 +133,33 @@
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 1.75rem;
             font-weight: 700;
+            letter-spacing: -0.4px;
             margin-bottom: 10px;
         }
 
         header p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 0.92rem;
+            max-width: 540px;
+            margin: 0 auto;
         }
 
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            padding: 40px 44px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
             border: 1px solid var(--border);
-            margin-bottom: 24px;
+            margin-bottom: 36px;
+            transition: var(--transition);
         }
 
         h2 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
+            font-size: 1.12rem;
+            font-weight: 700;
+            margin-bottom: 20px;
             color: var(--accent);
             display: flex;
             align-items: center;
@@ -141,37 +167,62 @@
         }
 
         p {
-            margin-bottom: 16px;
-            font-size: 1.05rem;
+            margin-bottom: 18px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
         }
 
         ul {
-            margin: 15px 0 15px 20px;
+            margin: 18px 20px 8px 0;
+            padding-right: 16px;
         }
 
         li {
-            margin-bottom: 10px;
-            font-size: 1.02rem;
+            margin-bottom: 14px;
+            font-size: 0.88rem;
+            line-height: 1.8;
         }
 
         .highlight-box {
             background: var(--financial-bg);
             border-right: 4px solid var(--accent);
-            padding: 18px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border: 1px solid var(--border);
+            padding: 24px 28px;
+            border-radius: 16px;
+            margin: 26px 0 10px 0;
+            border-top: 1px solid var(--border);
+            border-left: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .founder-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin: 12px 0;
+            letter-spacing: -0.2px;
         }
 
         .contact-email {
-            display: inline-block;
-            background: rgba(0, 113, 227, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 113, 227, 0.08);
             color: var(--accent);
-            padding: 8px 16px;
-            border-radius: 10px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 0.86rem;
             font-weight: 600;
-            margin-top: 10px;
+            margin-top: 6px;
             text-decoration: none;
+            transition: var(--transition);
+            /* السماح بنسخ الإيميل فقط للتسهيل على من يريد مراسلتك */
+            -webkit-user-select: text !important;
+            user-select: text !important;
+        }
+
+        .contact-email:hover {
+            background: rgba(0, 113, 227, 0.14);
         }
 
         .nav-link {
@@ -179,83 +230,91 @@
             background: var(--accent);
             color: white;
             text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 12px;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-size: 0.9rem;
             font-weight: 600;
-            margin-top: 20px;
+            margin-top: 28px;
             transition: var(--transition);
         }
 
         .nav-link:hover {
-            opacity: 0.9;
+            background: var(--accent-hover);
             transform: translateY(-1px);
         }
 
         .footer-note {
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.78rem;
             color: var(--text-secondary);
-            margin-top: 40px;
+            margin-top: 48px;
             border-top: 1px solid var(--border);
-            padding-top: 20px;
+            padding-top: 24px;
         }
 
         @media (max-width: 600px) {
-            .container { margin: 20px auto; }
-            .card { padding: 20px; }
-            header h1 { font-size: 1.8rem; }
+            body { padding: 20px 14px; }
+            .container { margin: 36px auto; }
+            .card { padding: 26px 22px; }
+            .highlight-box { padding: 18px 20px; }
+            header h1 { font-size: 1.45rem; }
+            .top-nav { top: 12px; left: 12px; gap: 8px; }
+            .nav-btn { padding: 6px 12px; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <button class="theme-toggle" onclick="toggleTheme()">🌓 وضع القراءة</button>
+    <div class="top-nav">
+        <a href="index.html" class="nav-btn">🏠 الحاسبة الرئيسية</a>
+        <button class="nav-btn" onclick="toggleTheme()">🌓 وضع القراءة</button>
+    </div>
 
     <div class="container">
         <header>
-            <div class="interactive-logo-container" onclick="this.classList.toggle('active')">
+            <div class="interactive-logo-container" onclick="this.classList.toggle('active')" title="اضغط لتبديل الشعار">
                 <img src="logo-main.png" alt="ابدأ مشروعك" class="logo-main">
                 <img src="logo-alt.png" alt="ابدأ مشروعك - التدرج" class="logo-alt">
             </div>
-            <h1>عن منصة "ابدأ مشروعك"</h1>
-            <p>فلسفة التحول من حسابات الأرقام الصماء إلى التوجيه الاستثماري الواعي</p>
+            <h1>عن منصة «ابدأ مشروعك»</h1>
+            <p>البيان الرقمي (Digital Manifesto): فلسفة التحول من حسابات الأرقام الصماء إلى التوجيه الاستثماري الواعي</p>
         </header>
 
         <div class="card">
             <h2>🎯 رسالتنا وأهدافنا</h2>
-            <p>صُممت هذه المنصة لتكون <strong>"مستشار استثماري ذكي ذاتي الخدمة" (Self-Serve Venture Co-Pilot)</strong>، تنقل المستخدم من حيرة الفكرة وعشوائية التخطيط إلى رؤية واضحة ومبررة تعتمد على الأرقام الحقيقية للسوق المصري.</p>
+            <p>تمثل هذه المنصة نقلة منهجية تحول أداة التخطيط من مجرد «حاسبة أرقام صماء» إلى <strong>«مستشار استثماري ذكي ذاتي الخدمة» (Self-Serve Venture Co-Pilot)</strong>، ينقل المستخدم من حيرة الفكرة وعشوائية التقديرات إلى فرص مبررة تعتمد على السلوك الفعلي والأرقام الحقيقية للسوق المصري.</p>
             
             <div class="highlight-box">
-                <strong>لماذا تفشل أغلب المشاريع الصغيرة في مصر؟</strong>
-                <p>الأمر لا يتعلق بسوء الفكرة على الورق، بل بوجود سببين قاتلين تعالجهما منصتنا في الصميم:</p>
+                <strong style="font-size: 0.95rem; display: block; margin-bottom: 10px;">لماذا تفشل أغلب المشاريع الصغيرة في مصر؟</strong>
+                <p style="margin-bottom: 12px; color: var(--text-secondary);">الأغلبية لا تفشل لأن الفكرة سيئة على الورق، بل لسببين قاتلين تعالجهما هذه المنصة في الصميم:</p>
                 <ul>
-                    <li><strong>١. عدم التوافق النفسي (Founder-Market Misfit):</strong> عندما يفتح شخص بطبعه هادئ ويكره الفصال والاحتكاك اليومي مشروعاً يعتمد كلياً على البيع المباشر، فإنه ينهار من الضغط النفسي في أول شهرين. أداة التحليل النفسي (RIASEC) تحميك من هذا الفخ.</li>
-                    <li><strong>٢. صدمة الواقع المالي (رأس المال العامل والافتراضات الخفية):</strong> أن يصرف المستثمر كل ما يملكه في "التأسيس والديكور"، ويتفاجأ أنه لا يملك سيولة كافية لتغطية أول ٣ شهور حتى يصل لنقطة التعادل. منصتنا تفصل بوضوح تام بين رأس المال الثابت ورأس المال العامل.</li>
+                    <li><strong>١. عدم التوافق النفسي (Founder-Market Misfit):</strong> شخص بطبعه هادئ ويكره الفصال والاحتكاك اليومي يفتح مشروعاً يعتمد كلياً على البيع المباشر، فينهار من الضغط النفسي في أول شهرين. دمج نموذج الاهتمامات المهنية (<strong>RIASEC - O*NET</strong>) مع فلتر «الثمن النفسي والتشغيلي» يحمي المستثمر من هذا الفخ قبل أن يبدأ.</li>
+                    <li><strong>٢. صدمة الواقع المالي (رأس المال العامل والافتراضات الخفية):</strong> المستثمر يصرف كل ما يملكه في «التأسيس والديكور»، ويتفاجأ أنه لا يملك سيولة لتغطية أول ٣ شهور حتى يصل لنقطة التعادل. لذلك تلتزم كل فرصة هنا بتوضيح رأس المال العامل، والافتراضات، وموانع الدخول، وخطوة اختبار الفرصة في ٤٨ ساعة بأقل مخاطرة.</li>
                 </ul>
             </div>
         </div>
 
         <div class="card">
             <h2>⚙️ هندسة وتقنية البناء</h2>
-            <p>تم بناء وتطوير البرمجيات والهندسة البرمجية للمنصة بالكامل باستخدام أداة الذكاء الاصطناعي <strong>Google Gemini</strong>، لتقديم تجربة مستخدم فائقة السرعة، نظيفة، وآمنة (Apple Minimalist)، تعمل ذاتياً بدون أي تدخل بشري أو تعقيد تسويقي.</p>
+            <p>تم تطوير وبناء البرمجيات والهيكلة التفاعلية لهذه المنصة بالكامل باستخدام أداة الذكاء الاصطناعي <strong>Google Gemini</strong>، لتقديم تجربة مستخدم فائقة السرعة، نقية بصرياً (Apple Minimalist)، ومحمية، تعمل ذاتياً بالكامل دون الحاجة لتدخل بشري.</p>
         </div>
 
         <div class="card">
-            <h2>©️ حقوق الملكية الفكرية والتواصل</h2>
-            <p>هذه الفكرة، ونظريتها التشغيلية، وهيكلتها البرمجية هي نتاج ابتكار واجتهاد شخصي كامل من المؤسس والمبتكر:</p>
-            <p style="font-weight: 700; font-size: 1.2rem; color: var(--accent);">أحمد جوهر (Ahmed Selim Jouhar)</p>
-            <p>جميع حقوق الفكرة، الهيكل، والابتكار محفوطة بالكامل لصاحبها. يُمنع إعادة نشر أو اقتباس النموذج التجاري أو الهيكل البرمجي دون إذن كتابي صريح.</p>
+            <h2>©️ حقوق الملكية الفكرية والابتكار</h2>
+            <p>هذه الفكرة، وفلسفتها التشغيلية، وهيكلتها الاستشارية هي نتاج ابتكار وتطوير أصيل لصاحب الفكرة والمبتكر لها:</p>
+            <div class="founder-name">أحمد جوهر (Ahmed Selim Jouhar)</div>
+            <p style="color: var(--text-secondary);">المحتفظ بكامل حقوق الملكية الفكرية وإعادة الاستخدام أو الاقتباس. يُحظر نسخ النموذج التشغيلي أو المنهجية التفاعلية أو إعادة نشرها دون إذن كتابي صريح.</p>
             
-            <p style="margin-top: 15px;">للتواصل والاستفسارات الرسمية:</p>
-            <a href="mailto:ahmedselimjouhar@me.com" class="contact-email">📧 ahmedselimjouhar@me.com</a>
+            <p style="margin-top: 24px; margin-bottom: 8px; font-weight: 600;">للتواصل الرسمي والاستفسارات:</p>
+            <a href="mailto:ahmedselimjouhar@me.com" class="contact-email">✉️ ahmedselimjouhar@me.com</a>
 
             <div>
-                <a href="index.html" class="nav-link">العودة إلى الحاسبة الاستثمارية</a>
+                <a href="index.html" class="nav-link">العودة إلى المستشار الاستثماري ←</a>
             </div>
         </div>
 
         <div class="footer-note">
-            جميع الحقوق محفوظة © 2026 | منصة ابدأ مشروعك
+            جميع الحقوق محفوظة © ٢٠٢٦ | منصة ابدأ مشروعك — أحمد سليم جوهر
         </div>
     </div>
 

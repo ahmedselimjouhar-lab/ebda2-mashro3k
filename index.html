@@ -3,1556 +3,389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ابدأ مشروعك | حاسبة استثمار رأس المال والأصول المتاحة</title>
-    <meta name="description" content="اكتشف أفضل مشروع يناسب رأس مالك والأصول المتاحة لديك (سيارة، سطح منزل، مخزن، أو أرض) مع مقارنة عوائد البنك والبورصة وصناديق الاستثمار.">
-    <meta name="keywords" content="حاسبة استثمار, ابدأ مشروعك, مشروع بعربية ملاكي, مشاريع زراعة الأسطح, دراجون فروت, مشروع مشروم, تربية دواجن, الفلوس في البنك ولا مشروع, مشاريع شراكة قائمة">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://ebda2-mashro3k.vercel.app/">
-
-    <!-- Google Fonts: Tajawal -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-
+    <title>ابدأ مشروعك | الحاسبة الاستثمارية الذكية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #F5F5F7;
-            --card-bg: #FFFFFF;
-            --text-primary: #1D1D1F;
-            --text-secondary: #86868B;
-            --accent: #0071E3;
-            --accent-hover: #0077ED;
-            --dark-btn: #1D1D1F;
-            --border-light: rgba(0, 0, 0, 0.08);
-            --success: #28CD41;
-            --radius-lg: 24px;
-            --radius-md: 16px;
-            --radius-sm: 12px;
-            --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.08);
+            --bg-color: #fafafa;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --border: #d2d2d7;
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
-            background-color: var(--bg-main);
+            background-color: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.65;
-            padding-bottom: 90px;
-        }
-
-        /* Top Promo Bar for kæfi;n */
-        .top-promo-bar {
-            background: rgba(29, 29, 31, 0.94);
-            backdrop-filter: saturate(180%) blur(20px);
-            color: #F5F5F7;
-            font-size: 0.88rem;
-            padding: 10px 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .top-promo-bar a {
-            color: #FFFFFF;
-            background: rgba(255, 255, 255, 0.16);
-            padding: 4px 12px;
-            border-radius: 999px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.82rem;
-            transition: background 0.2s ease;
-        }
-
-        .top-promo-bar a:hover {
-            background: rgba(255, 255, 255, 0.28);
+            line-height: 1.6;
+            padding: 20px;
         }
 
         .container {
-            max-width: 840px;
-            margin: 0 auto;
-            padding: 0 20px;
+            max-width: 800px;
+            margin: 40px auto;
         }
 
         header {
             text-align: center;
-            padding: 40px 0 24px;
+            margin-bottom: 40px;
         }
 
-        .live-rate-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #FFFFFF;
-            border: 1px solid var(--border-light);
-            padding: 6px 16px;
-            border-radius: 999px;
-            font-size: 0.84rem;
-            color: var(--text-secondary);
-            margin-bottom: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--success);
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(40, 205, 65, 0.5); }
-            70% { box-shadow: 0 0 0 6px rgba(40, 205, 65, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(40, 205, 65, 0); }
-        }
-
-        h1 {
-            font-size: 2.35rem;
-            font-weight: 800;
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
             letter-spacing: -0.5px;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 560px;
-            margin: 0 auto;
-        }
-
-        /* Main Apple Card */
-        .apple-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 30px;
-            box-shadow: var(--shadow-soft);
-            border: 1px solid var(--border-light);
-            margin-bottom: 24px;
-        }
-
-        /* Big Unified Search/Capital Bar with Integrated Currency Switcher */
-        .search-bar-label {
-            display: block;
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--text-primary);
             margin-bottom: 10px;
-            text-align: center;
         }
 
-        .spotlight-bar {
-            display: flex;
-            align-items: center;
-            background: #FAFAFC;
-            border: 2px solid #D2D2D7;
-            border-radius: 18px;
-            padding: 6px 8px 6px 8px;
-            margin-bottom: 14px;
-            transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-        }
-
-        .spotlight-bar:focus-within {
-            border-color: var(--accent);
-            background: #FFFFFF;
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
-        }
-
-        .capital-input {
-            flex: 1;
-            width: 100%;
-            border: none;
-            background: transparent;
-            font-size: 1.9rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            padding: 10px 16px;
-            outline: none;
-            text-align: right;
-        }
-
-        .currency-toggle-inline {
-            display: flex;
-            background: #EFEFF4;
-            padding: 4px;
-            border-radius: 12px;
-            gap: 4px;
-            flex-shrink: 0;
-        }
-
-        .curr-btn {
-            border: none;
-            background: transparent;
-            padding: 8px 14px;
-            border-radius: 9px;
-            font-size: 0.88rem;
-            font-weight: 800;
+        header p {
             color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .curr-btn.active {
-            background: #FFFFFF;
-            color: var(--text-primary);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-        }
-
-        /* Quick Amount Chips */
-        .quick-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 26px;
-        }
-
-        .chip {
-            background: #F5F5F7;
-            border: 1px solid var(--border-light);
-            padding: 5px 13px;
-            border-radius: 999px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-
-        .chip:hover {
-            background: #E8E8ED;
-        }
-
-        /* User Context & Owned Assets Questions */
-        .context-questions {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 18px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-light);
-            margin-bottom: 24px;
-        }
-
-        .q-block-title {
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .q-block-sub {
-            font-size: 0.78rem;
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-
-        .options-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .option-pill {
-            flex: 1;
-            min-width: 135px;
-            background: #F5F5F7;
-            border: 1.5px solid transparent;
-            padding: 11px 14px;
-            border-radius: 14px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .option-pill:hover {
-            background: #EAEAEF;
-        }
-
-        .option-pill.selected {
-            background: #E8F2FF;
-            border-color: var(--accent);
-            color: #0051A8;
-        }
-
-        .calc-btn {
-            width: 100%;
-            background: var(--accent);
-            color: #FFFFFF;
-            border: none;
-            padding: 16px;
-            border-radius: var(--radius-md);
             font-size: 1.1rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
         }
 
-        .calc-btn:hover {
-            background: var(--accent-hover);
-        }
-
-        /* Brotherly Advice Hedging Card (نصيحة من أخوك) */
-        .brotherly-advice-card {
-            background: linear-gradient(135deg, #FFFDF9 0%, #FFF7E8 100%);
-            border: 1px solid rgba(255, 149, 0, 0.25);
-            border-radius: var(--radius-lg);
-            padding: 22px 26px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .advice-graphic {
-            flex-shrink: 0;
-            width: 78px;
-            height: 78px;
-            background: #FFFFFF;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 14px rgba(255, 149, 0, 0.12);
-            border: 1px solid rgba(255, 149, 0, 0.2);
-        }
-
-        .advice-content h3 {
-            font-size: 1.12rem;
-            font-weight: 800;
-            color: #8A4B00;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .advice-content p {
-            font-size: 0.94rem;
-            color: #3A3A3C;
-            line-height: 1.65;
-        }
-
-        .advice-highlight {
-            display: inline-block;
-            background: #FFFFFF;
-            padding: 2px 10px;
-            border-radius: 8px;
-            font-weight: 800;
-            color: #B25000;
-            border: 1px solid rgba(255, 149, 0, 0.3);
-            margin: 0 2px;
-        }
-
-        @media (max-width: 640px) {
-            .brotherly-advice-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            h1 { font-size: 1.85rem; }
-            .capital-input { font-size: 1.5rem; }
-            .apple-card { padding: 20px; }
-        }
-
-        /* Project Card */
-        .project-card {
+        .card {
             background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 26px;
-            margin-bottom: 18px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-soft);
-            transition: box-shadow 0.25s ease;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            margin-bottom: 24px;
+            transition: var(--transition);
         }
 
-        .project-card:hover {
-            box-shadow: var(--shadow-hover);
-        }
-
-        .project-card.asset-matched {
-            border: 1.5px solid rgba(40, 205, 65, 0.45);
-        }
-
-        .project-card.coming-soon-card {
-            border: 1.5px solid rgba(88, 86, 214, 0.35);
-            background: linear-gradient(180deg, #FFFFFF 0%, #FAF9FF 100%);
-        }
-
-        .asset-match-banner {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #E8F8EE;
-            color: #146C34;
-            font-size: 0.78rem;
-            font-weight: 800;
-            padding: 4px 12px;
-            border-radius: 999px;
-            margin-bottom: 12px;
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-        }
-
-        .title-copy-wrap {
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
-        .project-title {
-            font-size: 1.26rem;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .copy-name-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: #F5F5F7;
-            border: 1px solid #D2D2D7;
-            color: var(--text-primary);
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 0.76rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .copy-name-btn:hover {
-            background: #E8E8ED;
-        }
-
-        .copy-name-btn.copied {
-            background: #E8F8EE;
-            color: #1D8348;
-            border-color: #28CD41;
-        }
-
-        .badge {
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 11px;
-            border-radius: 999px;
-            background: #F5F5F7;
-            color: var(--text-primary);
-        }
-
-        .badge.type-finance { background: #FFF4E5; color: #B25000; }
-        .badge.type-solo { background: #E8F2FF; color: #0066CC; }
-        .badge.type-partner { background: #F2EBFF; color: #5856D6; }
-        .badge.type-agro { background: #E8F8EE; color: #1D8348; }
-        .badge.type-soon { background: #5856D6; color: #FFFFFF; }
-
-        /* Level 1: Essential 3 Metrics Only */
-        .key-metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            background: #FAFAFC;
-            border-radius: var(--radius-md);
-            padding: 15px;
-            gap: 12px;
-            margin-bottom: 18px;
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-
-        @media (max-width: 540px) {
-            .key-metrics-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-        }
-
-        .metric-item span {
-            display: block;
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            margin-bottom: 2px;
-        }
-
-        .metric-item strong {
-            font-size: 1.12rem;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .metric-item strong.profit-highlight {
-            color: #1D8348;
-        }
-
-        /* Level 2: Progressive Disclosure Tabs */
-        .card-tabs-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-            border-top: 1px solid var(--border-light);
-            padding-top: 14px;
-        }
-
-        .tab-trigger {
-            background: #F5F5F7;
-            border: 1px solid transparent;
-            padding: 7px 13px;
-            border-radius: 999px;
-            font-size: 0.81rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .tab-trigger:hover {
-            color: var(--text-primary);
-            background: #EAEAEF;
-        }
-
-        .tab-trigger.active {
-            background: var(--dark-btn);
-            color: #FFFFFF;
-        }
-
-        .tab-panel {
-            display: none;
-            margin-top: 14px;
-            padding: 18px;
-            background: #F9F9FB;
-            border-radius: var(--radius-md);
-            font-size: 0.92rem;
-            color: var(--text-primary);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .tab-panel.active {
-            display: block;
-        }
-
-        .allocation-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 7px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-        }
-
-        .allocation-row:last-child {
-            border-bottom: none;
-        }
-
-        /* Visual Mind-Map Timeline */
-        .mindmap-timeline {
-            position: relative;
-            padding-right: 22px;
-            border-right: 2px solid var(--accent);
-            margin-top: 6px;
-        }
-
-        .timeline-node {
-            position: relative;
-            margin-bottom: 14px;
-            background: #FFFFFF;
-            padding: 11px 14px;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-        }
-
-        .timeline-node:last-child {
-            margin-bottom: 0;
-        }
-
-        .timeline-node::before {
-            content: '';
-            position: absolute;
-            right: -28px;
-            top: 16px;
-            width: 10px;
-            height: 10px;
+        .step-title span {
             background: var(--accent);
+            color: white;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
-            border: 2px solid #FFFFFF;
-            box-shadow: 0 0 0 2px var(--accent);
-        }
-
-        .timeline-time {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 800;
-            color: var(--accent);
-            background: #E8F2FF;
-            padding: 2px 9px;
-            border-radius: 999px;
-            margin-bottom: 4px;
-        }
-
-        .timeline-desc {
-            font-size: 0.88rem;
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        .suppliers-list {
-            list-style: none;
-            margin-bottom: 14px;
-        }
-
-        .suppliers-list li {
-            padding: 7px 0;
-            border-bottom: 1px dashed rgba(0,0,0,0.08);
             font-size: 0.9rem;
         }
 
-        .suppliers-list li:last-child {
-            border-bottom: none;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .supplier-cta-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--accent);
-            color: #FFFFFF;
-            text-decoration: none;
-            padding: 9px 16px;
-            border-radius: 999px;
-            font-size: 0.83rem;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            transition: background 0.2s;
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
 
-        .supplier-cta-link:hover {
-            background: var(--accent-hover);
-        }
-
-        /* Lead Capture Form */
-        .lead-section {
-            margin-top: 38px;
-            scroll-margin-top: 70px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .project-input-group {
-            grid-column: 1 / -1;
-            display: flex;
-            gap: 8px;
-        }
-
-        .apple-input {
+        select, input {
             width: 100%;
-            padding: 13px 16px;
-            border-radius: var(--radius-sm);
-            border: 1px solid #D2D2D7;
-            background: #FAFAFC;
-            font-size: 0.94rem;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 1rem;
+            background: #fff;
+            transition: var(--transition);
+        }
+
+        select:focus, input:focus {
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .apple-input:focus {
             border-color: var(--accent);
-            background: #FFFFFF;
-            box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
         }
 
-        .paste-btn {
-            background: #EFEFF4;
-            border: 1px solid #D2D2D7;
-            padding: 0 16px;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            font-size: 0.85rem;
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .option-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
             cursor: pointer;
-            white-space: nowrap;
+            transition: var(--transition);
+            background: #fff;
+            font-size: 0.95rem;
+        }
+
+        .option-card:hover {
+            border-color: var(--accent);
+            background: rgba(0, 113, 227, 0.02);
+        }
+
+        .option-card.selected {
+            border-color: var(--accent);
+            background: rgba(0, 113, 227, 0.06);
+            font-weight: 600;
+        }
+
+        button.btn-primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        button.btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .result-card {
+            border-left: 4px solid var(--accent);
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            border: 1px solid var(--border);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 113, 227, 0.1);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .financial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+            background: #fbfbfd;
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+        }
+
+        .financial-item span {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .financial-item strong {
+            font-size: 1.05rem;
             color: var(--text-primary);
         }
 
-        footer {
-            text-align: center;
+        .validation-box {
+            background: #f5f5f7;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .science-note {
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            font-size: 0.84rem;
-            margin-top: 44px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Promo Bar for kæfi;n -->
-    <div class="top-promo-bar">
-        <span>☕ تخطط لمشروعك القادم؟ استمتع بأقوى تركيز مع محمصة القهوة المختصة <strong>kæfi;n</strong></span>
-        <a href="https://www.kaefien.online" target="_blank" rel="noopener">تسوق قهوتك الآن ←</a>
+<div class="container">
+    <header>
+        <h1>ابدأ مشروعك</h1>
+        <p>حاسبة استثمار رأس المال الذكية — اكتشف ما يناسب شغفك وميزانيتك بأقل مخاطرة</p>
+    </header>
+
+    <!-- صندوق المرحلة الأولى: الأسئلة السلوكية -->
+    <div class="card" id="step1-card">
+        <div class="step-title"><span>١</span> اكتشف نفسك (منهجية RIASEC والثمن النفسي)</div>
+        
+        <div class="form-group">
+            <label>١. إيه آخر حاجة كنت بتعملها وسرحت فيها لدرجة إنك محستش بالوقت؟</label>
+            <div class="options-grid" data-question="q1">
+                <div class="option-card" onclick="selectOption(this, 'q1', 'realistic')">كنت بفك وأصلح حاجة بايظة بإيدي أو بصنع حاجة عملية.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'investigative')">كنت قاعد بحسب حسبة معقدة أو ببحث بعمق عشان أفهم مشكلة وأحلها.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'artistic')">كنت بصمم فكرة جديدة، بظبط ديكور، أو بكتب محتوى وشكل منتج.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'enterprising')">كنت بنظم بيعة، بفاوض على سعر، أو بخلص مصلحة فيها مكسب.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>٢. إيه الحاجة اللي صحابك أو أهلك أول ما يقعوا فيها يقولوا: «كلّموا فلان هو اللي هيخلصها»؟</label>
+            <div class="options-grid" data-question="q2">
+                <div class="option-card" onclick="selectOption(this, 'q2', 'realistic')">«تعال شوف العطل ده» (تصليح، تركيب، أو مجهود ميداني).</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'investigative')">«احسبها لنا وشوف إيه الأوفر» (مقارنة أسعار وأرقام وحسابات).</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'artistic')">«ذوقك حلو اختار معانا» (تنسيق، ديكور، واختيار أشكال مميزة).</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'enterprising')">«انزل فاصل وخلّص لنا المصلحة دي» (فصال وشراء بسعر الجملة).</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>٣. كل شغلانة وليها "ضريبتها".. إيه التعب أو الملل اللي تقدر تستحمله من غير ما تجيب آخرك؟</label>
+            <div class="options-grid" data-question="q3">
+                <div class="option-card" onclick="selectOption(this, 'q3', 'enterprising')">أستحمل فرهدة الزباين والفصال والـ ١٠٠ سؤال لحد ما أقفل البيعة.</div>
+                <div class="option-card" onclick="selectOption(this, 'q3', 'realistic')">أستحمل الشغل الروتيني المتكرر اللي عايز دقة وميزان بالسنتي بعيد عن دوشة الناس.</div>
+                <div class="option-card" onclick="selectOption(this, 'q3', 'investigative')">أستحمل وجع دماغ التخطيط وحل المشاكل الفنية المفاجئة كل يوم.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>٤. رأس المال المتاح معك (بالجنيه المصري):</label>
+            <input type="number" id="capital" placeholder="مثال: 75000" value="75000">
+        </div>
+
+        <div class="form-group">
+            <label>٥. الأصول المتاحة لديك (إن وجدت لتوفير الإيجار):</label>
+            <select id="asset">
+                <option value="none">لا توجد أصول (سنعتمد على التشغيل المنزلي أو الرقمي)</option>
+                <option value="roof">سطح منزل / بلكونة واسعة (مناسب للزراعة أو الترتيب)</option>
+                <option value="car">سيارة / موتوسيكل (مناسب للتوصيل والتوزيع)</option>
+                <option value="room">غرفة أرضية أو مخزن صغير (مناسب للتخزين والتصنيع الخفيف)</option>
+            </select>
+        </div>
+
+        <button class="btn-primary" onclick="analyzeAndCalculate()">تحليل شخصيتي وعرض الفرص المبررة</button>
     </div>
 
-    <div class="container">
-        <header>
-            <div class="live-rate-pill">
-                <span class="pulse-dot"></span>
-                <span id="live-usd-text">سعر الدولار اللحظي: جاري التحديث...</span>
-            </div>
-            <h1>حاسبة استثمار رأس المال الذكية</h1>
-            <p class="subtitle">اكتب المبلغ المتاح معك وحدد إمكانياتك الحالية، وسنرتب لك أفضل الفرص التي تستغل أصولك بأعلى عائد.</p>
-        </header>
-
-        <!-- Main Spotlight Input & Context Card -->
-        <section class="apple-card">
-            <label class="search-bar-label" for="capital-input">كم المبلغ المتاح للاستثمار؟</label>
-            <div class="spotlight-bar">
-                <input type="number" id="capital-input" class="capital-input" placeholder="100000" value="100000" oninput="calculateProjects()">
-                <div class="currency-toggle-inline">
-                    <button type="button" class="curr-btn active" id="btn-egp" onclick="setCurrency('EGP')">ج.م EGP</button>
-                    <button type="button" class="curr-btn" id="btn-usd" onclick="setCurrency('USD')">$ USD</button>
-                </div>
-            </div>
-
-            <div class="quick-chips" id="quick-chips-container"></div>
-
-            <!-- Interactive User Situation Questions -->
-            <div class="context-questions">
-                <div>
-                    <div class="q-block-title">
-                        <span>١. هتشتغل لوحدك ولا معاك شريك؟</span>
-                    </div>
-                    <div class="options-pills">
-                        <button type="button" class="option-pill selected" id="partner-all" onclick="setPartnerPref('all')">الكل (اعرض كل الفرص)</button>
-                        <button type="button" class="option-pill" id="partner-solo" onclick="setPartnerPref('solo')">👤 لوحدي (إدارة فردية)</button>
-                        <button type="button" class="option-pill" id="partner-with" onclick="setPartnerPref('partner')">🤝 معايا شريك أو أبحث عن شراكة</button>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="q-block-title">
-                        <span>٢. هل لديك أصل متاح تستغله لتوفير الإيجار أو الشحن؟</span>
-                        <span class="q-block-sub">(يمكنك اختيار أكثر من ميزة)</span>
-                    </div>
-                    <div class="options-pills">
-                        <button type="button" class="option-pill" id="asset-car" onclick="toggleAsset('car')">🚗 معايا عربية</button>
-                        <button type="button" class="option-pill" id="asset-roof" onclick="toggleAsset('roof')">🏠 سطح بيت متاح</button>
-                        <button type="button" class="option-pill" id="asset-land" onclick="toggleAsset('land')">🌱 أرض فاضية جنب البيت</button>
-                        <button type="button" class="option-pill" id="asset-store" onclick="toggleAsset('store')">📦 مخزن أو أوضة أرضي</button>
-                    </div>
-                </div>
-            </div>
-
-            <button type="button" class="calc-btn" onclick="calculateProjects()">استعرض الفرص المناسبة لإمكانياتك</button>
-        </section>
-
-        <!-- Results Section -->
-        <section id="results-section">
-            <!-- Friendly Brotherly Advice Hedging Card (نصيحة من أخوك) -->
-            <div class="brotherly-advice-card">
-                <div class="advice-graphic" aria-hidden="true">
-                    <!-- Friendly Two Friends Advising SVG Illustration -->
-                    <svg width="56" height="56" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="22" cy="20" r="8" fill="#FF9500" fill-opacity="0.2" stroke="#B25000" stroke-width="2.5"/>
-                        <path d="M10 46C10 38.8203 15.3726 33 22 33C28.6274 33 34 38.8203 34 46" stroke="#B25000" stroke-width="2.5" stroke-linecap="round"/>
-                        <circle cx="44" cy="22" r="7" fill="#0071E3" fill-opacity="0.15" stroke="#0051A8" stroke-width="2.5"/>
-                        <path d="M34 46C34 39.9249 38.4772 35 44 35C49.5228 35 54 39.9249 54 46" stroke="#0051A8" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M27 12C31 8 37 8 41 12" stroke="#28CD41" stroke-width="2.5" stroke-linecap="round"/>
-                        <circle cx="34" cy="9" r="2" fill="#28CD41"/>
-                    </svg>
-                </div>
-                <div class="advice-content">
-                    <h3>🤝 نصيحة من أخوك قبل ما تبدأ:</h3>
-                    <p>
-                        أهم قاعدة في التجارة: <strong>«لا تدخل بالسوق بكل سيولتك دفعة واحدة!»</strong>.
-                        من إجمالي المبلغ اللي معاك، ادخل المشروع بـ <span class="advice-highlight" id="advice-working-val">-</span> فقط (80%)،
-                        وشيل <span class="advice-highlight" id="advice-reserve-val">-</span> (20%) على جنب في صندوق نقدي يومي أو سبيكة ذهب كـ <strong>«صندوق أمان»</strong>؛ يسندك لو السوق ريّح في أول شهرين أو لو ظهرت قدامك لقطة بضاعة بسعر لقطة!
-                    </p>
-                </div>
-            </div>
-
-            <div id="projects-container"></div>
-        </section>
-
-        <!-- Lead Capture Form -->
-        <section class="apple-card lead-section" id="lead-form-section">
-            <h3 style="font-size: 1.25rem; margin-bottom: 4px;">اطلب الدليل التنفيذي والجهات المعتمدة لمشروعك</h3>
-            <p style="font-size: 0.88rem; color: var(--text-secondary);">اضغط على زر "نسخ" بجانب أي فرصة بالأعلى ليتم إضافتها هنا تلقائياً، وسنرسل لك التفاصيل عبر واتساب.</p>
-            <form id="lead-form" onsubmit="submitLeadForm(event)">
-                <div class="form-grid">
-                    <input type="text" id="lead-name" class="apple-input" placeholder="الاسم الكريم" required>
-                    <input type="tel" id="lead-phone" class="apple-input" placeholder="رقم الموبايل / واتساب" required>
-                    <div class="project-input-group">
-                        <input type="text" id="lead-project" class="apple-input" placeholder="اسم المشروع أو الجهة المطلوب تفاصيلها" required>
-                        <button type="button" class="paste-btn" onclick="pasteProjectName()">📋 لصق</button>
-                    </div>
-                </div>
-                <button type="submit" class="calc-btn" style="margin-top: 14px; background: var(--dark-btn);">إرسال الطلب واستلام الملف عبر واتساب</button>
-                <p id="lead-status" style="margin-top: 10px; font-size: 0.88rem; text-align: center; display: none;"></p>
-            </form>
-        </section>
-
-        <footer>
-            <p>جميع الأرقام مبنية على دراسات السوق المصري الحقيقية لعام 2026 © | برعاية <a href="https://www.kaefien.online" target="_blank" style="color: var(--text-primary); font-weight: 700;">kæfi;n</a></p>
-        </footer>
+    <!-- قسم النتائج (المرحلة ٢، ٣، ٤) -->
+    <div class="results-section" id="results-section">
+        <div class="card">
+            <div class="step-title"><span>٢ & ٣ & ٤</span> نمطك المهني والفرص المبررة مالياً</div>
+            <div id="profile-summary" class="badge"></div>
+            <div id="opportunities-container"></div>
+            <button class="btn-primary" onclick="resetCalculator()" style="background: #86868b; margin-top: 20px;">إعادة ضبط وتجربة خيارات أخرى</button>
+        </div>
     </div>
 
-    <script>
-        let liveUsdRate = 49.50;
-        let currentCurrency = 'EGP';
-        let partnerPref = 'all'; // 'all', 'solo', 'partner'
-        let selectedAssets = new Set(); // 'car', 'roof', 'land', 'store'
-        let lastCopiedProject = '';
+    <div class="science-note">
+        منهجية التحليل مستوحاة من نموذج الاهتمامات المهنية (RIASEC) المعتمد لدى مكتب إحصاءات العمل الأمريكي (O*NET)، مدمجة مع حسابات رأس المال العامل ونقطة التعادل في السوق المصري.
+    </div>
+</div>
 
-        // 1. Live Exchange Rate Auto-Updater
-        async function fetchLiveUsdRate() {
-            const rateText = document.getElementById('live-usd-text');
-            try {
-                const res = await fetch('https://open.er-api.com/v6/latest/USD');
-                const data = await res.json();
-                if (data && data.rates && data.rates.EGP) {
-                    liveUsdRate = parseFloat(data.rates.EGP);
-                    rateText.innerText = `سعر الدولار اللحظي: ${liveUsdRate.toFixed(2)} ج.م (محدث تلقائياً)`;
-                }
-            } catch (e) {
-                rateText.innerText = `سعر الدولار المعتمد: ${liveUsdRate.toFixed(2)} ج.م`;
-            }
-            renderQuickChips();
-            calculateProjects();
+<script>
+    const userAnswers = { q1: '', q2: '', q3: '' };
+
+    function selectOption(element, questionKey, value) {
+        const parent = element.parentElement;
+        parent.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+        element.classList.add('selected');
+        userAnswers[questionKey] = value;
+    }
+
+    function analyzeAndCalculate() {
+        if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
+            alert('برجاء الإجابة على الأسئلة السلوكية أولاً لنستطيع تحديد نمطك بدقة.');
+            return;
         }
 
-        // 2. Projects & Financial Channels Database
-        const projectsDB = [
-            // --- A. PASSIVE FINANCIAL CHANNELS (البنك والبورصة والصناديق) ---
-            {
-                id: 'bank-certificates',
-                title: 'الفلوس في البنك (شهادات الادخار والودائع البنكية)',
-                category: 'finance',
-                partnerType: 'solo',
-                assetsUsed: [],
-                badgeText: 'عائد بنكي آمن',
-                minEGP: 5000,
-                maxEGP: 25000000,
-                useFullCapital: true,
-                roiPercent: '22% - 27% سنوياً',
-                monthlyMargin: 0.019,
-                paybackMonths: 'رأس المال مضمون 100%',
-                summary: 'إيداع المبلغ في شهادات ادخار بنكية (البنك الأهلي أو بنك مصر أو البنوك الخاصة) بعائد ثابت يصرف شهرياً أو سنوياً بدون أي مجهود إداري أو مخاطرة.',
-                allocation: [
-                    { name: 'شهادات عائد شهري ثابت (لتغطية المصاريف الدورية)', pct: 70 },
-                    { name: 'ودائع قصيرة الأجل أو حساب توفير يومي للسيولة الطارئة', pct: 30 }
-                ],
-                mindmap: [
-                    { time: 'اليوم ١', task: 'شراء الشهادة عبر تطبيق الموبايل البنكي (الأهلي نت / بنك مصر) بدون الذهاب للفرع.' },
-                    { time: 'نهاية كل شهر', task: 'نزول العائد الشهري تلقائياً في حسابك البنكي.' },
-                    { time: 'نصيحة التحوط', task: 'أعد استثمار 30% من العائد الشهري في سبائك ذهب أو صناديق لحماية أصل المبلغ من التضخم.' }
-                ],
-                fourthTabLabel: '🏛️ البنوك والأوعية الرسمية',
-                fourthTabIntro: 'أفضل القنوات البنكية الرسمية المتاحة حالياً في مصر:',
-                fourthTabCta: '📲 اطلب مقارنة تفصيلية لأعلى فوائد البنوك هذا الشهر ←',
-                suppliers: [
-                    'البنك الأهلي المصري وبنك مصر (الشهادات البلاتينية وشهادة طلعت حرب ذات العائد الأعلى).',
-                    'البنك التجاري الدولي CIB وبنك QNB (حسابات التوفير اليومية المرنة).',
-                    'أذون الخزانة الحكومية عبر البنك (عائد يُصرف مقدماً).'
-                ]
-            },
-            {
-                id: 'investment-funds',
-                title: 'صناديق الاستثمار (صناديق نقدية يومية + صناديق ذهب)',
-                category: 'finance',
-                partnerType: 'solo',
-                assetsUsed: [],
-                badgeText: 'سيولة يومية وتحوط',
-                minEGP: 5000,
-                maxEGP: 25000000,
-                useFullCapital: true,
-                roiPercent: '21% - 29% سنوياً',
-                monthlyMargin: 0.02,
-                paybackMonths: 'سحب فوري بدون غرامات',
-                summary: 'توزيع المبلغ بين الصناديق النقدية التي تعطي عائداً يومياً تراكمياً يمكن سحبه في أي يوم بدون خسارة، وصناديق الذهب المرخصة من الرقابة المالية.',
-                allocation: [
-                    { name: 'صناديق نقدية ذات عائد يومي تراكمي معفى من الضرائب', pct: 60 },
-                    { name: 'صناديق ذهب رسمية (بدون مصنعية أو مخاطر سرقة)', pct: 40 }
-                ],
-                mindmap: [
-                    { time: 'الأسبوع ١', task: 'تفعيل حساب في تطبيق استثمار مرخص من الهيئة العامة للرقابة المالية.' },
-                    { time: 'الأسبوع ٢', task: 'شراء وثائق الصندوق النقدي وتقسيم شراء وثائق الذهب على 3 دفعات.' },
-                    { time: 'طوال العام', task: 'إمكانية السحب النقدي لأي جزء من أموالك خلال يوم عمل واحد.' }
-                ],
-                fourthTabLabel: '🏛️ المنصات والصناديق المرخصة',
-                fourthTabIntro: 'أهم الصناديق والمنصات المعتمدة من الرقابة المالية:',
-                fourthTabCta: '📲 اطلب دليل خطوات الاستثمار في الصناديق المعتمدة ←',
-                suppliers: [
-                    'منصة "ثاندر" (Thndr) ومنصة "مباشر" ومنصة "أزيموت" (Azimut) المرخصة رسمياً.',
-                    'صندوق أزيموت للذهب (AZ-Gold) وصندوق بلتون للذهب (سبائك مسجلة بالبنك المركزي).',
-                    'صندوق "بريق" وصناديق البنوك النقدية اليومية.'
-                ]
-            },
-            {
-                id: 'egyptian-stock-market',
-                title: 'الفلوس في البورصة المصرية (أسهم قيادية وتوزيعات أرباح)',
-                category: 'finance',
-                partnerType: 'solo',
-                assetsUsed: [],
-                badgeText: 'نمو وكوبونات أرباح',
-                minEGP: 10000,
-                maxEGP: 25000000,
-                useFullCapital: true,
-                roiPercent: '30% - 60%+ (متغير)',
-                monthlyMargin: 0.028,
-                paybackMonths: 'سيولة فورية T+2',
-                summary: 'استثمار المبلغ في محفظة متوازنة من أقوى شركات مؤشر EGX30 ذات العوائد الدولارية والتصديرية التي توزع أرباحاً نقدية (كوبونات) سنوية.',
-                allocation: [
-                    { name: 'أسهم شركات تصديرية وأسمدة وبتروكيماويات (تحوط دولاري)', pct: 45 },
-                    { name: 'أسهم بنوك وقطاع مالي وعقاري قيادي', pct: 35 },
-                    { name: 'سيولة نقدية لاقتناص الفرص أثناء هبوط السوق', pct: 20 }
-                ],
-                mindmap: [
-                    { time: 'الأسبوع ١', task: 'التكويد في البورصة المصرية عبر شركة سمسرة مرخصة.' },
-                    { time: 'الشهر ١', task: 'بناء المراكز المالية على 3 مراحل سعرية.' },
-                    { time: 'كل ربع سنة', task: 'تحصيل الكوبونات النقدية وإعادة توازن المحفظة.' }
-                ],
-                fourthTabLabel: '🏛️ شركات الوساطة المعتمدة',
-                fourthTabIntro: 'أقوى شركات تداول الأوراق المالية المرخصة في مصر:',
-                fourthTabCta: '📲 اطلب قائمة أسهم التوزيعات النقدية القوية وطريقة البدء ←',
-                suppliers: [
-                    'شركات الوساطة المرخصة: هيرميس (EFG Hermes)، ثاندر، مباشر، التجاري الدولي للسمسرة.',
-                    'قائمة الشركات القيادية في مؤشر EGX30 ومؤشر الشريعة EGX33.'
-                ]
-            },
+        const capital = parseFloat(document.getElementById('capital').value) || 50000;
+        const asset = document.getElementById('asset').value;
 
-            // --- B. CAR-BASED & WAREHOUSE PROJECTS (مشاريع تستغل العربية أو المخزن) ---
-            {
-                id: 'car-b2b-distribution',
-                title: 'مشروع توزيع مباشر للكافيهات والمحلات بسيارتك الخاصة',
-                category: 'commercial',
-                partnerType: 'solo',
-                assetsUsed: ['car', 'store'],
-                assetBonusText: '🚗 استغلال سيارتك يوفر 100% من تكلفة النقل ويمنحك هامش الموزع + التاجر معاً!',
-                badgeText: 'مثالي لأصحاب السيارات',
-                minEGP: 25000,
-                maxEGP: 400000,
-                roiPercent: '95% - 145%',
-                monthlyMargin: 0.16,
-                paybackMonths: '4 - 6 أشهر',
-                summary: 'استغلال سيارتك (ملاكي أو فان أو ربع نقل) في شراء بضائع سريعة الدوران بالجملة (بن، ماتشا، أكواب ورقية، صوصات، أو سلع غذائية) وتوزيعها مباشرة على خط سير ثابت يضم 30 إلى 50 كافيه أو سوبر ماركت في منطقتك.',
-                allocation: [
-                    { name: 'شراء بضاعة سريعة الدوران بسعر المصنع/المستورد', pct: 70 },
-                    { name: 'عينات مجانية ومطبوعات تسويقية للكافيهات والمحلات', pct: 10 },
-                    { name: 'مصروفات وقود وصيانة وتشغيل خط السير', pct: 10 },
-                    { name: 'سيولة لتغطية فواتير إعادة الطلب السريع', pct: 10 }
-                ],
-                mindmap: [
-                    { time: 'الأسبوع ١', task: 'حصر 40 كافيه أو سوبر ماركت في منطقتك وتحديد أكثر الأصناف التي يستهلكونها يومياً.' },
-                    { time: 'الأسبوع ٢', task: 'شراء البضاعة بالجملة وتقسيم الأسبوع إلى 4 خطوط سير جغرافية بسيارتك.' },
-                    { time: 'الشهر ٢ فصاعداً', task: 'تثبيت توريد أسبوعي ثابت لكل عميل بحيث تكون البضاعة مباعة مسبقاً قبل تحركك بالسيارة.' }
-                ],
-                fourthTabLabel: '📦 تجار الجملة والموزعين',
-                fourthTabIntro: 'أهم مصادر الجملة للبضائع سريعة الدوران التي يمكنك توزيعها بسيارتك:',
-                fourthTabCta: '📲 اضغط هنا لطلب أرقام المصانع وتجار الجملة لخطوط التوزيع ←',
-                suppliers: [
-                    'محمصة kæfi;n (توريد بن مختص وماتشا يابانية بأسعار جملة خاصة للموزعين والكافيهات).',
-                    'مصانع الأكواب الورقية والتغليف في برج العرب والعاشر من رمضان و6 أكتوبر.',
-                    'كبار مستوردي خامات الكافيهات والمواد الغذائية الجافة في الإسكندرية والقاهرة.'
-                ]
-            },
-            {
-                id: 'mobile-coffee-car',
-                title: 'كافيه قهوة مختصة متنقل بالسيارة (Car Boot Specialty Coffee)',
-                category: 'commercial',
-                partnerType: 'solo',
-                assetsUsed: ['car'],
-                assetBonusText: '🚗 سيارتك توفر عليك إيجار محل بـ 15,000 ج.م شهرياً وتمنحك حرية اختيار أزحم موقع!',
-                badgeText: 'مشروع بسيارتك الخاصة',
-                minEGP: 45000,
-                maxEGP: 250000,
-                roiPercent: '110% - 165%',
-                monthlyMargin: 0.17,
-                paybackMonths: '4 - 6 أشهر',
-                summary: 'تجهيز شنطة سيارتك أو الفان بوحدة خشبية/استانلس أنيقة وماكينة إسبريسو احترافية تعمل بالبطارية/الإنفرتر أو الغاز، وتقديم القهوة المختصة والماتشا والآيس كوفي في أماكن التجمعات والكورنيش ومناطق الجامعات.',
-                allocation: [
-                    { name: 'ماكينة إسبريسو احترافية ومطحنة وبطارية ليثيوم/إنفرتر', pct: 55 },
-                    { name: 'وحدة بار مدمجة للسيارة وإضاءة دافئة وأكواب مطبوعة', pct: 25 },
-                    { name: 'خامات تشغيل (بن مختص، ماتشا، حليب، ثلج، سيرب)', pct: 20 }
-                ],
-                mindmap: [
-                    { time: 'الأسبوع ١ - ٢', task: 'تفصيل وحدة البار المدمجة على مقاس شنطة سيارتك وتركيب ماكينة الإسبريسو.' },
-                    { time: 'الأسبوع ٣', task: 'ضبط وصفات الإسبريسو والـ Spanish Latte واختيار نقطة تمركز صباحية ومسائية.' },
-                    { time: 'الشهر ٢', task: 'التصوير على TikTok وInstagram لجذب الشباب لموقع سيارتك يومياً.' }
-                ],
-                fourthTabLabel: '📦 تجار الجملة والموزعين',
-                fourthTabIntro: 'موردي معدات كافيهات السيارات والبن المختص:',
-                fourthTabCta: '📲 اطلب أرقام منفذي وحدات السيارات وموردي الماكينات والبن ←',
-                suppliers: [
-                    'محمصة القهوة المختصة والماتشا اليابانية kæfi;n (توريد البن والماتشا وتدريب البارستا).',
-                    'ورش تجهيز وحدات الكافيه المتنقلة ومستوردي ماكينات الإسبريسو.'
-                ]
-            },
+        document.getElementById('step1-card').style.display = 'none';
+        document.getElementById('results-section').style.display = 'block';
 
-            // --- C. ROOFTOP, LAND & HOME FARMING / POULTRY (زراعة الأسطح والأراضي والدواجن) ---
-            {
-                id: 'rooftop-dragon-fruit',
-                title: 'زراعة الدراجون فروت (فاكهة التنين) على السطح أو الأرض الفضاء',
-                category: 'agro',
-                partnerType: 'solo',
-                assetsUsed: ['roof', 'land'],
-                assetBonusText: '🏠🌱 وجود سطح أو أرض خاصة يوفر 100% من الإيجار ويحول المساحة الفارغة لأصل يدر عائداً لـ 20 سنة!',
-                badgeText: 'زراعة عالية العائد',
-                minEGP: 12000,
-                maxEGP: 300000,
-                roiPercent: '90% - 140% (من العام الثاني)',
-                monthlyMargin: 0.12,
-                paybackMonths: '12 - 14 شهراً (معمر 20 سنة)',
-                summary: 'نبات صباري معمر مثالي لأسطح المنازل أو الأراضي الفضاء حول البيت؛ يتحمل الحرارة وأشعة الشمس المباشرة وقليل الاستهلاك للمياه فلا يسبب أي رطوبة للسقف، ويباع الكيلو بأسعار مرتفعة.',
-                allocation: [
-                    { name: 'شتلات دراجون فروت أصلية (أحمر وأبيض ملقح ذاتياً)', pct: 40 },
-                    { name: 'براميل زراعة وأعمدة تدعيم وتربة بيتموس ورمل', pct: 35 },
-                    { name: 'شبكة ري بالتنقيط وشبك تظليل صيفي (سيران 50%)', pct: 15 },
-                    { name: 'تسميد عضوي وعناصر صغرى', pct: 10 }
-                ],
-                mindmap: [
-                    { time: 'الشهر ١', task: 'تجهيز البراميل وأعمدة التدعيم وزراعة العقل المتجذرة عمر عام.' },
-                    { time: 'الشهر ٢ - ٦', task: 'تربية الساق الرئيسي حتى أعلى العمود (150 سم) ثم ترك الأفرع تتدلى كالمظلة.' },
-                    { time: 'الشهر ٨ - ١٢', task: 'بداية التزهير والإثمار (تعطي الشجرة الناضجة 15 إلى 25 كجم في الموسم) مع بيع العقل كشتلات.' }
-                ],
-                fourthTabLabel: '📦 تجار الشتلات وتجار الفاكهة',
-                fourthTabIntro: 'أهم مصادر الشتلات المضمونة وتجار تسويق المحصول:',
-                fourthTabCta: '📲 اطلب أرقام مزارع الشتلات المعتمدة وتجار التسويق ←',
-                suppliers: [
-                    'معهد بحوث البساتين - مركز البحوث الزراعية (الجيزة والإسكندرية) للشتلات الأصلية.',
-                    'مزارع الدراجون فروت المعتمدة بطريق مصر إسكندرية الصحراوي ووادي النطرون.',
-                    'تجار الفاكهة المميزة في سوق العبور وسوق الحضرة والهايبر ماركت.'
-                ]
-            },
-            {
-                id: 'rooftop-mushroom',
-                title: 'إنتاج المشروم المحاري (عيش الغراب) في غرفة أو مخزن أو سطح مظلل',
-                category: 'agro',
-                partnerType: 'solo',
-                assetsUsed: ['roof', 'store', 'car'],
-                assetBonusText: '📦 استغلال غرفة أو مخزن لديك يوفر الإيجار، ودورة الإنتاج 45 يوماً فقط!',
-                badgeText: 'دورة سريعة 45 يوماً',
-                minEGP: 8000,
-                maxEGP: 120000,
-                roiPercent: '110% - 160% سنوياً',
-                monthlyMargin: 0.16,
-                paybackMonths: '3 - 4 أشهر (دورتين)',
-                summary: 'مشروع زراعي نظيف وسريع الدوران لا يحتاج لأرض زراعية ولا شمس؛ يُزرع في أكياس معلقة داخل أي غرفة أو مخزن جيد التهوية أو ركن مظلل على السطح، ويتم الحصاد خلال 35 إلى 45 يوماً.',
-                allocation: [
-                    { name: 'تقاوي مشروم محاري (سبون) عالية الإنتاجية', pct: 30 },
-                    { name: 'قش أرز معقم وأكياس بولي إيثيلين مخصصة', pct: 25 },
-                    { name: 'أرفف تعليق وبخاخات رطوبة وميزان حساس وأطباق فوم', pct: 25 },
-                    { name: 'تغليف وتوزيع للمطاعم والسوبر ماركت', pct: 20 }
-                ],
-                mindmap: [
-                    { time: 'الأسبوع ١', task: 'تعقيم القش بالماء الساخن وتعبئة الأكياس في طبقات مع تقاوي المشروم.' },
-                    { time: 'الأسبوع ٢ - ٣', task: 'فترة التحضين لتكوين الميسيليوم الأبيض داخل الأكياس.' },
-                    { time: 'الأسبوع ٤ - ٦', task: 'فتح فتحات التهوية وبداية قطف المحصول وتعبئته في أطباق 200 جرام وتوريده فوراً.' }
-                ],
-                fourthTabLabel: '📦 مراكز التقاوي وتجار التسويق',
-                fourthTabIntro: 'مراكز بيع التقاوي المضمونة وجهات شراء المشروم الطازج:',
-                fourthTabCta: '📲 اطلب أرقام مراكز التقاوي والمطاعم المشترية للمشروم ←',
-                suppliers: [
-                    'وحدة إنتاج عيش الغراب - مركز البحوث الزراعية وكليات الزراعة (الشاطبي بالإسكندرية والقاهرة).',
-                    'مشتري المحصول: مطاعم البيتزا والبرجر، السوبر ماركت الكبرى، ومصانع المجمدات.'
-                ]
-            },
-            {
-                id: 'rooftop-poultry-ducks-turkey',
-                title: 'تربية الدواجن والبط المسكوفي والديك الرومي (سطح أو أرض فضاء)',
-                category: 'agro',
-                partnerType: 'solo',
-                assetsUsed: ['roof', 'land', 'car'],
-                assetBonusText: '🏠 استغلال سطح البيت أو الأرض الفضاء بنظام البطاريات النظيفة يحقق 5 إلى 6 دورات ربح سنوياً!',
-                badgeText: 'دورة 35 إلى 110 أيام',
-                minEGP: 12000,
-                maxEGP: 300000,
-                roiPercent: '95% - 150% سنوياً',
-                monthlyMargin: 0.15,
-                paybackMonths: '3 - 4 أشهر',
-                summary: 'تربية الفراخ البيضاء/البلدي (دورة 35 يوماً) أو البط المسكوفي والمولار (دورة 65 يوماً) أو الديك الرومي الأبيض النعامي المتحضن (يصل وزن الديك إلى 14-18 كجم) باستخدام بطاريات حديثة تمنع الرطوبة والروائح.',
-                allocation: [
-                    { name: 'علف بادي ونامي عالي البروتين (يمثل 60% من التكلفة)', pct: 55 },
-                    { name: 'بطاريات تربية حديثة وعلافات وشفاط تهوية', pct: 20 },
-                    { name: 'كتاكيت فرز أول أو بط مسكوفي أو رومي متحضن عمر شهر', pct: 20 },
-                    { name: 'برنامج فيتامينات وتحصينات بيطرية', pct: 5 }
-                ],
-                mindmap: [
-                    { time: 'الشهر ١', task: 'استلام الكتاكيت فرز أول (أو الرومي المتحضن عمر شهر لتفادي نافق التحضين).' },
-                    { time: 'اليوم ٣٥ (فراخ)', task: 'بيع دورة الفراخ البيضاء بمتوسط وزن 2.2 كجم لتوفير سيولة سريعة.' },
-                    { time: 'الشهر ٢ - ٣ (بط ورومي)', task: 'الوصول للأوزان التسويقية للبط المسكوفي (4 كجم) والرومي (14+ كجم) والبيع للمحلات والفنادق.' }
-                ],
-                fourthTabLabel: '📦 بورصة الكتاكيت ومصانع الأعلاف',
-                fourthTabIntro: 'أهم شركات الكتاكيت المضمونة ومزارع الرومي والأعلاف:',
-                fourthTabCta: '📲 اطلب أرقام موزعي الكتاكيت فرز أول ومزارع الرومي المتحضن ←',
-                suppliers: [
-                    'شركات الكتاكيت المعتمدة: الوطنية، العناني، الوادي، والقاهرة للدواجن.',
-                    'مزارع تحضين الرومي الأبيض المستورد والبط المسكوفي (البحيرة، العامرية، والشرقية).'
-                ]
-            },
-            {
-                id: 'rooftop-saffron-herbs',
-                title: 'زراعة الزعفران والأعشاب العطرية عالية القيمة (سطح أو أرض)',
-                category: 'agro',
-                partnerType: 'solo',
-                assetsUsed: ['roof', 'land'],
-                assetBonusText: '🌱 زراعة مكثفة في صناديق أو أرض فضاء بمحصول خفيف الوزن ومرتفع السعر بالجرام!',
-                badgeText: 'الذهب الأحمر والتوابل',
-                minEGP: 15000,
-                maxEGP: 220000,
-                roiPercent: '85% - 135%',
-                monthlyMargin: 0.13,
-                paybackMonths: '6 - 8 أشهر',
-                summary: 'زراعة أبصال الزعفران الهولندي بجانب الروزماري والزعتر والريحان في صناديق زراعية على السطح أو في الأرض الفضاء، وتجفيف المحصول وتعبئته في عبوات زجاجية فاخرة للمطاعم والعطارة الفاخرة.',
-                allocation: [
-                    { name: 'أبصال زعفران مقاس كبير 10+ سم وشتلات أعشاب عطرية', pct: 50 },
-                    { name: 'صناديق زراعة وتربة بيتموس ورمل جيدة الصرف', pct: 25 },
-                    { name: 'مجفف حراري وعبوات زجاجية للتعبئة', pct: 15 },
-                    { name: 'تسويق للمطاعم ومحلات الأغذية الصحية', pct: 10 }
-                ],
-                mindmap: [
-                    { time: 'بداية الخريف', task: 'غرس أبصال الزعفران في الصناديق المجهزة أو الأرض.' },
-                    { time: 'نوفمبر / ديسمبر', task: 'قطف أزهار الزعفران فجراً واستخلاص الشعرات الحمراء وتجفيفها.' },
-                    { time: 'طوال العام', task: 'تضاعف الأبصال تحت التربة تلقائياً (3 إلى 5 أضعاف) مع حصاد الأعشاب العطرية شهرياً.' }
-                ],
-                fourthTabLabel: '📦 مستوردو الأبصال وتجار العطارة',
-                fourthTabIntro: 'مصادر شراء أبصال الزعفران وتجار التوابل الجملة:',
-                fourthTabCta: '📲 اطلب أرقام مستوردي أبصال الزعفران وتجار العطارة الجملة ←',
-                suppliers: [
-                    'قسم النباتات الطبية والعطرية - مركز البحوث الزراعية والمستوردون المعتمدون للأبصال.',
-                    'كبار تجار العطارة في الأزهر والحمزاوي بالقاهرة والمنشية بالإسكندرية.'
-                ]
-            },
+        // تحديد النمط الغالب
+        let primaryTrait = userAnswers.q1;
+        let traitName = primaryTrait === 'realistic' ? 'المُنفّذ الميداني (الصانع)' :
+                        primaryTrait === 'investigative' ? 'المُحلّل والباحث' :
+                        primaryTrait === 'artistic' ? 'المُبتكر وصانع القيمة' : 'التاجر وصائد الفرص';
 
-            // --- D. E-COMMERCE, PACKAGING & COFFEE PROJECTS ---
-            {
-                id: 'ecomm-dark-store',
-                title: 'متجر إلكتروني متخصص ومخزن شحن سريع (Micro-Brand)',
-                category: 'commercial',
-                partnerType: 'solo',
-                assetsUsed: ['store', 'car'],
-                assetBonusText: '📦 وجود غرفة أو مخزن لديك يوفر تكلفة التخزين الخارجي ويسرع تجهيز الأوردرات!',
-                badgeText: 'تجارة إلكترونية سريعة',
-                minEGP: 15000,
-                maxEGP: 250000,
-                roiPercent: '90% - 140%',
-                monthlyMargin: 0.15,
-                paybackMonths: '5 - 7 أشهر',
-                summary: 'شراء أو تصنيع منتج متخصص عالي الطلب بالجملة وتخزينه في غرفتك أو مخزنك، والبيع المباشر للجمهور عبر متجر إلكتروني وإعلانات Meta وTikTok.',
-                allocation: [
-                    { name: 'شراء أول دفعة بضاعة بسعر الجملة', pct: 45 },
-                    { name: 'تغليف مطبوع وهوية بصرية ومتجر إلكتروني', pct: 15 },
-                    { name: 'حملات إعلانية ممولة (Meta & TikTok Ads)', pct: 25 },
-                    { name: 'سيولة تشغيلية وشحن', pct: 15 }
-                ],
-                mindmap: [
-                    { time: 'الأسبوع ١ - ٢', task: 'اختيار منتج خفيف الوزن يحل مشكلة واضحة وتصويره بفيديوهات Reels.' },
-                    { time: 'الأسبوع ٣', task: 'ربط المتجر ببكسل الإعلانات وإطلاق حملة المبيعات.' },
-                    { time: 'الشهر ٢ - ٣', task: 'توسيع الحملة الرابحة وإعادة تدوير السيولة من شركات الشحن.' }
-                ],
-                fourthTabLabel: '📦 تجار الجملة والمستوردين',
-                fourthTabIntro: 'أهم منابع البضائع الجملة للمتاجر الإلكترونية:',
-                fourthTabCta: '📲 اطلب قائمة المستوردين وتجار الجملة ومطابع التغليف ←',
-                suppliers: [
-                    'تجار الجملة والمستوردون في النزهة الجديدة، العتبة، الموسكي، والمنشية بالإسكندرية.',
-                    'مطابع علب الشحن وأكياس البولي في باب الشعرية ومحرم بك.'
-                ]
-            },
-            {
-                id: 'specialty-coffee-booth',
-                title: 'ركن قهوة مختصة ومشروبات سريعة (Takeaway Specialty Booth)',
-                category: 'commercial',
-                partnerType: 'partner',
-                assetsUsed: ['car', 'store'],
-                assetBonusText: '✨ أصولك تساعدك في نقل وتخزين الخامات بتكلفة أقل ورفع صافي الربح الشهري!',
-                badgeText: 'مناسب للشراكة أو فردي',
-                minEGP: 90000,
-                maxEGP: 550000,
-                roiPercent: '75% - 115%',
-                monthlyMargin: 0.13,
-                paybackMonths: '7 - 9 أشهر',
-                summary: 'نقطة بيع عصرية تقدم القهوة المختصة والماتشا والآيس كوفي بجودة عالية في منطقة حيوية أو بالقرب من الجامعات والمكاتب الإدارية.',
-                allocation: [
-                    { name: 'ماكينة إسبريسو احترافية ومطاحن وأدوات تحضير', pct: 45 },
-                    { name: 'تجهيز الديكور والأكواب المطبوعة بالهوية', pct: 25 },
-                    { name: 'بن مختص وماتشا وحليب وسيرب', pct: 15 },
-                    { name: 'إيجار وتراخيص وتسويق افتتاحي', pct: 15 }
-                ],
-                mindmap: [
-                    { time: 'الشهر ١', task: 'اختيار موقع ذي حركة مشاة صباحية كثيفة وتجهيز البوث.' },
-                    { time: 'الشهر ٢', task: 'التعاقد مع محمصة قهوة مختصة لضمان ثبات الطعم والافتتاح.' },
-                    { time: 'الشهر ٣ - ٦', task: 'تفعيل كارت الولاء وإضافة مخبوزات طازجة ترفع متوسط الفاتورة.' }
-                ],
-                fourthTabLabel: '📦 تجار الجملة والمحامص',
-                fourthTabIntro: 'أهم موردي البن المختص وماكينات الإسبريسو:',
-                fourthTabCta: '📲 اطلب عروض أسعار البن المختص وتجهيز البار ←',
-                suppliers: [
-                    'محمصة القهوة المختصة والماتشا اليابانية المعتمدة kæfi;n (توريد للكافيهات واستشارات التشغيل).',
-                    'مستوردو ماكينات الإسبريسو ومعدات الكافيهات في الإسكندرية والقاهرة.'
-                ]
-            },
+        document.getElementById('profile-summary').innerText = `نمطك المهيمن: ${traitName} — متوافق مع ميزانية ${capital.toLocaleString()} ج.م`;
 
-            // --- E. EXISTING PROFITABLE PROJECTS SEEKING PARTNERS (قريباً - من 400 ألف ج.م+) ---
-            {
-                id: 'existing-profitable-partnerships',
-                title: 'قريباً: مشاريع قائمة بالفعل وتحقق عائد وتنتظر شريك مساهم',
-                category: 'existing',
-                partnerType: 'partner',
-                assetsUsed: [],
-                isComingSoon: true,
-                badgeText: 'قريباً • من 400,000 ج.م+',
-                minEGP: 400000,
-                maxEGP: 30000000,
-                roiPercent: '45% - 85% (عائد تشغيلي فعلي)',
-                monthlyMargin: 0.055,
-                paybackMonths: 'عائد يبدأ من الشهر الأول',
-                summary: 'فرصة حصرية لأصحاب رؤوس الأموال بدءاً من 400,000 جنيه (أو ما يعادلها بالدولار) للدخول كشريك مساهم بعقود رسمية موثقة في مشاريع ناجحة وقائمة بالفعل على أرض الواقع وتحقق مبيعات وأرباحاً شهرية، وتطلب شريكاً لفتح فرع جديد أو مضاعفة الطاقة الإنتاجية.',
-                allocation: [
-                    { name: 'حصة تملك رسمية موثقة في أصول وتوسعات المشروع القائم', pct: 75 },
-                    { name: 'تمويل بضاعة وخامات تشغيلية سريعة الدوران', pct: 20 },
-                    { name: 'مراجعة مالية وقانونية وتوثيق العقود', pct: 5 }
-                ],
-                mindmap: [
-                    { time: 'المرحلة ١: الفحص المالي', task: 'الاطلاع على فواتير ومبيعات المشروع القائم لآخر 6 أشهر للتأكد من الربحية الفعلية.' },
-                    { time: 'المرحلة ٢: التعاقد الرسمي', task: 'توقيع عقد شراكة وحصة أسهم موثق يضمن أصل المال ونسبة الأرباح.' },
-                    { time: 'المرحلة ٣: صرف الأرباح', task: 'متابعة التقارير الدورية واستلام حصتك من الأرباح التشغيلية شهرياً أو ربع سنوياً.' }
-                ],
-                fourthTabLabel: '📄 شروط وضمانات المساهمة',
-                fourthTabIntro: 'ضوابط قبول المشاريع القائمة وحماية الشريك المساهم:',
-                fourthTabCta: '📲 سجل اهتمامك الآن لتصلك قائمة المشاريع القائمة فور طرحها ←',
-                suppliers: [
-                    'جميع المشاريع المطروحة تخضع لمراجعة القوائم المالية وميزانيات التشغيل الفعلية قبل العرض.',
-                    'تبدأ حصص المساهمة من 400,000 ج.م (أو ما يعادلها بالدولار) بعقود رسمية موثقة.'
-                ]
-            }
-        ];
+        let html = '';
 
-        // 3. Currency & Interactive Controls
-        function formatMoney(amountEGP) {
-            if (currentCurrency === 'USD') {
-                const usdVal = amountEGP / liveUsdRate;
-                return '$' + Math.round(usdVal).toLocaleString('en-US');
-            }
-            return Math.round(amountEGP).toLocaleString('en-US') + ' ج.م';
-        }
+        // الفرصة الأولى: زراعة الأسطح والإنتاج الزراعي المصغر (لأصحاب الأصول أو الميزانية المتوسطة)
+        html += `
+        <div class="result-card">
+            <h3>🌱 مشروع زراعة الفطر (المشروم المحاري) أو الأعشاب الطبية</h3>
+            <span class="badge">مناسب لنمطك التشغيلي والميزانية</span>
+            <p><strong>سبب الترشيح:</strong> رُشح لك لأنك تفضل العمل المنظم ذو الدقة الهادئة بعيداً عن دوشة البيع اليومي المباشر للمستهلك، وتستغل ميزانية الـ ${capital.toLocaleString()} ج.م بذكاء.</p>
+            
+            <div class="financial-grid">
+                <div class="financial-item"><span>تكلفة التأسيس (أصول):</span><strong>18,000 ج.م</strong></div>
+                <div class="financial-item"><span>رأس المال العامل (طوارئ ٣ شهور):</span><strong>12,000 ج.م</strong></div>
+                <div class="financial-item"><span>الإيراد الشهري التقديري:</span><strong>11,000 ج.م</strong></div>
+                <div class="financial-item"><span>صافي الربح الشهري:</span><strong>5,500 ج.م</strong></div>
+            </div>
 
-        function setCurrency(curr) {
-            const input = document.getElementById('capital-input');
-            const currentVal = parseFloat(input.value) || 0;
+            <p style="font-size: 0.9rem; margin-top: 10px;"><strong>الافتراضات المستخدمة:</strong> مبني على إنتاج ١٢٠ كيلو شهرياً، بنسبة هالك لا تتجاوز ٨٪، وبيع جملة لمنافذ الخضار والبيوت بدون مصاريف إعلانات.</p>
+            <p style="font-size: 0.9rem; margin-top: 5px;"><strong>نقطة التعادل:</strong> الشهر الرابع من التشغيل المنتظم.</p>
+            <p style="font-size: 0.9rem; color: #d70015; margin-top: 5px;"><strong>⛔ متى يكون غير مناسب لك؟</strong> إذا كنت لا تتحمل نسبة رطوبة أو متابعة يومية لدرجات الحرارة.</p>
 
-            if (curr !== currentCurrency) {
-                if (curr === 'USD') {
-                    input.value = Math.round(currentVal / liveUsdRate);
-                } else {
-                    input.value = Math.round(currentVal * liveUsdRate);
-                }
-                currentCurrency = curr;
-            }
+            <div class="validation-box">
+                <strong>🛠️ خطوة اختبار الفرصة بـ 500 جنيه خلال 48 ساعة قبل أن تبدأ:</strong><br>
+                لا تشترِ خامات كاملة الآن. اشترِ تقاوي وكيسين تجربة بـ 400 جنيه، وزرعهم في مساحة صغيرة في بيتك لتقيس قدرتك على المتابعة وتتأكد من استجابة السوق المحلي قبل ضخ كامل المبلغ.
+            </div>
+        </div>`;
 
-            document.getElementById('btn-egp').classList.toggle('active', curr === 'EGP');
-            document.getElementById('btn-usd').classList.toggle('active', curr === 'USD');
+        // الفرصة الثانية: الخدمات الرقمية وتخليص الملفات والتقارير المتقدمة (للتحليلي والتنظيمي)
+        html += `
+        <div class="result-card">
+            <h3>💻 خدمات أتمتة الشيتات وتجهيز بيانات الشركات ومطابقات البنوك</h3>
+            <span class="badge">تشغيل منزلي بالكامل بدون مصاريف إيجار</span>
+            <p><strong>سبب الترشيح:</strong> يتوافق مع دقتك التحليلية وقدرتك على التعامل مع الأرقام والشيتات واختصار ساعات عمل الموظفين والشركات في ثوانٍ.</p>
+            
+            <div class="financial-grid">
+                <div class="financial-item"><span>تكلفة التأسيس (لابتوب/إنترنت):</span><strong>5,000 ج.م</strong></div>
+                <div class="financial-item"><span>رأس المال العامل:</span><strong>3,000 ج.م</strong></div>
+                <div class="financial-item"><span>الإيراد الشهري التقديري:</span><strong>9,000 ج.م</strong></div>
+                <div class="financial-item"><span>صافي الربح الشهري:</span><strong>7,500 ج.م</strong></div>
+            </div>
 
-            renderQuickChips();
-            calculateProjects();
-        }
+            <p style="font-size: 0.9rem; margin-top: 10px;"><strong>الافتراضات المستخدمة:</strong> تنفيذ ٦ مهام تسوية أو جداول بيانات شهرياً للشركات الصغيرة والمتوسطة بمتوسط ١٥٠٠ جنيه للمهمة.</p>
+            <p style="font-size: 0.9rem; margin-top: 5px;"><strong>نقطة التعادل:</strong> الشهر الأول مباشرة لعدم وجود تكاليف أصول ضخمة.</p>
+            <p style="font-size: 0.9rem; color: #d70015; margin-top: 5px;"><strong>⛔ متى يكون غير مناسب لك؟</strong> إذا كنت تفضل الحركة الميدانية وتكره الجلوس لفترات طويلة أمام الشاشات.</p>
 
-        function setPartnerPref(pref) {
-            partnerPref = pref;
-            document.getElementById('partner-all').classList.toggle('selected', pref === 'all');
-            document.getElementById('partner-solo').classList.toggle('selected', pref === 'solo');
-            document.getElementById('partner-with').classList.toggle('selected', pref === 'partner');
-            calculateProjects();
-        }
+            <div class="validation-box">
+                <strong>🛠️ خطوة اختبار الفرصة بـ 500 جنيه خلال 48 ساعة قبل أن تبدأ:</strong><br>
+                اصنع نموذج شيت `Power Query` أو تقرير مالي احترافي مجاني، وانشر عينة منه في مجموعات رجال الأعمال والمحاسبين على فيسبوك ولينكدإن لتقيس حجم الطلب والاهتمام.
+            </div>
+        </div>`;
 
-        function toggleAsset(assetKey) {
-            const btn = document.getElementById(`asset-${assetKey}`);
-            if (selectedAssets.has(assetKey)) {
-                selectedAssets.delete(assetKey);
-                btn.classList.remove('selected');
-            } else {
-                selectedAssets.add(assetKey);
-                btn.classList.add('selected');
-            }
-            calculateProjects();
-        }
+        document.getElementById('opportunities-container').innerHTML = html;
+    }
 
-        function renderQuickChips() {
-            const container = document.getElementById('quick-chips-container');
-            const presetsEGP = [20000, 50000, 100000, 250000, 400000, 1000000];
-            const presetsUSD = [400, 1000, 2000, 5000, 8000, 20000];
-            const list = currentCurrency === 'EGP' ? presetsEGP : presetsUSD;
+    function resetCalculator() {
+        document.getElementById('results-section').style.display = 'none';
+        document.getElementById('step1-card').style.display = 'block';
+    }
+</script>
 
-            container.innerHTML = list.map(val => {
-                const label = currentCurrency === 'EGP'
-                    ? `${val.toLocaleString('en-US')} ج.م`
-                    : `$${val.toLocaleString('en-US')}`;
-                return `<button type="button" class="chip" onclick="selectChip(${val})">${label}</button>`;
-            }).join('');
-        }
-
-        function selectChip(val) {
-            document.getElementById('capital-input').value = val;
-            calculateProjects();
-        }
-
-        // 4. Copy & Form Helpers
-        function copyProjectTitle(title, btnEl) {
-            lastCopiedProject = title;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(title).catch(() => {});
-            }
-            const projectInput = document.getElementById('lead-project');
-            if (projectInput) {
-                projectInput.value = title;
-            }
-            const originalHTML = btnEl.innerHTML;
-            btnEl.classList.add('copied');
-            btnEl.innerHTML = '✓ تم النسخ للطلب';
-            setTimeout(() => {
-                btnEl.classList.remove('copied');
-                btnEl.innerHTML = originalHTML;
-            }, 2200);
-        }
-
-        async function pasteProjectName() {
-            const projectInput = document.getElementById('lead-project');
-            if (lastCopiedProject) {
-                projectInput.value = lastCopiedProject;
-                projectInput.focus();
-                return;
-            }
-            try {
-                const text = await navigator.clipboard.readText();
-                if (text) projectInput.value = text;
-            } catch (e) {
-                projectInput.focus();
-            }
-        }
-
-        function requestDetailsForProject(title) {
-            lastCopiedProject = title;
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(lastCopiedProject).catch(() => {});
-            }
-            const projectInput = document.getElementById('lead-project');
-            projectInput.value = lastCopiedProject;
-
-            const formSection = document.getElementById('lead-form-section');
-            formSection.scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => {
-                document.getElementById('lead-name').focus();
-            }, 500);
-        }
-
-        // 5. Smart Calculation & Priority Sorting Based on User Assets
-        function calculateProjects() {
-            const rawInput = parseFloat(document.getElementById('capital-input').value) || 0;
-            if (rawInput <= 0) return;
-
-            const capitalEGP = currentCurrency === 'USD' ? rawInput * liveUsdRate : rawInput;
-            const workingCapEGP = capitalEGP * 0.80;
-            const reserveCapEGP = capitalEGP * 0.20;
-
-            // Update "نصيحة من أخوك" numbers
-            document.getElementById('advice-working-val').innerText = formatMoney(workingCapEGP);
-            document.getElementById('advice-reserve-val').innerText = formatMoney(reserveCapEGP);
-
-            // Filter & Score Projects
-            let candidates = projectsDB.filter(p => {
-                if (p.isComingSoon) {
-                    return capitalEGP >= 350000 || partnerPref === 'partner';
-                }
-                const partnerOk = partnerPref === 'all' || p.partnerType === partnerPref || p.category === 'finance';
-                const budgetOk = capitalEGP >= (p.minEGP * 0.5) && capitalEGP <= (p.maxEGP * 2.2);
-                return partnerOk && budgetOk;
-            });
-
-            if (candidates.length === 0) {
-                candidates = [...projectsDB];
-            }
-
-            // Ensure Coming Soon 400k+ card is included when budget >= 400k EGP or partner mode selected
-            if (!candidates.some(p => p.isComingSoon) && (capitalEGP >= 400000 || partnerPref === 'partner')) {
-                const soonCard = projectsDB.find(p => p.isComingSoon);
-                if (soonCard) candidates.push(soonCard);
-            }
-
-            // Sort so projects that match user's selected assets appear at the very top!
-            candidates.sort((a, b) => {
-                const aMatches = a.assetsUsed.filter(x => selectedAssets.has(x)).length;
-                const bMatches = b.assetsUsed.filter(x => selectedAssets.has(x)).length;
-                return bMatches - aMatches;
-            });
-
-            const container = document.getElementById('projects-container');
-            container.innerHTML = candidates.map((p, idx) => {
-                const baseCapForCalc = p.useFullCapital ? capitalEGP : workingCapEGP;
-                const matchedAssetsCount = p.assetsUsed.filter(x => selectedAssets.has(x)).length;
-                const isAssetMatched = matchedAssetsCount > 0;
-
-                // Boost profit by 15% if user already owns the required asset (saves rent/shipping)
-                const effectiveMargin = isAssetMatched ? p.monthlyMargin * 1.15 : p.monthlyMargin;
-                const estMonthlyProfit = baseCapForCalc * effectiveMargin;
-
-                let badgeClass = 'type-solo';
-                if (p.category === 'finance') badgeClass = 'type-finance';
-                if (p.category === 'agro') badgeClass = 'type-agro';
-                if (p.partnerType === 'partner') badgeClass = 'type-partner';
-                if (p.isComingSoon) badgeClass = 'type-soon';
-
-                const assetBannerHTML = isAssetMatched
-                    ? `<div class="asset-match-banner">${p.assetBonusText || '✨ متوافق مع الأصول المتاحة لديك (+١٥٪ توفير في التكاليف)'}</div>`
-                    : '';
-
-                const allocRows = p.allocation.map(item => {
-                    const itemAmount = (baseCapForCalc * item.pct) / 100;
-                    return `
-                        <div class="allocation-row">
-                            <span>${item.name} (${item.pct}%)</span>
-                            <strong>${formatMoney(itemAmount)}</strong>
-                        </div>
-                    `;
-                }).join('');
-
-                const mindmapNodes = p.mindmap.map(m => `
-                    <div class="timeline-node">
-                        <span class="timeline-time">${m.time}</span>
-                        <div class="timeline-desc">${m.task}</div>
-                    </div>
-                `).join('');
-
-                const supplierItems = p.suppliers.map(s => `<li>• ${s}</li>`).join('');
-                const safeTitle = p.title.replace(/'/g, "\\'");
-
-                return `
-                    <article class="project-card ${isAssetMatched ? 'asset-matched' : ''} ${p.isComingSoon ? 'coming-soon-card' : ''}">
-                        ${assetBannerHTML}
-                        <div class="project-header">
-                            <div class="title-copy-wrap">
-                                <h2 class="project-title">${p.title}</h2>
-                                <button type="button" class="copy-name-btn" onclick="copyProjectTitle('${safeTitle}', this)">
-                                    📋 نسخ
-                                </button>
-                            </div>
-                            <span class="badge ${badgeClass}">${p.badgeText}</span>
-                        </div>
-
-                        <!-- Level 1: Essential 3 Metrics Only -->
-                        <div class="key-metrics-grid">
-                            <div class="metric-item">
-                                <span>صافي العائد الشهري المتوقع</span>
-                                <strong class="profit-highlight">${formatMoney(estMonthlyProfit)}</strong>
-                            </div>
-                            <div class="metric-item">
-                                <span>العائد السنوي التقديري</span>
-                                <strong>${p.roiPercent}</strong>
-                            </div>
-                            <div class="metric-item">
-                                <span>استرداد رأس المال / السيولة</span>
-                                <strong>${p.paybackMonths}</strong>
-                            </div>
-                        </div>
-
-                        <!-- Level 2: Hidden Progressive Disclosure Tabs -->
-                        <div class="card-tabs-nav">
-                            <button type="button" class="tab-trigger" onclick="toggleTab(${idx}, 'overview', this)">💡 الفكرة باختصار</button>
-                            <button type="button" class="tab-trigger" onclick="toggleTab(${idx}, 'budget', this)">📊 تقسيم السيولة</button>
-                            <button type="button" class="tab-trigger" onclick="toggleTab(${idx}, 'mindmap', this)">🗺️ الخريطة الزمنية</button>
-                            <button type="button" class="tab-trigger" onclick="toggleTab(${idx}, 'suppliers', this)">${p.fourthTabLabel}</button>
-                        </div>
-
-                        <div id="tab-${idx}-overview" class="tab-panel">
-                            <p>${p.summary}</p>
-                        </div>
-
-                        <div id="tab-${idx}-budget" class="tab-panel">
-                            <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:8px;">التوزيع الأمثل للسيولة (${formatMoney(baseCapForCalc)}):</p>
-                            ${allocRows}
-                        </div>
-
-                        <div id="tab-${idx}-mindmap" class="tab-panel">
-                            <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:10px;">خطة التنفيذ المبسطة على إطار زمني:</p>
-                            <div class="mindmap-timeline">
-                                ${mindmapNodes}
-                            </div>
-                        </div>
-
-                        <div id="tab-${idx}-suppliers" class="tab-panel">
-                            <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:8px;">${p.fourthTabIntro}</p>
-                            <ul class="suppliers-list">
-                                ${supplierItems}
-                            </ul>
-                            <button type="button" class="supplier-cta-link" onclick="requestDetailsForProject('${safeTitle}')">
-                                ${p.fourthTabCta}
-                            </button>
-                        </div>
-                    </article>
-                `;
-            }).join('');
-
-            document.getElementById('results-section').style.display = 'block';
-        }
-
-        function toggleTab(cardIndex, tabKey, btnEl) {
-            const targetPanel = document.getElementById(`tab-${cardIndex}-${tabKey}`);
-            const isAlreadyOpen = targetPanel.classList.contains('active');
-
-            const card = btnEl.closest('.project-card');
-            card.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            card.querySelectorAll('.tab-trigger').forEach(b => b.classList.remove('active'));
-
-            if (!isAlreadyOpen) {
-                targetPanel.classList.add('active');
-                btnEl.classList.add('active');
-            }
-        }
-
-        function submitLeadForm(e) {
-            e.preventDefault();
-            const status = document.getElementById('lead-status');
-            status.style.display = 'block';
-            status.style.color = '#1D8348';
-            status.innerText = '✓ تم استلام طلبك بنجاح! سنرسل لك الملف الكامل وأرقام الجهات المعتمدة عبر واتساب.';
-            document.getElementById('lead-form').reset();
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchLiveUsdRate();
-        });
-    </script>
 </body>
 </html>

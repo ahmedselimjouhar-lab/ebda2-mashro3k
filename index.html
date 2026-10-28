@@ -7,30 +7,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #fafafa;
+            --bg-color: #f5f5f7;
             --card-bg: #ffffff;
             --text-primary: #1d1d1f;
-            --text-secondary: #86868b;
+            --text-secondary: #6e6e73;
             --accent: #0071e3;
             --accent-hover: #0077ed;
-            --border: #d2d2d7;
-            --label-bg: #000000;
+            --border: #e5e5ea;
+            --label-bg: #1d1d1f;
             --label-text: #ffffff;
-            --financial-bg: #fbfbfd;
-            --radius: 16px;
-            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --financial-bg: #fafafa;
+            --radius: 20px;
+            --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body.dark-mode {
-            --bg-color: #0b0b0c;
-            --card-bg: #161618;
+            --bg-color: #000000;
+            --card-bg: #141416;
             --text-primary: #f5f5f7;
-            --text-secondary: #a1a1a6;
+            --text-secondary: #98989d;
             --accent: #0a84ff;
             --accent-hover: #409cff;
-            --border: #38383a;
+            --border: #2c2c2e;
             --label-bg: #f5f5f7;
-            --label-text: #000000;
+            --label-text: #141416;
             --financial-bg: #1c1c1e;
         }
 
@@ -45,25 +45,35 @@
             user-select: none;
         }
 
+        /* السماح بالكتابة والتفاعل داخل حقول الإدخال على الآيفون والموبايل */
+        input, select {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            user-select: text !important;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.6;
-            padding: 20px;
+            font-size: 0.9rem;
+            line-height: 1.75;
+            padding: 32px 20px;
             transition: var(--transition);
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 800px;
-            margin: 20px auto;
+            max-width: 740px;
+            margin: 48px auto;
         }
 
+        /* أزرار التنقل العلوية */
         .top-nav {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 24px;
+            left: 24px;
             display: flex;
-            gap: 10px;
+            gap: 12px;
             z-index: 1000;
         }
 
@@ -71,12 +81,12 @@
             background: var(--card-bg);
             color: var(--text-primary);
             border: 1px solid var(--border);
-            padding: 8px 14px;
-            border-radius: 20px;
+            padding: 7px 16px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
             text-decoration: none;
             transition: var(--transition);
             display: inline-flex;
@@ -85,22 +95,23 @@
 
         .nav-btn:hover {
             border-color: var(--accent);
+            transform: translateY(-1px);
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
-            margin-top: 20px;
+            margin-bottom: 52px;
+            margin-top: 16px;
         }
 
-        /* حاوية اللوجو التفاعلي المتبدل */
+        /* اللوجو التفاعلي */
         .interactive-logo-container {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 16px auto;
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 22px auto;
             border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             cursor: pointer;
             position: relative;
             background: var(--card-bg);
@@ -118,7 +129,6 @@
             transition: opacity 0.5s ease-in-out;
         }
 
-        /* الصورة الثانية مخفية افتراضياً وتظهر عند الـ Hover */
         .interactive-logo-container img.logo-alt {
             opacity: 0;
         }
@@ -134,35 +144,37 @@
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
+            letter-spacing: -0.4px;
+            margin-bottom: 10px;
         }
 
         header p {
             color: var(--text-secondary);
-            font-size: 1rem;
+            font-size: 0.92rem;
+            max-width: 540px;
+            margin: 0 auto;
         }
 
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 24px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+            padding: 40px 44px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
             border: 1px solid var(--border);
-            margin-bottom: 24px;
+            margin-bottom: 36px;
             transition: var(--transition);
         }
 
         .step-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-size: 1.08rem;
+            font-weight: 700;
+            margin-bottom: 28px;
             color: var(--text-primary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .step-title span {
@@ -174,32 +186,45 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
+            flex-shrink: 0;
+        }
+
+        .methodology-banner {
+            background: var(--financial-bg);
+            border: 1px solid var(--border);
+            padding: 16px 20px;
+            border-radius: 14px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-bottom: 34px;
+            line-height: 1.7;
         }
 
         .form-group {
-            margin-bottom: 22px;
+            margin-bottom: 34px;
         }
 
         label {
             display: block;
             font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 1rem;
+            margin-bottom: 14px;
+            font-size: 0.9rem;
             background-color: var(--label-bg);
             color: var(--label-text);
-            padding: 12px 16px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 13px 18px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
             transition: var(--transition);
+            line-height: 1.6;
         }
 
         select, input {
             width: 100%;
-            padding: 14px;
+            padding: 14px 16px;
             border-radius: 12px;
             border: 1px solid var(--border);
-            font-size: 1rem;
+            font-size: 0.9rem;
             background: var(--card-bg);
             color: var(--text-primary);
             transition: var(--transition);
@@ -214,39 +239,42 @@
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 10px;
+            gap: 12px;
         }
 
         .option-card {
-            border: 2px solid var(--border);
+            border: 1.5px solid var(--border);
             border-radius: 12px;
-            padding: 14px 16px;
+            padding: 14px 18px;
             cursor: pointer;
             transition: var(--transition);
             background: var(--card-bg);
             color: var(--text-primary);
-            font-size: 0.95rem;
+            font-size: 0.86rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 12px;
         }
 
         .option-card:hover {
             border-color: var(--accent);
+            transform: translateY(-1px);
         }
 
         .option-card.selected {
             border-color: var(--accent);
-            background: rgba(0, 113, 227, 0.08);
+            background: rgba(0, 113, 227, 0.06);
             font-weight: 600;
             color: var(--accent);
         }
 
         .option-card.selected::after {
-            content: ' ✓';
-            font-weight: bold;
-            font-size: 1.2rem;
+            content: '✓';
+            font-weight: 700;
+            font-size: 1rem;
             color: var(--accent);
+            flex-shrink: 0;
         }
 
         button.btn-primary {
@@ -256,11 +284,11 @@
             width: 100%;
             padding: 16px;
             border-radius: 14px;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         button.btn-primary:hover {
@@ -272,74 +300,117 @@
             display: none;
         }
 
-        .result-card {
-            border-left: 4px solid var(--accent);
-            background: var(--card-bg);
-            padding: 24px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        .pattern-box {
+            background: var(--financial-bg);
             border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 32px;
+        }
+
+        .pattern-box h3 {
+            font-size: 1.02rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .pattern-box p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .result-card {
+            border-right: 4px solid var(--accent);
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.02);
+            border-top: 1px solid var(--border);
+            border-left: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-card h3 {
+            font-size: 1.08rem;
+            margin-bottom: 10px;
+        }
+
+        .result-card p {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
         }
 
         .badge {
             display: inline-block;
-            background: rgba(0, 113, 227, 0.15);
+            background: rgba(0, 113, 227, 0.1);
             color: var(--accent);
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .financial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            margin: 15px 0;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
             background: var(--financial-bg);
-            padding: 16px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 14px;
             border: 1px solid var(--border);
             transition: var(--transition);
         }
 
         .financial-item span {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.76rem;
             color: var(--text-secondary);
+            margin-bottom: 4px;
         }
 
         .financial-item strong {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             color: var(--text-primary);
+        }
+
+        .source-tag {
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            display: block;
         }
 
         .validation-box {
             background: var(--financial-bg);
-            padding: 14px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-size: 0.9rem;
+            padding: 18px 20px;
+            border-radius: 14px;
+            margin-top: 20px;
+            font-size: 0.84rem;
             border: 1px solid var(--border);
+            line-height: 1.7;
         }
 
         .science-note {
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             color: var(--text-secondary);
             text-align: center;
-            margin-top: 30px;
+            margin-top: 48px;
             border-top: 1px solid var(--border);
-            padding-top: 15px;
+            padding-top: 24px;
         }
 
         @media (max-width: 600px) {
-            body { padding: 12px; }
-            .card { padding: 16px; }
-            header h1 { font-size: 1.7rem; }
-            .top-nav { top: 10px; left: 10px; gap: 6px; }
-            .nav-btn { padding: 6px 10px; font-size: 0.8rem; }
+            body { padding: 20px 14px; }
+            .container { margin: 36px auto; }
+            .card { padding: 24px 20px; }
+            .result-card { padding: 22px 18px; }
+            header h1 { font-size: 1.45rem; }
+            .top-nav { top: 12px; left: 12px; gap: 8px; }
+            .nav-btn { padding: 6px 12px; font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -352,81 +423,208 @@
 
 <div class="container">
     <header>
-        <!-- اللوجو التفاعلي المتبدل بين الصورتين -->
-        <div class="interactive-logo-container" onclick="this.classList.toggle('active')">
+        <div class="interactive-logo-container" onclick="this.classList.toggle('active')" title="اضغط لتبديل الشعار">
             <img src="logo-main.png" alt="ابدأ مشروعك" class="logo-main">
             <img src="logo-alt.png" alt="ابدأ مشروعك - التدرج" class="logo-alt">
         </div>
         <h1>ابدأ مشروعك</h1>
-        <p>حاسبة استثمار رأس المال الذكية — اكتشف ما يناسب شغفك وميزانيتك بأقل مخاطرة</p>
+        <p>اكتشف المشروعات الصغيرة المناسبة لرأس مالك وإمكانياتك، مع تقدير تكاليف البداية والمخاطر ومصادر الأسعار</p>
     </header>
 
+    <!-- المرحلة الأولى -->
     <div class="card" id="step1-card">
-        <div class="step-title"><span>١</span> اكتشف نفسك (منهجية RIASEC والثمن النفسي)</div>
+        <div class="step-title"><span>١</span> اكتشف نفسك (رصد السلوك الفعلي والثمن النفسي)</div>
         
+        <div class="methodology-banner">
+            <strong>منهجية التحليل:</strong> صُممت هذه الأسئلة استناداً إلى نموذج الاهتمامات المهنية (<strong>RIASEC</strong>) المعتمد ضمن أدوات <strong>O*NET</strong> لاستكشاف المسارات المهنية، مدمجاً مع فلتر "التحمل التشغيلي". النتائج لا تضعك في قالب جامد، بل تكشف الأنماط الأكثر توافقاً مع طبيعتك لتبدأ بأقل مخاطرة.
+        </div>
+
         <div class="form-group">
             <label>١. إيه آخر حاجة كنت بتعملها وسرحت فيها لدرجة إنك محستش بالوقت؟</label>
             <div class="options-grid" data-question="q1">
-                <div class="option-card" onclick="selectOption(this, 'q1', 'realistic')">كنت بفك وأصلح حاجة بايظة بإيدي أو بصنع حاجة عملية.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'realistic')">كنت بفك وأصلح حاجة بايظة بإيدي أو بصنع وأركب حاجة عملية.</div>
                 <div class="option-card" onclick="selectOption(this, 'q1', 'investigative')">كنت قاعد بحسب حسبة معقدة أو ببحث بعمق عشان أفهم مشكلة وأحلها.</div>
-                <div class="option-card" onclick="selectOption(this, 'q1', 'artistic')">كنت بصمم فكرة جديدة، بظبط ديكور، أو بكتب محتوى وشكل منتج.</div>
-                <div class="option-card" onclick="selectOption(this, 'q1', 'enterprising')">كنت بنظم بيعة، بفاوض على سعر، أو بخلص مصلحة فيها مكسب.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'artistic')">كنت بصمم فكرة جديدة، بظبط شكل منتج، أو ببتكر طريقة عرض مختلفة.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'enterprising')">كنت بنظم بيعة، بفاوض على سعر، أو بخلص مصلحة فيها مكسب سريع.</div>
             </div>
         </div>
 
         <div class="form-group">
             <label>٢. إيه الحاجة اللي صحابك أو أهلك أول ما يقعوا فيها يقولوا: «كلّموا فلان هو اللي هيخلصها»؟</label>
             <div class="options-grid" data-question="q2">
-                <div class="option-card" onclick="selectOption(this, 'q2', 'realistic')">«تعال شوف العطل ده» (تصليح، تركيب، أو مجهود ميداني).</div>
-                <div class="option-card" onclick="selectOption(this, 'q2', 'investigative')">«احسبها لنا وشوف إيه الأوفر» (مقارنة أسعار وأرقام وحسابات).</div>
-                <div class="option-card" onclick="selectOption(this, 'q2', 'artistic')">«ذوقك حلو اختار معانا» (تنسيق، ديكور، واختيار أشكال مميزة).</div>
-                <div class="option-card" onclick="selectOption(this, 'q2', 'enterprising')">«انزل فاصل وخلّص لنا المصلحة دي» (فصال وشراء بسعر الجملة).</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'realistic')">«تعال شوف العطل ده» (تصليح، تركيب، أو مجهود ميداني عملي).</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'investigative')">«احسبها لنا وشوف إيه الأوفر» (مقارنة أسعار، أرقام، وتدقيق).</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'artistic')">«ذوقك حلو اختار معانا» (تنسيق، تغليف، واختيار أشكال تفتح النفس).</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'enterprising')">«انزل فاصل وخلّص لنا المصلحة دي» (تفاوض، إقناع، وشراء بسعر الجملة).</div>
             </div>
         </div>
 
         <div class="form-group">
-            <label>٣. كل شغلانة وليها "ضريبتها".. إيه التعب أو الملل اللي تقدر تستحمله من غير ما تجيب آخرك؟</label>
+            <label>٣. كل شغلانة وليها "ضريبتها".. إيه التعب أو الملل اللي تقدر تستحمله كل يوم من غير ما تجيب آخرك؟</label>
             <div class="options-grid" data-question="q3">
                 <div class="option-card" onclick="selectOption(this, 'q3', 'enterprising')">أستحمل فرهدة الزباين والفصال والـ ١٠٠ سؤال لحد ما أقفل البيعة.</div>
                 <div class="option-card" onclick="selectOption(this, 'q3', 'realistic')">أستحمل الشغل الروتيني المتكرر اللي عايز دقة وميزان بالسنتي بعيد عن دوشة الناس.</div>
-                <div class="option-card" onclick="selectOption(this, 'q3', 'investigative')">أستحمل وجع دماغ التخطيط وحل المشاكل الفنية المفاجئة كل يوم.</div>
+                <div class="option-card" onclick="selectOption(this, 'q3', 'investigative')">أستحمل وجع دماغ التحليل، الأرقام، وحل المشاكل الفنية أو الإدارية كل يوم.</div>
+                <div class="option-card" onclick="selectOption(this, 'q3', 'artistic')">أستحمل التجربة والتعديل المستمر عشان أطلع منتج أو براند شكله مختلف ومميز.</div>
             </div>
         </div>
 
         <div class="form-group">
-            <label>٤. رأس المال المتاح معك (بالجنيه المصري):</label>
-            <input type="number" id="capital" placeholder="مثال: 75000" value="75000">
+            <label>٤. رأس المال المتاح معك بالكامل (بالجنيه المصري):</label>
+            <input type="number" id="capital" placeholder="مثال: 60000" value="60000" inputmode="numeric">
         </div>
 
         <div class="form-group">
-            <label>٥. الأصول المتاحة لديك (إن وجدت لتوفير الإيجار):</label>
+            <label>٥. الأصول المتاحة لديك حالياً (لتوفير بند الإيجار والتأسيس):</label>
             <select id="asset">
-                <option value="none">لا توجد أصول (سنعتمد على التشغيل المنزلي أو الرقمي)</option>
-                <option value="roof">سطح منزل / بلكونة واسعة (مناسب للزراعة أو الترتيب)</option>
-                <option value="car">سيارة / موتوسيكل (مناسب للتوصيل والتوزيع)</option>
-                <option value="room">غرفة أرضية أو مخزن صغير (مناسب للتخزين والتصنيع الخفيف)</option>
+                <option value="none">لا توجد أصول إضافية (تفضيل التشغيل المنزلي أو الميداني الخفيف)</option>
+                <option value="roof">سطح منزل أو غرفة جيدة التهوية (مناسب للإنتاج والزراعة الحيوية)</option>
+                <option value="car">سيارة أو موتوسيكل (مناسب للتوريد والتوزيع المباشر)</option>
+                <option value="room">مخزن صغير أو ركن ورشة (مناسب للتجهيز والتغليف والتصنيع الخفيف)</option>
             </select>
         </div>
 
-        <button class="btn-primary" onclick="analyzeAndCalculate()">تحليل شخصيتي وعرض الفرص المبررة</button>
+        <button class="btn-primary" onclick="analyzeAndCalculate()">تحليل نمط العمل وعرض الفرص المبررة</button>
     </div>
 
+    <!-- قسم النتائج (المرحلة ٢، ٣، ٤) -->
     <div class="results-section" id="results-section">
         <div class="card">
-            <div class="step-title"><span>٢ & ٣ & ٤</span> نمطك المهني والفرص المبررة مالياً</div>
-            <div id="profile-summary" class="badge"></div>
+            <div class="step-title"><span>٢</span> نمط العمل المناسب لك (تشخيص مرن)</div>
+            <div id="pattern-analysis" class="pattern-box"></div>
+
+            <div class="step-title"><span>٣ & ٤</span> الفرص المبررة مالياً + خطوة الاختبار بأقل مخاطرة</div>
             <div id="opportunities-container"></div>
-            <button class="btn-primary" onclick="resetCalculator()" style="background: #86868b; margin-top: 20px;">إعادة ضبط وتجربة خيارات أخرى</button>
+            
+            <button class="btn-primary" onclick="resetCalculator()" style="background: var(--text-secondary); margin-top: 16px;">إعادة ضبط الإجابات وتجربة مسار آخر</button>
         </div>
     </div>
 
     <div class="science-note">
-        منهجية التحليل مستوحاة من نموذج الاهتمامات المهنية (RIASEC) المعتمد لدى مكتب إحصاءات العمل الأمريكي (O*NET)، مدمجة مع حسابات رأس المال العامل ونقطة التعادل في السوق المصري.
+        منهجية التحليل مستوحاة من نموذج الاهتمامات المهنية (RIASEC - O*NET)، مدمجة مع حسابات رأس المال العامل ونقطة التعادل في السوق المصري.
     </div>
 </div>
 
 <script>
     const userAnswers = { q1: '', q2: '', q3: '' };
+
+    const traitLabels = {
+        realistic: { name: 'المُنفّذ الميداني / الصانع (Realistic)', desc: 'تميل للعمل الملموس، الإنتاج الدقيق، أو المهارات الفنية التي تعتمد على جودة التنفيذ بعيداً عن ضجيج الفصال اليومي.' },
+        investigative: { name: 'المُحلّل وضابط الإيقاع (Investigative)', desc: 'تتفوق في فهم الأنظمة، تدقيق الأرقام، حل الاختناقات الإدارية أو التقنية، وتقديم قيمة عالية للشركات والعيادات بأقل تكلفة تأسيس.' },
+        artistic: { name: 'المُبتكر وصانع القيمة (Artistic)', desc: 'تملك عيناً تميز الجودة والتفاصيل؛ تنجح في بناء المنتجات المتخصصة (Micro-Brands) التي تبيع بسبب تميزها وهويتها وليس حرق الأسعار.' },
+        enterprising: { name: 'التاجر وصائد الفرص (Enterprising)', desc: 'طاقتك الحقيقية تظهر في التفاوض، تحريك البضائع، قفل الصفقات، وتدوير السيولة بسرعة في السوق.' }
+    };
+
+    const projectsDB = [
+        {
+            id: 'epoxy_craft',
+            traits: ['realistic', 'artistic'],
+            assets: ['none', 'car', 'room'],
+            minCap: 5000,
+            title: '🛠️ وحدة تجديد وعزل الفواصل الفندقية بالإيبوكسي والسيليكون الطبي',
+            badge: 'مهارة يدوية نظيفة — عائد يومي سريع',
+            reason: 'يتوافق مع ميلك للعمل الدقيق باليد ورغبتك في تقديم نتيجة ملموسة عالية الجودة في ساعتين بدون تكسير أو إدارة عمالة.',
+            setupCost: 4500,
+            workingCap: 3500,
+            monthlyRev: 16000,
+            monthlyProfit: 12500,
+            assumptions: 'تنفيذ ١٠ طلبات شهرياً فقط (حمامات ومطابخ شقق مسكونة أو تشطيبات حديثة) بمتوسط ١٦٠٠ جنيه للطلب شاملة الخامات.',
+            breakeven: 'من الأسبوع الثالث (بعد إتمام أول ٣ عملاء فقط).',
+            notSuitable: 'إذا كنت لا تتحمل العمل الميداني الدقيق باليد لمدة ٣ ساعات متواصلة أو تعاني من آلام الظهر والركبة.',
+            source: 'أسعار خامات الكيماويات والعدد اليدوية في السوق المصري — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'لا تشترِ المعدات الكاملة الآن. اشترِ أنبوبة إيبوكسي واحدة ومسدس سحب عادي ومفك تفريغ (حوالي ٤٥٠ ج.م)، وطبقها على متر واحد في مطبخك أو حمامك وصور النتيجة (قبل وبعد) بإضاءة واضحة، واعرضها في جروب منطقتك السكنية لتقيس حجم الطلب الفعلي.'
+        },
+        {
+            id: 'mushroom_roof',
+            traits: ['realistic', 'investigative'],
+            assets: ['roof', 'room'],
+            minCap: 25000,
+            title: '🌱 إنتاج الفطر المحاري (المشروم) أو المستنبتات عالية القيمة',
+            badge: 'استغلال مثالي للمساحة المتاحة — بيع جملة',
+            reason: 'رُشح لك لأنك تملك مساحة متاحة توفر عليك بند الإيجار، وتفضل المتابعة التشغيلية الهادئة المنتظمة بعيداً عن ضغط البيع الفردي.',
+            setupCost: 18000,
+            workingCap: 12000,
+            monthlyRev: 13500,
+            monthlyProfit: 6800,
+            assumptions: 'مبني على دورة إنتاج ١٥٠ كيلو شهرياً، بنسبة هالك محتسبة ١٠٪، والتوريد المباشر لمحلات الخضار المميزة والمطاعم بدون إعلانات ممولة.',
+            breakeven: 'الشهر الرابع من التشغيل المنتظم.',
+            notSuitable: 'إذا كنت لا تستطيع الالتزام بضبط الرطوبة والتهوية يومياً في مواعيد ثابتة، أو ترفض التعامل مع الكائنات الحية.',
+            source: 'متوسط أسعار التقاوي ومستلزمات الترطيب الحراري بمصر — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'قبل تجهيز الغرفة بالكامل، اشترِ ٣ أكياس بيئة مجهزة بالتقاوي (حوالي ٤٥٠ ج.م) لترى بنفسك دورة النمو في جو بيتك، وانزل بعينة طازجة لـ ٣ مطاعم أو محلات خضار في حيك واسألهم عن سعر الاستلام الفوري.'
+        },
+        {
+            id: 'data_medical_claims',
+            traits: ['investigative'],
+            assets: ['none', 'room', 'roof', 'car'],
+            minCap: 8000,
+            title: '💻 أتمتة مطابقات الحسابات (Power Query) وتدقيق مطالبات التأمين الطبي',
+            badge: 'تشغيل من المنزل — هامش ربح صافي يتخطى ٨٠٪',
+            reason: 'يستثمر قدرتك التحليلية وصبرك على الأرقام في حل "عنق زجاجة" حقيقي يعطل سيولة العيادات الطبية والشركات الصغيرة.',
+            setupCost: 4000,
+            workingCap: 4000,
+            monthlyRev: 15000,
+            monthlyProfit: 13000,
+            assumptions: 'التعاقد مع ٤ عيادات أو شركات صغيرة شهرياً لمراجعة المطالبات أو بناء شيتات التسوية التلقائية بمتوسط ٣٧٥٠ ج.م للعميل.',
+            breakeven: 'الشهر الأول مباشرة لعدم وجود أصول ثابتة مهدرة.',
+            notSuitable: 'إذا كنت تمل سريعاً من الجلوس أمام الشاشة ومراجعة الجداول التفصيلية.',
+            source: 'متوسط أتعاب خدمات الـ Freelance المالي ومراجعة المطالبات في مصر — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'جهز نموذج شيت إكسيل ذكي يطابق كشفين في ١٠ ثوانٍ، واعرض على عيادة أو مكتب محاسبة في منطقتك مراجعة شيت شهر قديم مجاناً خلال ٤٨ ساعة لتثبت لهم حجم المبالغ أو الساعات التي ستوفرها لهم.'
+        },
+        {
+            id: 'specialty_microbrand',
+            traits: ['artistic', 'enterprising'],
+            assets: ['none', 'room', 'car'],
+            minCap: 30000,
+            title: '☕ تأسيس ميكرو-براند متخصص بنظام الدفعات الصغيرة (Small-Batch)',
+            badge: 'قيمة مضافة عالية — ولاء عملاء وتكرار شراء',
+            reason: 'يجمع بين حسك الإبداعي في بناء هوية وتغليف خاطف للعين وبين منتج استهلاكي يطلبه العميل كل شهر (مثل القهوة المختصة أو الخلطات الطبيعية).',
+            setupCost: 19000,
+            workingCap: 16000,
+            monthlyRev: 24000,
+            monthlyProfit: 8500,
+            assumptions: 'تشغيل دفعات صغيرة حسب الطلب (Roast/Pack to Order) لتصفير الهالك، بمتوسط بيع ١٢٠ عبوة شهرياً وهامش ربح صافي ٣٥٪ بعد التغليف.',
+            breakeven: 'الشهر الثالث عند وصول نسبة إعادة الشراء (Retention) إلى ٤٠٪.',
+            notSuitable: 'إذا كنت تبحث عن بيع عشوائي رخيص بكميات ضخمة ولا تهتم بتفاصيل التغليف وتجربة العميل.',
+            source: 'أسعار خامات التغليف المطبوع والخامات الغذائية بالجملة في مصر — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'لا تطبع آلاف الأكياس الآن. جهز ٢٠ عبوة عينات فقط بأكياس كرافت أنيقة واستيكر مصمم باحترافية (بتكلفة ٤٨٠ ج.م)، وبعها لدائرة معارفك أو كافيهين محليين لتختبر رأيهم في الطعم والتسعيرة قبل التوسع.'
+        },
+        {
+            id: 'b2b_distribution',
+            traits: ['enterprising', 'realistic'],
+            assets: ['car', 'room'],
+            minCap: 35000,
+            title: '🚚 خط توزيع وتوريد مباشر لمستلزمات التشغيل السريعة (B2B Cash Van)',
+            badge: 'استغلال وسيلة النقل — دوران سيولة أسبوعي',
+            reason: 'يستغل قدرتك التفاوضية مع وجود وسيلة حركة لتوريد مستهلكات لا تتوقف (أكواب ورقية، رولات كاشير حرارية، مناديل) للكافيهات والعيادات كاش.',
+            setupCost: 20000,
+            workingCap: 15000,
+            monthlyRev: 42000,
+            monthlyProfit: 9200,
+            assumptions: 'تدوير البضاعة مرتين شهرياً بهامش ربح صافي ٢٢٪ بعد خصم الوقود، مع البيع النقدي الفوري لـ ٢٥ محل أو عيادة ثابتة.',
+            breakeven: 'الشهر الثاني نتيجة سرعة دوران رأس المال العامل.',
+            notSuitable: 'إذا كنت تضعف أمام طلبات التجار بالبيع الآجل (الشكك) ولا تستطيع تحصيل أموالك نقداً عند التسليم.',
+            source: 'أسعار مصانع الورقيات ومستلزمات التعبئة بالجملة (العتبة / برج العرب / العاشر) — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'قبل شراء أي كرتونة بضاعة، خذ عينات وكتالوج أسعار من تاجر جملة كبير، وانزل على ١٠ كافيهات وصيدليات في خط سير واحد، واعرض عليهم السعر لتأخذ أول ٣ طلبيات مؤكدة قبل أن تدفع جنيهاً للمصنع.'
+        },
+        {
+            id: 'inbox_closer_agency',
+            traits: ['enterprising', 'artistic'],
+            assets: ['none', 'room', 'roof'],
+            minCap: 5000,
+            title: '📱 خدمة إدارة وقفل مبيعات الرسائل (Inbox Closer) وتجهيز كتالوجات المتاجر',
+            badge: 'أقل مخاطرة مالية — أرباح بالعمولة والباقات',
+            reason: 'يوظف مهارتك في الإقناع والتفاوض لحل أكبر أزمة تواجه صفحات البيع والعيادات في مصر: ضياع الزبائن بسبب الرد المتأخر أو التقليدي.',
+            setupCost: 2500,
+            workingCap: 2500,
+            monthlyRev: 12000,
+            monthlyProfit: 10500,
+            assumptions: 'إدارة رسائل ٣ صفحات نشطة (ملابس / عيادات تجميل / أثاث) مقابل راتب أساسي بسيط + عمولة ٢٪ إلى ٥٪ على كل أوردر مؤكد.',
+            breakeven: 'الأسبوع الثاني من التعاقد مع أول عميل.',
+            notSuitable: 'إذا كنت تفقد أعصابك سريعاً من أسئلة الزبائن المتكررة وفصالهم في الرسائل.',
+            source: 'متوسط عمولات مبيعات السوشيال ميديا والتجارة الإلكترونية بمصر — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'ادخل الآن على ١٠ صفحات تشتغل بإعلانات ممولة في مجالك المفضل، وابعت لهم رسالة كزبون؛ الصفحة التي تتأخر في الرد أو ترد بشكل سيئ، تواصل مع صاحبها واعرض عليه تجربة قفل المبيعات له لمدة ٤٨ ساعة بالعمولة فقط.'
+        }
+    ];
 
     function selectOption(element, questionKey, value) {
         const parent = element.parentElement;
@@ -446,70 +644,80 @@
 
     function analyzeAndCalculate() {
         if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
-            alert('برجاء الإجابة على الأسئلة الثلاثة الأولى أولاً لتفعيل الاختبار بدقة.');
+            alert('برجاء اختيار إجابة لكل سؤال من الأسئلة الثلاثة الأولى حتى نحلل نمطك بدقة.');
             return;
         }
 
         const capital = parseFloat(document.getElementById('capital').value) || 50000;
         const asset = document.getElementById('asset').value;
 
+        // حساب أوزان RIASEC
+        const counts = { realistic: 0, investigative: 0, artistic: 0, enterprising: 0 };
+        counts[userAnswers.q1] += 2;
+        counts[userAnswers.q2] += 2;
+        counts[userAnswers.q3] += 3; // وزن أعلى لتحمل المشقة اليومية
+
+        const sortedTraits = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+        const primaryTrait = sortedTraits[0];
+        const secondaryTrait = sortedTraits[1];
+
         document.getElementById('step1-card').style.display = 'none';
         document.getElementById('results-section').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        let primaryTrait = userAnswers.q1;
-        let traitName = primaryTrait === 'realistic' ? 'المُنفّذ الميداني (الصانع)' :
-                        primaryTrait === 'investigative' ? 'المُحلّل والباحث' :
-                        primaryTrait === 'artistic' ? 'المُبتكر وصانع القيمة' : 'التاجر وصائد الفرص';
+        // عرض المرحلة الثانية: نمط العمل وحدود الثقة
+        document.getElementById('pattern-analysis').innerHTML = `
+            <h3>النمط الأساسي (٧٠٪): ${traitLabels[primaryTrait].name}</h3>
+            <p>${traitLabels[primaryTrait].desc}</p>
+            <p><strong>النمط الداعم (٣٠٪):</strong> ${traitLabels[secondaryTrait].name}</p>
+            <p style="margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 0.8rem;">
+                <strong>🔍 حدود الثقة في هذا التشخيص:</strong> هذا الاستخلاص مبني على تفضيلاتك السلوكية وقدرتك الحالية على تحمل ضغط التشغيل؛ إذا توفر لديك شريك يغطي الجوانب التي تكرهها (مثل البيع المباشر أو الحسابات)، ستتسع دائرة الفرص المناسبة لك.
+            </p>
+        `;
 
-        document.getElementById('profile-summary').innerText = `نمطك المهيمن: ${traitName} — متوافق مع ميزانية ${capital.toLocaleString()} ج.م`;
+        // فلترة وترتيب الفرص في المرحلة الثالثة والرابعة حسب النمط والأصل ورأس المال
+        const scoredProjects = projectsDB.map(proj => {
+            let score = 0;
+            if (proj.traits.includes(primaryTrait)) score += 5;
+            if (proj.traits.includes(secondaryTrait)) score += 3;
+            if (proj.assets.includes(asset)) score += 3;
+            if (capital >= proj.minCap) score += 2;
+            return { ...proj, score };
+        }).sort((a, b) => b.score - a.score);
 
+        const topProjects = scoredProjects.slice(0, 3);
         let html = '';
 
-        html += `
-        <div class="result-card">
-            <h3>🌱 مشروع زراعة الفطر (المشروم المحاري) أو الأعشاب الطبية</h3>
-            <span class="badge">مناسب لنمطك التشغيلي والميزانية</span>
-            <p><strong>سبب الترشيح:</strong> رُشح لك لأنك تفضل العمل المنظم ذو الدقة الهادئة بعيداً عن دوشة البيع اليومي المباشر للمستهلك، وتستغل ميزانية الـ ${capital.toLocaleString()} ج.م بذكاء.</p>
-            
-            <div class="financial-grid">
-                <div class="financial-item"><span>تكلفة التأسيس (أصول):</span><strong>18,000 ج.م</strong></div>
-                <div class="financial-item"><span>رأس المال العامل (طوارئ ٣ شهور):</span><strong>12,000 ج.م</strong></div>
-                <div class="financial-item"><span>الإيراد الشهري التقديري:</span><strong>11,000 ج.م</strong></div>
-                <div class="financial-item"><span>صافي الربح الشهري:</span><strong>5,500 ج.م</strong></div>
-            </div>
+        topProjects.forEach(proj => {
+            const totalNeeded = proj.setupCost + proj.workingCap;
+            const capNote = capital >= totalNeeded 
+                ? `يغطي رأس مالك (${capital.toLocaleString()} ج.م) كامل التأسيس ورأس المال العامل مع فائض أمان ${(capital - totalNeeded).toLocaleString()} ج.م.`
+                : `يحتاج هذا المشروع إلى ${totalNeeded.toLocaleString()} ج.م؛ يمكنك البدء بنصف الطاقة الإنتاجية ليتناسب مع ميزانيتك الحالية (${capital.toLocaleString()} ج.م).`;
 
-            <p style="font-size: 0.9rem; margin-top: 10px;"><strong>الافتراضات المستخدمة:</strong> مبني على إنتاج ١٢٠ كيلو شهرياً، بنسبة هالك لا تتجاوز ٨٪، وبيع جملة لمنافذ الخضار والبيوت بدون مصاريف إعلانات.</p>
-            <p style="font-size: 0.9rem; margin-top: 5px;"><strong>نقطة التعادل:</strong> الشهر الرابع من التشغيل المنتظم.</p>
-            <p style="font-size: 0.9rem; color: #ff453a; margin-top: 5px;"><strong>⛔ متى يكون غير مناسب لك؟</strong> إذا كنت لا تتحمل نسبة رطوبة أو متابعة يومية لدرجات الحرارة.</p>
+            html += `
+            <div class="result-card">
+                <span class="badge">${proj.badge}</span>
+                <h3>${proj.title}</h3>
+                <p><strong>لماذا يناسب شخصيتك وميزانيتك؟</strong> ${proj.reason} (${capNote})</p>
+                
+                <div class="financial-grid">
+                    <div class="financial-item"><span>تكلفة التأسيس (أصول ومعدات):</span><strong>${proj.setupCost.toLocaleString()} ج.م</strong></div>
+                    <div class="financial-item"><span>رأس المال العامل (طوارئ ٣ شهور):</span><strong>${proj.workingCap.toLocaleString()} ج.م</strong></div>
+                    <div class="financial-item"><span>الإيراد الشهري التقديري:</span><strong>${proj.monthlyRev.toLocaleString()} ج.م</strong></div>
+                    <div class="financial-item"><span>صافي الربح التقديري:</span><strong>${proj.monthlyProfit.toLocaleString()} ج.م</strong></div>
+                </div>
 
-            <div class="validation-box">
-                <strong>🛠️ خطوة اختبار الفرصة بـ 500 جنيه خلال 48 ساعة قبل أن تبدأ:</strong><br>
-                لا تشترِ خامات كاملة الآن. اشترِ تقاوي وكيسين تجربة بـ 400 جنيه، وزرعهم في مساحة صغيرة في بيتك لتقيس قدرتك على المتابعة وتتأكد من استجابة السوق المحلي قبل ضخ كامل المبلغ.
-            </div>
-        </div>`;
+                <p><strong>📊 الافتراضات المستخدمة:</strong> ${proj.assumptions}</p>
+                <p><strong>⚖️ نقطة التعادل (Break-even):</strong> ${proj.breakeven}</p>
+                <p style="color: #ff453a;"><strong>⛔ متى يكون المشروع غير مناسب لك؟</strong> ${proj.notSuitable}</p>
+                <span class="source-tag">📌 مصدر الأسعار: ${proj.source}</span>
 
-        html += `
-        <div class="result-card">
-            <h3>💻 خدمات أتمتة الشيتات وتجهيز بيانات الشركات ومطابقات البنوك</h3>
-            <span class="badge">تشغيل منزلي بالكامل بدون مصاريف إيجار</span>
-            <p><strong>سبب الترشيح:</strong> يتوافق مع دقتك التحليلية وقدرتك على التعامل مع الأرقام والشيتات واختصار ساعات عمل الموظفين والشركات في ثوانٍ.</p>
-            
-            <div class="financial-grid">
-                <div class="financial-item"><span>تكلفة التأسيس (لابتوب/إنترنت):</span><strong>5,000 ج.م</strong></div>
-                <div class="financial-item"><span>رأس المال العامل:</span><strong>3,000 ج.م</strong></div>
-                <div class="financial-item"><span>الإيراد الشهري التقديري:</span><strong>9,000 ج.م</strong></div>
-                <div class="financial-item"><span>صافي الربح الشهري:</span><strong>7,500 ج.م</strong></div>
-            </div>
-
-            <p style="font-size: 0.9rem; margin-top: 10px;"><strong>الافتراضات المستخدمة:</strong> تنفيذ ٦ مهام تسوية أو جداول بيانات شهرياً للشركات الصغيرة والمتوسطة بمتوسط ١٥٠٠ جنيه للمهمة.</p>
-            <p style="font-size: 0.9rem; margin-top: 5px;"><strong>نقطة التعادل:</strong> الشهر الأول مباشرة لعدم وجود تكاليف أصول ضخمة.</p>
-            <p style="font-size: 0.9rem; color: #ff453a; margin-top: 5px;"><strong>⛔ متى يكون غير مناسب لك؟</strong> إذا كنت تفضل الحركة الميدانية وتكره الجلوس لفترات طويلة أمام الشاشات.</p>
-
-            <div class="validation-box">
-                <strong>🛠️ خطوة اختبار الفرصة بـ 500 جنيه خلال 48 ساعة قبل أن تبدأ:</strong><br>
-                اصنع نموذج شيت `Power Query` أو تقرير مالي احترافي مجاني، وانشر عينة منه في مجموعات رجال الأعمال والمحاسبين على فيسبوك ولينكدإن لتقيس حجم الطلب والاهتمام.
-            </div>
-        </div>`;
+                <div class="validation-box">
+                    <strong>🛠️ المرحلة ٤ — اختبر الفرصة بأقل مخاطرة خلال ٤٨ ساعة (بأقل من ٥٠٠ جنيه):</strong><br>
+                    ${proj.validation}
+                </div>
+            </div>`;
+        });
 
         document.getElementById('opportunities-container').innerHTML = html;
     }
@@ -521,6 +729,7 @@
         userAnswers.q2 = '';
         userAnswers.q3 = '';
         document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 

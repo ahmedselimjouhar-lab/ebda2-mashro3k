@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ابدأ مشروعك | الحاسبة الاستثمارية الذكية</title>
+    <title>ابدأ مشروعك | المستشار الاستثماري الذكي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* أنظمة الألوان (فاتح وداكن) */
         :root {
             --bg-color: #fafafa;
             --card-bg: #ffffff;
@@ -19,7 +18,7 @@
             --label-text: #ffffff;
             --financial-bg: #fbfbfd;
             --radius: 16px;
-            --transition: all 0.3s ease-in-out;
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body.dark-mode {
@@ -40,7 +39,6 @@
             margin: 0;
             padding: 0;
             font-family: 'Cairo', sans-serif;
-            /* حماية ضد التحديد والنسخ */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -60,11 +58,16 @@
             margin: 20px auto;
         }
 
-        /* زر تبديل الوضع (مظلم / فاتح) */
-        .theme-toggle {
+        .top-nav {
             position: fixed;
             top: 20px;
             left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
             background: var(--card-bg);
             color: var(--text-primary);
             border: 1px solid var(--border);
@@ -74,33 +77,60 @@
             font-size: 0.9rem;
             font-weight: 600;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
+            text-decoration: none;
             transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
         }
 
-        .theme-toggle:hover {
+        .nav-btn:hover {
             border-color: var(--accent);
         }
 
         header {
             text-align: center;
             margin-bottom: 30px;
+            margin-top: 20px;
         }
 
-        .site-logo {
-            width: 56px;
-            height: 56px;
-            background: var(--text-primary);
-            color: var(--bg-color);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            font-weight: 700;
+        /* حاوية اللوجو التفاعلي المتبدل */
+        .interactive-logo-container {
+            width: 80px;
+            height: 80px;
             margin: 0 auto 16px auto;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            cursor: pointer;
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             transition: var(--transition);
+        }
+
+        .interactive-logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        /* الصورة الثانية مخفية افتراضياً وتظهر عند الـ Hover */
+        .interactive-logo-container img.logo-alt {
+            opacity: 0;
+        }
+
+        .interactive-logo-container:hover img.logo-main,
+        .interactive-logo-container.active img.logo-main {
+            opacity: 0;
+        }
+
+        .interactive-logo-container:hover img.logo-alt,
+        .interactive-logo-container.active img.logo-alt {
+            opacity: 1;
         }
 
         header h1 {
@@ -304,27 +334,33 @@
             padding-top: 15px;
         }
 
-        /* التوافق الكامل مع الهواتف المحمولة (Mobile Friendly) */
         @media (max-width: 600px) {
             body { padding: 12px; }
             .card { padding: 16px; }
             header h1 { font-size: 1.7rem; }
+            .top-nav { top: 10px; left: 10px; gap: 6px; }
+            .nav-btn { padding: 6px 10px; font-size: 0.8rem; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;"> <!-- منع كليك يمين لحماية المحتوى -->
+<body oncontextmenu="return false;">
 
-    <!-- زر تبديل الوضع الداكن/الفاتح -->
-    <button class="theme-toggle" onclick="toggleTheme()">🌓 وضع القراءة</button>
+    <div class="top-nav">
+        <a href="about.html" class="nav-btn">ℹ️ عن المنصة</a>
+        <button class="nav-btn" onclick="toggleTheme()">🌓 وضع القراءة</button>
+    </div>
 
 <div class="container">
     <header>
-        <div class="site-logo">إ</div>
+        <!-- اللوجو التفاعلي المتبدل بين الصورتين -->
+        <div class="interactive-logo-container" onclick="this.classList.toggle('active')">
+            <img src="logo-main.png" alt="ابدأ مشروعك" class="logo-main">
+            <img src="logo-alt.png" alt="ابدأ مشروعك - التدرج" class="logo-alt">
+        </div>
         <h1>ابدأ مشروعك</h1>
         <p>حاسبة استثمار رأس المال الذكية — اكتشف ما يناسب شغفك وميزانيتك بأقل مخاطرة</p>
     </header>
 
-    <!-- صندوق المرحلة الأولى: الأسئلة السلوكية -->
     <div class="card" id="step1-card">
         <div class="step-title"><span>١</span> اكتشف نفسك (منهجية RIASEC والثمن النفسي)</div>
         
@@ -375,7 +411,6 @@
         <button class="btn-primary" onclick="analyzeAndCalculate()">تحليل شخصيتي وعرض الفرص المبررة</button>
     </div>
 
-    <!-- قسم النتائج (المرحلة ٢، ٣، ٤) -->
     <div class="results-section" id="results-section">
         <div class="card">
             <div class="step-title"><span>٢ & ٣ & ٤</span> نمطك المهني والفرص المبررة مالياً</div>

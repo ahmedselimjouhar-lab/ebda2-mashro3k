@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="light-mode">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ابدأ مشروعك | الحاسبة الاستثمارية الذكية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* أنظمة الألوان (فاتح وداكن) */
         :root {
             --bg-color: #fafafa;
             --card-bg: #ffffff;
@@ -14,8 +15,24 @@
             --accent: #0071e3;
             --accent-hover: #0077ed;
             --border: #d2d2d7;
+            --label-bg: #000000;
+            --label-text: #ffffff;
+            --financial-bg: #fbfbfd;
             --radius: 16px;
-            --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition: all 0.3s ease-in-out;
+        }
+
+        body.dark-mode {
+            --bg-color: #0b0b0c;
+            --card-bg: #161618;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --accent: #0a84ff;
+            --accent-hover: #409cff;
+            --border: #38383a;
+            --label-bg: #f5f5f7;
+            --label-text: #000000;
+            --financial-bg: #1c1c1e;
         }
 
         * {
@@ -23,6 +40,11 @@
             margin: 0;
             padding: 0;
             font-family: 'Cairo', sans-serif;
+            /* حماية ضد التحديد والنسخ */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         body {
@@ -30,42 +52,81 @@
             color: var(--text-primary);
             line-height: 1.6;
             padding: 20px;
+            transition: var(--transition);
         }
 
         .container {
             max-width: 800px;
-            margin: 40px auto;
+            margin: 20px auto;
+        }
+
+        /* زر تبديل الوضع (مظلم / فاتح) */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+        }
+
+        .site-logo {
+            width: 56px;
+            height: 56px;
+            background: var(--text-primary);
+            color: var(--bg-color);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 0 auto 16px auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: var(--transition);
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 700;
             letter-spacing: -0.5px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         header p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 30px;
+            padding: 24px;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border);
             margin-bottom: 24px;
             transition: var(--transition);
         }
 
         .step-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 20px;
             color: var(--text-primary);
@@ -77,24 +138,30 @@
         .step-title span {
             background: var(--accent);
             color: white;
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         label {
             display: block;
             font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            background-color: var(--label-bg);
+            color: var(--label-text);
+            padding: 12px 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: var(--transition);
         }
 
         select, input {
@@ -103,7 +170,8 @@
             border-radius: 12px;
             border: 1px solid var(--border);
             font-size: 1rem;
-            background: #fff;
+            background: var(--card-bg);
+            color: var(--text-primary);
             transition: var(--transition);
         }
 
@@ -116,28 +184,39 @@
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         .option-card {
-            border: 1px solid var(--border);
+            border: 2px solid var(--border);
             border-radius: 12px;
-            padding: 14px 18px;
+            padding: 14px 16px;
             cursor: pointer;
             transition: var(--transition);
-            background: #fff;
+            background: var(--card-bg);
+            color: var(--text-primary);
             font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .option-card:hover {
             border-color: var(--accent);
-            background: rgba(0, 113, 227, 0.02);
         }
 
         .option-card.selected {
             border-color: var(--accent);
-            background: rgba(0, 113, 227, 0.06);
+            background: rgba(0, 113, 227, 0.08);
             font-weight: 600;
+            color: var(--accent);
+        }
+
+        .option-card.selected::after {
+            content: ' ✓';
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent);
         }
 
         button.btn-primary {
@@ -165,7 +244,7 @@
 
         .result-card {
             border-left: 4px solid var(--accent);
-            background: #fff;
+            background: var(--card-bg);
             padding: 24px;
             border-radius: 12px;
             margin-bottom: 20px;
@@ -175,7 +254,7 @@
 
         .badge {
             display: inline-block;
-            background: rgba(0, 113, 227, 0.1);
+            background: rgba(0, 113, 227, 0.15);
             color: var(--accent);
             padding: 4px 12px;
             border-radius: 20px;
@@ -186,13 +265,14 @@
 
         .financial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 12px;
             margin: 15px 0;
-            background: #fbfbfd;
+            background: var(--financial-bg);
             padding: 16px;
             border-radius: 10px;
-            border: 1px solid #eee;
+            border: 1px solid var(--border);
+            transition: var(--transition);
         }
 
         .financial-item span {
@@ -207,11 +287,12 @@
         }
 
         .validation-box {
-            background: #f5f5f7;
+            background: var(--financial-bg);
             padding: 14px;
             border-radius: 10px;
             margin-top: 15px;
             font-size: 0.9rem;
+            border: 1px solid var(--border);
         }
 
         .science-note {
@@ -222,12 +303,23 @@
             border-top: 1px solid var(--border);
             padding-top: 15px;
         }
+
+        /* التوافق الكامل مع الهواتف المحمولة (Mobile Friendly) */
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            .card { padding: 16px; }
+            header h1 { font-size: 1.7rem; }
+        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;"> <!-- منع كليك يمين لحماية المحتوى -->
+
+    <!-- زر تبديل الوضع الداكن/الفاتح -->
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 وضع القراءة</button>
 
 <div class="container">
     <header>
+        <div class="site-logo">إ</div>
         <h1>ابدأ مشروعك</h1>
         <p>حاسبة استثمار رأس المال الذكية — اكتشف ما يناسب شغفك وميزانيتك بأقل مخاطرة</p>
     </header>
@@ -308,9 +400,18 @@
         userAnswers[questionKey] = value;
     }
 
+    function toggleTheme() {
+        const body = document.body;
+        if (body.classList.contains('light-mode')) {
+            body.classList.replace('light-mode', 'dark-mode');
+        } else {
+            body.classList.replace('dark-mode', 'light-mode');
+        }
+    }
+
     function analyzeAndCalculate() {
         if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
-            alert('برجاء الإجابة على الأسئلة السلوكية أولاً لنستطيع تحديد نمطك بدقة.');
+            alert('برجاء الإجابة على الأسئلة الثلاثة الأولى أولاً لتفعيل الاختبار بدقة.');
             return;
         }
 
@@ -320,7 +421,6 @@
         document.getElementById('step1-card').style.display = 'none';
         document.getElementById('results-section').style.display = 'block';
 
-        // تحديد النمط الغالب
         let primaryTrait = userAnswers.q1;
         let traitName = primaryTrait === 'realistic' ? 'المُنفّذ الميداني (الصانع)' :
                         primaryTrait === 'investigative' ? 'المُحلّل والباحث' :
@@ -330,7 +430,6 @@
 
         let html = '';
 
-        // الفرصة الأولى: زراعة الأسطح والإنتاج الزراعي المصغر (لأصحاب الأصول أو الميزانية المتوسطة)
         html += `
         <div class="result-card">
             <h3>🌱 مشروع زراعة الفطر (المشروم المحاري) أو الأعشاب الطبية</h3>
@@ -346,7 +445,7 @@
 
             <p style="font-size: 0.9rem; margin-top: 10px;"><strong>الافتراضات المستخدمة:</strong> مبني على إنتاج ١٢٠ كيلو شهرياً، بنسبة هالك لا تتجاوز ٨٪، وبيع جملة لمنافذ الخضار والبيوت بدون مصاريف إعلانات.</p>
             <p style="font-size: 0.9rem; margin-top: 5px;"><strong>نقطة التعادل:</strong> الشهر الرابع من التشغيل المنتظم.</p>
-            <p style="font-size: 0.9rem; color: #d70015; margin-top: 5px;"><strong>⛔ متى يكون غير مناسب لك؟</strong> إذا كنت لا تتحمل نسبة رطوبة أو متابعة يومية لدرجات الحرارة.</p>
+            <p style="font-size: 0.9rem; color: #ff453a; margin-top: 5px;"><strong>⛔ متى يكون غير مناسب لك؟</strong> إذا كنت لا تتحمل نسبة رطوبة أو متابعة يومية لدرجات الحرارة.</p>
 
             <div class="validation-box">
                 <strong>🛠️ خطوة اختبار الفرصة بـ 500 جنيه خلال 48 ساعة قبل أن تبدأ:</strong><br>
@@ -354,7 +453,6 @@
             </div>
         </div>`;
 
-        // الفرصة الثانية: الخدمات الرقمية وتخليص الملفات والتقارير المتقدمة (للتحليلي والتنظيمي)
         html += `
         <div class="result-card">
             <h3>💻 خدمات أتمتة الشيتات وتجهيز بيانات الشركات ومطابقات البنوك</h3>
@@ -370,7 +468,7 @@
 
             <p style="font-size: 0.9rem; margin-top: 10px;"><strong>الافتراضات المستخدمة:</strong> تنفيذ ٦ مهام تسوية أو جداول بيانات شهرياً للشركات الصغيرة والمتوسطة بمتوسط ١٥٠٠ جنيه للمهمة.</p>
             <p style="font-size: 0.9rem; margin-top: 5px;"><strong>نقطة التعادل:</strong> الشهر الأول مباشرة لعدم وجود تكاليف أصول ضخمة.</p>
-            <p style="font-size: 0.9rem; color: #d70015; margin-top: 5px;"><strong>⛔ متى يكون غير مناسب لك؟</strong> إذا كنت تفضل الحركة الميدانية وتكره الجلوس لفترات طويلة أمام الشاشات.</p>
+            <p style="font-size: 0.9rem; color: #ff453a; margin-top: 5px;"><strong>⛔ متى يكون غير مناسب لك؟</strong> إذا كنت تفضل الحركة الميدانية وتكره الجلوس لفترات طويلة أمام الشاشات.</p>
 
             <div class="validation-box">
                 <strong>🛠️ خطوة اختبار الفرصة بـ 500 جنيه خلال 48 ساعة قبل أن تبدأ:</strong><br>
@@ -384,6 +482,10 @@
     function resetCalculator() {
         document.getElementById('results-section').style.display = 'none';
         document.getElementById('step1-card').style.display = 'block';
+        userAnswers.q1 = '';
+        userAnswers.q2 = '';
+        userAnswers.q3 = '';
+        document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
     }
 </script>
 

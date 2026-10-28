@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ابدأ مشروعك | المستشار الاستثماري الذكي</title>
+    <title>ابدأ مشروعك | المستشار الاستثماري الذكي وحاسبة الأوعية المالية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root {
             --bg-color: #f5f5f7;
@@ -13,12 +14,18 @@
             --text-secondary: #6e6e73;
             --accent: #0071e3;
             --accent-hover: #0077ed;
+            --success: #1d8348;
+            --emerging: #8e44ad;
+            --global-color: #0e6251;
+            --microbrand-color: #d35400;
+            --warning: #b9770e;
+            --danger: #ff3b30;
             --border: #e5e5ea;
             --label-bg: #1d1d1f;
             --label-text: #ffffff;
             --financial-bg: #fafafa;
-            --radius: 20px;
-            --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+            --radius: 22px;
+            --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body.dark-mode {
@@ -28,6 +35,12 @@
             --text-secondary: #98989d;
             --accent: #0a84ff;
             --accent-hover: #409cff;
+            --success: #30d158;
+            --emerging: #bf5af2;
+            --global-color: #2ecc71;
+            --microbrand-color: #ff9f0a;
+            --warning: #ff9f0a;
+            --danger: #ff453a;
             --border: #2c2c2e;
             --label-bg: #f5f5f7;
             --label-text: #141416;
@@ -45,8 +58,7 @@
             user-select: none;
         }
 
-        /* السماح بالكتابة والتفاعل داخل حقول الإدخال على الآيفون والموبايل */
-        input, select {
+        input, select, .copyable-project-title, .en-term {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
             user-select: text !important;
@@ -55,60 +67,153 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            font-size: 0.9rem;
-            line-height: 1.75;
-            padding: 32px 20px;
+            font-size: 0.88rem;
+            line-height: 1.8;
+            padding: 0 18px 60px 18px;
             transition: var(--transition);
             -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 740px;
-            margin: 48px auto;
+        .top-bar-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(245, 245, 247, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+            margin: 0 -18px 40px -18px;
+            transition: var(--transition);
         }
 
-        /* أزرار التنقل العلوية */
-        .top-nav {
-            position: fixed;
-            top: 24px;
-            left: 24px;
+        body.dark-mode .top-bar-wrapper {
+            background: rgba(20, 20, 22, 0.92);
+        }
+
+        .top-bar-inner {
+            max-width: 840px;
+            margin: 0 auto;
             display: flex;
-            gap: 12px;
-            z-index: 1000;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .live-tickers {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--card-bg);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .ticker-item strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            background-color: var(--success);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.35; }
+            100% { opacity: 1; }
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .user-pill {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 113, 227, 0.08);
+            color: var(--accent);
+            border: 1px solid rgba(0, 113, 227, 0.25);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+        .logout-link {
+            color: var(--danger);
+            cursor: pointer;
+            font-weight: 700;
+            margin-right: 4px;
+            text-decoration: underline;
+        }
+
+        .currency-select {
+            width: auto;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            cursor: pointer;
         }
 
         .nav-btn {
             background: var(--card-bg);
             color: var(--text-primary);
             border: 1px solid var(--border);
-            padding: 7px 16px;
-            border-radius: 30px;
+            padding: 5px 12px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
             text-decoration: none;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
+            gap: 4px;
         }
 
         .nav-btn:hover {
             border-color: var(--accent);
-            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 52px;
-            margin-top: 16px;
+            margin-bottom: 44px;
         }
 
-        /* اللوجو التفاعلي */
         .interactive-logo-container {
             width: 76px;
             height: 76px;
-            margin: 0 auto 22px auto;
+            margin: 0 auto 20px auto;
             border-radius: 18px;
             overflow: hidden;
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
@@ -116,7 +221,6 @@
             position: relative;
             background: var(--card-bg);
             border: 1px solid var(--border);
-            transition: var(--transition);
         }
 
         .interactive-logo-container img {
@@ -129,22 +233,14 @@
             transition: opacity 0.5s ease-in-out;
         }
 
-        .interactive-logo-container img.logo-alt {
-            opacity: 0;
-        }
-
+        .interactive-logo-container img.logo-alt { opacity: 0; }
         .interactive-logo-container:hover img.logo-main,
-        .interactive-logo-container.active img.logo-main {
-            opacity: 0;
-        }
-
+        .interactive-logo-container.active img.logo-main { opacity: 0; }
         .interactive-logo-container:hover img.logo-alt,
-        .interactive-logo-container.active img.logo-alt {
-            opacity: 1;
-        }
+        .interactive-logo-container.active img.logo-alt { opacity: 1; }
 
         header h1 {
-            font-size: 1.75rem;
+            font-size: 1.7rem;
             font-weight: 700;
             letter-spacing: -0.4px;
             margin-bottom: 10px;
@@ -152,32 +248,133 @@
 
         header p {
             color: var(--text-secondary);
-            font-size: 0.92rem;
-            max-width: 540px;
+            font-size: 0.9rem;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         .card {
             background: var(--card-bg);
             border-radius: var(--radius);
-            padding: 40px 44px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
+            padding: 42px 46px;
+            box-shadow: 0 8px 34px rgba(0, 0, 0, 0.03);
             border: 1px solid var(--border);
-            margin-bottom: 36px;
+            margin-bottom: 38px;
             transition: var(--transition);
         }
 
-        .step-title {
-            font-size: 1.08rem;
+        .auth-gate-card {
+            max-width: 520px;
+            margin: 0 auto 40px auto;
+            text-align: center;
+            padding: 44px 38px;
+        }
+
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 113, 227, 0.08);
+            color: var(--accent);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.76rem;
             font-weight: 700;
-            margin-bottom: 28px;
+            margin-bottom: 16px;
+        }
+
+        .auth-gate-card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .auth-gate-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .google-form-box {
+            text-align: right;
+            background: var(--financial-bg);
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 18px;
+        }
+
+        .google-form-box .input-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .google-form-box input {
+            margin-bottom: 14px;
+            font-size: 0.86rem;
+            padding: 12px 14px;
+        }
+
+        .btn-google-official {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            background: #ffffff;
+            color: #1f1f1f;
+            border: 1.5px solid #dadce0;
+            padding: 13px 20px;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        body.dark-mode .btn-google-official {
+            background: #f5f5f7;
+            color: #141416;
+        }
+
+        .btn-google-official:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 113, 227, 0.12);
+        }
+
+        .auth-benefits-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 20px;
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+        }
+
+        .step-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 26px;
             color: var(--text-primary);
             display: flex;
             align-items: center;
-            gap: 12px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .step-title span {
+        .step-title-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-title span.step-num {
             background: var(--accent);
             color: white;
             width: 26px;
@@ -186,36 +383,75 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             flex-shrink: 0;
+        }
+
+        .progress-pill {
+            font-size: 0.76rem;
+            background: var(--financial-bg);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-weight: 600;
         }
 
         .methodology-banner {
             background: var(--financial-bg);
             border: 1px solid var(--border);
-            padding: 16px 20px;
-            border-radius: 14px;
-            font-size: 0.82rem;
+            padding: 18px 22px;
+            border-radius: 16px;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            margin-bottom: 34px;
-            line-height: 1.7;
+            margin-bottom: 36px;
+            line-height: 1.8;
+        }
+
+        .microbrand-philosophy-box {
+            background: rgba(211, 84, 0, 0.06);
+            border: 1px solid rgba(211, 84, 0, 0.3);
+            border-right: 4px solid var(--microbrand-color);
+            padding: 20px 24px;
+            border-radius: 16px;
+            margin-bottom: 28px;
+            font-size: 0.83rem;
+            line-height: 1.85;
+        }
+
+        .microbrand-philosophy-box h4 {
+            color: var(--microbrand-color);
+            font-size: 0.96rem;
+            margin-bottom: 8px;
+        }
+
+        .en-term {
+            display: inline-block;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1px 8px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--accent);
+            direction: ltr;
+            margin: 0 2px;
         }
 
         .form-group {
             margin-bottom: 34px;
         }
 
-        label {
+        label.question-label {
             display: block;
             font-weight: 600;
             margin-bottom: 14px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             background-color: var(--label-bg);
             color: var(--label-text);
             padding: 13px 18px;
             border-radius: 12px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-            transition: var(--transition);
             line-height: 1.6;
         }
 
@@ -224,7 +460,7 @@
             padding: 14px 16px;
             border-radius: 12px;
             border: 1px solid var(--border);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             background: var(--card-bg);
             color: var(--text-primary);
             transition: var(--transition);
@@ -234,6 +470,16 @@
             outline: none;
             border-color: var(--accent);
             box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+        }
+
+        .capital-helper {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .options-grid {
@@ -250,7 +496,7 @@
             transition: var(--transition);
             background: var(--card-bg);
             color: var(--text-primary);
-            font-size: 0.86rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -284,7 +530,7 @@
             width: 100%;
             padding: 16px;
             border-radius: 14px;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -296,20 +542,20 @@
             transform: translateY(-1px);
         }
 
-        .results-section {
+        #step1-card, .results-section, .project-detail-section {
             display: none;
         }
 
         .pattern-box {
             background: var(--financial-bg);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px 28px;
-            margin-bottom: 32px;
+            border-radius: 18px;
+            padding: 26px 30px;
+            margin-bottom: 34px;
         }
 
         .pattern-box h3 {
-            font-size: 1.02rem;
+            font-size: 1rem;
             margin-bottom: 10px;
             color: var(--accent);
         }
@@ -317,29 +563,73 @@
         .pattern-box p {
             font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .filter-tab {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--financial-bg);
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-tab.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
         }
 
         .result-card {
             border-right: 4px solid var(--accent);
             background: var(--card-bg);
             padding: 32px;
-            border-radius: 16px;
-            margin-bottom: 28px;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.02);
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
             border-top: 1px solid var(--border);
             border-left: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+            transition: var(--transition);
         }
+
+        .result-card.financial-instrument { border-right-color: var(--success); }
+        .result-card.emerging-venture { border-right-color: var(--emerging); }
+        .result-card.global-venture { border-right-color: var(--global-color); }
+        .result-card.microbrand-venture { border-right-color: var(--microbrand-color); }
 
         .result-card h3 {
-            font-size: 1.08rem;
-            margin-bottom: 10px;
+            font-size: 1.06rem;
+            margin-bottom: 12px;
         }
 
-        .result-card p {
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+        .problem-box {
+            background: rgba(0, 113, 227, 0.05);
+            border-right: 3px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            font-size: 0.84rem;
+        }
+
+        .uvp-box {
+            background: rgba(29, 131, 72, 0.06);
+            border-right: 3px solid var(--success);
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 0.84rem;
         }
 
         .badge {
@@ -348,289 +638,1540 @@
             color: var(--accent);
             padding: 4px 12px;
             border-radius: 20px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            margin-left: 6px;
+        }
+
+        .badge.fin-badge { background: rgba(29, 131, 72, 0.12); color: var(--success); }
+        .badge.emerging-badge { background: rgba(142, 68, 173, 0.12); color: var(--emerging); }
+        .badge.global-badge { background: rgba(14, 98, 81, 0.12); color: var(--global-color); }
+        .badge.microbrand-badge { background: rgba(211, 84, 0, 0.12); color: var(--microbrand-color); }
+        .badge.partner-ok { background: rgba(29, 131, 72, 0.12); color: var(--success); }
+        .badge.partner-needed { background: rgba(185, 119, 14, 0.14); color: var(--warning); }
+
+        .emerging-notice-box {
+            background: rgba(185, 119, 14, 0.08);
+            border: 1px solid rgba(185, 119, 14, 0.3);
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin: 14px 0;
+            font-size: 0.81rem;
+            line-height: 1.75;
+        }
+
+        .partner-match-box {
+            background: var(--financial-bg);
+            border: 1px dashed var(--border);
+            padding: 16px 18px;
+            border-radius: 14px;
+            margin: 16px 0;
+            font-size: 0.83rem;
+        }
+
+        .btn-share-partner {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--card-bg);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 8px 14px;
+            border-radius: 10px;
             font-size: 0.78rem;
             font-weight: 600;
-            margin-bottom: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-share-partner:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-open-details {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: var(--label-bg);
+            color: var(--label-text);
+            border: none;
+            padding: 13px 20px;
+            border-radius: 12px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: var(--transition);
+        }
+
+        .btn-open-details:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
         }
 
         .financial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+            gap: 14px;
+            margin: 18px 0;
             background: var(--financial-bg);
-            padding: 20px;
+            padding: 18px;
             border-radius: 14px;
             border: 1px solid var(--border);
-            transition: var(--transition);
         }
 
         .financial-item span {
             display: block;
-            font-size: 0.76rem;
+            font-size: 0.74rem;
             color: var(--text-secondary);
             margin-bottom: 4px;
         }
 
         .financial-item strong {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             color: var(--text-primary);
         }
 
-        .source-tag {
-            font-size: 0.76rem;
-            color: var(--text-secondary);
-            margin-top: 8px;
-            display: block;
+        .back-btn-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
         }
 
-        .validation-box {
+        .btn-back {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1.5px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: var(--transition);
+        }
+
+        .btn-back:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .title-copy-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .btn-copy-title {
             background: var(--financial-bg);
-            padding: 18px 20px;
-            border-radius: 14px;
-            margin-top: 20px;
-            font-size: 0.84rem;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .btn-copy-title:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .ai-sourcing-agent-box {
+            background: linear-gradient(135deg, rgba(0, 113, 227, 0.07) 0%, rgba(29, 131, 72, 0.07) 100%);
+            border: 1.5px solid var(--accent);
+            border-radius: 18px;
+            padding: 26px 28px;
+            margin-top: 24px;
+        }
+
+        .ai-sourcing-agent-box h5 {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .agent-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn-send-agent {
+            background: var(--success);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 14px;
+            transition: var(--transition);
+        }
+
+        .btn-send-agent:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .agent-status-msg {
+            display: none;
+            margin-top: 14px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            background: rgba(29, 131, 72, 0.12);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .detail-section-block {
+            margin: 36px 0;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+        }
+
+        .detail-section-block h4 {
+            font-size: 1rem;
+            margin-bottom: 18px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mindmap-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .mindmap-node {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: var(--financial-bg);
             border: 1px solid var(--border);
-            line-height: 1.7;
+            padding: 18px 22px;
+            border-radius: 16px;
+        }
+
+        .mindmap-step-num {
+            background: var(--accent);
+            color: #fff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .mindmap-content strong {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .mindmap-content p {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .suppliers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .supplier-card {
+            background: var(--financial-bg);
+            border: 1px solid var(--border);
+            padding: 20px 22px;
+            border-radius: 16px;
+        }
+
+        .supplier-card strong {
+            display: block;
+            font-size: 0.88rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .supplier-card p {
+            font-size: 0.82rem;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .future-skills-placeholder {
+            margin-top: 48px;
+            padding: 40px 36px;
+            background: var(--financial-bg);
+            border: 2px dashed var(--border);
+            border-radius: 22px;
+            text-align: center;
+        }
+
+        .future-skills-placeholder .coming-soon-pill {
+            display: inline-block;
+            background: rgba(0, 113, 227, 0.1);
+            color: var(--accent);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .future-skills-placeholder h4 {
+            font-size: 1.02rem;
+            margin-bottom: 10px;
+            justify-content: center;
+        }
+
+        .skills-tags-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 22px 0;
+        }
+
+        .skill-tag {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .science-note {
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             color: var(--text-secondary);
             text-align: center;
-            margin-top: 48px;
+            margin-top: 52px;
             border-top: 1px solid var(--border);
             padding-top: 24px;
         }
 
-        @media (max-width: 600px) {
-            body { padding: 20px 14px; }
-            .container { margin: 36px auto; }
-            .card { padding: 24px 20px; }
-            .result-card { padding: 22px 18px; }
+        @media (max-width: 640px) {
+            .top-bar-inner { flex-direction: column; align-items: stretch; }
+            .live-tickers { justify-content: center; }
+            .nav-controls { justify-content: center; }
+            .card { padding: 26px 18px; }
+            .auth-gate-card { padding: 30px 20px; }
+            .result-card { padding: 22px 16px; }
+            .ai-sourcing-agent-box { padding: 20px 16px; }
+            .future-skills-placeholder { padding: 28px 18px; }
             header h1 { font-size: 1.45rem; }
-            .top-nav { top: 12px; left: 12px; gap: 8px; }
-            .nav-btn { padding: 6px 12px; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="top-nav">
-        <a href="about.html" class="nav-btn">ℹ️ عن المنصة</a>
-        <button class="nav-btn" onclick="toggleTheme()">🌓 وضع القراءة</button>
+    <div class="top-bar-wrapper">
+        <div class="top-bar-inner">
+            <div class="live-tickers">
+                <div class="ticker-item" title="يتحدث تلقائياً كل ساعة">
+                    <span class="live-dot"></span>
+                    <span>الدولار:</span>
+                    <strong id="usd-rate-display">56.15 ج.م</strong>
+                </div>
+                <div class="ticker-item">
+                    <span>ذهب ٢٤:</span>
+                    <strong id="gold24-display">7,305 ج.م</strong>
+                </div>
+                <div class="ticker-item">
+                    <span>أعلى شهادة:</span>
+                    <strong>22% - 19.25%</strong>
+                </div>
+                <span id="last-sync-time" style="font-size: 0.7rem;">تحديث لحظي</span>
+            </div>
+
+            <div class="nav-controls">
+                <div class="user-pill" id="user-profile-pill">
+                    <span>👤 <span id="user-display-name"></span></span>
+                    <span class="logout-link" onclick="logoutGoogleUser()" title="تسجيل الخروج">خروج</span>
+                </div>
+
+                <select id="currency-switcher" class="currency-select" onchange="changeCurrency()">
+                    <option value="EGP">🇪🇬 ج.م (EGP)</option>
+                    <option value="USD">🇺🇸 دولار ($)</option>
+                    <option value="SAR">🇸🇦 ريال (SAR)</option>
+                    <option value="AED">🇦🇪 درهم (AED)</option>
+                    <option value="EUR">🇪🇺 يورو (€)</option>
+                </select>
+                <a href="about.html" class="nav-btn">ℹ️ عن المنصة</a>
+                <button class="nav-btn" onclick="toggleTheme()">🌓 المظهر</button>
+            </div>
+        </div>
     </div>
 
 <div class="container">
-    <header>
+    <header id="main-header">
         <div class="interactive-logo-container" onclick="this.classList.toggle('active')" title="اضغط لتبديل الشعار">
             <img src="logo-main.png" alt="ابدأ مشروعك" class="logo-main">
             <img src="logo-alt.png" alt="ابدأ مشروعك - التدرج" class="logo-alt">
         </div>
         <h1>ابدأ مشروعك</h1>
-        <p>اكتشف المشروعات الصغيرة المناسبة لرأس مالك وإمكانياتك، مع تقدير تكاليف البداية والمخاطر ومصادر الأسعار</p>
+        <p>اكتشف المشروعات والمايكرو-براندز المناسبة لشخصيتك ورأس مالك، واعرف هل تبدأها لوحدك أم تحتاج شريكاً يكملك، مع وكيل التوريد الذكي والخطوات حتى أول زبون</p>
     </header>
 
-    <!-- المرحلة الأولى -->
+    <div class="card auth-gate-card" id="google-auth-gate">
+        <span class="auth-badge">🔒 بوابة الدخول وحفظ النتائج</span>
+        <h2>سجّل الدخول بحساب Google للمتابعة</h2>
+        <p>لحماية خصوصية تحليلك الاستثماري، وحفظ نتائج اختبارك، وإرسال قوائم وعناوين الموردين مباشرة إلى بريدك، يرجى الدخول بحساب جوجل الخاص بك.</p>
+
+        <div id="g_id_onload_container" style="display:flex; justify-content:center; margin-bottom:14px;"></div>
+
+        <div class="google-form-box">
+            <span class="input-label">الاسم الكريم:</span>
+            <input type="text" id="google-user-name" placeholder="مثال: أحمد جوهر" autocomplete="name">
+            
+            <span class="input-label">بريد حساب جوجل (Google / Gmail):</span>
+            <input type="email" id="google-user-email" placeholder="example@gmail.com" dir="ltr" style="text-align:left;" autocomplete="email">
+
+            <button class="btn-google-official" onclick="handleGoogleSignIn()">
+                <svg width="20" height="20" viewBox="0 0 48 48">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                </svg>
+                <span>المتابعة باستخدام حساب Google</span>
+            </button>
+        </div>
+
+        <div class="auth-benefits-list">
+            <span>✓ حفظ تلقائي لنتيجة اختبارك</span>
+            <span>✓ إرسال أرقام الموردين على إيميلك</span>
+            <span>✓ مجاني وآمن بالكامل</span>
+        </div>
+    </div>
+
     <div class="card" id="step1-card">
-        <div class="step-title"><span>١</span> اكتشف نفسك (رصد السلوك الفعلي والثمن النفسي)</div>
+        <div class="step-title">
+            <div class="step-title-right">
+                <span class="step-num">١</span>
+                <span>اكتشف نفسك وطريقتك في الشغل</span>
+            </div>
+            <span class="progress-pill" id="quiz-progress-pill">تمت الإجابة على 0 من 4</span>
+        </div>
         
         <div class="methodology-banner">
-            <strong>منهجية التحليل:</strong> صُممت هذه الأسئلة استناداً إلى نموذج الاهتمامات المهنية (<strong>RIASEC</strong>) المعتمد ضمن أدوات <strong>O*NET</strong> لاستكشاف المسارات المهنية، مدمجاً مع فلتر "التحمل التشغيلي". النتائج لا تضعك في قالب جامد، بل تكشف الأنماط الأكثر توافقاً مع طبيعتك لتبدأ بأقل مخاطرة.
+            <strong>كيف نختار لك المشروع الصح؟</strong> صممنا هذه الأسئلة البسيطة بناءً على نموذج الاهتمامات المهنية العالمي (<strong>RIASEC - O*NET</strong>) لنعرف إيه الشغل اللي بتحبه وتقدر تكمل فيه من غير ضغط، وهل المشروع يناسبك لوحدك ولا محتاج شريك يكمل معاك الحلقة الناقصة.
         </div>
 
         <div class="form-group">
-            <label>١. إيه آخر حاجة كنت بتعملها وسرحت فيها لدرجة إنك محستش بالوقت؟</label>
+            <label class="question-label">١. إيه آخر نشاط انشغلت بيه وسرحت فيه لدرجة إنك محستش بالوقت؟</label>
             <div class="options-grid" data-question="q1">
-                <div class="option-card" onclick="selectOption(this, 'q1', 'realistic')">كنت بفك وأصلح حاجة بايظة بإيدي أو بصنع وأركب حاجة عملية.</div>
-                <div class="option-card" onclick="selectOption(this, 'q1', 'investigative')">كنت قاعد بحسب حسبة معقدة أو ببحث بعمق عشان أفهم مشكلة وأحلها.</div>
-                <div class="option-card" onclick="selectOption(this, 'q1', 'artistic')">كنت بصمم فكرة جديدة، بظبط شكل منتج، أو ببتكر طريقة عرض مختلفة.</div>
-                <div class="option-card" onclick="selectOption(this, 'q1', 'enterprising')">كنت بنظم بيعة، بفاوض على سعر، أو بخلص مصلحة فيها مكسب سريع.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'realistic')">تشغيل ماكينات، تصنيع منتج بإيدي، أو متابعة خط إنتاج وزراعة على الأرض.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'investigative')">تحليل أرقام وأسواق، دراسة جدوى، أو حل مشاكل إدارية وتقنية للشركات.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'artistic')">بناء شكل براند، تطوير منتج وحل عيوبه، أو ابتكار تغليف يفتح نفس المشتري.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'enterprising')">التفاوض في صفقات جملة، فتح خطوط بيع وتوزيع، وتحريك بضائع بمكسب سريع.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'social')">إدارة فريق خدمي، التدريب والتعليم، أو تنظيم خدمات تريح الشركات والأسر.</div>
+                <div class="option-card" onclick="selectOption(this, 'q1', 'conventional')">تنظيم الفلوس والحسابات ومتابعة عوائد البنوك والصناديق والبورصة بهدوء.</div>
             </div>
         </div>
 
         <div class="form-group">
-            <label>٢. إيه الحاجة اللي صحابك أو أهلك أول ما يقعوا فيها يقولوا: «كلّموا فلان هو اللي هيخلصها»؟</label>
+            <label class="question-label">٢. إيه الحاجة اللي صحابك أو عيلتك أول ما بيحتاجوها يقولوا «كلّموا فلان يخلصها»؟</label>
             <div class="options-grid" data-question="q2">
-                <div class="option-card" onclick="selectOption(this, 'q2', 'realistic')">«تعال شوف العطل ده» (تصليح، تركيب، أو مجهود ميداني عملي).</div>
-                <div class="option-card" onclick="selectOption(this, 'q2', 'investigative')">«احسبها لنا وشوف إيه الأوفر» (مقارنة أسعار، أرقام، وتدقيق).</div>
-                <div class="option-card" onclick="selectOption(this, 'q2', 'artistic')">«ذوقك حلو اختار معانا» (تنسيق، تغليف، واختيار أشكال تفتح النفس).</div>
-                <div class="option-card" onclick="selectOption(this, 'q2', 'enterprising')">«انزل فاصل وخلّص لنا المصلحة دي» (تفاوض، إقناع، وشراء بسعر الجملة).</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'realistic')">تأسيس الورش، التعامل مع الخامات والمعدات، وضبط جودة الصنعة.</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'investigative')">مراجعة العقود والحسابات وكشف التفاصيل المخفية قبل أي قرار مالي.</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'artistic')">الذوق العالي في التغليف، الديكور، وتحويل المنتج العادي لبراند يحل مشكلة.</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'enterprising')">الشطارة في الشراء بسعر المصنع وإقناع التجار والزباين من غير تردد.</div>
+                <div class="option-card" onclick="selectOption(this, 'q2', 'conventional')">النظام، الجرد الدقيق، والحفاظ على الفلوس في مكان آمن من غير مغامرة عشوائية.</div>
             </div>
         </div>
 
         <div class="form-group">
-            <label>٣. كل شغلانة وليها "ضريبتها".. إيه التعب أو الملل اللي تقدر تستحمله كل يوم من غير ما تجيب آخرك؟</label>
+            <label class="question-label">٣. كل مشروع وله «تعب يومي».. إيه التعب اللي تقدر تستحمله كل يوم عشان تكبّر شركتك؟</label>
             <div class="options-grid" data-question="q3">
-                <div class="option-card" onclick="selectOption(this, 'q3', 'enterprising')">أستحمل فرهدة الزباين والفصال والـ ١٠٠ سؤال لحد ما أقفل البيعة.</div>
-                <div class="option-card" onclick="selectOption(this, 'q3', 'realistic')">أستحمل الشغل الروتيني المتكرر اللي عايز دقة وميزان بالسنتي بعيد عن دوشة الناس.</div>
-                <div class="option-card" onclick="selectOption(this, 'q3', 'investigative')">أستحمل وجع دماغ التحليل، الأرقام، وحل المشاكل الفنية أو الإدارية كل يوم.</div>
-                <div class="option-card" onclick="selectOption(this, 'q3', 'artistic')">أستحمل التجربة والتعديل المستمر عشان أطلع منتج أو براند شكله مختلف ومميز.</div>
+                <div class="option-card" onclick="selectOption(this, 'q3', 'enterprising')">أستحمل فرهدة البيع، التفاوض مع التجار، وملاحقة التحصيل الكاش وتوسيع السوق.</div>
+                <div class="option-card" onclick="selectOption(this, 'q3', 'realistic')">أستحمل متابعة الماكينات، الخامات، والعمالة الفنية وضبط الهالك بالميزان.</div>
+                <div class="option-card" onclick="selectOption(this, 'q3', 'artistic')">أستحمل تطوير المنتج والتغليف والتسويق عشان أبني اسم براند يكبر كل شهر.</div>
+                <div class="option-card" onclick="selectOption(this, 'q3', 'investigative')">أستحمل إدارة العقود والأنظمة المكتبية وتقديم خدمات للشركات والعيادات.</div>
+                <div class="option-card" onclick="selectOption(this, 'q3', 'conventional')">ما بحبش صداع التشغيل اليومي ولا العمالة؛ عايز استثمار مالي مباشر في البنوك أو البورصة أو الذهب.</div>
             </div>
         </div>
 
         <div class="form-group">
-            <label>٤. رأس المال المتاح معك بالكامل (بالجنيه المصري):</label>
-            <input type="number" id="capital" placeholder="مثال: 60000" value="60000" inputmode="numeric">
+            <label class="question-label">٤. ناوي تبدأ المشروع لوحدك ولا معاك شريك؟</label>
+            <div class="options-grid" data-question="q4">
+                <div class="option-card" onclick="selectOption(this, 'q4', 'solo')">لوحدي تماماً (عايز أعرف إيه اللي أقدر أديره بنفسي وإيه اللي هيحتاج حد يساعدني).</div>
+                <div class="option-card" onclick="selectOption(this, 'q4', 'partner')">معايا شريك (أو مستعد أدخل شريك شاطر يكمل النقطة اللي ناقصاني).</div>
+            </div>
         </div>
 
         <div class="form-group">
-            <label>٥. الأصول المتاحة لديك حالياً (لتوفير بند الإيجار والتأسيس):</label>
+            <label class="question-label">٥. رأس المال المتاح للاستثمار (بالجنيه المصري — ويمكنك تغيير العملة من الشريط العلوي):</label>
+            <input type="number" id="capital" placeholder="مثال: 150000" value="150000" inputmode="numeric" oninput="updateCapitalPreview()">
+            <div class="capital-helper">
+                <span id="capital-converted-preview">يعادل تقريباً: $2,671 دولار أمريكي</span>
+                <span id="capital-gold-preview">يعادل تقريباً: 20.5 جرام ذهب عيار ٢٤</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">٦. إيه المتاح عندك حالياً يوفر عليك إيجار أو تأسيس؟</label>
             <select id="asset">
-                <option value="none">لا توجد أصول إضافية (تفضيل التشغيل المنزلي أو الميداني الخفيف)</option>
-                <option value="roof">سطح منزل أو غرفة جيدة التهوية (مناسب للإنتاج والزراعة الحيوية)</option>
-                <option value="car">سيارة أو موتوسيكل (مناسب للتوريد والتوزيع المباشر)</option>
-                <option value="room">مخزن صغير أو ركن ورشة (مناسب للتجهيز والتغليف والتصنيع الخفيف)</option>
+                <option value="none">معنديش مكان أو عربية (نبدأ بتصنيع لدى الغير، مايكرو-براند، أو استثمار مالي)</option>
+                <option value="room">غرفة أرضية / مخزن / ورشة صغيرة (مناسب لخطوط التعبئة والتصنيع الخفيف)</option>
+                <option value="roof">سطح منزل مجهز أو مساحة زراعية (مناسب للإنتاج الزراعي والتقطير والتجفيف)</option>
+                <option value="car">سيارة أو تروسيكل/فان (مناسب لشركات التوريد والتوزيع المباشر للمحلات)</option>
+                <option value="shop">محل تجاري أو مكتب إداري جاهز</option>
             </select>
         </div>
 
-        <button class="btn-primary" onclick="analyzeAndCalculate()">تحليل نمط العمل وعرض الفرص المبررة</button>
+        <button class="btn-primary" onclick="analyzeAndCalculate()">اعرض نتيجة تحليل شخصيتي والمشاريع المناسبة ←</button>
     </div>
 
-    <!-- قسم النتائج (المرحلة ٢، ٣، ٤) -->
     <div class="results-section" id="results-section">
         <div class="card">
-            <div class="step-title"><span>٢</span> نمط العمل المناسب لك (تشخيص مرن)</div>
+            <div class="step-title">
+                <div class="step-title-right">
+                    <span class="step-num">٢</span>
+                    <span>نتيجة تحليل طريقتك في الشغل</span>
+                </div>
+            </div>
             <div id="pattern-analysis" class="pattern-box"></div>
 
-            <div class="step-title"><span>٣ & ٤</span> الفرص المبررة مالياً + خطوة الاختبار بأقل مخاطرة</div>
+            <div class="step-title">
+                <div class="step-title-right">
+                    <span class="step-num">٣</span>
+                    <span>المشاريع المناسبة لك (اضغط على أي مشروع لفتح صفحته الكاملة وطلب أرقام الموردين)</span>
+                </div>
+            </div>
+            
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterResults('all', this)">الكل (أفضل الترشيحات)</button>
+                <button class="filter-tab" onclick="filterResults('microbrand', this)">🏷️ المايكرو-براند والـ White Label (حل مشاكل جديدة)</button>
+                <button class="filter-tab" onclick="filterResults('global', this)">🌐 أفكار عالمية (أمريكا/أوروبا/الصين)</button>
+                <button class="filter-tab" onclick="filterResults('emerging', this)">🌍 فرص الأسواق المشابهة لمصر</button>
+                <button class="filter-tab" onclick="filterResults('business', this)">🏭 شركات ومصانع محلية</button>
+                <button class="filter-tab" onclick="filterResults('financial', this)">🏦 البنوك والبورصة والذهب</button>
+            </div>
+
+            <div class="microbrand-philosophy-box" id="microbrand-edu-banner">
+                <h4>💡 القاعدة الذهبية لتأسيس «مايكرو-براند» ناجح (Problem-Solving Branding):</h4>
+                <p>
+                    كل السلع حولنا في أسواق الجملة (الفوط، الملايات، الطرح، الملابس بدون تيكت <span class="en-term">White Label</span>، الصابون، المنظفات، وأغطية السيارات) يمكن تحويلها إلى براند جديد مربح بشرط واحد: <strong>البراند ليس مجرد تغيير اسم أو لصق استيكر على بضاعة تقليدية!</strong><br>
+                    تأسيس البراند الحقيقي يبدأ بالبحث عن <strong>مشكلة يومية يعاني منها الزبون ولم يجد لها حلاً (<span class="en-term">Customer Pain Point</span>)</strong>، ثم تعديل المنتج في الورشة أو المصنع (<span class="en-term">Private Label & Product Differentiation</span>) ليقدم <strong>قيمة مقترحة جديدة وفريدة (<span class="en-term">Unique Value Proposition - UVP</span>)</strong> تحقق توافق الحل مع المشكلة (<span class="en-term">Problem-Solution Fit</span>) فيتبناها الناس فوراً (<span class="en-term">Market Adoption</span>).
+                </p>
+            </div>
+
             <div id="opportunities-container"></div>
             
-            <button class="btn-primary" onclick="resetCalculator()" style="background: var(--text-secondary); margin-top: 16px;">إعادة ضبط الإجابات وتجربة مسار آخر</button>
+            <button class="btn-primary" onclick="resetCalculator()" style="background: var(--text-secondary); margin-top: 16px;">إعادة الاختبار أو تغيير رأس المال</button>
+        </div>
+    </div>
+
+    <div class="project-detail-section" id="project-detail-section">
+        <div class="back-btn-bar">
+            <button class="btn-back" onclick="closeProjectDetails()">→ رجوع لقائمة المشاريع</button>
+            <span style="font-size: 0.78rem; color: var(--text-secondary);">دليل التنفيذ الكامل من الفكرة لأول زبون</span>
+        </div>
+
+        <div class="card" id="project-detail-content"></div>
+
+        <div class="back-btn-bar" style="margin-top: 24px;">
+            <button class="btn-back" onclick="closeProjectDetails()">→ رجوع لقائمة المشاريع</button>
         </div>
     </div>
 
     <div class="science-note">
-        منهجية التحليل مستوحاة من نموذج الاهتمامات المهنية (RIASEC - O*NET)، مدمجة مع حسابات رأس المال العامل ونقطة التعادل في السوق المصري.
+        منهجية التحليل مبنية على نموذج الاهتمامات المهنية (RIASEC - O*NET)، مع تحديث لحظي لأسعار الصرف والذهب وعوائد البنوك المصرية.
     </div>
 </div>
 
 <script>
-    const userAnswers = { q1: '', q2: '', q3: '' };
+    // رابط وكيل التوريد الذكي (AI Sourcing Agent Webhook)
+    const AGENT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwo6q23Gkquj5C9QRuiDqOPqUIC9CzaTZU3zV7bdbRHF3fPnd6zN6uSSt2GXuiHHR0e/exec";
+    const GOOGLE_CLIENT_ID = "";
+
+    let exchangeRates = { EGP: 1, USD: 56.15, SAR: 14.97, AED: 15.29, EUR: 60.85 };
+    const currencySymbols = { EGP: 'ج.م', USD: '$', SAR: 'ر.س', AED: 'د.إ', EUR: '€' };
+    let currentCurrency = 'EGP';
+    let gold24PriceEGP = 7305;
+    let currentFilter = 'all';
+    let activeProjectId = null;
+    let currentUser = null;
+    const userAnswers = { q1: '', q2: '', q3: '', q4: '' };
+
+    function checkExistingAuthSession() {
+        try {
+            const savedUser = localStorage.getItem('ebda2_google_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                applyAuthenticatedState();
+            } else {
+                document.getElementById('google-auth-gate').style.display = 'block';
+                document.getElementById('step1-card').style.display = 'none';
+            }
+        } catch (e) {
+            document.getElementById('google-auth-gate').style.display = 'block';
+        }
+    }
+
+    function handleGoogleSignIn() {
+        const nameInput = document.getElementById('google-user-name').value.trim();
+        const emailInput = document.getElementById('google-user-email').value.trim().toLowerCase();
+
+        if (!nameInput) {
+            alert('برجاء كتابة اسمك الكريم للمتابعة.');
+            return;
+        }
+        if (!emailInput || !emailInput.includes('@')) {
+            alert('برجاء إدخال بريد حساب Google صحيح (مثال: name@gmail.com).');
+            return;
+        }
+
+        currentUser = {
+            name: nameInput,
+            email: emailInput,
+            loginTime: new Date().toISOString()
+        };
+
+        try {
+            localStorage.setItem('ebda2_google_user', JSON.stringify(currentUser));
+        } catch (e) {}
+
+        applyAuthenticatedState();
+    }
+
+    function handleGoogleCredentialResponse(response) {
+        try {
+            const base64Url = response.credential.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const payload = JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join('')));
+
+            currentUser = {
+                name: payload.name || 'مستثمر',
+                email: payload.email || '',
+                picture: payload.picture || ''
+            };
+            localStorage.setItem('ebda2_google_user', JSON.stringify(currentUser));
+            applyAuthenticatedState();
+        } catch (e) {}
+    }
+
+    function applyAuthenticatedState() {
+        document.getElementById('google-auth-gate').style.display = 'none';
+        const pill = document.getElementById('user-profile-pill');
+        pill.style.display = 'inline-flex';
+        document.getElementById('user-display-name').innerText = currentUser.name.split(' ')[0];
+
+        try {
+            const savedState = localStorage.getItem('ebda2_saved_quiz_' + currentUser.email);
+            if (savedState) {
+                const parsed = JSON.parse(savedState);
+                if (parsed.q1 && parsed.q2 && parsed.q3) {
+                    userAnswers.q1 = parsed.q1;
+                    userAnswers.q2 = parsed.q2;
+                    userAnswers.q3 = parsed.q3;
+                    userAnswers.q4 = parsed.q4 || 'solo';
+                    if (parsed.capital) document.getElementById('capital').value = parsed.capital;
+                    if (parsed.asset) document.getElementById('asset').value = parsed.asset;
+                    updateCapitalPreview();
+                    document.getElementById('results-section').style.display = 'block';
+                    renderResults();
+                    return;
+                }
+            }
+        } catch (e) {}
+
+        document.getElementById('step1-card').style.display = 'block';
+    }
+
+    function logoutGoogleUser() {
+        try {
+            localStorage.removeItem('ebda2_google_user');
+        } catch (e) {}
+        currentUser = null;
+        activeProjectId = null;
+        document.getElementById('user-profile-pill').style.display = 'none';
+        document.getElementById('step1-card').style.display = 'none';
+        document.getElementById('results-section').style.display = 'none';
+        document.getElementById('project-detail-section').style.display = 'none';
+        document.getElementById('google-auth-gate').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        checkExistingAuthSession();
+        if (GOOGLE_CLIENT_ID && window.google) {
+            google.accounts.id.initialize({
+                client_id: GOOGLE_CLIENT_ID,
+                callback: handleGoogleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById('g_id_onload_container'),
+                { theme: 'outline', size: 'large', text: 'continue_with', locale: 'ar' }
+            );
+        }
+    });
+
+    async function fetchLiveMarketData() {
+        try {
+            const response = await fetch('https://open.er-api.com/v6/latest/USD');
+            if (response.ok) {
+                const data = await response.json();
+                if (data && data.rates && data.rates.EGP) {
+                    const usdToEgp = data.rates.EGP;
+                    exchangeRates.USD = usdToEgp;
+                    exchangeRates.SAR = usdToEgp / (data.rates.SAR || 3.75);
+                    exchangeRates.AED = usdToEgp / (data.rates.AED || 3.6725);
+                    exchangeRates.EUR = usdToEgp / (data.rates.EUR || 0.92);
+                    gold24PriceEGP = Math.round((4035 * usdToEgp) / 31.1035);
+
+                    document.getElementById('usd-rate-display').innerText = `${usdToEgp.toFixed(2)} ج.م`;
+                    document.getElementById('gold24-display').innerText = `${gold24PriceEGP.toLocaleString()} ج.م`;
+                    const now = new Date();
+                    document.getElementById('last-sync-time').innerText = `محدث: ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
+                }
+            }
+        } catch (e) {
+            document.getElementById('usd-rate-display').innerText = `${exchangeRates.USD.toFixed(2)} ج.م`;
+            document.getElementById('gold24-display').innerText = `${gold24PriceEGP.toLocaleString()} ج.م`;
+        }
+        updateCapitalPreview();
+    }
+
+    fetchLiveMarketData();
+    setInterval(fetchLiveMarketData, 3600000);
+
+    function formatMoney(amountInEGP) {
+        const rate = exchangeRates[currentCurrency] || 1;
+        const converted = amountInEGP / rate;
+        const symbol = currencySymbols[currentCurrency];
+        if (currentCurrency === 'EGP') return `${Math.round(converted).toLocaleString()} ${symbol}`;
+        return `${converted.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 1 })} ${symbol}`;
+    }
+
+    function changeCurrency() {
+        currentCurrency = document.getElementById('currency-switcher').value;
+        updateCapitalPreview();
+        if (activeProjectId) {
+            openProjectDetails(activeProjectId, false);
+        } else if (document.getElementById('results-section').style.display === 'block') {
+            renderResults();
+        }
+    }
+
+    function updateCapitalPreview() {
+        const capEGP = parseFloat(document.getElementById('capital').value) || 0;
+        const inUSD = capEGP / exchangeRates.USD;
+        const inGoldGrams = capEGP / gold24PriceEGP;
+        document.getElementById('capital-converted-preview').innerText = `يعادل بالدولار اللحظي: $${inUSD.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+        document.getElementById('capital-gold-preview').innerText = `يعادل بالذهب الحقيقي: ${inGoldGrams.toFixed(1)} جرام (عيار ٢٤)`;
+    }
+
+    function copyProjectTitleText(titleText, btnElem) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(titleText).then(() => {
+                const oldText = btnElem.innerText;
+                btnElem.innerText = 'تم نسخ اسم المشروع ✓';
+                setTimeout(() => { btnElem.innerText = oldText; }, 2200);
+            });
+        }
+    }
+
+    async function requestSuppliersFromAIAgent(projectId) {
+        const proj = projectsDB.find(p => p.id === projectId);
+        if (!proj) return;
+
+        const emailVal = document.getElementById('agent-req-email').value.trim();
+        const cityVal = document.getElementById('agent-req-city').value;
+        const btn = document.getElementById('btn-trigger-agent');
+        const statusBox = document.getElementById('agent-status-box');
+
+        if (!emailVal || !emailVal.includes('@')) {
+            alert('برجاء التأكد من كتابة بريدك الإلكتروني بشكل صحيح لاستلام ملف الموردين.');
+            return;
+        }
+
+        const ext = getProjectExtendedDetails(proj);
+        const payload = {
+            name: currentUser ? currentUser.name : 'مستثمر',
+            email: emailVal,
+            city: cityVal,
+            projectTitle: proj.title,
+            suppliersHint: `${ext.suppliers.machines} | ${ext.suppliers.materials}`,
+            capital: document.getElementById('capital').value
+        };
+
+        btn.disabled = true;
+        btn.innerText = '⏳ جارٍ تجهيز دليل الموردين وإرساله لإيميلك عبر الـ AI Agent...';
+
+        if (AGENT_WEBHOOK_URL) {
+            try {
+                await fetch(AGENT_WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                btn.style.display = 'none';
+                statusBox.style.display = 'block';
+                statusBox.innerHTML = `✅ تم إرسال طلبك لوكيل الذكاء الاصطناعي بنجاح! تفقد بريدك الإلكتروني (<strong>${emailVal}</strong>) خلال دقيقة ستجد قائمة الموردين والعناوين وخريطة الشراء لمحافظة (${cityVal}).`;
+            } catch (e) {
+                btn.disabled = false;
+                btn.innerText = '🤖 أرسل لي أرقام وعناوين الموردين المحدثة على إيميلي فوراً';
+                alert('حدث خطأ في الاتصال، يرجى المحاولة مرة أخرى.');
+            }
+        } else {
+            setTimeout(() => {
+                btn.style.display = 'none';
+                statusBox.style.display = 'block';
+                statusBox.innerHTML = `✅ تم تسجيل طلبك لمشروع (<strong>${proj.title}</strong>) لمنطقة (<strong>${cityVal}</strong>) بنجاح على إيميلك (<strong>${emailVal}</strong>)! كما يمكنك نسخ اسم المشروع بالأعلى للبحث المباشر.`;
+            }, 900);
+        }
+    }
 
     const traitLabels = {
-        realistic: { name: 'المُنفّذ الميداني / الصانع (Realistic)', desc: 'تميل للعمل الملموس، الإنتاج الدقيق، أو المهارات الفنية التي تعتمد على جودة التنفيذ بعيداً عن ضجيج الفصال اليومي.' },
-        investigative: { name: 'المُحلّل وضابط الإيقاع (Investigative)', desc: 'تتفوق في فهم الأنظمة، تدقيق الأرقام، حل الاختناقات الإدارية أو التقنية، وتقديم قيمة عالية للشركات والعيادات بأقل تكلفة تأسيس.' },
-        artistic: { name: 'المُبتكر وصانع القيمة (Artistic)', desc: 'تملك عيناً تميز الجودة والتفاصيل؛ تنجح في بناء المنتجات المتخصصة (Micro-Brands) التي تبيع بسبب تميزها وهويتها وليس حرق الأسعار.' },
-        enterprising: { name: 'التاجر وصائد الفرص (Enterprising)', desc: 'طاقتك الحقيقية تظهر في التفاوض، تحريك البضائع، قفل الصفقات، وتدوير السيولة بسرعة في السوق.' }
+        realistic: { name: 'شاطر في التصنيع والتشغيل العملي', short: 'التصنيع والإنتاج', desc: 'بتحب الشغل الملموس، الماكينات، وضبط جودة المنتج بإيدك وعينك بعيد عن وجع دماغ الفصال اليومي.' },
+        investigative: { name: 'شاطر في الحسابات والتخطيط وحل المشاكل', short: 'التخطيط والحسابات', desc: 'دماغك منظمة في الأرقام، العقود، وكشف التفاصيل الدقيقة اللي بتوفر فلوس ووقت للشركات.' },
+        artistic: { name: 'شاطر في الابتكار وبناء براند يحل مشكلة', short: 'الابتكار والتغليف', desc: 'عندك ذوق عالي وعين بتلقط عيوب السلع في السوق وتعدلها؛ بتعرف إزاي تطلع منتج بقيمة مقترحة جديدة يخلي الزبون يشتريه فوراً.' },
+        enterprising: { name: 'شاطر في البيع والتفاوض وتحريك السوق', short: 'البيع والتفاوض', desc: 'نَفَسك طويل مع الزباين والتجار، بتعرف تشتري بسعر حلو وتقفل بيعات وتجيب كاش سريع.' },
+        social: { name: 'شاطر في إدارة الناس والخدمات والتعليم', short: 'إدارة الناس والخدمات', desc: 'بتعرف تتعامل مع البشر، تدير فريق، وتقدم خدمة تريح العملاء وتخليهم يثقوا فيك.' },
+        conventional: { name: 'مستثمر هادئ ومنظم يحب العائد المضمون', short: 'النظام وإدارة المال', desc: 'بتحب الأمان المالي، الجرد المظبوط، وتفضل تحط فلوسك في أوعية واضحة زي البنوك والذهب والصناديق.' }
     };
 
     const projectsDB = [
         {
-            id: 'epoxy_craft',
-            traits: ['realistic', 'artistic'],
-            assets: ['none', 'car', 'room'],
-            minCap: 5000,
-            title: '🛠️ وحدة تجديد وعزل الفواصل الفندقية بالإيبوكسي والسيليكون الطبي',
-            badge: 'مهارة يدوية نظيفة — عائد يومي سريع',
-            reason: 'يتوافق مع ميلك للعمل الدقيق باليد ورغبتك في تقديم نتيجة ملموسة عالية الجودة في ساعتين بدون تكسير أو إدارة عمالة.',
-            setupCost: 4500,
-            workingCap: 3500,
-            monthlyRev: 16000,
-            monthlyProfit: 12500,
-            assumptions: 'تنفيذ ١٠ طلبات شهرياً فقط (حمامات ومطابخ شقق مسكونة أو تشطيبات حديثة) بمتوسط ١٦٠٠ جنيه للطلب شاملة الخامات.',
-            breakeven: 'من الأسبوع الثالث (بعد إتمام أول ٣ عملاء فقط).',
-            notSuitable: 'إذا كنت لا تتحمل العمل الميداني الدقيق باليد لمدة ٣ ساعات متواصلة أو تعاني من آلام الظهر والركبة.',
-            source: 'أسعار خامات الكيماويات والعدد اليدوية في السوق المصري — تحديث أكتوبر ٢٠٢٦.',
-            validation: 'لا تشترِ المعدات الكاملة الآن. اشترِ أنبوبة إيبوكسي واحدة ومسدس سحب عادي ومفك تفريغ (حوالي ٤٥٠ ج.م)، وطبقها على متر واحد في مطبخك أو حمامك وصور النتيجة (قبل وبعد) بإضاءة واضحة، واعرضها في جروب منطقتك السكنية لتقيس حجم الطلب الفعلي.'
-        },
-        {
-            id: 'mushroom_roof',
-            traits: ['realistic', 'investigative'],
-            assets: ['roof', 'room'],
-            minCap: 25000,
-            title: '🌱 إنتاج الفطر المحاري (المشروم) أو المستنبتات عالية القيمة',
-            badge: 'استغلال مثالي للمساحة المتاحة — بيع جملة',
-            reason: 'رُشح لك لأنك تملك مساحة متاحة توفر عليك بند الإيجار، وتفضل المتابعة التشغيلية الهادئة المنتظمة بعيداً عن ضغط البيع الفردي.',
-            setupCost: 18000,
-            workingCap: 12000,
-            monthlyRev: 13500,
-            monthlyProfit: 6800,
-            assumptions: 'مبني على دورة إنتاج ١٥٠ كيلو شهرياً، بنسبة هالك محتسبة ١٠٪، والتوريد المباشر لمحلات الخضار المميزة والمطاعم بدون إعلانات ممولة.',
-            breakeven: 'الشهر الرابع من التشغيل المنتظم.',
-            notSuitable: 'إذا كنت لا تستطيع الالتزام بضبط الرطوبة والتهوية يومياً في مواعيد ثابتة، أو ترفض التعامل مع الكائنات الحية.',
-            source: 'متوسط أسعار التقاوي ومستلزمات الترطيب الحراري بمصر — تحديث أكتوبر ٢٠٢٦.',
-            validation: 'قبل تجهيز الغرفة بالكامل، اشترِ ٣ أكياس بيئة مجهزة بالتقاوي (حوالي ٤٥٠ ج.م) لترى بنفسك دورة النمو في جو بيتك، وانزل بعينة طازجة لـ ٣ مطاعم أو محلات خضار في حيك واسألهم عن سعر الاستلام الفوري.'
-        },
-        {
-            id: 'data_medical_claims',
-            traits: ['investigative'],
-            assets: ['none', 'room', 'roof', 'car'],
-            minCap: 8000,
-            title: '💻 أتمتة مطابقات الحسابات (Power Query) وتدقيق مطالبات التأمين الطبي',
-            badge: 'تشغيل من المنزل — هامش ربح صافي يتخطى ٨٠٪',
-            reason: 'يستثمر قدرتك التحليلية وصبرك على الأرقام في حل "عنق زجاجة" حقيقي يعطل سيولة العيادات الطبية والشركات الصغيرة.',
-            setupCost: 4000,
-            workingCap: 4000,
-            monthlyRev: 15000,
-            monthlyProfit: 13000,
-            assumptions: 'التعاقد مع ٤ عيادات أو شركات صغيرة شهرياً لمراجعة المطالبات أو بناء شيتات التسوية التلقائية بمتوسط ٣٧٥٠ ج.م للعميل.',
-            breakeven: 'الشهر الأول مباشرة لعدم وجود أصول ثابتة مهدرة.',
-            notSuitable: 'إذا كنت تمل سريعاً من الجلوس أمام الشاشة ومراجعة الجداول التفصيلية.',
-            source: 'متوسط أتعاب خدمات الـ Freelance المالي ومراجعة المطالبات في مصر — تحديث أكتوبر ٢٠٢٦.',
-            validation: 'جهز نموذج شيت إكسيل ذكي يطابق كشفين في ١٠ ثوانٍ، واعرض على عيادة أو مكتب محاسبة في منطقتك مراجعة شيت شهر قديم مجاناً خلال ٤٨ ساعة لتثبت لهم حجم المبالغ أو الساعات التي ستوفرها لهم.'
-        },
-        {
-            id: 'specialty_microbrand',
-            traits: ['artistic', 'enterprising'],
-            assets: ['none', 'room', 'car'],
-            minCap: 30000,
-            title: '☕ تأسيس ميكرو-براند متخصص بنظام الدفعات الصغيرة (Small-Batch)',
-            badge: 'قيمة مضافة عالية — ولاء عملاء وتكرار شراء',
-            reason: 'يجمع بين حسك الإبداعي في بناء هوية وتغليف خاطف للعين وبين منتج استهلاكي يطلبه العميل كل شهر (مثل القهوة المختصة أو الخلطات الطبيعية).',
-            setupCost: 19000,
-            workingCap: 16000,
-            monthlyRev: 24000,
-            monthlyProfit: 8500,
-            assumptions: 'تشغيل دفعات صغيرة حسب الطلب (Roast/Pack to Order) لتصفير الهالك، بمتوسط بيع ١٢٠ عبوة شهرياً وهامش ربح صافي ٣٥٪ بعد التغليف.',
-            breakeven: 'الشهر الثالث عند وصول نسبة إعادة الشراء (Retention) إلى ٤٠٪.',
-            notSuitable: 'إذا كنت تبحث عن بيع عشوائي رخيص بكميات ضخمة ولا تهتم بتفاصيل التغليف وتجربة العميل.',
-            source: 'أسعار خامات التغليف المطبوع والخامات الغذائية بالجملة في مصر — تحديث أكتوبر ٢٠٢٦.',
-            validation: 'لا تطبع آلاف الأكياس الآن. جهز ٢٠ عبوة عينات فقط بأكياس كرافت أنيقة واستيكر مصمم باحترافية (بتكلفة ٤٨٠ ج.م)، وبعها لدائرة معارفك أو كافيهين محليين لتختبر رأيهم في الطعم والتسعيرة قبل التوسع.'
-        },
-        {
-            id: 'b2b_distribution',
-            traits: ['enterprising', 'realistic'],
-            assets: ['car', 'room'],
+            id: 'mb_home_textiles_sheets_towels',
+            category: 'microbrand',
+            traits: ['artistic', 'enterprising', 'realistic'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'إذا كنت تركز على اختيار القماش من المحلة ومراقبة تفصيل الأستك والتغليف، ستحتاج شريكاً شاطراً في إعلانات السوشيال ميديا والتعاقد مع الفنادق البوتيك.',
+            assets: ['none', 'room', 'shop'],
             minCap: 35000,
-            title: '🚚 خط توزيع وتوريد مباشر لمستلزمات التشغيل السريعة (B2B Cash Van)',
-            badge: 'استغلال وسيلة النقل — دوران سيولة أسبوعي',
-            reason: 'يستغل قدرتك التفاوضية مع وجود وسيلة حركة لتوريد مستهلكات لا تتوقف (أكواب ورقية، رولات كاشير حرارية، مناديل) للكافيهات والعيادات كاش.',
-            setupCost: 20000,
-            workingCap: 15000,
-            monthlyRev: 42000,
-            monthlyProfit: 9200,
-            assumptions: 'تدوير البضاعة مرتين شهرياً بهامش ربح صافي ٢٢٪ بعد خصم الوقود، مع البيع النقدي الفوري لـ ٢٥ محل أو عيادة ثابتة.',
-            breakeven: 'الشهر الثاني نتيجة سرعة دوران رأس المال العامل.',
-            notSuitable: 'إذا كنت تضعف أمام طلبات التجار بالبيع الآجل (الشكك) ولا تستطيع تحصيل أموالك نقداً عند التسليم.',
-            source: 'أسعار مصانع الورقيات ومستلزمات التعبئة بالجملة (العتبة / برج العرب / العاشر) — تحديث أكتوبر ٢٠٢٦.',
-            validation: 'قبل شراء أي كرتونة بضاعة، خذ عينات وكتالوج أسعار من تاجر جملة كبير، وانزل على ١٠ كافيهات وصيدليات في خط سير واحد، واعرض عليهم السعر لتأخذ أول ٣ طلبيات مؤكدة قبل أن تدفع جنيهاً للمصنع.'
+            title: '🛏️ مايكرو-براند للملايات الفندقية الثابتة والفوط سريعة الجفاف (Functional Home Textiles Brand)',
+            badge: 'مايكرو-براند (Private Label) — يحل مشكلة انزلاق الملايات وكمكمة الفوط',
+            problemSolved: 'المشكلة (Customer Pain Point): ربات البيوت يعانين يومياً من ملايات السرير التي تنخلع وتتزحلق من المراتب الحديثة العالية (ارتفاع ٣٠-٤٠ سم)، ومن الفوط التقليدية الثقيلة التي تبطئ في الجفاف فتخرج منها رائحة «كمكمة» ورطوبة في الحمامات.',
+            uvpSolution: 'الحل والقيمة المقترحة الجديدة (Unique Value Proposition - UVP): بدلاً من بيع ملايات وفوط عادية من سوق الجملة، تؤسس براند يقدم ملايات بجيوب عميقة وأستك عريض ٣٦٠ درجة مع حزام تثبيت سفلي (Deep-Pocket Stay-On Fitted Sheets) مستحيل تتحرك من المرتبة، وفوط قطن بنسيج الوفل (Waffle-Weave Quick-Dry Towels) تجف في نصف الوقت ولا تحبس رطوبة.',
+            reason: 'تحويل سلعة تقليدية مكدسة في أسواق الجملة بالمحلة والأزهر إلى منتج تخصصي يحل أزمة يومية في كل بيت مصري (<span class="en-term">Product Differentiation</span>) مما يضمن تبني المشترين له (<span class="en-term">Market Adoption</span>) بدون حرق أسعار.',
+            setupCost: 16000,
+            workingCap: 19000,
+            monthlyRev: 48000,
+            monthlyProfit: 14500,
+            assumptions: 'تفصيل وتجهيز ١٠٠ طقم ملاية فندقية ثابتة + ١٠٠ طقم فوط وفل شهرياً عبر ورش المحلة الكبرى، والبيع المباشر أونلاين (<span class="en-term">D2C - Direct to Consumer</span>) بمتوسط هامش ربح صافي ٣٠٪.',
+            breakeven: 'الشهر الثاني إلى الثالث.',
+            notSuitable: 'إذا اشتريت ملايات شعبية بمقاسات قصيرة أو أقمشة مخلوطة بوليستر تسبب حرارة أثناء النوم.',
+            source: 'أسعار مصانع النسيج بالمحلة الكبرى وتجار الجملة بالأزهر والغورية — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'اشترِ ثوب قماش قطن فندقي واحد ونفذ ١٠ ملايات فقط بأستك عريض وكلبسات تثبيت سفلية (بتكلفة ٤٨٠ ج.م للعينات)، وصور فيديو حقيقي يثبت أن الملاية لا تتحرك مهما تم شدها، واعرضها في جروبات العرائس والأمهات.',
+            suppliers: {
+                machines: 'ورش التفصيل والتجهيز (Cut & Sew Workshops): ورش الحياكة في المحلة الكبرى (منطقة السبع بنات والجمهورية)، أو ورش شبرا الخيمة وجسر السويس لتنفيذ المقاسات العميقة وخياطة التيكت المنسوج (Woven Brand Label).',
+                materials: 'أسواق الجملة للخامات: أتواب القطن الممشط الفندقي (Combed Cotton) وفوط الوفل بالجملة من مصانع المحلة الكبرى مباشرة، أو سوق الغورية والأزهر بالقاهرة، وشارع فرنسا والمنشية بالإسكندرية.'
+            },
+            mindmap: [
+                { step: 'الخطوة ١ (أول ٤٨ ساعة)', title: 'تحديد المشكلة وتنفيذ ٥ عينات (Problem-Solution Fit)', detail: 'اشترِ قماش قطن ١٠٠٪ ونفذ ملاية بعمق ٤٠ سم وأستك كلبس سفلي وجربها على مرتبة عالية وصور الفيديو.' },
+                { step: 'الخطوة ٢ (الأسبوع ١)', title: 'الاتفاق مع ورشة بالمحلة وتصميم الـ Woven Label', detail: 'تجهيز التيكت القماشي باسم البراند وتعليمات الغسيل وتغليف قماشي قابل لإعادة الاستخدام بدل الأكياس البلاستيك.' },
+                { step: 'الخطوة ٣ (الأسبوع ٢)', title: 'تصوير مقارنة بصرية (Before & After Video)', detail: 'فيديو يقارن بين الملاية العادية التي تنخلع وبين ملايتك الثابتة، وفوطة الوفل التي تجف في ساعتين.' },
+                { step: 'الخطوة ٤ (الأسبوع ٣)', title: 'إطلاق صفحة البيع المباشر (D2C Store) وأول ٥٠ أوردر', detail: 'البيع بنظام الباقات (Bundle: ملاية فندقية ثابتة + ٢ فوطة وفل سريعة الجفاف) لرفع متوسط سلة الشراء (AOV).' }
+            ],
+            skillsNeeded: ['فحص جودة الأقطان وعدد الغرز (Thread Count)', 'تطوير المنتجات (Product Differentiation)', 'تصوير الفيديوهات التوضيحية (UGC Ads)', 'إدارة التوريد من المحلة الكبرى']
         },
         {
-            id: 'inbox_closer_agency',
-            traits: ['enterprising', 'artistic'],
-            assets: ['none', 'room', 'roof'],
+            id: 'mb_smart_car_covers',
+            category: 'microbrand',
+            traits: ['realistic', 'enterprising', 'artistic'],
+            neededPartnerTrait: 'realistic',
+            partnerRoleDesc: 'إذا كنت تدير التسويق والمبيعات لأصحاب السيارات، ستحتاج شريكاً يتابع ورشة الخياطة الصناعية وتركيب الكابلات والبطانة القطنية.',
+            assets: ['none', 'room', 'car'],
+            minCap: 40000,
+            title: '🚗 مايكرو-براند لأغطية السيارات الذكية المحمية ضد السرقة والخدش (Smart Car Covers Brand)',
+            badge: 'مايكرو-براند — يحل ٣ مشاكل يعاني منها كل صاحب سيارة في الشارع',
+            problemSolved: 'المشكلة (Customer Pain Point): أغطية السيارات الجاهزة في أسواق الجملة إما خفيفة تطير مع الهواء، أو خشنة تجرح بوهية السيارة من الداخل، وتُسرق بسهولة في الشارع، ويحتاج صاحب السيارة ١٠ دقائق متعبة لطيّها صباحاً وهو مستعجل للعمل.',
+            uvpSolution: 'الحل والقيمة المقترحة الجديدة (UVP): تأسيس براند أغطية سيارات هندسي بـ ٣ مزايا غير موجودة في الغطاء العادي: ١) بطانة داخلية ناعمة تحمي الدهان (Scratch-Proof Inner Lining)، ٢) كابل فولاذي مدمج بقفل يمر تحت السيارة لمنع السرقة (Anti-Theft Cable Lock)، ٣) شريط سحب مركزي يمكّن صاحب السيارة من لمّ الغطاء في ٦٠ ثانية (60-Second Roll-Up System) مع جيب مرايات وشريط فسفوري ليلي.',
+            reason: 'أصحاب السيارات الحديثة يدفعون مئات الآلاف في سياراتهم ومستعدون لدفع ٣٠٠ جنيه إضافية في غطاء يحمي البوهية ولا يُسرق ويُطوى في دقيقة (<span class="en-term">Value-Based Pricing</span>).',
+            setupCost: 18000,
+            workingCap: 22000,
+            monthlyRev: 54000,
+            monthlyProfit: 16500,
+            assumptions: 'تصنيع أو تعديل وبيع ٦٠ غطاء سيارة شهرياً لـ ٣ مقاسات قياسية (سيدان، هاتشباك، SUV) بمتوسط سعر ٩٠٠ ج.م وهامش ربح صافي ٣٠٪.',
+            breakeven: 'الشهر الثاني.',
+            notSuitable: 'إذا استخدمت قماش مشمع رديء يتشقق من شمس الصيف أو يطبع لوناً على سقف السيارة المبلل.',
+            source: 'أسعار أقمشة الوتر بروف والبطانة القطنية بسوق التوفيقية والعاشر من رمضان — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'اشترِ غطاءين خام من سوق الجملة أو ورشة بالتوفيقية، وأضف لهما عند سروجي سيارات كابل القفل وشريط اللم السريع (بتكلفة ٤٩٠ ج.م)، وصور فيديو في الشارع يظهر كيف تغطي وتلم العربية وتقفلها في دقيقة واحدة.',
+            suppliers: {
+                machines: 'ورش التشغيل والخياطة الثقيلة: ورش السروجية والخياطة الصناعية الثقيلة في التوفيقية، الحرفيين، شبرا الخيمة، أو منطقة الحضرة والمنشية بالإسكندرية.',
+                materials: 'موردين الخامات بالجملة: أقمشة الوتر بروف المبطنة بالقطن (Double-layer PVC / Oxford Fabric with Cotton Backing) من محلات الجملة في الأزهر والعتبة وشارع دمشق ومصانع العاشر من رمضان، وكابلات القفل المعدنية من شارع الجمهورية.'
+            },
+            mindmap: [
+                { step: 'الخطوة ١ (أول ٤٨ ساعة)', title: 'تعديل عينة واحدة وتصوير فيديو الـ ٦٠ ثانية', detail: 'ركّب كابل القفل وحزام الطي السريع على عينة، وصور تجربة حقيقية في الشارع وانشرها في جروبات ملاك السيارات.' },
+                { step: 'الخطوة ٢ (الأسبوع ١)', title: 'ضبط الـ ٣ مقاسات القياسية (Sedan / SUV / Hatchback)', detail: 'الاتفاق مع ورشة خياطة ثقيلة لتفصيل الأغطية بجيوب مرايات وسوستة لباب السائق لفتح العربية بدون رفع الغطاء.' },
+                { step: 'الخطوة ٣ (الأسبوع ٢)', title: 'تصميم شنطة تخزين أسطوانية سريعة السحب', detail: 'وضع شعار البراند على شنطة أسطوانية واسعة يدخل فيها الغطاء في ثوانٍ بدون معاناة التطبيق.' },
+                { step: 'الخطوة ٤ (الأسبوع ٣ - ٤)', title: 'البيع المباشر والتعاقد مع مغاسل السيارات ومراكز النانو سيراميك', detail: 'مراكز حماية الدهان والنانو سيراميك هي أفضل شريك يبيع غطاءك لعملائها بالعمولة.' }
+            ],
+            skillsNeeded: ['تطوير المواصفات الفنية (Product Spec Design)', 'مشتريات الأقمشة العازلة للحرارة', 'التسويق في مجتمعات ملاك السيارات (Niche Marketing)']
+        },
+        {
+            id: 'mb_whitelabel_hijab_apparel',
+            category: 'microbrand',
+            traits: ['artistic', 'enterprising'],
+            neededPartnerTrait: 'realistic',
+            partnerRoleDesc: 'إذا كنت مبدعاً في اختيار الألوان والتصوير والتسويق، ستحتاج شريكاً يفرز جودة القماش والـ White Label في أسواق الجملة ويتابع المشغل.',
+            assets: ['none', 'room', 'shop'],
+            minCap: 30000,
+            title: '🧣 مايكرو-براند للطرح الثابتة بدون دبابيس والملابس البيزك المعالجة (White-Label Modest & Basics)',
+            badge: 'مايكرو-براند (White Label to Private Label) — يحل أزمة انزلاق الطرح ووبرة الملابس',
+            problemSolved: 'المشكلة (Customer Pain Point): ملايين المحجبات يعانين من الطرح التي تتزحلق من على الرأس وتحتاج دبابيس كثيرة تخرم القماش وتسبب الصداع، كما يعاني الشباب والبنات من التيشيرتات والبيزكس السادة (Basics) التي تشف أو «توبر» وتنكمش بعد أول غسلة.',
+            uvpSolution: 'الحل والقيمة المقترحة الجديدة (UVP): بدلاً من بيع طرح وملابس سادة بدون تيكت (White Label) من أسواق الجملة وبيعها كما هي، تقوم بإضافة تعديل ذكي (Value-Add Modification): ١) طرح مزودة بشريط قطني داخلي مانع للانزلاق عند الجبهة وكبسولة مغناطيسية مخفية تحت الذقن تغني عن الدبابيس (Pinless Non-Slip Hijab), ٢) قطع بيزك قطن مصري معالج مسبقاً ضد الانكماش والوبرة (Pre-Shrunk & Anti-Pilling Heavyweight Basics) بتيكت مقاس مطبوع على القماش لا يشوك الرقبة (Tagless Neck Print).',
+            reason: 'سوق الملابس السادة والطرح في مصر ضخم جداً ومستهلك طوال العام؛ إضافة ميزة «بدون دبابيس وبدون انزلاق» تنقلك من منافسة محلات الجملة إلى براند له جمهور مخلص (<span class="en-term">Brand Loyalty</span>).',
+            setupCost: 14000,
+            workingCap: 16000,
+            monthlyRev: 44000,
+            monthlyProfit: 14000,
+            assumptions: 'تجهيز وبيع ٢٠٠ قطعة شهرياً في مجموعات لونية منسقة (<span class="en-term">Capsule Collections</span>) بهامش ربح صافي ٣٢٪.',
+            breakeven: 'الشهر الثاني.',
+            notSuitable: 'إذا اشتريت بضاعة جملة رديئة الخياطة واكتفيت بوضع اسمك عليها دون حل مشكلة الانزلاق أو الانكماش.',
+            source: 'أسواق الجملة بالأزهر والتربيعة والموسكي ومصانع جسر السويس والمنطقة الحرة — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'اشترِ ١٠ طرح سادة عالية الجودة من التربيعة بالأزهر، وركّب عليها عند ورشة خياطة شريط التثبيت القطني والكبسولة المغناطيسية المخفية (بتكلفة إجمالية ٤٥٠ ج.م)، واعرضها في فيديو عملي على بنات جامعات وموظفات.',
+            suppliers: {
+                machines: 'ورش التعديل والطباعة والتجهيز: ورش الخياطة الدقيقة في الأزهر، العباسية، جسر السويس، أو المنشية والعجمي بالإسكندرية، ومطابع التيكت الحراري (Heat-Transfer Neck Labels) بشارع المطبعة الأهلية والعتبة.',
+                materials: 'أسواق الجملة للـ White Label: شارع التربيعة والغورية والأزهر (جملة الطرح الشيفون، الكريب، والقطن الفسكوز)، ومصانع الملابس السادة بدون لابل في العبور والعاشر وبنها والمنطقة الحرة.'
+            },
+            mindmap: [
+                { step: 'الخطوة ١ (أول ٤٨ ساعة)', title: 'شراء ١٠ قطع White Label وإضافة التعديل الذكي', detail: 'انزل التربيعة أو مصنع بيزكس، اشترِ عينات بدون لابل، وأضف شريط منع الانزلاق أو الكبسولة المغناطيسية.' },
+                { step: 'الخطوة ٢ (الأسبوع ١)', title: 'طباعة الـ Tagless Label وتغليف السحاب المطفأ (Matte Zip-Bag)', detail: 'استبدل التيكت الخشن بطباعة حرارية ناعمة داخل الرقبة، واستخدم أكياس تغليف مطفأة قابلة لإعادة الاستخدام.' },
+                { step: 'الخطوة ٣ (الأسبوع ٢)', title: 'تصوير اختبار الحركة والغسيل (Stress-Test Video)', detail: 'فيديو يظهر ثبات الطرحة بدون دبوس واحد طوال اليوم، وثبات مقاس البيزك بعد الغسيل.' },
+                { step: 'الخطوة ٤ (الأسبوع ٣ - ٤)', title: 'البيع بنظام البوكسات المنسقة (3-Pack Bundles)', detail: 'بيع باقة ٣ ألوان أساسية (أسود، بيج، أبيض/زيتي) بسعر موحد يوفر مصاريف الشحن على العميل ويرفع ربحك.' }
+            ],
+            skillsNeeded: ['تحويل الـ White Label إلى Private Label', 'اختيار الأقمشة المعالجة (Fabric Sourcing)', 'تصميم باقات البيع (Product Bundling)']
+        },
+        {
+            id: 'mb_targeted_cosmetics_soap',
+            category: 'microbrand',
+            traits: ['artistic', 'investigative', 'enterprising'],
+            neededPartnerTrait: 'investigative',
+            partnerRoleDesc: 'إذا كنت مبدعاً في بناء البراند والتسويق، ستحتاج شريكاً صيدلياً أو كيميائياً يراجع التركيبة مع المصنع المرخص (<span class="en-term">Contract Manufacturer</span>).',
+            assets: ['none', 'room'],
+            minCap: 45000,
+            title: '🧼 مايكرو-براند للصابون العلاجي ومستحضرات العناية الموجهة لمشكلة محددة (Targeted Skincare Brand)',
+            badge: 'مايكرو-براند (Contract Manufacturing) — يحل مشاكل جلدية محددة بتركيبة واضحة',
+            problemSolved: 'المشكلة (Customer Pain Point): الصابون التجاري يجفف الجلد بسبب الصودا الكاوية العالية، والعميل المصري تائه بين منتجات مستوردة تخطت ١٠٠٠ جنيه ومنتجات شعبية مجهولة المصدر، ويبحث عن حل عملي لمشكلة محددة (مثل: جلد الوزة، حبوب الظهر والكتف، أو التهاب البشرة بعد الشمس والرياضة).',
+            uvpSolution: 'الحل والقيمة المقترحة الجديدة (UVP): بدلاً من بيع «صابونة طبيعية برائحة اللافندر» كآلاف الصفحات، تبني براند تخصصي يعتمد على الشفافية العلمية (Clinical & Ingredient-Led Micro-Brand) يُصنع في مصنع مرخص من هيئة الدواء (Toll Manufacturing): كل منتج مكتوب على واجهته المشكلة التي يحلها ونسبة المادة الفعالة بوضوح (مثلاً: صابونة ولوشن الساليسيليك ٢٪ وزبدة الشيا لجلد الوزة وحبوب الجسم).',
+            reason: 'المشتري لا يشتري «صابونة»، بل يشتري «حلاً لمشكلة محرجة في بشرته»؛ التخصص في مشكلة واحدة يجعل إعلانك يحقق مبيعات فورية بتكلفة إعلانية منخفضة (<span class="en-term">Low Customer Acquisition Cost - CAC</span>).',
+            setupCost: 23000,
+            workingCap: 22000,
+            monthlyRev: 46000,
+            monthlyProfit: 15000,
+            assumptions: 'تصنيع دفعة أولية مرخصة (٣٠٠ قطعة صابون علاجي + ٢٠٠ عبوة لوشن/سيروم) والبيع بنظام «روتين حل المشكلة» عبر متجر إلكتروني والصيدليات.',
+            breakeven: 'الشهر الثالث مع إعادة الشراء الشهري.',
+            notSuitable: 'إذا صنعت مستحضرات تجميل علاجية في بانيو المنزل بدون ترخيص أو رقابة معملية فتضر بشرة العملاء.',
+            source: 'مصانع التصنيع لدى الغير المرخصة (برج العرب / العاشر / بدر) وأسعار العبوات الدوائية — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'تواصل مع مصنع مستحضرات تجميل مرخص يقبل الكميات الصغيرة (Low MOQ)، واطلب ١٥ عينة جاهزة لتركيبة صابون/كريم مخصص لجلد الوزة أو حبوب الظهر (بتكلفة ٤٨٠ ج.م)، وجربها مع ١٥ عميلاً حقيقياً.',
+            suppliers: {
+                machines: 'مصانع التصنيع لدى الغير المرخصة (Toll / Contract Manufacturers): المنطقة الصناعية ببرج العرب (الإسكندرية)، مدينة بدر والعاشر من رمضان وأبو رواش (القاهرة الكبرى) — يوفرون لك التصنيع والتعبئة والتسجيل القانوني.',
+                materials: 'موردين العبوات والخامات الطبيعية: عبوات القطارة والبرطمانات الدوائية المعتمة (لحماية الفيتامينات من الضوء) من درب البرابرة والعتبة، والزيوت الخام النقية من الجامع الأحمر وشارع الجيش.'
+            },
+            mindmap: [
+                { step: 'الخطوة ١ (أول ٤٨ ساعة)', title: 'تحديد مشكلة واحدة (Single Pain Point) وطلب عينات المصنع', detail: 'اختر مشكلة عالية الطلب (مثل خشونة الركب وجلد الوزة أو آثار الشمس) واطلب عينات أساسية من مصنع مرخص.' },
+                { step: 'الخطوة ٢ (الأسبوع ١)', title: 'تصميم عبوة صيدلانية نظيفة توضح نسب المواد الفعالة', detail: 'ابتعد عن الزخارف المزدحمة؛ اكتب على العلبة من الأمام: المشكلة + المادة الفعالة + طريقة الاستخدام في ٣ خطوات.' },
+                { step: 'الخطوة ٣ (الأسبوع ٢)', title: 'استلام أول دفعة صغيرة (Low MOQ Batch)', detail: 'استلام ٢٠٠ إلى ٣٠٠ عبوة مسجلة ومختومة بتاريخ إنتاج وصلاحية ورقم تشغيلة.' },
+                { step: 'الخطوة ٤ (الأسبوع ٣ - ٤)', title: 'التسويق بالمحتوى التعليمي الصادق والتوزيع للصيدليات المحلية', detail: 'نشر فيديوهات قصيرة تشرح سبب المشكلة علمياً وكيف تعالجها المادة الفعالة بدون وعود كاذبة.' }
+            ],
+            skillsNeeded: ['إدارة التصنيع لدى الغير (Contract Manufacturing)', 'التسويق القائم على حل المشكلة (Problem-Led Marketing)', 'تصميم الهوية الصيدلانية النظيفة']
+        },
+        {
+            id: 'mb_eco_concentrate_cleaning',
+            category: 'microbrand',
+            traits: ['realistic', 'investigative', 'enterprising'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'إذا كنت تضبط جودة التركيبات الآمنة والتعبئة، ستحتاج شريكاً يدير المبيعات وتوريد العبوات للمنازل والكافيهات.',
+            assets: ['room', 'none', 'car'],
+            minCap: 35000,
+            title: '🧴 مايكرو-براند للمنظفات المركزة الآمنة على اليدين والأسطح الحساسة (Surface-Safe Concentrates)',
+            badge: 'مايكرو-براند — يحل مشكلة حساسية اليدين وتلف الرخام والاستانلس',
+            problemSolved: 'المشكلة (Customer Pain Point): المنظفات السائبة والتجارية تحتوي على صودا وكلور كاوٍ يسبب إكزيما وتشقق اليدين، ويطفي لمعة الرخام الطبيعي والجرانيت ويُصدئ أجهزة المطبخ الاستانلس، ورائحته تخنق الصدر في الشقق.',
+            uvpSolution: 'الحل والقيمة المقترحة الجديدة (UVP): تأسيس براند منظفات تخصصي بتركيبة متعادلة الحموضة (pH-Neutral & Skin-Safe) بدون غازات خانقة، يباع بنظام «البخاخة الدائمة + عبوات إعادة الملء المركزة» (Refillable Concentrate System): يشتري العميل عبوة مركزة صغيرة بـ ٦٠ جنيهاً يخففها بالماء في بيته لتعطيه ٤ بخاخات كاملة، مما يوفر له ٤٠٪ من السعر ويحمي الرخام واليدين.',
+            reason: 'يجمع بين ميزة التوفير المالي للأسرة المصرية (<span class="en-term">Cost Efficiency</span>) وميزة حماية التشطيبات والأجهزة الغالية في المطبخ، مع ضمان تكرار شراء عبوات إعادة الملء كل شهر (<span class="en-term">Subscription / Repeat Purchase Model</span>).',
+            setupCost: 17000,
+            workingCap: 18000,
+            monthlyRev: 42000,
+            monthlyProfit: 13500,
+            assumptions: 'بيع ٢٥٠ مجموعة شهرياً (بخاخة متينة + ٣ أمبولات/عبوات مركزة: للرخام، للاستانلس والدهون، وللمفروشات) بهامش ربح صافي ٣٢٪.',
+            breakeven: 'الشهر الثاني إلى الثالث.',
+            notSuitable: 'إذا قلّدت منظفات الصابون السائب الشعبي ودخلت في منافسة سعر اللتر الرخيص.',
+            source: 'أسعار الخامات الكيميائية الآمنة بشارع الجيش والعبوات البلاستيكية بالعاشر ومرغم — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'جهز ١٠ مجموعات تجريبية (بخاخة أنيقة + عبوة مركزة لإزالة دهون البوتاجاز الاستانلس بدون رائحة خانقة وبدون خدش) بتكلفة ٤٥٠ ج.م، وصور فيديو حقيقي على بوتاجاز أو رخام مطبخك.',
+            suppliers: {
+                machines: 'معدات الخلط والتعبئة الدقيقة: خزانات خلط بولي إيثيلين صغيرة وماكينة تعبئة سوائل نصف أوتوماتيك من شارع الجمهورية أو العاشر من رمضان.',
+                materials: 'موردين الخامات والعبوات: المذيبات الحيوية الآمنة والخامات اللطيفة على الجلد (Mild Surfactants) من تجار الكيماويات بشارع الجيش (العتبة)، وبخاخات الـ Trigger القوية وأمبولات التركيز من درب البرابرة أو منطقة مرغم بالإسكندرية.'
+            },
+            mindmap: [
+                { step: 'الخطوة ١ (أول ٤٨ ساعة)', title: 'تجهيز ١٠ عينات مركزة واختبارها عملياً', detail: 'ركّز على ٣ مشاكل: منظف رخام وجرانيت لا يطفي اللمعة، ومزيل دهون بدون رائحة، ومزيل بقع مفروشات فوري.' },
+                { step: 'الخطوة ٢ (الأسبوع ١)', title: 'ابتكار نموذج عبوة إعادة الملء (Refill Bottle)', detail: 'صمم استيكر ضد الماء يوضح خط علامة المياه لتخفيف التركيز في المنزل بسهولة.' },
+                { step: 'الخطوة ٣ (الأسبوع ٢)', title: 'تصوير فيديوهات التحدي بدون قفازات (Skin-Safe Proof)', detail: 'أقوى إعلان لمنتجك هو تنظيف أصعب الدهون بيدك مباشرة لإثبات أمانه الكامل على البشرة والرخام.' },
+                { step: 'الخطوة ٤ (الأسبوع ٣ - ٤)', title: 'بيع باقة تأسيس البيت + اشتراك إعادة الملء الربع سنوي', detail: 'العميل يشتري البخاخات مرة واحدة، ثم يشتري منك أمبولات التركيز الرخيصة كل شهرين.' }
+            ],
+            skillsNeeded: ['معادلة الحموضة الكيميائية الآمنة (pH Balancing)', 'تصميم نماذج إعادة الملء (Refill Business Model)', 'التسويق المرئي بالتجربة المباشرة']
+        },
+        {
+            id: 'specialty_coffee_roastery_brand',
+            category: 'microbrand',
+            traits: ['artistic', 'enterprising'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'إذا كنت شغوفاً بالتحميص والخلطات وتصميم الهوية، فوجود شريك مبيعات يوزع على الكافيهات والشركات سيضاعف حجم البراند.',
+            assets: ['none', 'room', 'shop'],
+            minCap: 45000,
+            title: '☕ مايكرو-براند للقهوة المختصة والمحمصة بنظام الدفعات الطازجة (Small-Batch Coffee Micro-Brand)',
+            badge: 'مايكرو-براند — يحل مشكلة البن المركون وفاقد النكهة',
+            problemSolved: 'المشكلة (Customer Pain Point): عشاق القهوة والكافيهات المميزة يعانون من البن التجاري المركون لشهور على أرفف السوبرماركت الذي يفقد زيوته العطرية ويسبب حموضة المعدة، ويبحثون عن بن محمص طازج (Freshly Roasted) بتاريخ تحميص واضح.',
+            uvpSolution: 'الحل والقيمة المقترحة الجديدة (UVP): بناء مايكرو-براند يعتمد على التحميص بالدفعات الصغيرة حسب الطلب (Roast-to-Order) بتقنية الهواء الساخن (Fluid-Bed Roasting) التي تمنع احتراق القشرة وتزيل مرارة المعدة، في أكياس بصمام طرد الغاز (One-Way Degassing Valve).',
+            reason: 'القهوة منتج إدماني يتكرر شراؤه كل ١٥ إلى ٣٠ يوماً (<span class="en-term">High Customer Lifetime Value - LTV</span>).',
+            setupCost: 24000,
+            workingCap: 21000,
+            monthlyRev: 38000,
+            monthlyProfit: 11500,
+            assumptions: 'بيع ١٦٠ كيلو شهرياً (أونلاين وللكافيهات والمكاتب) بهامش ربح صافي ٣٠٪.',
+            breakeven: 'الشهر الثالث مع ارتفاع معدل تكرار الشراء (<span class="en-term">Retention Rate</span>).',
+            notSuitable: 'إذا كنت تنافس في القهوة التجارية الشعبية الرخيصة ولا تهتم بقصة البراند وجودة الحبوب الخضراء.',
+            source: 'متوسط أسعار البن الأخضر ومستلزمات التغليف الفاخر في مصر — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'حمص ٥ كيلو فقط بخلطة مميزة، وعبئها في ٢٠ كيس بصمام مع استيكر يوضح تاريخ التحميص وإيحاءات النكهة (بتكلفة ٤٩٠ ج.م) وجرب بيعها لمعارفك و٣ كافيهات.'
+        },
+
+        {
+            id: 'gl_prepped_veggies_hub',
+            category: 'global',
+            originCountry: 'النموذج الصيني (Jingcai) والأوروبي',
+            traits: ['realistic', 'enterprising', 'conventional'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'إذا كنت شاطراً في تجهيز الإنتاج والنظافة، فستحتاج شريكاً «بيّاعاً» يمر على المطاعم والسوبرماركت يومياً لتسليم الطلبيات وتحصيل الكاش.',
+            assets: ['room', 'shop', 'car'],
+            minCap: 55000,
+            title: '🥗 وحدة تجهيز وتقطيع الخضروات الطازجة المغسولة والجاهزة على الطبخ فوراً (Ready-to-Cook Hub)',
+            badge: 'فكرة عالمية (الصين وأوروبا) — تحل مشكلة ضيق الوقت وهالك المطاعم',
+            problemSolved: 'المشكلة التي يحلها المشروع: الأمهات العاملات لا يملكن ساعتين يومياً لتقشير وتقطيع البصل والثوم والخضار، والمطاعم الصغيرة تخسر ٢٠٪ من وقت العمال وهالك الخضار في التجهيز اليدوي.',
+            emergingNote: 'هذا المشروع منتشر بقوة في الصين وأوروبا وبدأ يدخل مصر حديثاً؛ فرصته ممتازة لأن الطلب عليه يومي متكرر، ومخاطرته تتطلب التزاماً صارماً بالتعقيم وسحب الهواء (Vacuum) ليعيش الخضار الطازج ٧ أيام في الثلاجة بدون مواد حافظة.',
+            reason: 'شراء الخضار الطازج من سوق الجملة، غسله بالأوزون، تقطيعه بماكينة تقطيع قياسية، وتعبئته في أطباق وأكياس مفرغة من الهواء جاهزة على الحلة مباشرة للمنازل والمطاعم.',
+            setupCost: 34000,
+            workingCap: 21000,
+            monthlyRev: 58000,
+            monthlyProfit: 16500,
+            assumptions: 'توريد ٨٠ كيلو خضار مجهز يومياً للمطاعم ومحلات الخضار الراقية والبيوت بهامش ربح صافي ٢٨٪.',
+            breakeven: 'الشهر الثالث من التشغيل.',
+            notSuitable: 'إذا لم تتوفر لديك ثلاجة تبريد جيدة أو كنت تتهاون في نظافة وتجفيف الخضار قبل التغليف.',
+            source: 'دراسات نماذج Ready-to-Cook وأسعار ماكينات تقطيع الخضار والفاكيوم بمصر — أكتوبر ٢٠٢٦.',
+            validation: 'جهز ٢٠ عبوة (بصل مفروم طازج، ثوم مقشر، خضار مشكل مغسول ومقطع) بتكلفة ٤٠٠ ج.م، واعرضها في جروب سيدات منطقتك ولـ ٣ مطاعم لتقيس سرعة الشراء.'
+        },
+        {
+            id: 'gl_preventive_maintenance_b2b',
+            category: 'global',
+            originCountry: 'النموذج الأمريكي والأوروبي لخدمة الأعمال',
+            traits: ['investigative', 'realistic', 'enterprising'],
+            neededPartnerTrait: 'realistic',
+            partnerRoleDesc: 'إذا كنت شاطراً في التعاقد مع الكافيهات والعيادات وإدارة المواعيد، فستحتاج شريكاً فني صيانة (مهندس أو فني معدات) ينفذ الفحص الدوري.',
+            assets: ['none', 'car'],
+            minCap: 30000,
+            title: '🔧 شركة عقود الصيانة الوقائية الدورية لماكينات الكافيهات والعيادات (B2B Preventive Care)',
+            badge: 'فكرة عالمية (أمريكا وأوروبا) — تحل كارثة تعطل الماكينات المفاجئ',
+            problemSolved: 'المشكلة التي يحلها المشروع: عندما تتعطل ماكينة الإسبريسو في كافيه أو كرسي الأسنان في عيادة فجأة بسبب الأملاح والإهمال، يخسر صاحب المكان آلاف الجنيهات يومياً ويدفع ضعف الثمن في التصليح الطارئ.',
+            emergingNote: 'أغلب الفنيين في مصر ينتظرون حتى تحترق الماكينة؛ تقديم «اشتراك وقائي شهري» (تنظيف أملاح، تغيير جوانات وفلاتر، معايرة ضغط) هو نموذج حديث في مصر يضمن لك دخلاً شهرياً ثابتاً ومستقراً.',
+            reason: 'التعاقد مع ٣٠ كافيه وعيادة ومطعماً باشتراك شهري ثابت لزيارة وقائية مجدولة تمنع الأعطال قبل وقوعها.',
+            setupCost: 16000,
+            workingCap: 14000,
+            monthlyRev: 34000,
+            monthlyProfit: 22000,
+            assumptions: 'خدمة ٣٥ عميلاً شهرياً مع توفير قطع الغيار الاستهلاكية البسيطة (جوانات، فلاتر مياه، أملاح إزالة تكلس).',
+            breakeven: 'الشهر الأول إلى الثاني.',
+            notSuitable: 'إذا كنت لا تلتزم بمواعيد الزيارات الدورية بالدقيقة أو تفتقد الأمانة في الفحص.',
+            source: 'نماذج B2B Subscription Maintenance الأمريكية وتكاليف قطع الغيار بمصر — أكتوبر ٢٠٢٦.',
+            validation: 'جهز حقيبة فحص وإزالة أملاح (Descaling) بتكلفة ٤٥٠ ج.م، واعرض على ٥ كافيهات في منطقتك عمل صيانة وقائية وضبط ضغط لماكينة القهوة بنصف السعر لتريهم فرق الطعم والأداء وتوقع معهم عقداً شهرياً.'
+        },
+        {
+            id: 'gl_returnable_glass_packaging',
+            category: 'global',
+            originCountry: 'النموذج الألماني والأوروبي للاقتصاد الدائري',
+            traits: ['realistic', 'conventional', 'enterprising'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'المشروع يحتاج توزيع المهام بين «مسؤول تشغيل وتعقيم» في المخزن، و«شريك لوجستي وتجاري» يتعاقد مع البراندات الغذائية والكافيهات.',
+            assets: ['room', 'car'],
+            minCap: 50000,
+            title: '♻️ مركز توريد وتعقيم العبوات والبرطمانات الزجاجية القياسية المستردة للبراندات والمطاعم',
+            badge: 'فكرة عالمية (ألمانيا وأوروبا) — توفر ٤٠٪ من تكلفة التغليف',
+            problemSolved: 'المشكلة التي يحلها المشروع: أسعار البرطمانات الزجاجية والعبوات الجديدة ارتفعت بجنون وأصبحت تلتهم أرباح مصانع العسل، المربى، الصوصات، والكافيهات، بينما تُرمى آلاف البرطمانات السليمة يومياً.',
+            emergingNote: 'نظام غسيل وتعقيم الزجاج بالبخار الساخن وإعادة توريده بعقود مع أغطية جديدة (Twist-Off Caps) مشروع حديث ومنظم يختلف عن تجارة الخردة العشوائية.',
+            reason: 'شراء وتوريد البرطمانات والزجاجات القياسية، جمع المسترد منها من المطاعم والعملاء، غسلها وتجفيفها حرارياً عند ١٢٠ درجة مئوية، وتزويدها بأغطية جديدة تماماً بسعر يوفر ٣٥٪ للبراندات.',
+            setupCost: 30000,
+            workingCap: 20000,
+            monthlyRev: 46000,
+            monthlyProfit: 15000,
+            assumptions: 'توريد وتعقيم ٢٠,٠٠٠ برطمان وزجاجة شهرياً لـ ٢٥ مشروعاً غذائياً ومطعماً.',
+            breakeven: 'الشهر الثالث.',
+            notSuitable: 'إذا لم يتوفر لديك مخزن أرضي مزود بمصدر مياه وصرف جيد لتشغيل غسالة التعقيم.',
+            source: 'نماذج Returnable Packaging الأوروبية وأسعار مصانع الزجاج والأغطية بمصر — أكتوبر ٢٠٢٦.',
+            validation: 'اشترِ ٢٠٠ برطمان زجاجي وأغطية جديدة من تاجر جملة بـ ٤٨٠ ج.م، واعرض على ٥ براندات تنتج (عسل، زبدة فول سوداني، مخللات، صوصات) نظام التوريد والاسترداد المخفض.'
+        },
+        {
+            id: 'gl_modular_space_furniture',
+            category: 'global',
+            originCountry: 'النموذج الصيني والأوروبي للشقق الضيقة',
+            traits: ['artistic', 'realistic'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'إذا كنت مبدعاً في التصميم والتصنيع، ستحتاج شريكاً شاطراً في تصوير الفيديوهات العملية وإدارة الإعلانات الممولة والمبيعات.',
+            assets: ['room', 'shop', 'none'],
+            minCap: 60000,
+            title: '🪑 ورشة تصنيع الأثاث الذكي المدمج الموفر للمساحة للشقق الصغيرة (Space-Saving Furniture)',
+            badge: 'فكرة عالمية (الصين وأوروبا) — تحل أزمة ضيق مساحات الشقق الحديثة',
+            problemSolved: 'المشكلة التي يحلها المشروع: الشقق الحديثة في مصر أصبحت بمساحات صغيرة (٧٠ إلى ١٠٠ متر) والأثاث التقليدي الضخم يخنق الغرف؛ الناس تبحث عن مكتب يطوى في الحائط، أو طاولة طعام تتحول لكونسول صغير.',
+            emergingNote: 'الأثاث الذكي القابل للطي (Foldable & Multi-functional) يحقق مبيعات مليونية في الصين وأوروبا؛ المنافسة فيه بمصر ضعيفة جداً، ومخاطرته هي ضرورة استخدام مفصلات حديد محملة لا تتلف مع الفتح والغلق.',
+            reason: 'تصنيع ٣ موديلات قياسية فقط من الأثاث الموفر للمساحة باستخدام أخشاب الكونتر المعالج ومفصلات ذكية، وشحنها في كرتونة مسطحة (Flat-Pack) لأي محافظة.',
+            setupCost: 35000,
+            workingCap: 25000,
+            monthlyRev: 62000,
+            monthlyProfit: 18500,
+            assumptions: 'بيع ٤٠ قطعة شهرياً بمتوسط سعر ١٥٥٠ ج.م للقطعة وهامش ربح صافي ٣٠٪.',
+            breakeven: 'الشهر الثالث.',
+            notSuitable: 'إذا استخدمت خشب حبيبي رديء أو مفصلات ضعيفة تنكسر مع الاستخدام اليومي.',
+            source: 'كتالوجات الأثاث الذكي العالمية وأسعار الأخشاب والاكسسوارات (الرويعي / دمياط) — أكتوبر ٢٠٢٦.',
+            validation: 'نفذ قطعة عينة واحدة فقط (مثل مكتب حائط قابل للطي يتحول لسبورة أو رف ديكور) عند نجار شاطر بـ ٤٩٠ ج.م، وصور فيديو ١٥ ثانية بالموبايل يظهر كيف يفتح ويغلق في ثانية.'
+        },
+
+        {
+            id: 'em_reverse_logistics_hub',
+            category: 'emerging',
+            originCountry: 'النموذج التركي والإندونيسي',
+            traits: ['enterprising', 'conventional', 'investigative'],
+            neededPartnerTrait: 'conventional',
+            partnerRoleDesc: 'إذا كنت شاطراً في جلب البضائع والبيع السريع، ستحتاج شريكاً منظمًا يمسك جرد القطع والباركود وحسابات التجار.',
+            assets: ['room', 'car', 'none'],
+            minCap: 55000,
+            title: '📦 مركز فحص وإعادة تغليف وتسييل مرتجعات التجارة الإلكترونية (Reverse Logistics Hub)',
+            badge: 'مُستلهم من تركيا وإندونيسيا — حديث نسبياً في مصر',
+            problemSolved: 'المشكلة التي يحلها المشروع: المتاجر الإلكترونية في مصر تعاني من ٢٠٪ إلى ٣٠٪ مرتجعات شحن ترجع بأكياس ممزقة وتتراكم في المخازن فتجمد رأس مال التاجر وتسبب له خسائر فادحة.',
+            emergingNote: 'هذا المشروع حديث نسبياً في السوق المصري؛ وهو ما يمثل فرصة ذهبية لأن المنافسة فيه شبه منعدمة حالياً، ولكن مخاطرته تكمن في أنك ستحتاج لإقناع أصحاب البراندات بنموذج عمل جديد لم يعتادوا عليه بعد.',
+            reason: 'شركتك تستلم المرتجعات من البراندات، تفحصها، تكويها وتعيد تغليفها حرارياً كالجديدة، وتبيعها في قنوات تصفية فورية (Flash Sales) مقابل نسبة أو شراء جملة مخفض.',
+            setupCost: 22000,
+            workingCap: 33000,
+            monthlyRev: 54000,
+            monthlyProfit: 16500,
+            assumptions: 'معالجة وتسييل ٤٠٠ قطعة مرتجعة شهرياً لـ ١٠ براندات ملابس وأجهزة منزلية صغيرة بمتوسط ربح صافي ٤٠ ج.م للقطعة.',
+            breakeven: 'الشهر الثاني إلى الثالث.',
+            notSuitable: 'إذا كنت لا تملك نظام جرد دقيق بالباركود أو لا تجيد الفرز السريع للعيوب.',
+            source: 'دراسات قطاع اللوجستيات العكسية في تركيا وإندونيسيا وتكاليف التشغيل بمصر — أكتوبر ٢٠٢٦.',
+            validation: 'تواصل مع ٣ براندات ملابس أو أحذية أونلاين تعاني من تكدس المرتجعات، واعرض عليهم استلام ٢٠ قطعة مرتجعة فقط، وأعد كيّها وتغليفها وبعها في جروب تصفيات خلال ٤٨ ساعة بالعمولة.'
+        },
+        {
+            id: 'em_refill_station_zero_pack',
+            category: 'emerging',
+            originCountry: 'النموذج التركي والإندونيسي لمواجهة التضخم',
+            traits: ['enterprising', 'realistic', 'social'],
+            neededPartnerTrait: 'realistic',
+            partnerRoleDesc: 'يحتاج تعاوناً بين شخص يدير التوريد وحسابات الميزان، وشخص يتابع نظافة المضخات وجودة الخامات.',
+            assets: ['shop', 'car', 'room'],
+            minCap: 60000,
+            title: '⚖️ محطة التعبئة الذاتية بالجرام للمنتجات الأساسية بدون تكلفة تغليف (Smart Refill Station)',
+            badge: 'مُستلهم من تركيا وإندونيسيا — مضاد لموجات الغلاء',
+            problemSolved: 'المشكلة التي يحلها المشروع: المواطن المصري يدفع ٢٥٪ إلى ٣٠٪ من ثمن الزيت والمنظفات والبقوليات في «سعر الجركن والعلبة البلاستيك» التي يرميها في القمامة بعد أسبوع.',
+            emergingNote: 'هذا النموذج حديث في مصر بنسخته العصرية المنظمة؛ الفرصة فيه ضخمة لأنه يوفر ربع الميزانية للأسرة، والمخاطرة هي حاجتك لتعويد ربات البيوت على إحضار عبواتهن أو شراء عبوة معيارية قابلة لإعادة الملء.',
+            reason: 'توفير زيت الطعام، المنظفات عالية التركيز، البقوليات، والشوفان عبر مضخات وديسبنسرات رقمية نظيفة تبيع بالجرام واللتر بسعر أقل ٢٥٪ من السوبرماركت.',
+            setupCost: 35000,
+            workingCap: 25000,
+            monthlyRev: 68000,
+            monthlyProfit: 14500,
+            assumptions: 'تشغيل وحدة بيع مجهزة بـ ١٢ ديسبنسر استانلس وميزان باركود في منطقة سكنية متوسطة الكثافة أو سيارة متنقلة.',
+            breakeven: 'الشهر الثالث.',
+            notSuitable: 'إذا أهملت النظافة الفندقية للديسبنسرات فتحولت الوحدة لشكل العطارة الشعبية التقليدية.',
+            source: 'نماذج Eco-Refill في إندونيسيا وتركيا وأسعار التجهيزات التجارية بمصر — أكتوبر ٢٠٢٦.',
+            validation: 'قبل تجهيز محل كامل، جهز ٣ مضخات لـ ٣ أصناف أساسية (صابون أطباق مركز، مسحوق غسيل، زيت)، واعرض فكرة «املأ زجاجتك ووفر ٣٠٪» في جروب واتساب عمارتك أو منطقتك لمدة يومين.'
+        },
+        {
+            id: 'em_essential_oil_distillation',
+            category: 'emerging',
+            originCountry: 'النموذج المغربي والتركي للتصنيع الزراعي',
+            traits: ['realistic', 'investigative'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'إذا كنت تتقن عملية التقطير وضبط الجودة، ستحتاج شريكاً تجارياً يتواصل مع مصانع التجميل والعطور وتجار الجملة لبيع الإنتاج.',
+            assets: ['roof', 'room'],
+            minCap: 70000,
+            title: '🌿 وحدة التقطير البخاري لاستخلاص الزيوت العطرية والطبية من قشور الموالح والأعشاب',
+            badge: 'مُستلهم من المغرب وتركيا — تعظيم قيمة الخامات الرخيصة',
+            problemSolved: 'المشكلة التي يحلها المشروع: أطنان من قشور البرتقال والليمون والأعشاب الزراعية تُهدر في مصر بأرخص الأسعار، بينما تستورد مصانع العطور والتجميل والمكملات زيوتها العطرية بالدولار بأسعار باهظة.',
+            emergingNote: 'المشروع نادر جداً على مستوى المشروعات الصغيرة في مصر؛ الفرصة تكمن في رخص الخامات المصرية وغلاء الزيت المستخلص، والمخاطرة هي ضرورة التزامك بدرجات حرارة تقطير دقيقة للوصول لنقاء يقبله تجار الجملة.',
+            reason: 'استخدام وحدة تقطير استانلس بالبخار (Hydro-Distillation) في غرفة صغيرة لاستخلاص زيوت خام نقية ١٠٠٪ (زيت برتقال، ليمون، نعناع، روزماري) وبيعها بالكيلو للمصانع.',
+            setupCost: 48000,
+            workingCap: 22000,
+            monthlyRev: 46000,
+            monthlyProfit: 17500,
+            assumptions: 'تشغيل مقطرة سعة ١٠٠ لتر لإنتاج ١٥ إلى ٢٠ لتر زيت عطري مركز شهرياً وبيعه بالكيلو لمصانع التجميل والعطارة الكبرى.',
+            breakeven: 'الشهر الرابع.',
+            notSuitable: 'إذا كنت لا تلتزم بمعايير الفحص المعملي البسيط لنقاء الزيت وعدم خلطه بزيوت حاملة رخيصة.',
+            source: 'تجارب تعاونيات التقطير في المغرب وتركيا وأسعار الاستانلس الغذائي بمصر — أكتوبر ٢٠٢٦.',
+            validation: 'لا تشترِ المقطرة الكبيرة الآن؛ استخدم وحدة تقطير معملية زجاجية صغيرة بـ ٤٨٠ ج.م لاستخلاص عينة زيت قشر برتقال أو نعناع، واعرض العينة على ٣ مصانع تجميل أو تجار زيوت بالجامع الأحمر لتعرف سعر الشراء الفوري.'
+        },
+        {
+            id: 'em_b2b_commissary_kitchen',
+            category: 'emerging',
+            originCountry: 'النموذج الإندونيسي والتركي لقطاع الكافيهات',
+            traits: ['realistic', 'enterprising', 'conventional'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'يحتاج شريكاً يشرف على جودة التحضير والتغليف بالمطبخ، وشريكاً يمر على الكافيهات صباحاً للتوريد والتحصيل.',
+            assets: ['room', 'shop', 'car'],
+            minCap: 65000,
+            title: '🥐 مطبخ سحابي مركزي لتوريد المخبوزات والوجبات الجاهزة على التسخين للكافيهات (B2B Commissary)',
+            badge: 'مُستلهم من إندونيسيا — يحل أزمة العمالة للكافيهات',
+            problemSolved: 'المشكلة التي يحلها المشروع: ٩٠٪ من الكافيهات الصغيرة في مصر تخسر زبائن الطعام لأنها لا تملك مساحة مطبخ ولا تتحمل راتب شيف ثابت وهالك خامات يومي.',
+            emergingNote: 'التوريد المتخصص للكافيهات بنظام الـ Ready-to-Heat المعبأ بتفريغ الهواء لا يزال بكراً في أغلب المناطق؛ فرصته هي التعاقد الثابت بدون إعلانات للمستهلك، ومخاطرته هي الحفاظ على سلسلة تبريد منضبطة.',
+            reason: 'مطبخك المركزي يورد للكافيهات الكرواسون المحشو، السندوتشات الفاخرة، والحلويات المغلفة لتسخنها في الميكروويف أو التوستر وتبيعها في ٣ دقائق بهامش ربح مضمون.',
+            setupCost: 42000,
+            workingCap: 23000,
+            monthlyRev: 64000,
+            monthlyProfit: 16000,
+            assumptions: 'توريد يومي ثابت لـ ١٢ كافيه ومنفذ بيع بمتوسط ٢٠ قطعة للكافيه الواحد يومياً وهامش ربح صافي ٢٥٪.',
+            breakeven: 'الشهر الثالث.',
+            notSuitable: 'إذا كنت تنوي البيع القطاعي للأفراد وتشتت نفسك في توصيل طلبات فردية صغيرة.',
+            source: 'نماذج B2B Cloud Kitchens في جاكرتا وإسطنبول وتكاليف معدات التبريد بمصر — أكتوبر ٢٠٢٦.',
+            validation: 'جهز ١٥ عينة فقط من صنفين عاليي الطلب (سندوتش روست بيف في عيش بريوش + تشيز كيك مغلف) بتكلفة ٤٥٠ ج.م، ومر على ١٠ كافيهات لا يوجد بها مطبخ واعرض عليهم التوريد اليومي.'
+        },
+        {
+            id: 'em_crossborder_micro_export',
+            category: 'emerging',
+            originCountry: 'النموذج التركي والمغربي للاستفادة من فرق العملة',
+            traits: ['artistic', 'enterprising', 'investigative'],
+            neededPartnerTrait: 'realistic',
+            partnerRoleDesc: 'إذا كنت شاطراً في التسويق الرقمي والبيع أونلاين، ستحتاج شريكاً يفهم في متابعة الورش الحرفية وفحص جودة التشطيب قبل الشحن.',
+            assets: ['none', 'room'],
+            minCap: 40000,
+            title: '🌍 استوديو تصنيع وتصدير مصغر للمنتجات الحرفية والديكور بالدولار (Micro-Export Studio)',
+            badge: 'مُستلهم من تركيا والمغرب — تكلفة بالجنيه وإيراد بالعملة الصعبة',
+            problemSolved: 'المشكلة التي يحلها المشروع: الورش المصرية تنتج قطعاً يدوية رائعة (نحاس، خشب سرسوع، جلود طبيعية) لكنها تبيعها محلياً بأسعار ضعيفة، بينما يبحث المشتري في الخليج وأوروبا عن قطع ديكور يدوية أصلية بأسعار معقولة.',
+            emergingNote: 'التصدير بالقطعة والكميات الصغيرة عبر المنصات الدولية حديث نسبياً بين صغار المصنعين في مصر؛ الفرصة استثنائية لأن ضعف الجنيه يجعل منتجك رخيصاً جداً للمشتري الأجنبي، والمخاطرة هي ضرورة التزامك بمقاسات وتشطيب عالمي خالٍ من أي عيوب.',
+            reason: 'تصنيع منتجات خفيفة الوزن عالية القيمة (وحدات إضاءة، منظمات مكتب جلدية/خشبية) وشحنها دولياً عبر البريد السريع للخليج وأوروبا وأمريكا.',
+            setupCost: 20000,
+            workingCap: 20000,
+            monthlyRev: 56000,
+            monthlyProfit: 22000,
+            assumptions: 'بيع ٢٥ قطعة فقط شهرياً لعملاء بالخارج بمتوسط سعر ٤٠ دولاراً للقطعة شاملة الشحن السريع.',
+            breakeven: 'الشهر الثاني إلى الثالث.',
+            notSuitable: 'إذا كنت تختار منتجات ثقيلة الوزن أو قابلة للكسر ترفع تكلفة الشحن الجوي الدولي.',
+            source: 'بيانات صادرات الحرف التركية والمغربية عبر Etsy/Amazon وتعريفة البريد السريع بمصر — أكتوبر ٢٠٢٦.',
+            validation: 'اختر منتجاً واحداً خفيف الوزن (أقل من ٥٠٠ جرام) من ورشة متقنة في مصر، صوّره على خلفية فندقية، واعرضه في مجموعات المغتربين أو متاجر الديكور في الخليج لمدة ٤٨ ساعة لتقيس الاستجابة.'
+        },
+        {
+            id: 'em_energy_saving_retrofit',
+            category: 'emerging',
+            originCountry: 'النموذج الباكستاني والتركي لترشيد طاقة المصانع',
+            traits: ['investigative', 'realistic', 'enterprising'],
+            neededPartnerTrait: 'realistic',
+            partnerRoleDesc: 'إذا كنت مسؤولاً عن التعاقد وحساب الوفر المالي للمصانع، فستحتاج شريكاً مهندساً أو فني كنترول كهربائي للتركيب.',
+            assets: ['none', 'car'],
+            minCap: 45000,
+            title: '⚡ شركة تحديث وأتمتة استهلاك الكهرباء للورش والمصانع والمزارع (Energy Saving B2B)',
+            badge: 'مُستلهم من باكستان وتركيا — يبيع نفسه بسبب غلاء الكهرباء',
+            problemSolved: 'المشكلة التي يحلها المشروع: الورش والمخابز والمزارع الصغيرة تدفع غرامات وفواتير كهرباء باهظة بسبب سحب المواتير القديمة وضعف معامل القدرة (Power Factor) وترك المعدات تعمل بلا داعي.',
+            emergingNote: 'تقديم خدمات خفض فاتورة الكهرباء للمصانع الصغيرة كشركة متخصصة هو توجه جديد في مصر؛ الفرصة هائلة لأن كل صاحب مصنع يشتكي من الفاتورة، والمخاطرة هي حاجتك لتقديم قياس رقمي صادق قبل وبعد التركيب.',
+            reason: 'تركيب لوحات مكثفات تحسين معامل القدرة ومغيرات السرعة (Inverters) وحساسات الفصل التلقائي للمواتير لتخفيض فاتورة الكهرباء بنسبة ٢٠٪ إلى ٣٠٪.',
+            setupCost: 22000,
+            workingCap: 23000,
+            monthlyRev: 48000,
+            monthlyProfit: 18000,
+            assumptions: 'تنفيذ ٦ عمليات تحديث شهرياً لورش ومزارع ومطاعم كبرى مع الاستعانة بفني كهرباء كنترول.',
+            breakeven: 'الشهر الثاني.',
+            notSuitable: 'إذا لم تكن لديك خلفية فنية أساسية أو مهندس/فني شريك يفهم أحمال المواتير ثلاثية الأوجه (3-Phase).',
+            source: 'تجارب شركات Energy Audit في باكستان وتركيا وأسعار مكونات الكنترول بمصر — أكتوبر ٢٠٢٦.',
+            validation: 'استخدم جهاز قياس أمبير ومعامل قدرة (Clamp Meter)، وقم بعمل فحص مجاني لورشتين أو مخبزين في منطقتك لتكشف لهم بالأرقام كم جنيهاً يهدرون شهرياً في الكهرباء.'
+        },
+
+        {
+            id: 'spices_packaging_line',
+            category: 'business',
+            traits: ['realistic', 'enterprising', 'conventional'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'إذا كنت تركز على الطحن والتعبئة وضبط الميزان، فستحتاج شريكاً يلف على السوبرماركت والمطاعم لفتح خطوط توزيع.',
+            assets: ['room', 'shop'],
+            minCap: 65000,
+            title: '🏭 وحدة طحن وتعبئة التوابل والأعشاب النقية بالوزن الآلي',
+            badge: 'نواة مصنع غذائي — قابل للتوسع للتوريد والسلاسل',
+            problemSolved: 'المشكلة التي يحلها المشروع: التوابل السائبة في العطارات التقليدية معرضة للأتربة والرطوبة والغش التجاري، بينما تبحث المطاعم والأسر عن توابل مطحونة طازجة ونقية في عبوات محكمة الغلق بسعر معقول.',
+            reason: 'مشروع صناعي غذائي يبدأ بماكينة تعبئة نصف أوتوماتيك ومطحنة استانلس في غرفة أو مخزن، ويتوسع ليصبح علامة تجارية مسجلة تورد للسوبرماركت والمطاعم.',
+            setupCost: 38000,
+            workingCap: 32000,
+            monthlyRev: 48000,
+            monthlyProfit: 13500,
+            assumptions: 'تعبئة وتوزيع ١٢٠٠ عبوة وأكياس جملة شهرياً للسوبرماركت والعطارات والمطاعم بهامش ربح صافي ٢٨٪ بعد الخامات والأكياس المطبوعة.',
+            breakeven: 'الشهر الثالث من انتظام التوزيع الأسبوعي.',
+            notSuitable: 'إذا لم تتوفر لديك غرفة جيدة التهوية أو كنت ترفض النزول لتجار التجزئة والمطاعم في البداية.',
+            source: 'دراسات الصناعات الغذائية وأسعار ماكينات التعبئة (العاشر / العتبة) — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'لا تشترِ الماكينة الآن. اشترِ ٥ كيلو توابل حصى عالية الجودة، اطحنها وعبئها في ١٠٠ كيس سحاب أنيق باستيكر مطبوع (بتكلفة ٤٨٠ ج.م)، واعرضها على ١٠ محلات بقالة ومطاعم لتقيس سرعة السحب.'
+        },
+        {
+            id: 'ecommerce_boxes_workshop',
+            category: 'business',
+            traits: ['realistic', 'enterprising'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'يحتاج شريكاً يدير تشغيل المكبس وتجهيز الاسطمبات، وشريكاً يدير مبيعات الأونلاين والتعاقد مع صفحات البراندات.',
+            assets: ['room', 'shop', 'car'],
+            minCap: 85000,
+            title: '📦 ورشة تصنيع وتشكيل علب الكرتون وصناديق الشحن للمتاجر الإلكترونية',
+            badge: 'طلب متزايد يومياً — يخدم آلاف البراندات',
+            problemSolved: 'المشكلة التي يحلها المشروع: مصانع الكرتون الكبرى ترفض تصنيع أقل من ٥٠٠٠ علبة للمقاس الواحد، مما يترك آلاف المتاجر الإلكترونية الصغيرة والبراندات الناشئة في حيرة للحصول على ٢٠٠ أو ٥٠٠ علبة شحن أنيقة.',
+            reason: 'تلبية طلبات البراندات الصغيرة والمتوسطة بعلب شحن قوية ومطبوعة بكميات مرنة وبهامش ربح ممتاز.',
+            setupCost: 52000,
+            workingCap: 38000,
+            monthlyRev: 65000,
+            monthlyProfit: 16500,
+            assumptions: 'تشغيل مكبس تكسير كرتون (اسطمبات) وتوريد ١٥,٠٠٠ علبة شهرياً لـ ٣٠ براند أونلاين بمتوسط هامش ربح صافي ٢٥٪.',
+            breakeven: 'الشهر الرابع بعد بناء قاعدة تضم ٢٠ عميلاً متكرر الشراء شهرياً.',
+            notSuitable: 'إذا لم يكن لديك مكان أرضي يتحمل تخزين فرخات الكرتون الخام وصوت المكبس.',
+            source: 'متوسط أسعار سوق الورق والكرتون ومعدات التكسير في مصر — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'قبل شراء المكبس، اتفق مع ورشة تكسير كرتون قائمة بالتصنيع لدى الغير، وصور عينات علب شحن أنيقة وانشر إعلاناً بـ ٤٠٠ ج.م يستهدف أصحاب صفحات الملابس والعطور لتجمع أول ٥ طلبيات.'
+        },
+        {
+            id: 'laser_cnc_corporate_gifts',
+            category: 'business',
+            traits: ['artistic', 'realistic'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'أنت تبدع في التصميم والتقطيع، وتحتاج شريكاً يتواصل مع شركات الدعاية والعلاقات العامة ومعارض الديكور.',
+            assets: ['room', 'shop'],
+            minCap: 75000,
+            title: '✨ ورشة التقطيع الرقمي (Laser/CNC) لتصنيع الهدايا الدعائية والديكور المودرن',
+            badge: 'دمج الفن بالتصنيع الرقمي — هامش ربح مرتفع',
+            problemSolved: 'المشكلة التي يحلها المشروع: الشركات والعيادات والبراندات تبحث دائماً عن علب خشبية/أكريليك فاخرة وهدايا دعائية محفورة بشعارها بكميات متوسطة، بالإضافة لطلب البيوت على وحدات الإضاءة والديكور المودرن.',
+            reason: 'ماكينة ليزر واحدة في غرفة صغيرة تتيح لك تصنيع هدايا الشركات، علب البراندات الخشبية والأكريليك، ووحدات الإضاءة والنجف المودرن.',
+            setupCost: 50000,
+            workingCap: 25000,
+            monthlyRev: 44000,
+            monthlyProfit: 15500,
+            assumptions: 'تنفيذ ١٥ طلبية شهرياً لشركات، معارض، ومتاجر هدايا، بمتوسط هامش ربح صافي ٣٥٪ بعد خصم ألواح الخشب والأكريليك.',
+            breakeven: 'الشهر الرابع.',
+            notSuitable: 'إذا كنت لا تجيد التعامل الأساسي مع برامج التصميم لتجهيز ملفات القص.',
+            source: 'أسعار ماكينات الليزر CO2 وخامات الأكريليك والأخشاب — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'صمم ٥ نماذج هدايا مكتبية أو علب فاخرة على الكمبيوتر، ونفذها بالقطعة عند ورشة ليزر خارجية بـ ٣٥٠ ج.م، وصورها واعرضها على ١٠ شركات وعيادات كبرى.'
+        },
+        {
+            id: 'garment_uniform_workshop',
+            category: 'business',
+            traits: ['artistic', 'realistic', 'enterprising'],
+            neededPartnerTrait: 'realistic',
+            partnerRoleDesc: 'إذا كنت شاطراً في جلب عقود اليونيفورم من المدارس والمستشفيات، ستحتاج شريكاً يدير الصنايعية والماكينات (سنجر وأوفر) داخل المشغل.',
+            assets: ['room', 'shop'],
+            minCap: 90000,
+            title: '👕 مشغل تصنيع اليونيفورم المؤسسي والملابس الجاهزة المتخصصة',
+            badge: 'عقود جملة مضمونة — نواة مصنع ملابس',
+            problemSolved: 'المشكلة التي يحلها المشروع: المدارس الخاصة، المستشفيات، المصانع، والمطاعم تحتاج لتجديد اليونيفورم لموظفيها كل موسم وتبحث عن مشغل يلتزم بالمقاسات ومواعيد التسليم وجودة القماش.',
+            reason: 'البدء بـ ٣ ماكينات (سنجر، أوفر، أورليه) ومقص دار لتصنيع اليونيفورم بعقود مسبقة الدفع، مما يحميك من ركود البيع القطاعي.',
+            setupCost: 55000,
+            workingCap: 35000,
+            monthlyRev: 68000,
+            monthlyProfit: 17000,
+            assumptions: 'إنتاج ٤٠٠ قطعة شهرياً بعقود توريد مسبقة الدفع (٥٠٪ عربون تعاقد) للمؤسسات أو المتاجر.',
+            breakeven: 'الشهر الرابع.',
+            notSuitable: 'إذا لم تكن لديك خبرة في شراء الأقمشة بالجملة وضبط باترونات المقاسات ومتابعة الصنايعية.',
+            source: 'دراسات جدوى مصانع الملابس وأسعار ماكينات الخياطة الصناعية بالرويعي — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'نفذ ٣ عينات فقط (طقم طبي، بولو شيرت مطاعم، مريلة كافيه) لدى ورشة خارجية بـ ٤٥٠ ج.م، واعرضها مباشرة على ٢٠ عيادة ومطعماً في منطقتك لأخذ أول طلبية.'
+        },
+        {
+            id: 'b2b_consumables_supply',
+            category: 'business',
+            traits: ['enterprising', 'conventional'],
+            neededPartnerTrait: 'conventional',
+            partnerRoleDesc: 'مناسب جداً أن تبدأه لوحدك إذا كنت شاطراً في البيع والتحصيل النقدي، ومع التوسع ستحتاج شريكاً لمسك المخزن والحسابات.',
+            assets: ['car', 'room', 'none'],
+            minCap: 45000,
+            title: '🚚 شركة توريد مستهلكات التشغيل السريعة للعيادات والمطاعم (B2B Cash Supply)',
+            badge: 'دوران رأس مال أسبوعي — بدون مخاطرة تصنيع',
+            problemSolved: 'المشكلة التي يحلها المشروع: الصيدليات، العيادات، والمطاعم تنفد منها يومياً مستهلكات أساسية (رولات كاشير وفوري حرارية، قفازات طبية، مناديل سحب، أكياس تغليف) وتحتاج لمورد موثوق يوصلها لمقرها بسعر الجملة.',
+            reason: 'شراء هذه المستهلكات السريعة من المصنع مباشرة وتوريدها بعقود ثابتة للمحلات والعيادات نقداً عند الاستلام.',
+            setupCost: 15000,
+            workingCap: 30000,
+            monthlyRev: 58000,
+            monthlyProfit: 11800,
+            assumptions: 'تدوير رأس المال العامل مرتين شهرياً بهامش ربح صافي ٢٠٪ مع التحصيل النقدي الفوري عند التسليم لـ ٣٥ عميلاً ثابتاً.',
+            breakeven: 'الشهر الثاني بفضل سرعة دوران السيولة.',
+            notSuitable: 'إذا كنت تتساهل في البيع بالآجل (الشكك) فتجمد سيولتك لدى التجار.',
+            source: 'أسعار مصانع الورقيات الحرارية والمستلزمات الطبية بالجملة — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'خذ قائمة أسعار وعينات بـ ٣٠٠ ج.م من تاجر جملة رئيسي، ومر على ١٥ صيدلية وعيادة وسوبرماركت في خط سير واحد، واجمع أول طلبيات مؤكدة قبل شراء الكراتين.'
+        },
+        {
+            id: 'medical_billing_agency',
+            category: 'business',
+            traits: ['investigative', 'conventional'],
+            neededPartnerTrait: 'enterprising',
+            partnerRoleDesc: 'إذا كنت دقيقاً في الحسابات والمراجعة، ستحتاج شريكاً لبِقاً يتواصل مع الأطباء ومديري المراكز الطبية لتوقيع العقود.',
+            assets: ['none', 'shop', 'room'],
+            minCap: 25000,
+            title: '🏥 مكتب إدارة وتدقيق المطالبات الطبية وحسابات التعاقدات للعيادات والمراكز',
+            badge: 'نواة شركة خدمات B2B — عقود شهرية ثابتة وعالية الربحية',
+            problemSolved: 'المشكلة التي يحلها المشروع: المراكز الطبية والعيادات تخسر ١٥٪ إلى ٢٠٪ من أموالها لدى شركات التأمين الطبي بسبب أخطاء الموظفين في كتابة الأكواد الطبية ونقص المرفقات وتأخر إرسال المطالبات.',
+            reason: 'مكتبك يتولى فحص وتجهيز وملاحقة مطالبات التأمين الطبي للعيادات مقابل اشتراك شهري ثابت أو نسبة من المبالغ المستردة.',
+            setupCost: 14000,
+            workingCap: 11000,
+            monthlyRev: 32000,
+            monthlyProfit: 22000,
+            assumptions: 'التعاقد مع ٨ مراكز طبية أو عيادات كبرى بمتوسط ٤٠٠٠ ج.م شهرياً للمركز.',
+            breakeven: 'الشهر الثاني (من التعاقد مع أول ٣ عيادات).',
+            notSuitable: 'إذا لم يكن لديك صبر على المراجعة الرقمية الدقيقة وبناء نظام أرشفة إلكتروني صارم.',
+            source: 'متوسط عقود شركات الإدارة الطبية وخدمات الـ RCM في مصر — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'اعرض على مدير مركز طبي أو عيادة مزدحمة في منطقتك فحص ومراجعة المطالبات المرفوضة عن الشهر الماضي مجاناً خلال ٤٨ ساعة لتثبت له بالأرقام كم ستسترد له.'
+        },
+
+        {
+            id: 'fin_banks_tbills',
+            category: 'financial',
+            traits: ['conventional', 'investigative'],
+            neededPartnerTrait: 'none',
+            partnerRoleDesc: 'استثمار فردي مباشر باسمك في البنك لا يحتاج لأي شريك.',
+            assets: ['none', 'roof', 'car', 'room', 'shop'],
+            minCap: 1000,
+            isDynamicFinancial: true,
+            annualReturnRate: 0.205,
+            title: '🏦 محفظة الشهادات البنكية وأذون الخزانة المصرية (البنك الأهلي / بنك مصر / المركزي)',
+            badge: 'أمان رأسمالي ١٠٠٪ — عائد نقدي دوري بدون مجهود تشغيلي',
+            problemSolved: 'المشكلة التي يحلها الوعاء: يحل مشكلة الخوف من مخاطر السوق أو عدم وجود وقت لإدارة مشروع، فيمنحك دخلاً شهرياً أو سنوياً مضموناً بضمان البنك المركزي المصري.',
+            reason: 'يجمع بين الشهادات الثلاثية المتناقصة (22% للسنة الأولى ثم 17.5% ثم 13%) والشهادات المتغيرة (19.25% شهرياً أو 19% يومياً في شهادة يوماتي) وأذون الخزانة.',
+            assumptions: 'حساب العائد مبني على متوسط صافي عائد 20.5% سنوياً (بين الشهادة البلاتينية 22% بالسنة الأولى وعائد الكوريدور 19.25% وصافي أذون الخزانة بعد خصم الضريبة).',
+            breakeven: 'من اليوم الأول (أصل المبلغ مضمون بالكامل، مع عدم كسر الشهادة قبل ٦ أشهر).',
+            notSuitable: 'إذا كنت تحتاج لسحب أصل المبلغ بالكامل قبل مرور ٦ أشهر (في هذه الحالة استخدم الصناديق النقدية اليومية).',
+            source: 'بيانات البنك المركزي المصري وجداول عوائد البنك الأهلي وبنك مصر وبنك القاهرة — تحديث ٢٩ أكتوبر ٢٠٢٦.',
+            validation: 'افتح تطبيق (الأهلي نت / BM Online) الآن، وقسم المبلغ: ٧٠٪ في الشهادة ذات العائد الأعلى (22% أو 19.25% شهري) و٣٠٪ في صندوق نقدي يومي كسيولة طوارئ متاحة للسحب في أي لحظة.'
+        },
+        {
+            id: 'fin_egx_stocks_funds',
+            category: 'financial',
+            traits: ['investigative', 'enterprising', 'conventional'],
+            neededPartnerTrait: 'none',
+            partnerRoleDesc: 'استثمار مالي فردي عبر حسابك المرخص في البورصة أو صناديق الأسهم.',
+            assets: ['none', 'roof', 'car', 'room', 'shop'],
             minCap: 5000,
-            title: '📱 خدمة إدارة وقفل مبيعات الرسائل (Inbox Closer) وتجهيز كتالوجات المتاجر',
-            badge: 'أقل مخاطرة مالية — أرباح بالعمولة والباقات',
-            reason: 'يوظف مهارتك في الإقناع والتفاوض لحل أكبر أزمة تواجه صفحات البيع والعيادات في مصر: ضياع الزبائن بسبب الرد المتأخر أو التقليدي.',
-            setupCost: 2500,
-            workingCap: 2500,
-            monthlyRev: 12000,
-            monthlyProfit: 10500,
-            assumptions: 'إدارة رسائل ٣ صفحات نشطة (ملابس / عيادات تجميل / أثاث) مقابل راتب أساسي بسيط + عمولة ٢٪ إلى ٥٪ على كل أوردر مؤكد.',
-            breakeven: 'الأسبوع الثاني من التعاقد مع أول عميل.',
-            notSuitable: 'إذا كنت تفقد أعصابك سريعاً من أسئلة الزبائن المتكررة وفصالهم في الرسائل.',
-            source: 'متوسط عمولات مبيعات السوشيال ميديا والتجارة الإلكترونية بمصر — تحديث أكتوبر ٢٠٢٦.',
-            validation: 'ادخل الآن على ١٠ صفحات تشتغل بإعلانات ممولة في مجالك المفضل، وابعت لهم رسالة كزبون؛ الصفحة التي تتأخر في الرد أو ترد بشكل سيئ، تواصل مع صاحبها واعرض عليه تجربة قفل المبيعات له لمدة ٤٨ ساعة بالعمولة فقط.'
+            isDynamicFinancial: true,
+            annualReturnRate: 0.26,
+            title: '📈 محفظة البورصة المصرية للأسهم القيادية وصناديق الأسهم (EGX30 Blue-Chips)',
+            badge: 'تحوط قوي ضد التضخم وتغير العملة — عائد رأسمالي وتوزيعات نقدية',
+            problemSolved: 'المشكلة التي يحلها الوعاء: الفلوس النقدية تفقد جزءاً من قوتها الشرائية مع التضخم؛ امتلاك أسهم في كبرى الشركات المنتجة والمصدرة في مصر يجعل قيمة أصولك وأرباحك تنمو تلقائياً مع أسعار السوق.',
+            reason: 'الاستثمار في حصص ملكية حقيقية داخل أقوى الشركات الرابحة في مصر (البنوك، الأسمدة، البتروكيماويات ذات الإيراد الدولاري، الأغذية، والاتصالات).',
+            assumptions: 'توزيع المحفظة على ٥ إلى ٧ أسهم قيادية توزع كوبونات أرباح نقدية سنوية (8% - 12%) بالإضافة لنمو قيمة السهم بمتوسط إجمالي تقديري 26% سنوياً على المدى المتوسط.',
+            breakeven: 'استثمار متوسط إلى طويل الأجل (يُنصح بدورة احتفاظ من ٦ إلى ١٨ شهراً).',
+            notSuitable: 'إذا كنت تضارب بأموال تحتاجها لدفع التزامات شهرية قريبة أو تتوتر من تذبذب الأسعار اليومي.',
+            source: 'بيانات البورصة المصرية (EGX) وتقارير صناديق الأسهم المرخصة من الرقابة المالية — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'لا تدخل بكل أموالك دفعة واحدة؛ افتح حساباً في شركة تداول مرخصة من الرقابة المالية، وابدأ باستثمار ٥٠٠ جنيه فقط في وثيقة صندوق أسهم متوازن لتفهم حركة السوق.'
+        },
+        {
+            id: 'fin_gold_funds_bullion',
+            category: 'financial',
+            traits: ['conventional', 'investigative'],
+            neededPartnerTrait: 'none',
+            partnerRoleDesc: 'استثمار فردي مباشر لا يحتاج لشريك.',
+            assets: ['none', 'roof', 'car', 'room', 'shop'],
+            minCap: 1000,
+            isDynamicFinancial: true,
+            isGoldInstrument: true,
+            annualReturnRate: 0.22,
+            title: '🪙 صناديق الاستثمار في الذهب والسبائك القياسية المدموغة (عيار ٢٤ — 999.9)',
+            badge: 'الملاذ الآمن الأول لحفظ القوة الشرائية — مربوط بالدولار والأونصة عالمياً',
+            problemSolved: 'المشكلة التي يحلها الوعاء: يحل مشكلة تآكل قيمة المدخرات بسبب انخفاض العملة أو التوترات الجيوسياسية، لأن الذهب مسعر عالمياً بالدولار.',
+            reason: 'شراء سبائك ذهب عيار ٢٤ مدموغة أو شراء وثائق صناديق الذهب الرقمية المرخصة (مثل AZG وبلتون والأهلي) بدون مخاطر تخزين بالمنزل.',
+            assumptions: 'مبني على سعر جرام الذهب عيار ٢٤ الحالي في مصر (~7,305 ج.م بدون مصنعية) وسعر الأونصة العالمية (~4,034$)، مع الشراء على دفعات (DCA).',
+            breakeven: 'تغطية فارق المصنعية والدمغة تتحقق عادة خلال ٣ إلى ٦ أشهر.',
+            notSuitable: 'إذا كنت تبحث عن عائد نقدي يصرف لك كل شهر (الذهب أداة حفظ ونمو للثروة وليس أداة دخل شهري دوري).',
+            source: 'أسعار الذهب اللحظية في سوق الصاغة المصري وصناديق الذهب بالرقابة المالية — تحديث ٢٩ أكتوبر ٢٠٢٦.',
+            validation: 'قبل شراء سبيكة كبيرة، اشترِ وثيقة في صندوق ذهب مرخص بـ ٢٠٠ جنيه من موبايلك، أو سبيكة ١ جرام عيار ٢٤ مغلفة لتختبر دورة الشراء والتسعير.'
+        },
+        {
+            id: 'fin_hybrid_money_market',
+            category: 'financial',
+            traits: ['conventional', 'investigative', 'enterprising'],
+            neededPartnerTrait: 'none',
+            partnerRoleDesc: 'إدارة مالية فردية مباشرة.',
+            assets: ['none', 'roof', 'car', 'room', 'shop'],
+            minCap: 10000,
+            isDynamicFinancial: true,
+            annualReturnRate: 0.215,
+            title: '🛡️ الصناديق النقدية التراكمية اليومية والمحفظة الهجينة (40% نقدي / 30% ذهب / 30% أسهم)',
+            badge: 'سيولة يومية معفاة من الضرائب + توازن مثالي بين الأمان والنمو',
+            problemSolved: 'المشكلة التي يحلها الوعاء: يحل حيرة المستثمر الذي يخاف من ربط كل أمواله في شهادة بنكية لمدة ٣ سنوات، ويريد في نفس الوقت عائداً يومياً مع تحوط بالذهب والأسهم.',
+            reason: 'يضع ٤٠٪ في صناديق السيولة النقدية ذات العائد اليومي التراكمي (~19% سنوياً معفى من الضرائب ويمكن سحبه في أي يوم)، و٣٠٪ في الذهب، و٣٠٪ في أسهم التوزيعات.',
+            assumptions: 'تحقيق توازن يمنحك سيولة فورية للطوارئ أو لاقتناص أي فرصة تجارية دون خسارة كسر الشهادات البنكية.',
+            breakeven: 'من اليوم الأول في الشق النقدي اليومي، مع نمو متدرج في شقي الذهب والأسهم.',
+            notSuitable: 'إذا كنت تفضل وضع كل أموالك في مكان واحد فقط ولا تحب تقسيم المحفظة.',
+            source: 'بيانات صناديق أسواق النقد المصرية والهيئة العامة للرقابة المالية — تحديث أكتوبر ٢٠٢٦.',
+            validation: 'قسّم أول ١٠٠٠ جنيه كتجربة عملية اليوم: ٤٠0 ج.م في صندوق سيولة نقدي يومي، ٣٠٠ ج.م في صندوق ذهب، و٣٠٠ ج.م في صندوق أسهم قيادية، وراقب أداء الثلاثة معاً لمدة شهر.'
         }
     ];
+
+    function getProjectExtendedDetails(proj) {
+        if (proj.suppliers && proj.mindmap && proj.skillsNeeded) {
+            return { suppliers: proj.suppliers, mindmap: proj.mindmap, skills: proj.skillsNeeded };
+        }
+
+        if (proj.isDynamicFinancial) {
+            return {
+                suppliers: {
+                    machines: 'الجهات الرسمية المعتمدة لفتح الحسابات والشراء: فروع وتطبيقات (البنك الأهلي المصري، بنك مصر، بنك القاهرة، البنك التجاري الدولي CIB) وشركات السمسرة المرخصة من الهيئة العامة للرقابة المالية.',
+                    materials: 'المنصات الرقمية المرخصة لصناديق الذهب والأسهم والسيولة النقدية: تطبيقات البنوك الرسمية، شركة أزيموت (AZG)، بلتون، هيرميس، وثندر (Thndr) المرخصة بالرقابة المالية.'
+                },
+                mindmap: [
+                    { step: 'الخطوة ١ (اليوم الأول)', title: 'تحديد نسبة السيولة الطارئة', detail: 'افصل مصاريف بيتك لمدة ٣ شهور في صندوق نقدي يومي قابل للسحب في أي لحظة بدون غرامات.' },
+                    { step: 'الخطوة ٢ (اليوم الثاني)', title: 'فتح الحساب أو المحفظة الاستثمارية', detail: 'من خلال تطبيق البنك أو شركة التداول المرخصة بالبطاقة الشخصية.' },
+                    { step: 'الخطوة ٣ (الأسبوع الأول)', title: 'تطبيق قاعدة الشراء المتدرج (DCA)', detail: 'لا تشترِ الذهب أو الأسهم بكل المبلغ في يوم واحد؛ قسّم الشراء على ٣ دفعات لتأمين أفضل متوسط سعر.' },
+                    { step: 'الخطوة ٤ (شهرياً)', title: 'تحصيل العوائد وإعادة الاستثمار', detail: 'استلم عائد الشهادات أو الكوبونات النقدية وأعد استثمار جزء منها لمضاعفة أصل رأس المال.' }
+                ],
+                skills: ['إدارة المحافظ المالية وتوزيع المخاطر', 'قراءة عوائد أذون الخزانة والصناديق', 'الشراء المتدرج (Dollar-Cost Averaging)']
+            };
+        }
+
+        return {
+            suppliers: {
+                machines: 'موردين الماكينات والمعدات والتجهيزات: شارع الجمهورية وميدان رمسيس (القاهرة - معدات وماكينات خفيفة)، منطقة الرويعي والعتبة (ماكينات خياطة، ليزر، مكابس)، المصانع الهندسية بالعاشر من رمضان ومدينة السادات وبرج العرب.',
+                materials: 'موردين الخامات والتغليف بالجملة: درب البرابرة وباب الشعرية والعتبة (خامات تغليف، علب، أكياس بصمام، زجاج)، شارع الجيش والجامع الأحمر (خامات كيماوية وزيوت وعطور)، منطقة مرغم والمنطقة الحرة بالإسكندرية والعبور.'
+            },
+            mindmap: [
+                { step: 'المرحلة ١ (أول ٤٨ ساعة)', title: 'تنفيذ اختبار الـ ٥٠٠ جنيه بدون تأسيس', detail: proj.validation },
+                { step: 'المرحلة ٢ (الأسبوع ١)', title: 'النزول للموردين وشراء الخامات/المعدات الأساسية فقط', detail: 'لا تصرف أكثر من تكلفة التأسيس المحددة، واحتفظ برأس المال العامل في صندوق نقدي يومي.' },
+                { step: 'المرحلة ٣ (الأسبوع ٢)', title: 'إنتاج أول تشغيلة قياسية وضبط التكلفة', detail: 'احسب تكلفة القطعة شاملة (الخامة + التغليف + الكهرباء + النقل + ١٠٪ هالك) وحدد سعر الجملة والقطاعي.' },
+                { step: 'المرحلة ٤ (الأسبوع ٣)', title: 'تجهيز العينات والكتالوج التجاري', detail: 'صوّر المنتج بإضاءة واضحة، وجهز عرض أسعار مكتوباً يوضح مكسب التاجر أو التوفير للعميل.' },
+                { step: 'المرحلة ٥ (الأسبوع ٤)', title: 'الوصول لأول ١٠ زبائن وتحصيل أول دفعة كاش', detail: 'ابدأ بالدائرة الأقرب وخطوط السير المباشرة، وحصّل نقداً لتدوير الدورة الثانية من رأس المال العامل.' }
+            ],
+            skills: ['ضبط جودة الإنتاج وتقليل الهالك', 'التسعير وحساب نقطة التعادل', 'التفاوض مع موردي الجملة', 'تغليف المنتجات وبناء الهوية', 'مبيعات التوريد المباشر (B2B)']
+        };
+    }
 
     function selectOption(element, questionKey, value) {
         const parent = element.parentElement;
         parent.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
         element.classList.add('selected');
         userAnswers[questionKey] = value;
+
+        const answeredCount = ['q1', 'q2', 'q3', 'q4'].filter(k => Boolean(userAnswers[k])).length;
+        document.getElementById('quiz-progress-pill').innerText = `تمت الإجابة على ${answeredCount} من 4`;
     }
 
     function toggleTheme() {
@@ -642,92 +2183,415 @@
         }
     }
 
+    function filterResults(filterType, tabElement) {
+        currentFilter = filterType;
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tabElement.classList.add('active');
+        renderResults();
+    }
+
     function analyzeAndCalculate() {
         if (!userAnswers.q1 || !userAnswers.q2 || !userAnswers.q3) {
-            alert('برجاء اختيار إجابة لكل سؤال من الأسئلة الثلاثة الأولى حتى نحلل نمطك بدقة.');
+            alert('برجاء اختيار إجابة للأسئلة الثلاثة الأولى حتى نحلل طريقتك في الشغل بدقة.');
             return;
         }
+        if (!userAnswers.q4) userAnswers.q4 = 'solo';
 
-        const capital = parseFloat(document.getElementById('capital').value) || 50000;
-        const asset = document.getElementById('asset').value;
-
-        // حساب أوزان RIASEC
-        const counts = { realistic: 0, investigative: 0, artistic: 0, enterprising: 0 };
-        counts[userAnswers.q1] += 2;
-        counts[userAnswers.q2] += 2;
-        counts[userAnswers.q3] += 3; // وزن أعلى لتحمل المشقة اليومية
-
-        const sortedTraits = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
-        const primaryTrait = sortedTraits[0];
-        const secondaryTrait = sortedTraits[1];
+        if (currentUser && currentUser.email) {
+            try {
+                localStorage.setItem('ebda2_saved_quiz_' + currentUser.email, JSON.stringify({
+                    ...userAnswers,
+                    capital: document.getElementById('capital').value,
+                    asset: document.getElementById('asset').value
+                }));
+            } catch (e) {}
+        }
 
         document.getElementById('step1-card').style.display = 'none';
+        document.getElementById('project-detail-section').style.display = 'none';
         document.getElementById('results-section').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        renderResults();
+    }
 
-        // عرض المرحلة الثانية: نمط العمل وحدود الثقة
+    function getUserTraits() {
+        const counts = { realistic: 0, investigative: 0, artistic: 0, enterprising: 0, social: 0, conventional: 0 };
+        counts[userAnswers.q1] = (counts[userAnswers.q1] || 0) + 2;
+        counts[userAnswers.q2] = (counts[userAnswers.q2] || 0) + 2;
+        counts[userAnswers.q3] = (counts[userAnswers.q3] || 0) + 3;
+        const sortedTraits = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+        return { primary: sortedTraits[0], secondary: sortedTraits[1] };
+    }
+
+    function shareWithPartner(projectTitle, neededTraitKey) {
+        const neededLabel = traitLabels[neededTraitKey] ? traitLabels[neededTraitKey].short : 'البيع والتشغيل';
+        const shareUrl = window.location.origin + window.location.pathname;
+        const shareText = `أنا عملت اختبار المستشار الاستثماري على منصة «ابدأ مشروعك» ولقيت مشروع (${projectTitle}) ممتاز لينا، بس المشروع محتاج شريك شاطر في (${neededLabel}) عشان نكمل بعض. ادخل بحساب جوجل واعمل الاختبار في دقيقتين وشوف هل شخصيتك مناسبة للدور ده:\n${shareUrl}`;
+
+        if (navigator.share) {
+            navigator.share({
+                title: 'اختبار التوافق بين الشركاء — منصة ابدأ مشروعك',
+                text: shareText,
+                url: shareUrl
+            }).catch(() => {});
+        } else {
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    }
+
+    function scoreProjectList(list, primaryTrait, secondaryTrait, asset, capitalEGP) {
+        return list.map(proj => {
+            let score = 0;
+            if (proj.traits.includes(primaryTrait)) score += 6;
+            if (proj.traits.includes(secondaryTrait)) score += 3;
+            if (proj.assets.includes(asset)) score += 4;
+            if (capitalEGP >= proj.minCap) score += 3;
+            return { ...proj, score };
+        }).sort((a, b) => b.score - a.score);
+    }
+
+    function renderResults() {
+        const capitalEGP = parseFloat(document.getElementById('capital').value) || 100000;
+        const asset = document.getElementById('asset').value;
+        const { primary: primaryTrait, secondary: secondaryTrait } = getUserTraits();
+        const partnerPref = userAnswers.q4 || 'solo';
+
+        const partnerAdviceText = partnerPref === 'solo'
+            ? 'أنت اخترت إنك تفضل تبدأ <strong>لوحدك</strong>؛ لذلك وضحنا لك تحت كل مشروع هل تقدر تديره بالكامل بنفسك، أم ستحتاج لاحقاً لشريك يغطي النقطة اللي مش بتحبها.'
+            : 'أنت اخترت إن <strong>معاك شريك (أو مستعد تشارك)</strong>؛ لذلك أضفنا لك في كل مشروع زرار خاص تقدر تبعت بيه الاختبار لشريكك عشان تتأكد إن شخصيته بتكمل شخصيتك قبل ما تبدأوا.';
+
+        const welcomeName = currentUser ? `يا ${currentUser.name.split(' ')[0]}، ` : '';
+
         document.getElementById('pattern-analysis').innerHTML = `
-            <h3>النمط الأساسي (٧٠٪): ${traitLabels[primaryTrait].name}</h3>
+            <h3>⭐ ${welcomeName}نقطة قوتك الأساسية: ${traitLabels[primaryTrait].name}</h3>
             <p>${traitLabels[primaryTrait].desc}</p>
-            <p><strong>النمط الداعم (٣٠٪):</strong> ${traitLabels[secondaryTrait].name}</p>
-            <p style="margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 0.8rem;">
-                <strong>🔍 حدود الثقة في هذا التشخيص:</strong> هذا الاستخلاص مبني على تفضيلاتك السلوكية وقدرتك الحالية على تحمل ضغط التشغيل؛ إذا توفر لديك شريك يغطي الجوانب التي تكرهها (مثل البيع المباشر أو الحسابات)، ستتسع دائرة الفرص المناسبة لك.
+            <p><strong>💡 نقطة قوتك التانية:</strong> ${traitLabels[secondaryTrait].name}</p>
+            <p style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.81rem;">
+                <strong>🤝 بخصوص الشغل لوحدك أو مع شريك:</strong> ${partnerAdviceText}<br>
+                <span style="display:inline-block; margin-top:6px;">💰 <strong>ميزانيتك المحفوظة:</strong> <strong>${formatMoney(capitalEGP)}</strong> (تعادل <strong>$${Math.round(capitalEGP / exchangeRates.USD).toLocaleString()}</strong> أو <strong>${(capitalEGP / gold24PriceEGP).toFixed(1)} جرام ذهب عيار ٢٤</strong>).</span>
             </p>
         `;
 
-        // فلترة وترتيب الفرص في المرحلة الثالثة والرابعة حسب النمط والأصل ورأس المال
-        const scoredProjects = projectsDB.map(proj => {
-            let score = 0;
-            if (proj.traits.includes(primaryTrait)) score += 5;
-            if (proj.traits.includes(secondaryTrait)) score += 3;
-            if (proj.assets.includes(asset)) score += 3;
-            if (capital >= proj.minCap) score += 2;
-            return { ...proj, score };
-        }).sort((a, b) => b.score - a.score);
+        const microbrandProjects = scoreProjectList(projectsDB.filter(p => p.category === 'microbrand'), primaryTrait, secondaryTrait, asset, capitalEGP);
+        const globalProjects = scoreProjectList(projectsDB.filter(p => p.category === 'global'), primaryTrait, secondaryTrait, asset, capitalEGP);
+        const emergingProjects = scoreProjectList(projectsDB.filter(p => p.category === 'emerging'), primaryTrait, secondaryTrait, asset, capitalEGP);
+        const businessProjects = scoreProjectList(projectsDB.filter(p => p.category === 'business'), primaryTrait, secondaryTrait, asset, capitalEGP);
+        const financialProjects = projectsDB.filter(p => p.category === 'financial');
 
-        const topProjects = scoredProjects.slice(0, 3);
+        let displayList = [];
+        if (currentFilter === 'microbrand') {
+            displayList = microbrandProjects;
+        } else if (currentFilter === 'global') {
+            displayList = globalProjects;
+        } else if (currentFilter === 'emerging') {
+            displayList = emergingProjects;
+        } else if (currentFilter === 'business') {
+            displayList = businessProjects;
+        } else if (currentFilter === 'financial') {
+            displayList = financialProjects;
+        } else {
+            if (primaryTrait === 'conventional') {
+                displayList = [...financialProjects, ...microbrandProjects.slice(0, 2), ...globalProjects.slice(0, 2), ...businessProjects.slice(0, 2)];
+            } else {
+                displayList = [...microbrandProjects.slice(0, 3), ...globalProjects.slice(0, 2), ...emergingProjects.slice(0, 2), ...businessProjects.slice(0, 3), ...financialProjects];
+            }
+        }
+
         let html = '';
 
-        topProjects.forEach(proj => {
-            const totalNeeded = proj.setupCost + proj.workingCap;
-            const capNote = capital >= totalNeeded 
-                ? `يغطي رأس مالك (${capital.toLocaleString()} ج.م) كامل التأسيس ورأس المال العامل مع فائض أمان ${(capital - totalNeeded).toLocaleString()} ج.م.`
-                : `يحتاج هذا المشروع إلى ${totalNeeded.toLocaleString()} ج.م؛ يمكنك البدء بنصف الطاقة الإنتاجية ليتناسب مع ميزانيتك الحالية (${capital.toLocaleString()} ج.م).`;
+        displayList.forEach(proj => {
+            const hasPartnerTrait = proj.neededPartnerTrait === 'none' || primaryTrait === proj.neededPartnerTrait || secondaryTrait === proj.neededPartnerTrait;
+            const partnerBadgeHtml = proj.neededPartnerTrait === 'none'
+                ? `<span class="badge partner-ok">👤 استثمار فردي بالكامل</span>`
+                : (hasPartnerTrait
+                    ? `<span class="badge partner-ok">✅ مناسب تبدأه لوحدك (مهاراتك متكاملة معه)</span>`
+                    : `<span class="badge partner-needed">🤝 يفضل وجود شريك شاطر في (${traitLabels[proj.neededPartnerTrait].short})</span>`);
 
-            html += `
-            <div class="result-card">
-                <span class="badge">${proj.badge}</span>
-                <h3>${proj.title}</h3>
-                <p><strong>لماذا يناسب شخصيتك وميزانيتك؟</strong> ${proj.reason} (${capNote})</p>
-                
-                <div class="financial-grid">
-                    <div class="financial-item"><span>تكلفة التأسيس (أصول ومعدات):</span><strong>${proj.setupCost.toLocaleString()} ج.م</strong></div>
-                    <div class="financial-item"><span>رأس المال العامل (طوارئ ٣ شهور):</span><strong>${proj.workingCap.toLocaleString()} ج.م</strong></div>
-                    <div class="financial-item"><span>الإيراد الشهري التقديري:</span><strong>${proj.monthlyRev.toLocaleString()} ج.م</strong></div>
-                    <div class="financial-item"><span>صافي الربح التقديري:</span><strong>${proj.monthlyProfit.toLocaleString()} ج.م</strong></div>
-                </div>
+            if (proj.isDynamicFinancial) {
+                const annualProfitEGP = Math.round(capitalEGP * proj.annualReturnRate);
+                const monthlyProfitEGP = Math.round(annualProfitEGP / 12);
+                const goldGrams24 = (capitalEGP / gold24PriceEGP).toFixed(2);
 
-                <p><strong>📊 الافتراضات المستخدمة:</strong> ${proj.assumptions}</p>
-                <p><strong>⚖️ نقطة التعادل (Break-even):</strong> ${proj.breakeven}</p>
-                <p style="color: #ff453a;"><strong>⛔ متى يكون المشروع غير مناسب لك؟</strong> ${proj.notSuitable}</p>
-                <span class="source-tag">📌 مصدر الأسعار: ${proj.source}</span>
+                html += `
+                <div class="result-card financial-instrument">
+                    <span class="badge fin-badge">وعاء مالي واستثماري — ${proj.badge}</span>
+                    ${partnerBadgeHtml}
+                    <h3 class="copyable-project-title">${proj.title}</h3>
+                    <div class="problem-box"><strong>🎯 ${proj.problemSolved}</strong></div>
+                    
+                    <div class="financial-grid">
+                        <div class="financial-item"><span>رأس المال المستثمر:</span><strong>${formatMoney(capitalEGP)}</strong></div>
+                        <div class="financial-item"><span>${proj.isGoldInstrument ? 'يعادل سبائك عيار ٢٤:' : 'مصاريف التشغيل:'}</span><strong>${proj.isGoldInstrument ? goldGrams24 + ' جرام' : '0 (بدون مصاريف)'}</strong></div>
+                        <div class="financial-item"><span>العائد السنوي التقديري:</span><strong>${formatMoney(annualProfitEGP)}</strong></div>
+                        <div class="financial-item"><span>متوسط الدخل الشهري:</span><strong>${formatMoney(monthlyProfitEGP)} / شهرياً</strong></div>
+                    </div>
 
-                <div class="validation-box">
-                    <strong>🛠️ المرحلة ٤ — اختبر الفرصة بأقل مخاطرة خلال ٤٨ ساعة (بأقل من ٥٠٠ جنيه):</strong><br>
-                    ${proj.validation}
-                </div>
-            </div>`;
+                    <button class="btn-open-details" onclick="openProjectDetails('${proj.id}', true)">افتح التفاصيل الكاملة وخطوات الشراء الآمن ←</button>
+                </div>`;
+            } else {
+                const totalNeededEGP = proj.setupCost + proj.workingCap;
+                const scaleFactor = capitalEGP >= totalNeededEGP * 1.8 ? 1.5 : 1;
+                const adjSetup = Math.round(proj.setupCost * scaleFactor);
+                const adjWorking = Math.round(proj.workingCap * scaleFactor);
+                const adjRev = Math.round(proj.monthlyRev * scaleFactor);
+                const adjProfit = Math.round(proj.monthlyProfit * scaleFactor);
+
+                const isMicro = proj.category === 'microbrand';
+                const isEmerging = proj.category === 'emerging';
+                const isGlobal = proj.category === 'global';
+                const cardClass = isMicro ? 'result-card microbrand-venture' : (isGlobal ? 'result-card global-venture' : (isEmerging ? 'result-card emerging-venture' : 'result-card'));
+                const badgeClass = isMicro ? 'badge microbrand-badge' : (isGlobal ? 'badge global-badge' : (isEmerging ? 'badge emerging-badge' : 'badge'));
+
+                const uvpBlockHtml = proj.uvpSolution ? `
+                    <div class="uvp-box"><strong>✨ ${proj.uvpSolution}</strong></div>
+                ` : '';
+
+                const safeTitle = proj.title.replace(/'/g, "\\'");
+
+                html += `
+                <div class="${cardClass}">
+                    <span class="${badgeClass}">${proj.badge}</span>
+                    ${partnerBadgeHtml}
+                    <h3 class="copyable-project-title">${proj.title}</h3>
+                    
+                    <div class="problem-box"><strong>🎯 ${proj.problemSolved}</strong></div>
+                    ${uvpBlockHtml}
+                    
+                    <div class="financial-grid">
+                        <div class="financial-item"><span>تكلفة التأسيس / أول تشغيلة:</span><strong>${formatMoney(adjSetup)}</strong></div>
+                        <div class="financial-item"><span>رأس المال العامل (٣ شهور):</span><strong>${formatMoney(adjWorking)}</strong></div>
+                        <div class="financial-item"><span>الإيراد الشهري التقديري:</span><strong>${formatMoney(adjRev)}</strong></div>
+                        <div class="financial-item"><span>صافي الربح الشهري:</span><strong>${formatMoney(adjProfit)}</strong></div>
+                    </div>
+
+                    <div class="partner-match-box">
+                        <strong>🤝 هل تبدأه لوحدك أم مع شريك؟</strong> ${proj.partnerRoleDesc}<br>
+                        <button class="btn-share-partner" onclick="shareWithPartner('${safeTitle}', '${proj.neededPartnerTrait}')">
+                            📲 ابعت الاختبار لشريكك المحتمل للتأكد من صلاحيته للدور ده
+                        </button>
+                    </div>
+
+                    <button class="btn-open-details" onclick="openProjectDetails('${proj.id}', true)">افتح صفحة المشروع الكاملة (الموردين بالإيميل + الخارطة الذهنية + خطة الـ ٤٨ ساعة) ←</button>
+                </div>`;
+            }
         });
 
         document.getElementById('opportunities-container').innerHTML = html;
     }
 
-    function resetCalculator() {
+    function openProjectDetails(projectId, pushHistory = true) {
+        const proj = projectsDB.find(p => p.id === projectId);
+        if (!proj) return;
+
+        activeProjectId = projectId;
+        const capitalEGP = parseFloat(document.getElementById('capital').value) || 100000;
+        const { primary: primaryTrait } = getUserTraits();
+        const ext = getProjectExtendedDetails(proj);
+
+        document.getElementById('step1-card').style.display = 'none';
         document.getElementById('results-section').style.display = 'none';
+        document.getElementById('project-detail-section').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        if (pushHistory && window.history && window.history.pushState) {
+            window.history.pushState({ view: 'project', id: projectId }, '', `#project-${projectId}`);
+        }
+
+        let financialBlockHtml = '';
+        if (proj.isDynamicFinancial) {
+            const annualProfitEGP = Math.round(capitalEGP * proj.annualReturnRate);
+            const monthlyProfitEGP = Math.round(annualProfitEGP / 12);
+            financialBlockHtml = `
+                <div class="financial-grid">
+                    <div class="financial-item"><span>رأس المال المستثمر:</span><strong>${formatMoney(capitalEGP)}</strong></div>
+                    <div class="financial-item"><span>مصاريف التأسيس:</span><strong>0 (بدون مصاريف تشغيل)</strong></div>
+                    <div class="financial-item"><span>العائد السنوي التقديري:</span><strong>${formatMoney(annualProfitEGP)}</strong></div>
+                    <div class="financial-item"><span>متوسط الدخل الشهري:</span><strong>${formatMoney(monthlyProfitEGP)}</strong></div>
+                </div>
+            `;
+        } else {
+            const totalNeededEGP = proj.setupCost + proj.workingCap;
+            const scaleFactor = capitalEGP >= totalNeededEGP * 1.8 ? 1.5 : 1;
+            const adjSetup = Math.round(proj.setupCost * scaleFactor);
+            const adjWorking = Math.round(proj.workingCap * scaleFactor);
+            const adjRev = Math.round(proj.monthlyRev * scaleFactor);
+            const adjProfit = Math.round(proj.monthlyProfit * scaleFactor);
+
+            financialBlockHtml = `
+                <div class="financial-grid">
+                    <div class="financial-item"><span>تكلفة التأسيس / أول تشغيلة:</span><strong>${formatMoney(adjSetup)}</strong></div>
+                    <div class="financial-item"><span>رأس المال العامل (طوارئ ٣ شهور):</span><strong>${formatMoney(adjWorking)}</strong></div>
+                    <div class="financial-item"><span>الإيراد الشهري التقديري:</span><strong>${formatMoney(adjRev)}</strong></div>
+                    <div class="financial-item"><span>صافي الربح الشهري:</span><strong>${formatMoney(adjProfit)}</strong></div>
+                </div>
+            `;
+        }
+
+        const uvpDetailHtml = proj.uvpSolution ? `
+            <div class="uvp-box" style="font-size: 0.9rem; padding: 16px 20px;">
+                <strong>✨ ${proj.uvpSolution}</strong>
+            </div>
+        ` : '';
+
+        const emergingNoticeHtml = proj.emergingNote ? `
+            <div class="emerging-notice-box">
+                <strong>💡 ملاحظة استراتيجية عن حداثة المشروع (${proj.originCountry}):</strong><br>
+                ${proj.emergingNote}
+            </div>
+        ` : '';
+
+        const safeTitle = proj.title.replace(/'/g, "\\'");
+        const userEmailPrefill = currentUser && currentUser.email ? currentUser.email : '';
+
+        const partnerBlockHtml = proj.neededPartnerTrait !== 'none' ? `
+            <div class="detail-section-block">
+                <h4>🤝 تحليل الشراكة وتوزيع الأدوار في المشروع</h4>
+                <div class="partner-match-box">
+                    <p><strong>نقطة قوتك أنت:</strong> ${traitLabels[primaryTrait].name}.</p>
+                    <p><strong>الدور التكميلي في المشروع:</strong> ${proj.partnerRoleDesc}</p>
+                    <button class="btn-share-partner" onclick="shareWithPartner('${safeTitle}', '${proj.neededPartnerTrait}')">
+                        📲 ابعت رابط الاختبار لشريكك المحتمل للتأكد من صلاحيته للدور ده
+                    </button>
+                </div>
+            </div>
+        ` : '';
+
+        const mindmapNodesHtml = ext.mindmap.map((m, idx) => `
+            <div class="mindmap-node">
+                <div class="mindmap-step-num">${idx + 1}</div>
+                <div class="mindmap-content">
+                    <strong>${m.step}: ${m.title}</strong>
+                    <p>${m.detail}</p>
+                </div>
+            </div>
+        `).join('');
+
+        const skillsTagsHtml = ext.skills.map(s => `<span class="skill-tag">⚙️ ${s}</span>`).join('');
+
+        document.getElementById('project-detail-content').innerHTML = `
+            <span class="badge">${proj.badge}</span>
+            <div class="title-copy-row">
+                <h2 class="copyable-project-title" style="font-size: 1.3rem; margin: 0;">${proj.title}</h2>
+                <button class="btn-copy-title" onclick="copyProjectTitleText('${safeTitle}', this)">📋 نسخ اسم المشروع</button>
+            </div>
+            
+            <div class="problem-box" style="font-size: 0.9rem; padding: 16px 20px;">
+                <strong>🎯 ${proj.problemSolved}</strong>
+            </div>
+
+            ${uvpDetailHtml}
+            ${emergingNoticeHtml}
+
+            <p style="font-size: 0.9rem; margin-top: 14px;"><strong>منطق العمل والتبني السوقي (Market Adoption):</strong> ${proj.reason}</p>
+
+            ${financialBlockHtml}
+
+            <p><strong>📊 الافتراضات المحاسبية المستخدمة:</strong> ${proj.assumptions}</p>
+            <p><strong>⚖️ نقطة التعادل واسترداد المصاريف:</strong> ${proj.breakeven}</p>
+            <p style="color: var(--danger);"><strong>⛔ متى يفشل المشروع أو يكون غير مناسب لك؟</strong> ${proj.notSuitable}</p>
+            <span class="source-tag">📌 مصدر الأسعار والبيانات: ${proj.source}</span>
+
+            <div class="validation-box" style="margin-top: 24px;">
+                <strong>🛠️ اختبار الفرصة بأقل مخاطرة خلال ٤٨ ساعة (بأقل من ٥٠٠ جنيه قبل التأسيس):</strong><br>
+                ${proj.validation}
+            </div>
+
+            ${partnerBlockHtml}
+
+            <div class="detail-section-block">
+                <h4>📍 دليل أسواق الجملة والمصانع + وكيل التوريد الذكي (AI Sourcing Agent)</h4>
+                <div class="suppliers-grid">
+                    <div class="supplier-card">
+                        <strong>⚙️ مناطق الورش والمصانع والماكينات</strong>
+                        <p>${ext.suppliers.machines}</p>
+                    </div>
+                    <div class="supplier-card">
+                        <strong>📦 أسواق الجملة والخامات والتغليف</strong>
+                        <p>${ext.suppliers.materials}</p>
+                    </div>
+                </div>
+
+                <div class="ai-sourcing-agent-box">
+                    <h5>🤖 وكيل التوريد الذكي (AI Sourcing Agent) — احصل على العناوين والأرقام على إيميلك</h5>
+                    <p style="font-size: 0.83rem; color: var(--text-secondary);">
+                        لأن أرقام الموردين والمصانع تتحدث باستمرار، يقوم وكيل الذكاء الاصطناعي الخاص بالمنصة بتجهيز قائمة مخصصة لمحافظتك تشمل: <strong>أسماء المصانع والتجار، العناوين التفصيلية وروابط خرائط جوجل، وأهم ٤ أسئلة تسألها للمورد قبل الشراء</strong> ويرسلها فوراً إلى بريدك الإلكتروني:
+                    </p>
+                    <div class="agent-form-grid">
+                        <div>
+                            <span style="font-size:0.76rem; font-weight:700; display:block; margin-bottom:4px;">بريدك الإلكتروني لاستلام الملف:</span>
+                            <input type="email" id="agent-req-email" value="${userEmailPrefill}" placeholder="example@gmail.com" dir="ltr" style="text-align:left;">
+                        </div>
+                        <div>
+                            <span style="font-size:0.76rem; font-weight:700; display:block; margin-bottom:4px;">محافظتك / منطقتك (لتقريب الموردين):</span>
+                            <select id="agent-req-city">
+                                <option value="الإسكندرية وغرب الدلتا">الإسكندرية وغرب الدلتا (برج العرب / مرغم / المنشية)</option>
+                                <option value="القاهرة الكبرى">القاهرة الكبرى (العتبة / العاشر / العبور / جسر السويس)</option>
+                                <option value="مدن الدلتا والمحلة">مدن الدلتا (المحلة الكبرى / طنطا / المنصورة / دمياط)</option>
+                                <option value="مدن القناة والسويس">مدن القناة (بورسعيد / الإسماعيلية / السويس)</option>
+                                <option value="محافظات الصعيد">محافظات الصعيد</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-send-agent" id="btn-trigger-agent" onclick="requestSuppliersFromAIAgent('${proj.id}')">
+                        📨 أرسل لي أرقام وعناوين الموردين وخريطة الشراء على إيميلي فوراً
+                    </button>
+                    <div class="agent-status-msg" id="agent-status-box"></div>
+                </div>
+            </div>
+
+            <div class="detail-section-block">
+                <h4>🗺️ الخارطة الذهنية للتنفيذ (ماذا تفعل بالضبط ومتى حتى تصل لأول زبون؟)</h4>
+                <div class="mindmap-container">
+                    ${mindmapNodesHtml}
+                </div>
+            </div>
+
+            <div class="future-skills-placeholder">
+                <span class="coming-soon-pill">🚀 مساحة مخصصة للربط قريباً</span>
+                <h4>🛠️ المهارات الفنية والتشغيلية المطلوبة لهذا المشروع</h4>
+                <p style="font-size: 0.84rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto;">
+                    تتطلب إدارة وتشغيل هذا المشروع إتقان المهارات العملية التالية (سواء لتتعلمها بنفسك أو لتوظف صنايعي/فني شاطر فيها عبر <strong>منصة المهارات المايكرو</strong> القادمة):
+                </p>
+                <div class="skills-tags-wrap">
+                    ${skillsTagsHtml}
+                </div>
+                <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 10px;">
+                    (سيتم تفعيل الروابط المباشرة لأدلة تعلم هذه المهارات وقاعدة بيانات الفنيين قريباً)
+                </p>
+            </div>
+        `;
+    }
+
+    function closeProjectDetails() {
+        activeProjectId = null;
+        document.getElementById('project-detail-section').style.display = 'none';
+        document.getElementById('results-section').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('popstate', function() {
+        if (activeProjectId) {
+            closeProjectDetails();
+        }
+    });
+
+    function resetCalculator() {
+        activeProjectId = null;
+        if (currentUser && currentUser.email) {
+            try {
+                localStorage.removeItem('ebda2_saved_quiz_' + currentUser.email);
+            } catch (e) {}
+        }
+        document.getElementById('results-section').style.display = 'none';
+        document.getElementById('project-detail-section').style.display = 'none';
         document.getElementById('step1-card').style.display = 'block';
         userAnswers.q1 = '';
         userAnswers.q2 = '';
         userAnswers.q3 = '';
+        userAnswers.q4 = '';
+        currentFilter = 'all';
+        document.getElementById('quiz-progress-pill').innerText = 'تمت الإجابة على 0 من 4';
         document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }

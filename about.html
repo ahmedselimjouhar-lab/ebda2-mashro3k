@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عن المنصة | المستشار الاستثماري الذكي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>مفتاح فهم المنصة | الفلسفة التأسيسية لمنصة ابدأ مشروعك — أحمد سليم جوهر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- =====================================================================
+         مكان كود إعلانات جوجل (Google AdSense)
+         بمجرد حصولك على كود التفعيل من AdSense الصقه هنا مباشرة تحت هذا السطر
+    ====================================================================== -->
+
     <style>
         :root {
             --bg-color: #f5f5f7;
@@ -13,9 +19,12 @@
             --text-secondary: #6e6e73;
             --accent: #0071e3;
             --accent-hover: #0077ed;
+            --success: #1d8348;
+            --microbrand-color: #d35400;
+            --gold-rule: #b7950b;
             --border: #e5e5ea;
             --financial-bg: #fafafa;
-            --radius: 20px;
+            --radius: 22px;
             --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -26,6 +35,9 @@
             --text-secondary: #98989d;
             --accent: #0a84ff;
             --accent-hover: #409cff;
+            --success: #30d158;
+            --microbrand-color: #ff9f0a;
+            --gold-rule: #f1c40f;
             --border: #2c2c2e;
             --financial-bg: #1c1c1e;
         }
@@ -41,63 +53,82 @@
             user-select: none;
         }
 
+        .en-term, .contact-email, .kaefien-link {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            user-select: text !important;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
             font-size: 0.9rem;
-            line-height: 1.85;
-            padding: 32px 20px;
+            line-height: 1.9;
+            padding: 0 18px 60px 18px;
             transition: var(--transition);
             -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            max-width: 740px;
-            margin: 48px auto;
+        .top-bar-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(245, 245, 247, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+            margin: 0 -18px 40px -18px;
+            transition: var(--transition);
         }
 
-        /* أزرار التنقل العلوية الموحدة مع الصفحة الرئيسية */
-        .top-nav {
-            position: fixed;
-            top: 24px;
-            left: 24px;
+        body.dark-mode .top-bar-wrapper {
+            background: rgba(20, 20, 22, 0.92);
+        }
+
+        .top-bar-inner {
+            max-width: 780px;
+            margin: 0 auto;
             display: flex;
-            gap: 12px;
-            z-index: 1000;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
         }
 
         .nav-btn {
             background: var(--card-bg);
             color: var(--text-primary);
             border: 1px solid var(--border);
-            padding: 7px 16px;
-            border-radius: 30px;
+            padding: 6px 14px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.06);
             text-decoration: none;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
+            gap: 6px;
         }
 
         .nav-btn:hover {
             border-color: var(--accent);
-            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 52px;
-            margin-top: 16px;
+            margin-bottom: 48px;
         }
 
-        /* حاوية اللوجو التفاعلي */
         .interactive-logo-container {
             width: 76px;
             height: 76px;
-            margin: 0 auto 22px auto;
+            margin: 0 auto 20px auto;
             border-radius: 18px;
             overflow: hidden;
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
@@ -105,7 +136,6 @@
             position: relative;
             background: var(--card-bg);
             border: 1px solid var(--border);
-            transition: var(--transition);
         }
 
         .interactive-logo-container img {
@@ -118,31 +148,35 @@
             transition: opacity 0.5s ease-in-out;
         }
 
-        .interactive-logo-container img.logo-alt {
-            opacity: 0;
-        }
-
+        .interactive-logo-container img.logo-alt { opacity: 0; }
         .interactive-logo-container:hover img.logo-main,
-        .interactive-logo-container.active img.logo-main {
-            opacity: 0;
-        }
-
+        .interactive-logo-container.active img.logo-main { opacity: 0; }
         .interactive-logo-container:hover img.logo-alt,
-        .interactive-logo-container.active img.logo-alt {
-            opacity: 1;
+        .interactive-logo-container.active img.logo-alt { opacity: 1; }
+
+        .manifesto-pill {
+            display: inline-block;
+            background: rgba(0, 113, 227, 0.1);
+            color: var(--accent);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
 
         header h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
+            font-size: 1.7rem;
+            font-weight: 800;
             letter-spacing: -0.4px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            line-height: 1.5;
         }
 
         header p {
             color: var(--text-secondary);
             font-size: 0.92rem;
-            max-width: 540px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
@@ -157,9 +191,9 @@
         }
 
         h2 {
-            font-size: 1.12rem;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 18px;
             color: var(--accent);
             display: flex;
             align-items: center;
@@ -173,14 +207,14 @@
         }
 
         ul {
-            margin: 18px 20px 8px 0;
+            margin: 16px 20px 12px 0;
             padding-right: 16px;
         }
 
         li {
             margin-bottom: 14px;
             font-size: 0.88rem;
-            line-height: 1.8;
+            line-height: 1.85;
         }
 
         .highlight-box {
@@ -188,19 +222,83 @@
             border-right: 4px solid var(--accent);
             padding: 24px 28px;
             border-radius: 16px;
-            margin: 26px 0 10px 0;
+            margin: 24px 0 10px 0;
             border-top: 1px solid var(--border);
             border-left: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+        }
+
+        .kaefien-showcase-box {
+            background: linear-gradient(135deg, rgba(211, 84, 0, 0.07) 0%, rgba(0, 113, 227, 0.06) 100%);
+            border: 1.5px solid rgba(211, 84, 0, 0.35);
+            border-right: 5px solid var(--microbrand-color);
+            padding: 26px 30px;
+            border-radius: 18px;
+            margin: 26px 0;
+        }
+
+        .kaefien-showcase-box h3 {
+            font-size: 1.08rem;
+            color: var(--microbrand-color);
+            margin-bottom: 10px;
+        }
+
+        .kaefien-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1.5px solid var(--microbrand-color);
+            padding: 9px 18px;
+            border-radius: 12px;
+            font-size: 0.86rem;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 8px;
             transition: var(--transition);
+            direction: ltr;
+        }
+
+        .kaefien-link:hover {
+            background: var(--microbrand-color);
+            color: #fff;
+        }
+
+        .en-term {
+            display: inline-block;
+            background: var(--financial-bg);
+            border: 1px solid var(--border);
+            padding: 1px 8px;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--accent);
+            direction: ltr;
+            margin: 0 2px;
+        }
+
+        .founder-block {
+            background: var(--financial-bg);
+            border: 1px solid var(--border);
+            padding: 24px 28px;
+            border-radius: 18px;
+            margin: 20px 0;
         }
 
         .founder-name {
-            font-weight: 700;
-            font-size: 1.05rem;
+            font-weight: 800;
+            font-size: 1.18rem;
             color: var(--text-primary);
-            margin: 12px 0;
-            letter-spacing: -0.2px;
+            margin-bottom: 4px;
+        }
+
+        .founder-title-badge {
+            display: inline-block;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
         }
 
         .contact-email {
@@ -216,9 +314,6 @@
             margin-top: 6px;
             text-decoration: none;
             transition: var(--transition);
-            /* السماح بنسخ الإيميل فقط للتسهيل على من يريد مراسلتك */
-            -webkit-user-select: text !important;
-            user-select: text !important;
         }
 
         .contact-email:hover {
@@ -233,7 +328,7 @@
             padding: 14px 28px;
             border-radius: 14px;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-top: 28px;
             transition: var(--transition);
         }
@@ -253,21 +348,19 @@
         }
 
         @media (max-width: 600px) {
-            body { padding: 20px 14px; }
-            .container { margin: 36px auto; }
-            .card { padding: 26px 22px; }
-            .highlight-box { padding: 18px 20px; }
-            header h1 { font-size: 1.45rem; }
-            .top-nav { top: 12px; left: 12px; gap: 8px; }
-            .nav-btn { padding: 6px 12px; font-size: 0.75rem; }
+            .card { padding: 26px 20px; }
+            .highlight-box, .kaefien-showcase-box, .founder-block { padding: 20px 18px; }
+            header h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="top-nav">
-        <a href="index.html" class="nav-btn">🏠 الحاسبة الرئيسية</a>
-        <button class="nav-btn" onclick="toggleTheme()">🌓 وضع القراءة</button>
+    <div class="top-bar-wrapper">
+        <div class="top-bar-inner">
+            <a href="index.html" class="nav-btn">🏠 العودة إلى المنصة والحاسبة الرئيسية</a>
+            <button class="nav-btn" onclick="toggleTheme()">🌓 وضع القراءة</button>
+        </div>
     </div>
 
     <div class="container">
@@ -276,45 +369,77 @@
                 <img src="logo-main.png" alt="ابدأ مشروعك" class="logo-main">
                 <img src="logo-alt.png" alt="ابدأ مشروعك - التدرج" class="logo-alt">
             </div>
-            <h1>عن منصة «ابدأ مشروعك»</h1>
-            <p>البيان الرقمي (Digital Manifesto): فلسفة التحول من حسابات الأرقام الصماء إلى التوجيه الاستثماري الواعي</p>
+            <span class="manifesto-pill">🔑 مفتاح الفهم العميق للمنصة (The Master Key)</span>
+            <h1>الفلسفة التأسيسية لمنصة «ابدأ مشروعك»</h1>
+            <p>أول محرك استثماري تفاعلي ينقل الإنسان من بيع وقته باليومية أو الشهر إلى امتلاك نظام وعلامة تجارية</p>
         </header>
 
         <div class="card">
-            <h2>🎯 رسالتنا وأهدافنا</h2>
-            <p>تمثل هذه المنصة نقلة منهجية تحول أداة التخطيط من مجرد «حاسبة أرقام صماء» إلى <strong>«مستشار استثماري ذكي ذاتي الخدمة» (Self-Serve Venture Co-Pilot)</strong>، ينقل المستخدم من حيرة الفكرة وعشوائية التقديرات إلى فرص مبررة تعتمد على السلوك الفعلي والأرقام الحقيقية للسوق المصري.</p>
-            
+            <h2>🎯 ١. جوهر التحول: من بيع الوقت إلى امتلاك الأصل والنظام</h2>
+            <p>القاعدة الأولى للحرية المالية هي إدراك الفارق الجوهري بين مسارين: <strong>من يبيع وقته ومجهوده الفردي فقط يظل أسيراً للمرتب أو اليومية، ومن يبني «أصلاً أو نظاماً تشغيلياً أو علامة تجارية» يمتلك حريته المالية.</strong></p>
+            <p>المشكلة التي كانت تواجه الطموحين دائماً هي الفجوة بين الرغبة في الاستقلال المالي وبين الواقع العملي: <em>«كيف أبدأ اليوم في السوق المصري بالمبلغ المتاح معي دون أن أخسر تحويشة عمري في تجربة عشوائية؟»</em>.</p>
+            <p>من هنا وُلدت هذه المنصة لتكون <strong>تجربة توجيهية حية وفورية</strong>؛ تحلل طبعك وميزانيتك في دقيقتين، وتضع أمامك خطتك الخاصة بالأرقام والموردين وخطوات التنفيذ حتى أول زبون.</p>
+
             <div class="highlight-box">
-                <strong style="font-size: 0.95rem; display: block; margin-bottom: 10px;">لماذا تفشل أغلب المشاريع الصغيرة في مصر؟</strong>
-                <p style="margin-bottom: 12px; color: var(--text-secondary);">الأغلبية لا تفشل لأن الفكرة سيئة على الورق، بل لسببين قاتلين تعالجهما هذه المنصة في الصميم:</p>
+                <strong style="font-size: 0.96rem; display: block; margin-bottom: 12px;">لمن صُممت هذه التجربة الاستثمارية؟</strong>
                 <ul>
-                    <li><strong>١. عدم التوافق النفسي (Founder-Market Misfit):</strong> شخص بطبعه هادئ ويكره الفصال والاحتكاك اليومي يفتح مشروعاً يعتمد كلياً على البيع المباشر، فينهار من الضغط النفسي في أول شهرين. دمج نموذج الاهتمامات المهنية (<strong>RIASEC - O*NET</strong>) مع فلتر «الثمن النفسي والتشغيلي» يحمي المستثمر من هذا الفخ قبل أن يبدأ.</li>
-                    <li><strong>٢. صدمة الواقع المالي (رأس المال العامل والافتراضات الخفية):</strong> المستثمر يصرف كل ما يملكه في «التأسيس والديكور»، ويتفاجأ أنه لا يملك سيولة لتغطية أول ٣ شهور حتى يصل لنقطة التعادل. لذلك تلتزم كل فرصة هنا بتوضيح رأس المال العامل، والافتراضات، وموانع الدخول، وخطوة اختبار الفرصة في ٤٨ ساعة بأقل مخاطرة.</li>
+                    <li><strong>👔 للموظف الطموح:</strong> الذي يريد بناء «عمود دخل ثانٍ» آمن بجانب وظيفته أو الخروج من ساقية المرتب دون أن يخسر مدخراته في مشروع لا يشبه شخصيته.</li>
+                    <li><strong>🎓 للطالب والشاب الباحث عن فرصة:</strong> الذي يريد أن يبدأ حياته بعقلية «مؤسس الشركات» ويفهم كيف يختبر السوق قبل أن يشتري بضاعة.</li>
+                    <li><strong>🏠 للزوجة والأم وللبنت الطموحة:</strong> التي تملك ذوقاً عالياً أو مهارة في التنظيم وتريد تأسيس «مايكرو-براند» مستقل يدار من المنزل بكرامة وربحية عالية.</li>
+                    <li><strong>🛠️ للصنايعي والحرفي الماهر:</strong> الذي تعب من الشغل باليومية لحساب غيره، ويريد التحول من «عامل يبيع صحته ووقته» إلى «صاحب ورشة ومصنع وعلامة تجارية».</li>
                 </ul>
             </div>
         </div>
 
         <div class="card">
-            <h2>⚙️ هندسة وتقنية البناء</h2>
-            <p>تم تطوير وبناء البرمجيات والهيكلة التفاعلية لهذه المنصة بالكامل باستخدام أداة الذكاء الاصطناعي <strong>Google Gemini</strong>، لتقديم تجربة مستخدم فائقة السرعة، نقية بصرياً (Apple Minimalist)، ومحمية، تعمل ذاتياً بالكامل دون الحاجة لتدخل بشري.</p>
+            <h2>🧠 ٢. الأعمدة الثلاثة التي تحميك من فشل المشاريع</h2>
+            <p>الذين يتبحرون في هذه المنصة سيكتشفون أنها لا تعرض أفكاراً عشوائية، بل تمرر كل فرصة عبر ٣ فلاتر علمية صارمة:</p>
+            <ul>
+                <li><strong>الفلتر الأول — التوافق النفسي وتكامل الشريك (<span class="en-term">Founder-Market & Partner Fit</span>):</strong> بالاعتماد على نموذج <span class="en-term">RIASEC - O*NET</span>، تكشف لك المنصة هل أنت «صانع»، أم «مبتكر براندات»، أم «تاجر وصائد صفقات»، أم «مستثمر بنوك ودهب». والأهم: تخبرك متى يمكنك العمل لوحدك، ومتى تحتاج لشريك يكمل النقطة التي تكرهها (عبر رابط فحص الشريك الذكي).</li>
+                <li><strong>الفلتر الثاني — فلسفة المايكرو-براند وحل المشكلات (<span class="en-term">Problem-Solving Micro-Brands</span>):</strong> البراند ليس مجرد تغيير اسم أو لصق استيكر على بضاعة جملة (<span class="en-term">White Label</span>). البراند الحقيقي يبدأ بالبحث عن <strong>مشكلة جديدة لم يجد لها العميل حلاً (<span class="en-term">Unmet Pain Point</span>)</strong>، وتعديل المنتج ليقدم <strong>قيمة مقترحة فريدة (<span class="en-term">Unique Value Proposition - UVP</span>)</strong> يتبناها السوق فوراً.</li>
+                <li><strong>الفلتر الثالث — القاعدة الذهبية لقياس السوق قبل الشراء (<span class="en-term">Pretotyping & Smoke Testing</span>):</strong> وهي المنهجية العلمية المعتمدة في جامعة ستانفورد وجوجل؛ ألا تشتري ماكينة أو بضاعة إلا بعد أن تختبر الطلب الحقيقي عليها عبر إعلان تجريبي على <span class="en-term">Marketplace / Dubizzle</span> للسلع، أو الجلوس مع شخص مفتاحي (<span class="en-term">Key Person</span>) داخل الشركات لمطابقة أرقامك مع الواقع.</li>
+            </ul>
         </div>
 
         <div class="card">
-            <h2>©️ حقوق الملكية الفكرية والابتكار</h2>
-            <p>هذه الفكرة، وفلسفتها التشغيلية، وهيكلتها الاستشارية هي نتاج ابتكار وتطوير أصيل لصاحب الفكرة والمبتكر لها:</p>
-            <div class="founder-name">أحمد جوهر (Ahmed Selim Jouhar)</div>
-            <p style="color: var(--text-secondary);">المحتفظ بكامل حقوق الملكية الفكرية وإعادة الاستخدام أو الاقتباس. يُحظر نسخ النموذج التشغيلي أو المنهجية التفاعلية أو إعادة نشرها دون إذن كتابي صريح.</p>
+            <h2>☕ ٣. البرهان العملي الحي: كيف ينجح «مايكرو-براند» قائم على شخص واحد فقط؟</h2>
+            <p>كل ركن في هذه المنصة هو خلاصة تجربة عملية حقيقية على الأرض في السوق المصري.</p>
+
+            <div class="kaefien-showcase-box">
+                <h3>نموذج تطبيقي حي: براند كافيين للقهوة المختصة (kæfi;n® | Specialty Coffee Boutique)</h3>
+                <p>
+                    في عام ٢٠١٧، أسس مبتكر هذه المنصة علامته التجارية المتخصصة في القهوة المختصة <strong>«كافيين» (<span class="en-term">kæfi;n</span>)</strong>، والتي تُحمّص دفعاتها الصغيرة باستخدام تقنية الهواء الساخن المتطورة (<span class="en-term">Advanced Fluid-Bed Roasting Technology</span>).
+                </p>
+                <p style="margin-bottom: 12px;">
+                    المفاجأة التي تلهم كل زائر هنا هي أن <strong>براند «كافيين» هو مايكرو-براند قائم بالكامل على شخص واحد فقط (<span class="en-term">One-Person Micro-Brand</span>)</strong>! من اختيار الحبوب الخضراء، إلى التحميص الدقيق، إلى تصميم الهوية البصرية والتغليف، وحتى برمجة المتجر الإلكتروني والبيع المباشر للعملاء؛ ليثبت عملياً أنك في عصر الذكاء الاصطناعي والتصميم الذكي لا تحتاج إلى جيش من الموظفين أو مكاتب فاخرة لتبني علامة تجارية محترمة ومربحة.
+                </p>
+                <a href="https://www.kaefien.online" target="_blank" rel="noopener noreferrer" class="kaefien-link">
+                    🌐 زيارة الموقع الرسمي لبراند كافيين: www.kaefien.online
+                </a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>©️ ٤. ابتكار أصيل وحقوق الملكية الفكرية</h2>
+            <p>إن فكرة بناء محرك توجيه استثماري تفاعلي يجمع بين تحليل الشخصية العملية، فحص توافق الشريك، فلسفة المايكرو-براند القائم على حل المشكلات، والقاعدة الذهبية لقياس السوق مع وكيل ذكاء اصطناعي للموردين هي <strong>ابتكار أصيل يُنفّذ لأول مرة</strong>، وجميع حقوقه الفكرية محفوظة لصاحب الفكرة ومبتكرها:</p>
             
-            <p style="margin-top: 24px; margin-bottom: 8px; font-weight: 600;">للتواصل الرسمي والاستفسارات:</p>
-            <a href="mailto:ahmedselimjouhar@me.com" class="contact-email">✉️ ahmedselimjouhar@me.com</a>
+            <div class="founder-block">
+                <div class="founder-name">أحمد سليم جوهر (Ahmed Selim Jouhar)</div>
+                <span class="founder-title-badge">رائد أعمال وكاتب ومفكر</span>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
+                    مؤسس علامة <strong>kæfi;n®</strong> للقهوة المختصة، ومصمم هويات العلامات التجارية، ومبتكر نموذج التوجيه الاستثماري التفاعلي. تم بناء وتطوير الهيكل البرمجي والذكاء الاصطناعي للمنصة بالتعاون التقني مع أداة <strong>Google Gemini</strong>.
+                </p>
+                <p style="margin-bottom: 8px; font-weight: 700; font-size: 0.85rem;">للتواصل الرسمي والاستفسارات:</p>
+                <a href="mailto:ahmedselimjouhar@me.com" class="contact-email">✉️ ahmedselimjouhar@me.com</a>
+            </div>
 
             <div>
-                <a href="index.html" class="nav-link">العودة إلى المستشار الاستثماري ←</a>
+                <a href="index.html" class="nav-link">ابدأ رحلتك الآن في الحاسبة الاستثمارية ←</a>
             </div>
         </div>
 
         <div class="footer-note">
-            جميع الحقوق محفوظة © ٢٠٢٦ | منصة ابدأ مشروعك — أحمد سليم جوهر
+            جميع الحقوق محفوظة © ٢٠٢٦ | منصة ابدأ مشروعك — ابتكار وتطوير: أحمد سليم جوهر (رائد أعمال وكاتب ومفكر)
         </div>
     </div>
 

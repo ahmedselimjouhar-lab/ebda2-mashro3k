@@ -1,457 +1,655 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="light-mode">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مفتاح فهم المنصة | الفلسفة التأسيسية لمنصة ابدأ مشروعك — أحمد سليم جوهر</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- =====================================================================
-         مكان كود إعلانات جوجل (Google AdSense)
-         بمجرد حصولك على كود التفعيل من AdSense الصقه هنا مباشرة تحت هذا السطر
-    ====================================================================== -->
+    <title>ابدأ مشروعك | دليل الفهم المالي والريادي ومفاتيح السوق</title>
+    <!-- الخطوط المعتمدة: IBM Plex Sans Arabic & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- مكتبة أيقونات Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
-            --bg-color: #f5f5f7;
-            --card-bg: #ffffff;
-            --text-primary: #1d1d1f;
-            --text-secondary: #6e6e73;
-            --accent: #0071e3;
-            --accent-hover: #0077ed;
-            --success: #1d8348;
-            --microbrand-color: #d35400;
-            --gold-rule: #b7950b;
-            --border: #e5e5ea;
-            --financial-bg: #fafafa;
-            --radius: 22px;
-            --transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        body.dark-mode {
-            --bg-color: #000000;
-            --card-bg: #141416;
-            --text-primary: #f5f5f7;
-            --text-secondary: #98989d;
-            --accent: #0a84ff;
-            --accent-hover: #409cff;
-            --success: #30d158;
-            --microbrand-color: #ff9f0a;
-            --gold-rule: #f1c40f;
-            --border: #2c2c2e;
-            --financial-bg: #1c1c1e;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F5F5F5;
+            --bg-element: #FAFAFA;
+            --text-primary: #111111;
+            --text-secondary: #777777;
+            --text-muted: #AAAAAA;
+            --border-color: #E5E5E5;
+            --btn-primary-bg: #111111;
+            --btn-primary-text: #FFFFFF;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --transition: 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', sans-serif;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        .en-term, .contact-email, .kaefien-link {
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            user-select: text !important;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            line-height: 1.9;
-            padding: 0 18px 60px 18px;
-            transition: var(--transition);
+            font-family: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        .top-bar-wrapper {
+        /* منع تحديد ونسخ المحتوى الطويل لحماية الملكية الفكرية */
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.96rem;
+            line-height: 1.85;
+            padding: 0 20px 80px 20px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* السماح بتحديد المصطلحات الإنجليزية فقط */
+        .en-term, .Selectable-term {
+            font-family: 'Inter', system-ui, sans-serif;
+            user-select: text !important;
+            -webkit-user-select: text !important;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        /* الشريط العلوي البسيط */
+        .top-nav {
             position: sticky;
             top: 0;
-            z-index: 1000;
-            background: rgba(245, 245, 247, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-            padding: 10px 16px;
-            margin: 0 -18px 40px -18px;
-            transition: var(--transition);
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+            margin: 0 -20px 48px -20px;
         }
 
-        body.dark-mode .top-bar-wrapper {
-            background: rgba(20, 20, 22, 0.92);
-        }
-
-        .top-bar-inner {
-            max-width: 780px;
+        .top-nav-inner {
+            max-width: 820px;
             margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
+            gap: 16px;
         }
 
-        .nav-btn {
-            background: var(--card-bg);
+        .brand-title {
+            font-weight: 700;
+            font-size: 1.05rem;
             color: var(--text-primary);
-            border: 1px solid var(--border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.78rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+            border: 1px solid var(--btn-primary-bg);
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
             font-weight: 600;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
             transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.88;
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: var(--radius-md);
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .nav-btn:hover {
-            border-color: var(--accent);
+        .btn-secondary:hover {
+            border-color: var(--text-primary);
+            background: var(--bg-secondary);
         }
 
         .container {
-            max-width: 760px;
+            max-width: 780px;
             margin: 0 auto;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 48px;
+        /* الترويسة الافتتاحية */
+        .hero-header {
+            margin-bottom: 56px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .interactive-logo-container {
-            width: 76px;
-            height: 76px;
-            margin: 0 auto 20px auto;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            cursor: pointer;
-            position: relative;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-        }
-
-        .interactive-logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .interactive-logo-container img.logo-alt { opacity: 0; }
-        .interactive-logo-container:hover img.logo-main,
-        .interactive-logo-container.active img.logo-main { opacity: 0; }
-        .interactive-logo-container:hover img.logo-alt,
-        .interactive-logo-container.active img.logo-alt { opacity: 1; }
-
-        .manifesto-pill {
-            display: inline-block;
-            background: rgba(0, 113, 227, 0.1);
-            color: var(--accent);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.76rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        header h1 {
-            font-size: 1.7rem;
-            font-weight: 800;
-            letter-spacing: -0.4px;
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        header p {
+        .eyebrow {
+            font-size: 0.8rem;
+            font-weight: 600;
             color: var(--text-secondary);
-            font-size: 0.92rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 40px 44px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--border);
-            margin-bottom: 36px;
-            transition: var(--transition);
-        }
-
-        h2 {
-            font-size: 1.15rem;
-            font-weight: 800;
-            margin-bottom: 18px;
-            color: var(--accent);
-            display: flex;
+            background: var(--bg-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
+            margin-bottom: 16px;
         }
 
-        p {
+        .hero-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.4;
             margin-bottom: 18px;
-            font-size: 0.9rem;
-            color: var(--text-primary);
+            letter-spacing: -0.4px;
         }
 
-        ul {
-            margin: 16px 20px 12px 0;
-            padding-right: 16px;
-        }
-
-        li {
-            margin-bottom: 14px;
-            font-size: 0.88rem;
+        .hero-header p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
             line-height: 1.85;
         }
 
-        .highlight-box {
-            background: var(--financial-bg);
-            border-right: 4px solid var(--accent);
-            padding: 24px 28px;
-            border-radius: 16px;
-            margin: 24px 0 10px 0;
-            border-top: 1px solid var(--border);
-            border-left: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+        /* فصول الدليل */
+        .chapter-section {
+            margin-bottom: 64px;
         }
 
-        .kaefien-showcase-box {
-            background: linear-gradient(135deg, rgba(211, 84, 0, 0.07) 0%, rgba(0, 113, 227, 0.06) 100%);
-            border: 1.5px solid rgba(211, 84, 0, 0.35);
-            border-right: 5px solid var(--microbrand-color);
-            padding: 26px 30px;
-            border-radius: 18px;
-            margin: 26px 0;
-        }
-
-        .kaefien-showcase-box h3 {
-            font-size: 1.08rem;
-            color: var(--microbrand-color);
-            margin-bottom: 10px;
-        }
-
-        .kaefien-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--card-bg);
-            color: var(--text-primary);
-            border: 1.5px solid var(--microbrand-color);
-            padding: 9px 18px;
-            border-radius: 12px;
-            font-size: 0.86rem;
-            font-weight: 700;
-            text-decoration: none;
-            margin-top: 8px;
-            transition: var(--transition);
-            direction: ltr;
-        }
-
-        .kaefien-link:hover {
-            background: var(--microbrand-color);
-            color: #fff;
-        }
-
-        .en-term {
-            display: inline-block;
-            background: var(--financial-bg);
-            border: 1px solid var(--border);
-            padding: 1px 8px;
-            border-radius: 6px;
-            font-size: 0.76rem;
-            font-weight: 700;
-            color: var(--accent);
-            direction: ltr;
-            margin: 0 2px;
-        }
-
-        .founder-block {
-            background: var(--financial-bg);
-            border: 1px solid var(--border);
-            padding: 24px 28px;
-            border-radius: 18px;
-            margin: 20px 0;
-        }
-
-        .founder-name {
-            font-weight: 800;
-            font-size: 1.18rem;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .founder-title-badge {
-            display: inline-block;
-            color: var(--accent);
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-bottom: 14px;
-        }
-
-        .contact-email {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 113, 227, 0.08);
-            color: var(--accent);
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-size: 0.86rem;
-            font-weight: 600;
-            margin-top: 6px;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .contact-email:hover {
-            background: rgba(0, 113, 227, 0.14);
-        }
-
-        .nav-link {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 14px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-top: 28px;
-            transition: var(--transition);
-        }
-
-        .nav-link:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-        }
-
-        .footer-note {
-            text-align: center;
+        .chapter-number {
+            font-family: 'Inter', sans-serif;
             font-size: 0.78rem;
+            font-weight: 700;
             color: var(--text-secondary);
-            margin-top: 48px;
-            border-top: 1px solid var(--border);
-            padding-top: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
         }
 
-        @media (max-width: 600px) {
-            .card { padding: 26px 20px; }
-            .highlight-box, .kaefien-showcase-box, .founder-block { padding: 20px 18px; }
-            header h1 { font-size: 1.4rem; }
+        .chapter-section h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.45;
+        }
+
+        .prose-p {
+            margin-bottom: 18px;
+            color: var(--text-primary);
+        }
+
+        .quote-block {
+            background: var(--bg-secondary);
+            border-right: 3px solid var(--text-primary);
+            padding: 20px 24px;
+            border-radius: var(--radius-md);
+            margin: 24px 0;
+            font-weight: 500;
+        }
+
+        /* المقارنات الثنائية (عقلية الهواة مقابل عقلية المحترفين) */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 28px 0;
+        }
+
+        .comp-card {
+            background: var(--bg-element);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+        }
+
+        .comp-card.strong-card {
+            background: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .comp-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comp-card ul {
+            padding-right: 18px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .comp-card.strong-card ul {
+            color: var(--text-primary);
+        }
+
+        .comp-card li {
+            margin-bottom: 8px;
+        }
+
+        /* مكون المصطلح الإنجليزي القابل للنسخ */
+        .term-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0 4px;
+            vertical-align: middle;
+        }
+
+        .copy-term-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            padding: 2px;
+            transition: var(--transition);
+        }
+
+        .copy-term-btn:hover {
+            color: var(--text-primary);
+        }
+
+        /* قاموس المصطلحات التفاعلي */
+        .glossary-search {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            background: var(--bg-element);
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .glossary-search:focus {
+            border-color: var(--text-primary);
+            background: var(--bg-primary);
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .glossary-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 22px 24px;
+            transition: var(--transition);
+        }
+
+        .glossary-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .glossary-ar-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .glossary-example {
+            background: var(--bg-secondary);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+
+        .footer-cta {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            text-align: center;
+            margin-top: 64px;
+        }
+
+        .footer-cta h3 {
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+        }
+
+        .footer-cta p {
+            color: var(--text-secondary);
+            max-width: 540px;
+            margin: 0 auto 24px auto;
+        }
+
+        @media (max-width: 640px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-header h1 {
+                font-size: 1.55rem;
+            }
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <div class="top-bar-wrapper">
-        <div class="top-bar-inner">
-            <a href="index.html" class="nav-btn">🏠 العودة إلى المنصة والحاسبة الرئيسية</a>
-            <button class="nav-btn" onclick="toggleTheme()">🌓 وضع القراءة</button>
+    <nav class="top-nav">
+        <div class="top-nav-inner">
+            <a href="index.html" class="brand-title">
+                <i data-lucide="compass" style="width:20px; height:20px;"></i>
+                <span>ابدأ مشروعك — اكتشف نفسك</span>
+            </a>
+            <a href="index.html" class="btn-primary">
+                <span>ابدأ تجربة اكتشاف نفسك</span>
+                <i data-lucide="arrow-left" style="width:16px; height:16px;"></i>
+            </a>
         </div>
-    </div>
+    </nav>
 
-    <div class="container">
-        <header>
-            <div class="interactive-logo-container" onclick="this.classList.toggle('active')" title="اضغط لتبديل الشعار">
-                <img src="logo-main.png" alt="ابدأ مشروعك" class="logo-main">
-                <img src="logo-alt.png" alt="ابدأ مشروعك - التدرج" class="logo-alt">
-            </div>
-            <span class="manifesto-pill">🔑 مفتاح الفهم العميق للمنصة (The Master Key)</span>
-            <h1>الفلسفة التأسيسية لمنصة «ابدأ مشروعك»</h1>
-            <p>أول محرك استثماري تفاعلي ينقل الإنسان من بيع وقته باليومية أو الشهر إلى امتلاك نظام وعلامة تجارية</p>
+    <main class="container">
+        <!-- المدخل التأسيسي -->
+        <header class="hero-header">
+            <span class="eyebrow">
+                <i data-lucide="book-open" style="width:14px; height:14px;"></i>
+                <span>المرجع التأسيسي قبل أن تخاطر بمدخراتك</span>
+            </span>
+            <h1>لماذا يفشل 80% ممن يملكون "فكرة مشروع" وينجح من يفهم "نفسه وأصوله" أولًا؟</h1>
+            <p>
+                هذه الصفحة ليست تعريفًا تقليديًا بالموقع. إنها خلاصة القواعد التي تفرّق بين الشخص الذي يشتري لنفسه "وظيفة متعبة بفلوسه"، والشخص الذي يبني نظامًا تجاريًا يناسب طبعه وإمكانياته الحقيقية. اقرأها بهدوء قبل أن تبدأ.
+            </p>
         </header>
 
-        <div class="card">
-            <h2>🎯 ١. جوهر التحول: من بيع الوقت إلى امتلاك الأصل والنظام</h2>
-            <p>القاعدة الأولى للحرية المالية هي إدراك الفارق الجوهري بين مسارين: <strong>من يبيع وقته ومجهوده الفردي فقط يظل أسيراً للمرتب أو اليومية، ومن يبني «أصلاً أو نظاماً تشغيلياً أو علامة تجارية» يمتلك حريته المالية.</strong></p>
-            <p>المشكلة التي كانت تواجه الطموحين دائماً هي الفجوة بين الرغبة في الاستقلال المالي وبين الواقع العملي: <em>«كيف أبدأ اليوم في السوق المصري بالمبلغ المتاح معي دون أن أخسر تحويشة عمري في تجربة عشوائية؟»</em>.</p>
-            <p>من هنا وُلدت هذه المنصة لتكون <strong>تجربة توجيهية حية وفورية</strong>؛ تحلل طبعك وميزانيتك في دقيقتين، وتضع أمامك خطتك الخاصة بالأرقام والموردين وخطوات التنفيذ حتى أول زبون.</p>
-
-            <div class="highlight-box">
-                <strong style="font-size: 0.96rem; display: block; margin-bottom: 12px;">لمن صُممت هذه التجربة الاستثمارية؟</strong>
-                <ul>
-                    <li><strong>👔 للموظف الطموح:</strong> الذي يريد بناء «عمود دخل ثانٍ» آمن بجانب وظيفته أو الخروج من ساقية المرتب دون أن يخسر مدخراته في مشروع لا يشبه شخصيته.</li>
-                    <li><strong>🎓 للطالب والشاب الباحث عن فرصة:</strong> الذي يريد أن يبدأ حياته بعقلية «مؤسس الشركات» ويفهم كيف يختبر السوق قبل أن يشتري بضاعة.</li>
-                    <li><strong>🏠 للزوجة والأم وللبنت الطموحة:</strong> التي تملك ذوقاً عالياً أو مهارة في التنظيم وتريد تأسيس «مايكرو-براند» مستقل يدار من المنزل بكرامة وربحية عالية.</li>
-                    <li><strong>🛠️ للصنايعي والحرفي الماهر:</strong> الذي تعب من الشغل باليومية لحساب غيره، ويريد التحول من «عامل يبيع صحته ووقته» إلى «صاحب ورشة ومصنع وعلامة تجارية».</li>
-                </ul>
+        <!-- الفصل الأول: عقلية الأصول (مستوحى من الأب الغني والأب الفقير) -->
+        <section class="chapter-section">
+            <span class="chapter-number">CHAPTER 01 — ASSET MINDSET</span>
+            <h2>القاعدة الأولى: الفرق بين «الأصل الحقيقي» و«المصيدة المالية»</h2>
+            <p class="prose-p">
+                أكبر غلطة بيقع فيها اللي معاه تحويشة عمر وعايز يفتح مشروع، إنه بيبدأ بالسؤال الغلط: <strong>"إيه المشروع اللي ماشي اليومين دول؟"</strong>. فيروح يأجر محل غالي، ويدفع ديكورات، ويشتري معدات جديدة بالكرتونة قبل ما يبيع قطعة واحدة. في لغة المال، اللي عمله ده اسمه تحويل السيولة الحية إلى التزامات جامدة.
+            </p>
+            <div class="quote-block">
+                «الأصل الحقيقي هو أي شيء تملكه أو تستطيع الوصول إليه ويضع مالًا في جيبك بأقل تكلفة ثابتة. أما الالتزام فهو كل ديكور أو إيجار أو ماكينة تبتلع سيولتك كل شهر قبل أن تتأكد أن هناك عميلًا مستعدًا للدفع.»
             </div>
-        </div>
+            <p class="prose-p">
+                عشان كده، وإنت بتجاوب على أسئلة المنصة، هتلاقينا مش بنسألك بس عن الفلوس الكاش. إحنا بنفتش معاك في <strong>الأصول غير المستغلة</strong> اللي تحت إيدك: غرفة فاضية في شقتك، سطح بيت ملك أهلك، شقة مقفولة، مخزن بالإيجار، أو حتى عربية ملاكي أو تروسيكل.
+            </p>
+            <p class="prose-p">
+                والأهم من وجود الأصل هو <strong>مكانه وصلاحيته</strong>: ممكن تكون ساكن في محافظة، وعندك مخزن أو أرض في منطقة تانية خالص، وبتبيع لعملاء في مصر كلها. رجل الأعمال الذكي بيفصل بين مكان سكنه، ومكان تشغيل الأصل، والسوق اللي بيبيع فيه.
+            </p>
 
-        <div class="card">
-            <h2>🧠 ٢. الأعمدة الثلاثة التي تحميك من فشل المشاريع</h2>
-            <p>الذين يتبحرون في هذه المنصة سيكتشفون أنها لا تعرض أفكاراً عشوائية، بل تمرر كل فرصة عبر ٣ فلاتر علمية صارمة:</p>
-            <ul>
-                <li><strong>الفلتر الأول — التوافق النفسي وتكامل الشريك (<span class="en-term">Founder-Market & Partner Fit</span>):</strong> بالاعتماد على نموذج <span class="en-term">RIASEC - O*NET</span>، تكشف لك المنصة هل أنت «صانع»، أم «مبتكر براندات»، أم «تاجر وصائد صفقات»، أم «مستثمر بنوك ودهب». والأهم: تخبرك متى يمكنك العمل لوحدك، ومتى تحتاج لشريك يكمل النقطة التي تكرهها (عبر رابط فحص الشريك الذكي).</li>
-                <li><strong>الفلتر الثاني — فلسفة المايكرو-براند وحل المشكلات (<span class="en-term">Problem-Solving Micro-Brands</span>):</strong> البراند ليس مجرد تغيير اسم أو لصق استيكر على بضاعة جملة (<span class="en-term">White Label</span>). البراند الحقيقي يبدأ بالبحث عن <strong>مشكلة جديدة لم يجد لها العميل حلاً (<span class="en-term">Unmet Pain Point</span>)</strong>، وتعديل المنتج ليقدم <strong>قيمة مقترحة فريدة (<span class="en-term">Unique Value Proposition - UVP</span>)</strong> يتبناها السوق فوراً.</li>
-                <li><strong>الفلتر الثالث — القاعدة الذهبية لقياس السوق قبل الشراء (<span class="en-term">Pretotyping & Smoke Testing</span>):</strong> وهي المنهجية العلمية المعتمدة في جامعة ستانفورد وجوجل؛ ألا تشتري ماكينة أو بضاعة إلا بعد أن تختبر الطلب الحقيقي عليها عبر إعلان تجريبي على <span class="en-term">Marketplace / Dubizzle</span> للسلع، أو الجلوس مع شخص مفتاحي (<span class="en-term">Key Person</span>) داخل الشركات لمطابقة أرقامك مع الواقع.</li>
+            <div class="comparison-grid">
+                <div class="comp-card">
+                    <h3>
+                        <i data-lucide="x-circle" style="width:18px; height:18px; color:#777777;"></i>
+                        <span>كيف يبدأ الهاوي؟</span>
+                    </h3>
+                    <ul>
+                        <li>يصرف 70% من رأس ماله في الإيجار والديكور والمعدات قبل أول بيعة.</li>
+                        <li>يقلّد مشروعًا نجح مع غيره دون أن يسأل: هل أتحمل تفاصيل هذا الشغل يوميًا؟</li>
+                        <li>يفترض أن غلاء سعر المنتج أو فخامة اسمه يضمن وجود مشترين.</li>
+                        <li>يشتري بضاعة بكميات كبيرة ليحصل على خصم جملة قبل أن يختبر السوق.</li>
+                    </ul>
+                </div>
+                <div class="comp-card strong-card">
+                    <h3>
+                        <i data-lucide="check-circle-2" style="width:18px; height:18px;"></i>
+                        <span>كيف يبدأ المحترف؟</span>
+                    </h3>
+                    <ul>
+                        <li>يبدأ بـ الحد الأدنى للمنتج <span class="term-pill"><span class="en-term">Minimum Viable Product - MVP</span><button class="copy-term-btn" onclick="copyTerm('Minimum Viable Product - MVP', this)" title="نسخ المصطلح"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span> بأقل تكلفة تأسيس.</li>
+                        <li>يستغل التصنيع لدى الغير <span class="term-pill"><span class="en-term">Contract Manufacturing</span><button class="copy-term-btn" onclick="copyTerm('Contract Manufacturing', this)" title="نسخ المصطلح"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span> بدل شراء ماكينات في البداية.</li>
+                        <li>يختبر استعداد العميل للدفع فعليًا قبل تجميد السيولة في المخزون.</li>
+                        <li>يحسب التكلفة الكلية للوحدة بعد النقل والفاقد وليس سعر الشراء فقط.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- الفصل الثاني: سيكولوجية البيع والسوق (مستوحى من كيف تبيع أي شيء لأي شخص) -->
+        <section class="chapter-section">
+            <span class="chapter-number">CHAPTER 02 — PSYCHOLOGY OF SELLING</span>
+            <h2>القاعدة الثانية: الناس لا تشتري «منتجك».. الناس تشتري «حل مشكلتها»</h2>
+            <p class="prose-p">
+                في عالم التجارة والبيع، مفيش حد بيصحى الصبح يقول: "أنا نفسي أشتري من براند جديد لسه فاتح". العميل بيشتري لما يحس إنك فاهم المشكلة اللي مضايقاه، وبتقدم له القيمة المقترحة <span class="term-pill"><span class="en-term">Value Proposition</span><button class="copy-term-btn" onclick="copyTerm('Value Proposition', this)" title="نسخ المصطلح"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span> اللي تريحه وتوفر وقته أو فلوسه.
+            </p>
+            <p class="prose-p">
+                البيع الحقيقي مش معناه "الإلحاح على الزبون" أو "اللسان الحلو" بس. البيع هو <strong>بناء الثقة وتقليل المخاطرة على المشتري</strong>. لو بتبيع لمطعم أو كافيه أو شركة ضمن نموذج مورد الشركات المصغر <span class="term-pill"><span class="en-term">B2B Micro Supplier</span><button class="copy-term-btn" onclick="copyTerm('B2B Micro Supplier', this)" title="نسخ المصطلح"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span>، فصاحب المطعم مش بيشتري منك عشان سعرك أرخص بـ 2 جنيه؛ هو بيشتري منك عشان إنت <strong>بتلتزم بالميعاد، وجودتك ثابتة، وبتريحه من صداع النواقص</strong>.
+            </p>
+            <div class="quote-block">
+                «أعظم البائعين ليسوا الأكثر كلامًا، بل الأكثر فهمًا لطبيعة العميل. إذا كنت تكره الفصال اليومي مع الجمهور، فلا تفتح محل تجزئة؛ بل وجّه قوتك نحو التوريد المنظم أو العلامات المتخصصة أو التشغيل الخلفي.»
+            </div>
+        </section>
+
+        <!-- الفصل الثالث: الأسس العلمية لاختبار "اكتشف نفسك" -->
+        <section class="chapter-section">
+            <span class="chapter-number">CHAPTER 03 — BEHAVIORAL METHODOLOGY</span>
+            <h2>القاعدة الثالثة: لماذا نسألك عن «مواقف حياتية» بدلًا من «ما المشروع الذي تحبه»؟</h2>
+            <p class="prose-p">
+                لو سألناك "تحب تفتح إيه؟"، عقلك هيروح تلقائيًا للي شافه في الإعلانات أو اللي فتحه قريبك. لكن الواقع أثبت إن الإنسان بينجح ويستمر في الشغل اللي بيتوافق مع <strong>تكوينه السلوكي وقدرته على التحمل</strong>.
+            </p>
+            <p class="prose-p">
+                منهجية التقييم في منصة «ابدأ مشروعك» لا تقدم تشخيصًا نفسيًا، بل تستند إلى أطر التوجيه المهني والسلوكي (مثل نماذج التوافق البيئي والمهني ونظريات اتخاذ القرار تحت المخاطرة) لقياس أربعة أبعاد حاسمة:
+            </p>
+            <ul style="padding-right: 20px; margin-bottom: 20px; line-height: 2;">
+                <li><strong>مصدر الطاقة التلقائي:</strong> ما النشاط الذي تندمج في تفاصيله دون أن تشعر بمرور الوقت (تصنيع ملموس، تفاوض وصفقات، تنظيم وتشغيل، أم بناء أنظمة رقمية)؟</li>
+                <li><strong>عتبة الاستنزاف (Burnout Threshold):</strong> ما نوع المشكلات اليومية التي تستطيع احتمالها، وما المهمة التي لو فُرضت عليك يوميًا ستجعلك تغلق المشروع؟</li>
+                <li><strong>الصلابة المالية والزمنية:</strong> هل تبحث عن دورة كاش سريعة، أم تستطيع الصبر على بناء أصل يحتاج 60 إلى 90 يومًا قبل جني الثمار؟</li>
+                <li><strong>القدرة التشغيلية الخفية:</strong> كثيرون يظنون أنهم "تجار فقط"، بينما تكشف مواقفهم السلوكية عن قدرة عالية على ضبط الجودة، وتقليل الهدر، وإدارة سلاسل التوريد — وهي المهارات التي تصنع نجاح مشروعات مثل المطبخ السحابي <span class="term-pill"><span class="en-term">Cloud Kitchen</span><button class="copy-term-btn" onclick="copyTerm('Cloud Kitchen', this)" title="نسخ المصطلح"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span> أو العلامة التجارية المتخصصة <span class="term-pill"><span class="en-term">Microbrand</span><button class="copy-term-btn" onclick="copyTerm('Microbrand', this)" title="نسخ المصطلح"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span>.</li>
             </ul>
-        </div>
+        </section>
 
-        <div class="card">
-            <h2>☕ ٣. البرهان العملي الحي: كيف ينجح «مايكرو-براند» قائم على شخص واحد فقط؟</h2>
-            <p>كل ركن في هذه المنصة هو خلاصة تجربة عملية حقيقية على الأرض في السوق المصري.</p>
+        <!-- الفصل الرابع: قاموس المصطلحات الإنجليزية التفاعلي -->
+        <section class="chapter-section" id="glossary">
+            <span class="chapter-number">CHAPTER 04 — BUSINESS GLOSSARY</span>
+            <h2>قاموس المصطلحات العملية (انسخ المصطلح وابحث به كالمحترفين)</h2>
+            <p class="prose-p">
+                أثناء استخدامك للمنصة وداخل «كبسولة البداية»، ستجد مصطلحات إنجليزية مكتوبة وسط الكلام العربي. وضعناها لك عمدًا لأن أفضل أدوات ومصادر وموردين العالم يستخدمون هذه المصطلحات. يمكنك البحث هنا أو نسخ أي مصطلح بضغطة واحدة:
+            </p>
 
-            <div class="kaefien-showcase-box">
-                <h3>نموذج تطبيقي حي: براند كافيين للقهوة المختصة (kæfi;n® | Specialty Coffee Boutique)</h3>
-                <p>
-                    في عام ٢٠١٧، أسس مبتكر هذه المنصة علامته التجارية المتخصصة في القهوة المختصة <strong>«كافيين» (<span class="en-term">kæfi;n</span>)</strong>، والتي تُحمّص دفعاتها الصغيرة باستخدام تقنية الهواء الساخن المتطورة (<span class="en-term">Advanced Fluid-Bed Roasting Technology</span>).
-                </p>
-                <p style="margin-bottom: 12px;">
-                    المفاجأة التي تلهم كل زائر هنا هي أن <strong>براند «كافيين» هو مايكرو-براند قائم بالكامل على شخص واحد فقط (<span class="en-term">One-Person Micro-Brand</span>)</strong>! من اختيار الحبوب الخضراء، إلى التحميص الدقيق، إلى تصميم الهوية البصرية والتغليف، وحتى برمجة المتجر الإلكتروني والبيع المباشر للعملاء؛ ليثبت عملياً أنك في عصر الذكاء الاصطناعي والتصميم الذكي لا تحتاج إلى جيش من الموظفين أو مكاتب فاخرة لتبني علامة تجارية محترمة ومربحة.
-                </p>
-                <a href="https://www.kaefien.online" target="_blank" rel="noopener noreferrer" class="kaefien-link">
-                    🌐 زيارة الموقع الرسمي لبراند كافيين: www.kaefien.online
-                </a>
+            <input type="text" id="glossary-search-input" class="glossary-search" placeholder="ابحث عن مصطلح بالعربية أو الإنجليزية (مثال: MVP، هامش المساهمة، Microbrand)..." oninput="filterGlossary()">
+
+            <div class="glossary-grid" id="glossary-container">
+                <div class="glossary-card" data-keywords="نموذج العمل business model">
+                    <div class="glossary-card-header">
+                        <span class="glossary-ar-title">نموذج العمل</span>
+                        <span class="term-pill">
+                            <span class="en-term">Business Model</span>
+                            <button class="copy-term-btn" onclick="copyTerm('Business Model', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
+                        </span>
+                    </div>
+                    <p>الطريقة التي يصنع بها مشروعك قيمة للعميل، ويقدمها له، ويحولها إلى إيرادات وأرباح مستمرة.</p>
+                    <div class="glossary-example"><strong>مثال:</strong> بيع نفس المنتج للمستهلك مباشرة بالقطعة هو نموذج عمل مختلف تمامًا عن بيعه باشتراك شهري ثابت للمطاعم.</div>
+                </div>
+
+                <div class="glossary-card" data-keywords="القيمة المقترحة value proposition">
+                    <div class="glossary-card-header">
+                        <span class="glossary-ar-title">القيمة المقترحة</span>
+                        <span class="term-pill">
+                            <span class="en-term">Value Proposition</span>
+                            <button class="copy-term-btn" onclick="copyTerm('Value Proposition', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
+                        </span>
+                    </div>
+                    <p>السبب الواضح والمحدد الذي يجعل العميل يشتري منك أنت ويترك المنافسين في السوق.</p>
+                    <div class="glossary-example"><strong>مثال:</strong> "ملاية سرير قطن بجيوب عميقة 40 سم وأستك كلبس لا تنخلع من المراتب العالية أبدًا" — هذه قيمة مقترحة تحل مشكلة محددة.</div>
+                </div>
+
+                <div class="glossary-card" data-keywords="الحد الأدنى للمنتج minimum viable product mvp">
+                    <div class="glossary-card-header">
+                        <span class="glossary-ar-title">الحد الأدنى للمنتج</span>
+                        <span class="term-pill">
+                            <span class="en-term">Minimum Viable Product - MVP</span>
+                            <button class="copy-term-btn" onclick="copyTerm('Minimum Viable Product - MVP', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
+                        </span>
+                    </div>
+                    <p>أبسط نسخة أولية قابلة للبيع من منتجك أو خدمتك، تنفذها بأقل تكلفة لاختبار هل الناس مستعدة لدفع فلوس فعلًا أم لا.</p>
+                    <div class="glossary-example"><strong>مثال:</strong> بدل تصنيع 500 محفظة جلد بـ 5 ألوان، تصنّع 10 قطع فقط من موديل واحد وتعرضها للبيع الفعلي لتختبر السعر والطلب.</div>
+                </div>
+
+                <div class="glossary-card" data-keywords="العلامة التجارية المتخصصة microbrand">
+                    <div class="glossary-card-header">
+                        <span class="glossary-ar-title">العلامة التجارية المتخصصة</span>
+                        <span class="term-pill">
+                            <span class="en-term">Microbrand</span>
+                            <button class="copy-term-btn" onclick="copyTerm('Microbrand', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
+                        </span>
+                    </div>
+                    <p>براند صغير ومستقل يركز بشدة على شريحة عملاء محددة ومنتج متقن جدًا، بدل محاولة منافسة المصانع الكبرى في السلع العامة.</p>
+                    <div class="glossary-example"><strong>مثال:</strong> براند متخصص فقط في حقائب اللابتوب الجلدية المقاومة للمياه للمهندسين والأطباء.</div>
+                </div>
+
+                <div class="glossary-card" data-keywords="التصنيع لدى الغير contract manufacturing private label">
+                    <div class="glossary-card-header">
+                        <span class="glossary-ar-title">التصنيع لدى الغير</span>
+                        <span class="term-pill">
+                            <span class="en-term">Contract Manufacturing</span>
+                            <button class="copy-term-btn" onclick="copyTerm('Contract Manufacturing', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
+                        </span>
+                    </div>
+                    <p>الاتفاق مع ورشة أو مصنع قائم لتصنيع منتجك بمواصفاتك واسمك التجاري بالقطعة أو بالدفعة، دون أن تشتري ماكينات أو تدفع إيجار مصنع.</p>
+                    <div class="glossary-example"><strong>مثال:</strong> توفير 80,000 جنيه ثمن ماكينات الخياطة والقص، والاتفاق مع ورشة في جسر السويس أو المنشية لتصنيع أول 50 قطعة لك بالمصنعية.</div>
+                </div>
+
+                <div class="glossary-card" data-keywords="المطبخ السحابي cloud kitchen">
+                    <div class="glossary-card-header">
+                        <span class="glossary-ar-title">المطبخ السحابي</span>
+                        <span class="term-pill">
+                            <span class="en-term">Cloud Kitchen</span>
+                            <button class="copy-term-btn" onclick="copyTerm('Cloud Kitchen', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
+                        </span>
+                    </div>
+                    <p>مطبخ مرخص مجهز للإنتاج والتوصيل فقط (أو التوريد للمقاهي والشركات) دون صالة طعام أو إيجار شارع رئيسي باهظ.</p>
+                    <div class="glossary-example"><strong>مثال:</strong> استغلال مساحة مناسبة ومستوفية للاشتراطات في شارع داخلي لإنتاج أصناف محددة تُباع عبر تطبيقات التوصيل واشتراكات المكاتب.</div>
+                </div>
+
+                <div class="glossary-card" data-keywords="تكلفة اكتساب العميل customer acquisition cost cac">
+                    <div class="glossary-card-header">
+                        <span class="glossary-ar-title">تكلفة اكتساب العميل</span>
+                        <span class="term-pill">
+                            <span class="en-term">Customer Acquisition Cost</span>
+                            <button class="copy-term-btn" onclick="copyTerm('Customer Acquisition Cost', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
+                        </span>
+                    </div>
+                    <p>إجمالي ما تدفعه في التسويق والإعلانات والمبيعات مقسومًا على عدد العملاء الذين اشتروا منك فعليًا.</p>
+                    <div class="glossary-example"><strong>مثال:</strong> لو صرفت 1,000 جنيه إعلانات واشترى منك 10 عملاء، فإن تكلفة اكتساب العميل الواحد هي 100 جنيه (ويجب أن تحسبها ضمن تكلفة المنتج!).</div>
+                </div>
+
+                <div class="glossary-card" data-keywords="هامش المساهمة contribution margin">
+                    <div class="glossary-card-header">
+                        <span class="glossary-ar-title">هامش المساهمة</span>
+                        <span class="term-pill">
+                            <span class="en-term">Contribution Margin</span>
+                            <button class="copy-term-btn" onclick="copyTerm('Contribution Margin', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
+                        </span>
+                    </div>
+                    <p>المبلغ المتبقي من سعر بيع القطعة الواحدة بعد خصم كل التكاليف المتغيرة المباشرة (خامة + تصنيع + تغليف + شحن + إعلان القطعة).</p>
+                    <div class="glossary-example"><strong>مثال:</strong> إذا بعت المنتج بـ 400 جنيه، وكلفتك الخامة والتصنيع والتغليف والإعلان 280 جنيهًا، فهامش المساهمة هو 120 جنيهًا لتغطية مصاريفك الثابتة وربحك.</div>
+                </div>
+
+                <div class="glossary-card" data-keywords="الحد الأدنى للطلب minimum order quantity moq">
+                    <div class="glossary-card-header">
+                        <span class="glossary-ar-title">الحد الأدنى للطلب</span>
+                        <span class="term-pill">
+                            <span class="en-term">Minimum Order Quantity - MOQ</span>
+                            <button class="copy-term-btn" onclick="copyTerm('Minimum Order Quantity - MOQ', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
+                        </span>
+                    </div>
+                    <p>أقل كمية يوافق المورد أو المصنع على بيعها أو تصنيعها لك بسعر الجملة في الطلبية الواحدة.</p>
+                    <div class="glossary-example"><strong>مثال:</strong> عندما تقارن بين الموردين في مساحة مشروعك، المورد الذي يقبل MOQ صغيرًا (50 قطعة) في البداية أفضل لسيولتك من مورد أرخص قليلًا لكنه يشترط 1000 قطعة.</div>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="card">
-            <h2>©️ ٤. ابتكار أصيل وحقوق الملكية الفكرية</h2>
-            <p>إن فكرة بناء محرك توجيه استثماري تفاعلي يجمع بين تحليل الشخصية العملية، فحص توافق الشريك، فلسفة المايكرو-براند القائم على حل المشكلات، والقاعدة الذهبية لقياس السوق مع وكيل ذكاء اصطناعي للموردين هي <strong>ابتكار أصيل يُنفّذ لأول مرة</strong>، وجميع حقوقه الفكرية محفوظة لصاحب الفكرة ومبتكرها:</p>
-            
-            <div class="founder-block">
-                <div class="founder-name">أحمد سليم جوهر (Ahmed Selim Jouhar)</div>
-                <span class="founder-title-badge">رائد أعمال وكاتب ومفكر</span>
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
-                    مؤسس علامة <strong>kæfi;n®</strong> للقهوة المختصة، ومصمم هويات العلامات التجارية، ومبتكر نموذج التوجيه الاستثماري التفاعلي. تم بناء وتطوير الهيكل البرمجي والذكاء الاصطناعي للمنصة بالتعاون التقني مع أداة <strong>Google Gemini</strong>.
-                </p>
-                <p style="margin-bottom: 8px; font-weight: 700; font-size: 0.85rem;">للتواصل الرسمي والاستفسارات:</p>
-                <a href="mailto:ahmedselimjouhar@me.com" class="contact-email">✉️ ahmedselimjouhar@me.com</a>
-            </div>
-
-            <div>
-                <a href="index.html" class="nav-link">ابدأ رحلتك الآن في الحاسبة الاستثمارية ←</a>
-            </div>
+        <!-- دعوة للبدء -->
+        <div class="footer-cta">
+            <h3>دلوقتي إنت جاهز تشوف إمكانياتك بعين مختلفة</h3>
+            <p>ارجع للصفحة الرئيسية، وجاوب على المواقف السلوكية وحدد الأصول اللي تحت إيدك بصراحة، عشان نطلع لك فرصة واحدة مدروسة وكبسولة البداية الخاصة بيك.</p>
+            <a href="index.html" class="btn-primary">
+                <span>انتقل إلى تجربة «اكتشف نفسك»</span>
+                <i data-lucide="arrow-left" style="width:16px; height:16px;"></i>
+            </a>
         </div>
-
-        <div class="footer-note">
-            جميع الحقوق محفوظة © ٢٠٢٦ | منصة ابدأ مشروعك — ابتكار وتطوير: أحمد سليم جوهر (رائد أعمال وكاتب ومفكر)
-        </div>
-    </div>
+    </main>
 
     <script>
-        function toggleTheme() {
-            const body = document.body;
-            if (body.classList.contains('light-mode')) {
-                body.classList.replace('light-mode', 'dark-mode');
-            } else {
-                body.classList.replace('dark-mode', 'light-mode');
+        // تفعيل أيقونات Lucide
+        lucide.createIcons();
+
+        // وظيفة نسخ المصطلح الإنجليزي منفرداً
+        function copyTerm(termText, btnEl) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(termText).then(() => {
+                    const originalHtml = btnEl.innerHTML;
+                    btnEl.innerHTML = '<i data-lucide="check" style="width:13px; height:13px;"></i>';
+                    lucide.createIcons();
+                    setTimeout(() => {
+                        btnEl.innerHTML = originalHtml;
+                        lucide.createIcons();
+                    }, 1500);
+                });
             }
         }
+
+        // وظيفة البحث السريع في القاموس
+        function filterGlossary() {
+            const q = document.getElementById('glossary-search-input').value.trim().toLowerCase();
+            const cards = document.querySelectorAll('.glossary-card');
+            cards.forEach(card => {
+                const text = (card.innerText + ' ' + (card.getAttribute('data-keywords') || '')).toLowerCase();
+                card.style.display = text.includes(q) ? 'block' : 'none';
+            });
+        }
+
+        // طبقة حماية الكود والمحتوى من النسخ العشوائي (Anti-Copy & Anti-Inspect Shield)
+        document.addEventListener('contextmenu', function(e) {
+            if (!e.target.closest('.en-term')) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            // منع F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+                (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's'))
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
     </script>
 </body>
 </html>

@@ -955,14 +955,14 @@
             <img src="logo-alt.png" alt="ابدأ مشروعك - التدرج" class="logo-alt">
         </div>
         <span class="hero-hook-badge">⚡ بوصلتك الاستثمارية قبل ما تغامر بقرش</span>
-        <h1>تعرف الأول: إنت بتحب تصنع، ولا تتاجر، ولا تبني تطبيقات ومواقع ذكية بالذكاء الاصطناعي؟</h1>
-        <p>حتى لو عمرك ما فتحت مشروع قبل كده؛ إجاباتك على المواقف اليومية دي هتكشف لك طبعك الحقيقي، وهتطلعلك بالورقة والقلم المشاريع (أو التطبيقات الرقمية) اللي تلبس على مقاس دماغك وميزانيتك.</p>
+        <h1>قبل ما تحط تحويشة عمرك في مشروع يصفّي بعد ٣ شهور.. اعرف الأول: إنت تركيبة تاجر، ولا صانع، ولا مستثمر بنوك ودهب؟</h1>
+        <p>حتى لو عمرك ما فتحت مشروع قبل كده؛ إجاباتك على المواقف اليومية البسيطة دي هتكشف لك نقاط قوتك الحقيقية، وهتطلعلك بالورقة والقلم المسار اللي يركب على مقاس طبعك وميزانيتك.</p>
         
         <div class="audience-pills">
-            <span class="audience-pill">🛠️ محب الصنعة والإنتاج العملي</span>
-            <span class="audience-pill">💼 محب التجارة وإدارة الصفقات</span>
-            <span class="audience-pill">💻 محب التطبيقات والحلول البرمجية بالـ AI</span>
-            <span class="audience-pill">🏦 محب الأصول والاستثمار المالي</span>
+            <span class="audience-pill">👔 للموظف اللي عايز يخرج من ساقية المرتب</span>
+            <span class="audience-pill">🎓 للطالب والشاب في أول حياته</span>
+            <span class="audience-pill">🏠 لست البيت والبنت الطموحة</span>
+            <span class="audience-pill">🛠️ للصنايعي الشاطر اللي عايز يكبر</span>
         </div>
     </header>
 
@@ -1542,7 +1542,7 @@
             annualReturnRate: 0.205,
             title: '🏦 الشهادات البنكية وأذون الخزانة المصرية',
             badge: 'محب الأصول والأمان — دخل مضمون بدون تشغيل ولا عمالة',
-            problemSolved: 'يحمي تحويشة عمرك من مخاطر التجارة ويعطيك عائداً شهرياً أو سنوياً مضموناً بضمان البنك المركزي.',
+            problemSolved: 'المشكلة التي يحلها: يحمي تحويشة عمرك من مخاطر التجارة ويعطيك عائداً شهرياً أو سنوياً مضموناً بضمان البنك المركزي.',
             reason: 'توزيع المبلغ بين الشهادات ذات العائد الأعلى وأذون الخزانة المعفاة.',
             assumptions: 'محسوب على متوسط عائد صافي 20.5% سنوياً.',
             breakeven: 'من أول يوم.',
@@ -1563,7 +1563,7 @@
             annualReturnRate: 0.22,
             title: '🪙 سبائك الذهب عيار ٢٤ وصناديق الذهب الرقمية',
             badge: 'محب الأصول والملاذ الآمن — لحفظ القوة الشرائية بالدولار',
-            problemSolved: 'يحل مشكلة تآكل قيمة الفلوس مع التضخم لأن الذهب متسعر عالمياً بالأونصة الدولارية.',
+            problemSolved: 'المشكلة التي يحلها: يحل مشكلة تآكل قيمة الفلوس مع التضخم لأن الذهب متسعر عالمياً بالأونصة الدولارية.',
             reason: 'شراء سبائك عيار ٢٤ مغلفة أو وثائق صناديق الذهب المرخصة بدون مخاطر تخزين بالمنزل.',
             assumptions: 'مبني على سعر جرام عيار ٢٤ الحالي (~7,305 ج.م).',
             breakeven: 'تغطية المصنعية خلال ٣ إلى ٦ شهور.',
@@ -1599,7 +1599,7 @@
         element.classList.add('selected');
         userAnswers[questionKey] = value;
 
-        const answeredCount = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].filter(k => Boolean(userAnswers[k])).length;
+        const answeredCount = ['q1', 'q2', 'q3', 'q4', 'q5'].filter(k => Boolean(userAnswers[k])).length;
         document.getElementById('quiz-progress-pill').innerText = `تمت الإجابة على ${answeredCount} من 6`;
     }
 
@@ -1617,7 +1617,7 @@
     }
 
     function getUserTraits() {
-        const counts = { realistic: 0, enterprising: 0, digital: 0, investigative: 0, conventional: 0, artistic: 0 };
+        const counts = { realistic: 0, enterprising: 0, digital: 0, investigative: 0, conventional: 0 };
         counts[userAnswers.q1] = (counts[userAnswers.q1] || 0) + 3;
         counts[userAnswers.q2] = (counts[userAnswers.q2] || 0) + 2.5;
         counts[userAnswers.q3] = (counts[userAnswers.q3] || 0) + 2;

@@ -398,7 +398,7 @@
             border-color: var(--text-primary);
         }
 
-        /* الأزرار وفق التصميم الأحادي */
+        /* الأزرار */
         .btn-primary {
             background: var(--btn-primary-bg);
             color: var(--btn-primary-text);
@@ -451,7 +451,6 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* مكون المصطلح الإنجليزي القابل للنسخ */
         .term-pill {
             display: inline-flex;
             align-items: center;
@@ -481,7 +480,6 @@
             color: var(--text-primary);
         }
 
-        /* خريطة الأصل Leaflet */
         #asset-map-container {
             display: none;
             margin-top: 14px;
@@ -592,41 +590,6 @@
             color: var(--text-primary);
         }
 
-        .lesson-card {
-            background: var(--bg-element);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 20px;
-            margin-bottom: 16px;
-        }
-
-        .lesson-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 12px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .task-check-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            padding: 14px 16px;
-            border-radius: var(--radius-md);
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .task-check-row.done {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-        }
-
         .privacy-notice-bar {
             background: var(--bg-element);
             border: 1px solid var(--border-color);
@@ -643,30 +606,10 @@
         .hidden-step {
             display: none;
         }
-
-        @media (max-width: 680px) {
-            .journey-stepper {
-                grid-template-columns: 1fr 1fr;
-            }
-            .grid-2col {
-                grid-template-columns: 1fr;
-            }
-            .card {
-                padding: 22px 16px;
-            }
-            header.hero-section h1 {
-                font-size: 1.45rem;
-            }
-            .actions-footer {
-                flex-direction: column-reverse;
-                align-items: stretch;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <!-- الشريط العلوي -->
     <div class="top-bar-wrapper">
         <div class="top-bar-inner">
             <a class="brand-logo" onclick="navigateToStep(1)">
@@ -675,7 +618,7 @@
             </a>
 
             <div class="live-tickers">
-                <div class="ticker-item" title="سعر الصرف المرجعي المحدث">
+                <div class="ticker-item">
                     <span class="status-dot" id="fx-status-dot"></span>
                     <span>الدولار:</span>
                     <strong id="usd-rate-display">56.15 EGP</strong>
@@ -703,7 +646,6 @@
     </div>
 
     <div class="container">
-        <!-- ترويسة المنصة -->
         <header class="hero-section" id="main-hero">
             <div class="eyebrow-badge">
                 <i data-lucide="sparkles" style="width:14px; height:14px;"></i>
@@ -711,14 +653,12 @@
             </div>
             <h1>اكتشف نفسك، واكتشف إمكانيات لم تكن تعرف أنها لديك.</h1>
             <p>
-                خلينا نكتشف طبيعة الشغل اللي يناسبك، ونربط قدراتك والأصول اللي تحت إيدك بفرصة تجارية واحدة مدروسة، ونمشي معاك خطوة بخطوة لحد ما تختبر السوق وتبدأ صح.
+                خلينا نكتشف طبيعة الشغل اللي يناسبك، ونربط قدراتك والأصول اللي تحت إيدك بفرصة تجارية واحدة مدروسة.
             </p>
         </header>
 
-        <!-- بانر دعوة الشريك -->
         <div class="insight-block strong-border" id="partner-invite-banner" style="display:none;"></div>
 
-        <!-- مؤشر خطوات الرحلة -->
         <div class="journey-stepper" id="journey-stepper">
             <div class="step-indicator active" id="ind-step-1" onclick="tryJumpStep(1)">
                 <i data-lucide="user-check" style="width:16px; height:16px;"></i>
@@ -738,9 +678,7 @@
             </div>
         </div>
 
-        <!-- =================================================================
-             المرحلة الأولى: اكتشف نفسك (10 مواقف سلوكية)
-        ================================================================== -->
+        <!-- المرحلة الأولى -->
         <section class="card" id="step-1-section">
             <div class="section-header-row">
                 <div class="section-title">
@@ -752,11 +690,10 @@
 
             <div class="privacy-notice-bar">
                 <i data-lucide="shield-check" style="width:18px; height:18px; flex-shrink:0; margin-top:2px;"></i>
-                <div>
-                    هذه الأسئلة ليست اختبارًا نفسيًا، بل مواقف عملية تساعد النظام على فهم نوع المهام التي تبدع فيها والمهام التي تستنزف طاقتك. كل إجابة تغير التوصية النهائية مباشرة.
-                </div>
+                <div>هذه الأسئلة تساعد النظام على فهم المهام التي تبدع فيها لتحديد التوصية المناسبة بدقة.</div>
             </div>
 
+            <!-- حاوية الأسئلة التي يجب أن تتواجد لكي تظهر الأسئلة -->
             <div id="behavioral-questions-container"></div>
 
             <div class="actions-footer">
@@ -768,9 +705,7 @@
             </div>
         </section>
 
-        <!-- =================================================================
-             المرحلة الثانية: ملف المستخدم + الأصل ومكانه وحيازته + رأس المال
-        ================================================================== -->
+        <!-- المرحلة الثانية -->
         <section class="card hidden-step" id="step-2-section">
             <div class="section-header-row">
                 <div class="section-title">
@@ -780,10 +715,9 @@
                 <span class="status-tag">تخصيص دقيق للفرصة</span>
             </div>
 
-            <!-- بيانات المستخدم الأساسية -->
             <div class="grid-2col" style="margin-bottom:24px;">
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="question-label" for="user-name">الاسم (لعرضه في مساحة مشروعك)</label>
+                    <label class="question-label" for="user-name">الاسم</label>
                     <input type="text" id="user-name" placeholder="مثال: أحمد سليم">
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
@@ -802,13 +736,13 @@
                     <label class="question-label" for="user-experience">خبرتك العملية السابقة</label>
                     <select id="user-experience">
                         <option value="none">أبدأ لأول مرة في العمل التجاري</option>
-                        <option value="employee">موظف ولدي خبرة إدارية أو فنية في مجالي</option>
-                        <option value="freelance">عملت بشكل حر أو في تجارة صغيرة سابقًا</option>
-                        <option value="business_owner">أدرت مشروعًا أو ورشة أو تجارة من قبل</option>
+                        <option value="employee">موظف ولدي خبرة إدارية أو فنية</option>
+                        <option value="freelance">عملت بشكل حر سابقًا</option>
+                        <option value="business_owner">أدرت مشروعًا من قبل</option>
                     </select>
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="question-label" for="user-gender">الجنس (اختياري — لا يؤثر على استبعاد أي مشروع)</label>
+                    <label class="question-label" for="user-gender">الجنس (اختياري)</label>
                     <select id="user-gender">
                         <option value="unspecified">أفضل عدم التحديد</option>
                         <option value="male">ذكر</option>
@@ -817,201 +751,99 @@
                 </div>
             </div>
 
-            <!-- الفصل الجغرافي الثلاثي: السكن، الأصل، السوق المستهدف -->
             <div class="insight-block" style="margin-bottom:28px;">
-                <h3 style="font-size:1rem; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
-                    <i data-lucide="map-pin" style="width:18px; height:18px;"></i>
-                    <span>الأصل المتاح لديك ومكانه الجغرافي</span>
-                </h3>
-                <p style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:16px;">
-                    الأصل هو أي مكان أو وسيلة تحت إيدك تقدر تستغلها في المشروع (غرفة في سكنك، شقة فاضية، سطح، مخزن، محل، ورشة، أو عربية). مكان الأصل ممكن يكون مختلف تمامًا عن السوق اللي هتبيع فيه.
-                </p>
-
-                <!-- اختيار نوع الأصل -->
+                <h3 style="font-size:1rem; margin-bottom:6px;">الأصل المتاح لديك ومكانه الجغرافي</h3>
                 <div class="form-group">
-                    <label class="question-label">ما نوع الأصل المتاح لديك حاليًا؟ (يمكنك اختيار أصل أو أكثر)</label>
+                    <label class="question-label">ما نوع الأصل المتاح لديك حاليًا؟</label>
                     <div class="grid-3col" id="assets-selection-grid">
                         <div class="asset-card selected" data-asset="none" onclick="toggleAssetCard(this, 'none')">
-                            <span>بدون أصل مكاني أو سيارة (موبايل/لابتوب فقط)</span>
+                            <span>بدون أصل مكاني أو سيارة</span>
                             <span class="check-circle">✓</span>
                         </div>
                         <div class="asset-card" data-asset="home_room" onclick="toggleAssetCard(this, 'home_room')">
                             <span>غرفة فاضية داخل مسكني</span>
                             <span class="check-circle">✓</span>
                         </div>
-                        <div class="asset-card" data-asset="vacant_apt" onclick="toggleAssetCard(this, 'vacant_apt')">
-                            <span>شقة مستقلة فاضية</span>
-                            <span class="check-circle">✓</span>
-                        </div>
-                        <div class="asset-card" data-asset="roof" onclick="toggleAssetCard(this, 'roof')">
-                            <span>سطح منزل متاح</span>
-                            <span class="check-circle">✓</span>
-                        </div>
-                        <div class="asset-card" data-asset="warehouse" onclick="toggleAssetCard(this, 'warehouse')">
-                            <span>مخزن أو بدروم مستقل</span>
-                            <span class="check-circle">✓</span>
-                        </div>
                         <div class="asset-card" data-asset="workshop" onclick="toggleAssetCard(this, 'workshop')">
-                            <span>ورشة أو مساحة إنتاج</span>
-                            <span class="check-circle">✓</span>
-                        </div>
-                        <div class="asset-card" data-asset="shop_office" onclick="toggleAssetCard(this, 'shop_office')">
-                            <span>محل تجاري أو مكتب إداري</span>
-                            <span class="check-circle">✓</span>
-                        </div>
-                        <div class="asset-card" data-asset="land" onclick="toggleAssetCard(this, 'land')">
-                            <span>أرض زراعية أو فضاء</span>
+                            <span>ورشة أو مخزن</span>
                             <span class="check-circle">✓</span>
                         </div>
                         <div class="asset-card" data-asset="vehicle" onclick="toggleAssetCard(this, 'vehicle')">
-                            <span>سيارة ملاكي / ربع نقل / فان / تروسيكل</span>
-                            <span class="check-circle">✓</span>
-                        </div>
-                        <div class="asset-card" data-asset="machines" onclick="toggleAssetCard(this, 'machines')">
-                            <span>معدات أو ماكينات متاحة</span>
+                            <span>سيارة / تروسيكل / فان</span>
                             <span class="check-circle">✓</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- تفاصيل الأصل الشرطية -->
                 <div id="conditional-asset-details" style="display:none; padding-top:16px; border-top:1px solid var(--border-color);">
                     <div class="grid-2col" style="margin-bottom:16px;">
                         <div>
-                            <label class="question-label" for="asset-ownership">حالة حيازة وملكية هذا الأصل</label>
+                            <label class="question-label" for="asset-ownership">حالة الحيازة</label>
                             <select id="asset-ownership">
-                                <option value="owned_self">مِلكي شخصيًا بالكامل</option>
-                                <option value="owned_family">مِلك للأهل/العائلة ومسموح لي باستغلاله</option>
-                                <option value="rented">مؤجر وحالته القانونية تسمح بالنشاط</option>
+                                <option value="owned_self">مِلكي شخصيًا</option>
+                                <option value="owned_family">مِلك للأهل</option>
+                                <option value="rented">مؤجر</option>
                             </select>
                         </div>
                         <div>
-                            <label class="question-label" for="asset-governorate">في أي محافظة يقع هذا الأصل؟</label>
+                            <label class="question-label" for="asset-governorate">المحافظة</label>
                             <select id="asset-governorate">
-                                <option value="القاهرة الكبرى">القاهرة الكبرى (القاهرة / الجيزة / القليوبية)</option>
+                                <option value="القاهرة الكبرى">القاهرة الكبرى</option>
                                 <option value="الإسكندرية" selected>الإسكندرية</option>
-                                <option value="الدلتا">محافظات الدلتا (الغربية / الدقهلية / الشرقية / المنوفية / البحيرة)</option>
-                                <option value="مدن القناة">مدن القناة وسيناء (بورسعيد / الإسماعيلية / السويس)</option>
-                                <option value="الصعيد">محافظات الصعيد (بني سويف / المنيا / أسيوط / سوهاج / قنا / أسوان)</option>
+                                <option value="الدلتا">الدلتا</option>
+                                <option value="الصعيد">الصعيد</option>
                             </select>
-                        </div>
-                    </div>
-
-                    <div class="grid-2col" style="margin-bottom:16px;">
-                        <div>
-                            <label class="question-label" for="asset-area">المساحة التقريبية للأصل (بالمتر المربع إن كان عقارًا)</label>
-                            <input type="number" id="asset-area" value="25" min="4" placeholder="مثال: 25">
-                        </div>
-                        <div>
-                            <label class="question-label" for="asset-utilities">تجهيزات المرافق والترخيص في مكان الأصل</label>
-                            <select id="asset-utilities">
-                                <option value="residential_quiet">سكني هادئ (تخزين خفيف/تغليف/مكتب فقط بدون ضوضاء أو أبخرة)</option>
-                                <option value="commercial_ready">تجهيز تجاري/ورشة (كهرباء ومياه وتهوية وتصلح للترخيص)</option>
-                                <option value="industrial_heavy">كهرباء 3 فاز وصرف وتهوية صناعية ومدخل سيارات نقل</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="asset-specific-question-box" style="margin-bottom:16px;">
-                        <label class="question-label" id="asset-specific-label" for="asset-specific-select">طبيعة التحميل والاستخدام المسموح</label>
-                        <select id="asset-specific-select">
-                            <option value="standard_ok">المكان آمن إنشائيًا ومسموح بدخول الخامات والبضائع بسهولة</option>
-                            <option value="restricted_access">الدخول محدود (أدوار عليا بدون مصعد بضائع أو اشتراطات اتحاد ملاك صارمة)</option>
-                        </select>
-                    </div>
-
-                    <div style="background:var(--bg-primary); border:1px solid var(--border-color); padding:14px; border-radius:var(--radius-md);">
-                        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
-                            <div>
-                                <strong style="font-size:0.86rem;">تحديد موقع الأصل على الخريطة (اختياري)</strong>
-                                <p style="font-size:0.78rem; color:var(--text-secondary);">يساعدنا على تقييم سهولة النقل والوصول للأسواق المحيطة دون حفظ إحداثياتك الدقيقة في سجلات عامة.</p>
-                            </div>
-                            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                                <button type="button" class="btn-secondary" onclick="locateAssetViaGPS()" style="padding:8px 12px; font-size:0.78rem;">
-                                    <i data-lucide="locate-fixed" style="width:14px; height:14px;"></i>
-                                    <span>موقعي الحالي (GPS)</span>
-                                </button>
-                                <button type="button" class="btn-secondary" onclick="toggleAssetMap()" style="padding:8px 12px; font-size:0.78rem;">
-                                    <i data-lucide="map" style="width:14px; height:14px;"></i>
-                                    <span>وضع علامة يدويًا على الخريطة</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div id="asset-location-status" style="font-size:0.78rem; color:var(--text-primary); margin-top:8px; font-weight:500;"></div>
-                        <div id="asset-map-container">
-                            <div id="leaflet-map"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- مكان الإقامة والسوق المستهدف -->
             <div class="grid-2col" style="margin-bottom:24px;">
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="question-label" for="user-residence-gov">محافظة إقامتك الحالية</label>
+                    <label class="question-label" for="user-residence-gov">محافظة إقامتك</label>
                     <select id="user-residence-gov">
                         <option value="الإسكندرية" selected>الإسكندرية</option>
                         <option value="القاهرة الكبرى">القاهرة الكبرى</option>
-                        <option value="الدلتا">محافظات الدلتا</option>
-                        <option value="مدن القناة">مدن القناة</option>
-                        <option value="الصعيد">محافظات الصعيد</option>
+                        <option value="الدلتا">الدلتا</option>
+                        <option value="الصعيد">الصعيد</option>
                     </select>
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="question-label" for="target-market-scope">السوق الذي تستهدف البيع فيه</label>
+                    <label class="question-label" for="target-market-scope">السوق المستهدف للبيع</label>
                     <select id="target-market-scope">
-                        <option value="local_neighborhood">المنطقة المحيطة والأحياء القريبة مباشرة</option>
-                        <option value="governorate_wide">داخل محافظتي بالكامل (توريد أو توصيل محلي)</option>
-                        <option value="national_egypt" selected>جميع محافظات مصر (عبر شركات الشحن أو التوزيع)</option>
-                        <option value="export_mena_global">السوق المحلي + التصدير بالعملة الصعبة للخارج</option>
+                        <option value="local_neighborhood">المنطقة المحيطة</option>
+                        <option value="national_egypt" selected>جميع محافظات مصر</option>
                     </select>
                 </div>
             </div>
 
-            <!-- رأس المال المتاح -->
             <div class="form-group" id="group-capital">
-                <label class="question-label" for="capital-input">
-                    رأس المال الفعلي المتاح للبدء (بدون اقتراض)
-                    <span class="question-hint">جرب كتابة 20000 أو 160000 لترى كيف يغير النظام خطة التأسيس وهيكل التشغيل بالكامل لنفس المجال.</span>
-                </label>
+                <label class="question-label" for="capital-input">رأس المال الفعلي المتاح (ج.م)</label>
                 <div class="grid-2col">
                     <input type="number" id="capital-input" value="20000" min="1000" step="500" oninput="updateCapitalPreview()">
                     <select id="input-currency" onchange="updateCapitalPreview()">
                         <option value="EGP">جنيه مصري (EGP)</option>
-                        <option value="USD">دولار أمريكي (USD)</option>
-                        <option value="SAR">ريال سعودي (SAR)</option>
-                        <option value="AED">درهم إماراتي (AED)</option>
+                        <option value="USD">دولار (USD)</option>
                     </select>
                 </div>
                 <div id="capital-converted-preview" style="font-size:0.8rem; color:var(--text-secondary); margin-top:8px;"></div>
             </div>
 
             <div class="actions-footer">
-                <button class="btn-secondary" onclick="navigateToStep(1)">
-                    <i data-lucide="arrow-right" style="width:16px; height:16px;"></i>
-                    <span>رجوع لأسئلة اكتشف نفسك</span>
-                </button>
-                <button class="btn-primary" style="max-width:380px;" onclick="generateSingleRecommendation()">
-                    <span>اكتشف فرصتك التجارية وكبسولة البداية</span>
-                    <i data-lucide="arrow-left" style="width:18px; height:18px;"></i>
-                </button>
+                <button class="btn-secondary" onclick="navigateToStep(1)">رجوع</button>
+                <button class="btn-primary" style="max-width:380px;" onclick="generateSingleRecommendation()">عرض التوصية</button>
             </div>
         </section>
 
-        <!-- =================================================================
-             المرحلة الثالثة: التوصية الواحدة المبررة + كبسولة البداية الشاملة
-        ================================================================== -->
+        <!-- المرحلة الثالثة -->
         <section class="hidden-step" id="step-3-section">
             <div class="card" id="capsule-main-card"></div>
         </section>
 
-        <!-- =================================================================
-             المرحلة الرابعة: مساحة المشروع الشخصية التفاعلية
-        ================================================================== -->
+        <!-- المرحلة الرابعة -->
         <section class="hidden-step" id="step-4-section">
             <div class="card" id="personal-workspace-card"></div>
         </section>
-
     </div>
 
     <script>
@@ -1020,215 +852,122 @@
         let displayCurrency = 'EGP';
         let currentStep = 1;
         let maxUnlockedStep = 1;
-        let partnerInviteData = null;
 
         const appState = {
             answers: {},
             selectedAssets: ['none'],
-            assetDetails: {
-                ownership: 'owned_self',
-                governorate: 'الإسكندرية',
-                areaSqm: 25,
-                utilities: 'residential_quiet',
-                accessCondition: 'standard_ok',
-                approxCoords: null
-            },
-            profileInfo: {
-                name: '',
-                ageGroup: '25-34',
-                experience: 'none',
-                gender: 'unspecified',
-                residenceGov: 'الإسكندرية',
-                targetMarket: 'national_egypt',
-                capitalEGP: 20000,
-                email: '',
-                workspaceToken: ''
-            },
+            assetDetails: { ownership: 'owned_self', governorate: 'الإسكندرية', areaSqm: 25 },
+            profileInfo: { name: '', capitalEGP: 20000, email: '', workspaceToken: '' },
             activeRecommendation: null,
-            workspaceData: {
-                suppliersQuotes: [],
-                completedTasks: {},
-                completedLessons: {},
-                unitCostCalc: { material: 110, manufacturing: 45, packaging: 15, shipping: 35, cac: 35, price: 320 }
-            }
+            workspaceData: { suppliersQuotes: [], completedTasks: {} }
         };
-
-        function termPillHtml(arText, enTerm) {
-            const safeEn = enTerm.replace(/'/g, "\\'");
-            return `${arText} <span class="term-pill"><span class="en-term">${enTerm}</span><button type="button" class="copy-term-btn" onclick="copyEnglishTerm('${safeEn}', this)" title="نسخ المصطلح الإنجليزي"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span>`;
-        }
-
-        function copyEnglishTerm(termText, btnEl) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(termText).then(() => {
-                    btnEl.innerHTML = '<i data-lucide="check" style="width:13px; height:13px;"></i>';
-                    lucide.createIcons();
-                    setTimeout(() => {
-                        btnEl.innerHTML = '<i data-lucide="copy" style="width:13px; height:13px;"></i>';
-                        lucide.createIcons();
-                    }, 1400);
-                });
-            }
-        }
-
-        async function fetchLiveMarketData() {
-            try {
-                const res = await fetch('https://open.er-api.com/v6/latest/USD');
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data && data.rates && data.rates.EGP) {
-                        const egp = data.rates.EGP;
-                        exchangeRates.USD = egp;
-                        exchangeRates.SAR = egp / (data.rates.SAR || 3.75);
-                        exchangeRates.AED = egp / (data.rates.AED || 3.6725);
-                        document.getElementById('usd-rate-display').innerText = `${egp.toFixed(2)} EGP`;
-                        document.getElementById('last-sync-time').innerText = 'محدث لحظيًا';
-                    }
-                }
-            } catch (e) {
-                document.getElementById('last-sync-time').innerText = 'سعر مرجعي محفوظ';
-            }
-            updateCapitalPreview();
-        }
-
-        function getNormalizedCapitalInEGP() {
-            const raw = parseFloat(document.getElementById('capital-input').value);
-            if (isNaN(raw) || raw <= 0) return 20000;
-            const curr = document.getElementById('input-currency').value || 'EGP';
-            return Math.round(raw * (exchangeRates[curr] || 1));
-        }
-
-        function formatMoney(amountEGP) {
-            const rate = exchangeRates[displayCurrency] || 1;
-            const val = amountEGP / rate;
-            const sym = currencySymbols[displayCurrency] || 'ج.م';
-            if (displayCurrency === 'EGP') return `${Math.round(val).toLocaleString()} ${sym}`;
-            return `${val.toLocaleString(undefined, { maximumFractionDigits: 1 })} ${sym}`;
-        }
-
-        function updateCapitalPreview() {
-            let capEGP = getNormalizedCapitalInEGP();
-            appState.profileInfo.capitalEGP = capEGP;
-            const inUSD = Math.round(capEGP / exchangeRates.USD);
-            const prevEl = document.getElementById('capital-converted-preview');
-            if (prevEl) {
-                prevEl.innerText = `القيمة المعتمدة للحساب: ${capEGP.toLocaleString()} ج.م (تعادل تقريبًا $${inUSD.toLocaleString()})`;
-            }
-        }
-
-        function changeDisplayCurrency() {
-            displayCurrency = document.getElementById('currency-switcher').value;
-            updateCapitalPreview();
-            if (currentStep === 3 && appState.activeRecommendation) renderStep3Capsule();
-            if (currentStep === 4 && appState.activeRecommendation) renderStep4Workspace();
-        }
 
         const behavioralQuestions = [
             {
                 id: 'q1',
-                dimension: 'الأنشطة الجاذبة تلقائيًا',
-                question: '1. لو قدامك يومين فاضيين ومحدش طالب منك حاجة، إيه النشاط اللي بتلاقي نفسك بتندمج فيه تلقائيًا من غير ما تحس بالوقت؟',
+                dimension: 'الأنشطة الجاذبة',
+                question: '1. لو قدامك يومين فاضيين، إيه النشاط اللي بتلاقي نفسك بتندمج فيه تلقائيًا؟',
                 options: [
-                    { val: 'craft_product', text: 'أفحص خامات وأصمم أو أصلّح منتج ملموس بإيدي لحد ما يطلع بشكله النهائي المظبوط.' },
-                    { val: 'deal_trade', text: 'أدور على بضاعة بسعر لقطة، وأتفاوض مع تجار أو عملاء وأقفل بيعة سريعة.' },
-                    { val: 'ops_system', text: 'أرتب مكان شغال، وأظبط خطوات تحضير وتجهيز سريعة تمنع الهدر واللخبطة.' },
-                    { val: 'digital_build', text: 'أقعد قدام اللابتوب أبني موقع أو أداة ذكاء اصطناعي تحل مشكلة للناس عن بُعد.' }
+                    { val: 'craft_product', text: 'أفحص خامات وأصمم أو أصلّح منتج ملموس بإيدي.' },
+                    { val: 'deal_trade', text: 'أدور على بضاعة وأتفاوض مع تجار وأقفل بيعة سريعة.' },
+                    { val: 'ops_system', text: 'أرتب مكان شغال وأظبط خطوات تحضير وتشغيل.' },
+                    { val: 'digital_build', text: 'أبني موقع أو أداة رقمية تحل مشكلة للناس عن بُعد.' }
                 ]
             },
             {
                 id: 'q2',
-                dimension: 'المهارات المبرهنة فعليًا',
-                question: '2. ما آخر شيء صنعته أو طورته أو نظمته من نفسك (في شغلك أو بيتك) واعتمد عليك الناس فيه؟',
+                dimension: 'المهارات',
+                question: '2. ما آخر شيء صنعته أو نظمته من نفسك واعتمد عليك الناس فيه؟',
                 options: [
-                    { val: 'made_tangible', text: 'نفذت أو عدّلت حاجة عملية ملموسة، أو كشفت عيب في خامة وصنعة محدش غيري خد باله منه.' },
-                    { val: 'sold_convinced', text: 'بعت حاجة كانت مركونة، أو فاصلت في صفقة صعبة وجبت سعر محدش عرف يجيبه.' },
-                    { val: 'organized_process', text: 'مسكت حسابات ومصاريف أو مطبخ/مخزن متلخبط وعملت له نظام واضح ماشي بالساعة.' },
-                    { val: 'solved_tech', text: 'عملت شيت حسابات ذكي أو سيستم رقمي وفّر وقت ومجهود كبير.' }
+                    { val: 'made_tangible', text: 'نفذت حاجة عملية ملموسة أو كشفت عيب في خامة.' },
+                    { val: 'sold_convinced', text: 'بعت حاجة أو فاصلت في صفقة صعبة.' },
+                    { val: 'organized_process', text: 'مسكت حسابات أو نظمت مخزن متلخبط.' },
+                    { val: 'solved_tech', text: 'عملت شيت حسابات ذكي أو سيستم رقمي.' }
                 ]
             },
             {
                 id: 'q3',
-                dimension: 'سرعة وطريقة التعلم',
-                question: '3. لما بتدخل مجال جديد أول مرة تسمع عنه، إيه أسرع طريقة بتخليك تفهم أسراره وتطبقه؟',
+                dimension: 'التعلم',
+                question: '3. لما بتدخل مجال جديد، إيه أسرع طريقة بتخليك تفهم أسراره؟',
                 options: [
-                    { val: 'learn_by_touch', text: 'أنزل بنفسي الورش والأسواق، أمسك الخامة بإيدي وأجرب في عينة صغيرة.' },
-                    { val: 'learn_by_market', text: 'أسأل التجار والبياعين والزباين في السوق أعرف البضاعة بتتحرك إزاي وبكام.' },
-                    { val: 'learn_by_numbers', text: 'أحسب تكلفة كل جرام أو دقيقة تشغيل، وأحلل المنافسين بيكسبوا منين بالظبط.' },
-                    { val: 'learn_by_screen', text: 'أبحث بالإنجليزي والعربي على الإنترنت وأجرب الأدوات بنفسي لحد ما تشتغل.' }
+                    { val: 'learn_by_touch', text: 'أنزل الورش وأمسك الخامة بإيدي وأجرب عينة.' },
+                    { val: 'learn_by_market', text: 'أسأل التجار والسوق أعرف البضاعة بتتحرك إزاي.' },
+                    { val: 'learn_by_numbers', text: 'أحسب تكلفة كل جرام وأحلل المنافسين.' },
+                    { val: 'learn_by_screen', text: 'أبحث على الإنترنت وأجرب بنفسي.' }
                 ]
             },
             {
                 id: 'q4',
-                dimension: 'نوع المشكلات التي يستمتع بحلها',
-                question: '4. أي مشكلة من دول لو واجهتك في الشغل بتحس بمتعة وتحدي وإنت بتفككها وبتحلها؟',
+                dimension: 'المشكلات',
+                question: '4. أي مشكلة من دول لو واجهتك بتحس بمتعة وإنت بتفككها؟',
                 options: [
-                    { val: 'prob_quality', text: 'المنتج اللي في السوق تقليدي وفيه عيوب، وعايز أطلع نسخة منه بجودة وتفاصيل أرقى.' },
-                    { val: 'prob_supply', text: 'محلات أو شركات بتعاني من نقص صنف معين، وعايز أوفره ليهم بانتظام وسعر جملة.' },
-                    { val: 'prob_kitchen_ops', text: 'طلبيات أكل أو تجهيزات كتيرة في وقت ضيق، ومحتاجة ضبط مقادير وتغليف وتسليم سريع.' },
-                    { val: 'prob_automation', text: 'شركات بتضيع وقتها في الرد اليدوي أو الجرد الورقي، وعايز أحولها لنظام آلي.' }
+                    { val: 'prob_quality', text: 'المنتج تقليدي وعايز أطلع نسخة بجودة أرقى.' },
+                    { val: 'prob_supply', text: 'محلات بتعاني من نقص صنف وعايز أوفره بانتظام.' },
+                    { val: 'prob_kitchen_ops', text: 'طلبيات كتيرة ومحتاجة ضبط مقادير وتسليم سريع.' },
+                    { val: 'prob_automation', text: 'شركات بتضيع وقتها في الرد وعايز أحولها لنظام آلي.' }
                 ]
             },
             {
                 id: 'q5',
-                dimension: 'طبيعة الصعوبات المحتملة',
-                question: '5. كل شغل وله تعبه.. إيه الصعوبة اللي تقدر تستحملها عادي ومبتوقفكش؟',
+                dimension: 'الصعوبات',
+                question: '5. إيه الصعوبة اللي تقدر تستحملها عادي ومبتوقفكش؟',
                 options: [
-                    { val: 'tolerate_craft', text: 'أستحمل التدقيق مع الصنايعية والورش عشان القطعة تطلع مظبوطة بالمللي.' },
-                    { val: 'tolerate_b2b', text: 'أستحمل المرور على المحلات والشركات والتفاوض المباشر وتحصيل الكاش.' },
-                    { val: 'tolerate_prep', text: 'أستحمل ضغط التجهيز اليومي وضبط النظافة والاشتراطات ومواعيد التسليم الصارمة.' },
-                    { val: 'tolerate_screen', text: 'أستحمل القعدة الطويلة قدام الشاشة لحل المشاكل التقنية وتطوير الخدمة.' }
+                    { val: 'tolerate_craft', text: 'التدقيق مع الصنايعية والورش.' },
+                    { val: 'tolerate_b2b', text: 'المرور على المحلات والتفاوض المباشر.' },
+                    { val: 'tolerate_prep', text: 'ضغط التجهيز اليومي ومواعيد التسليم.' },
+                    { val: 'tolerate_screen', text: 'القعدة الطويلة قدام الشاشة لحل المشاكل التقنية.' }
                 ]
             },
             {
                 id: 'q6',
-                dimension: 'نوع العمل المراد تجنبه',
-                question: '6. إيه الحاجة اللي لو اضطريت تعملها كل يوم في مشروعك هتحس إنك مخنوق وعايز تقفل الشغل؟',
+                dimension: 'تجنب العمل',
+                question: '6. إيه الحاجة اللي لو اضطريت تعملها هتحس إنك مخنوق؟',
                 options: [
-                    { val: 'hate_street_sales', text: 'أكره اللف في الشوارع على المحلات والفصال المباشر وجهاً لوجه.' },
-                    { val: 'hate_workshop_dust', text: 'أكره حبسة الورش والوقفة الطويلة على إيدي في تصنيع أو تجهيز.' },
-                    { val: 'hate_retail_chat', text: 'أكره الرغي الطويل مع الزبون الفردي على قطعة واحدة، وأفضل التعامل مع محلات وشركات بكميات.' },
-                    { val: 'hate_screen_isolation', text: 'أكره القعدة لوحدي قدام كمبيوتر طول اليوم من غير حركة وبيع وشراء حي.' }
+                    { val: 'hate_street_sales', text: 'اللف في الشوارع والفصال المباشر.' },
+                    { val: 'hate_workshop_dust', text: 'حبسة الورش والوقفة الطويلة.' },
+                    { val: 'hate_retail_chat', text: 'الرغي مع الزبون الفردي وأفضل الشركات.' },
+                    { val: 'hate_screen_isolation', text: 'القعدة قدام كمبيوتر من غير حركة.' }
                 ]
             },
             {
                 id: 'q7',
-                dimension: 'الدوافع وطبيعة الدخل المطلوب',
-                question: '7. إيه الهدف المالي الأهم ليك في المرحلة دي من حياتك؟',
+                dimension: 'الدوافع',
+                question: '7. إيه الهدف المالي والأهم ليك؟',
                 options: [
-                    { val: 'goal_brand_asset', text: 'أبني اسم وعلامة تجارية متخصصة ليها قيمة في السوق وتكبر مع الوقت.' },
-                    { val: 'goal_fast_cashflow', text: 'أدور رأس المال بسرعة في بضاعة أو توريد يجيب سيولة نقدية كل أسبوع.' },
-                    { val: 'goal_steady_ops', text: 'أأسس وحدة إنتاج أو تشغيل غذائي/خدمي عليها طلب يومي متكرر.' },
-                    { val: 'goal_low_overhead', text: 'أحقق دخل بمصاريف ثابتة شبه صفرية ومن غير ما أربط نفسي بمحل وإيجار.' }
+                    { val: 'goal_brand_asset', text: 'أبني اسم وعلامة تجارية تكبر مع الوقت.' },
+                    { val: 'goal_fast_cashflow', text: 'أدور رأس المال بسرعة في بضاعة تجيب كاش أسبوعي.' },
+                    { val: 'goal_steady_ops', text: 'أأسس وحدة إنتاج عليها طلب يومي متكرر.' },
+                    { val: 'goal_low_overhead', text: 'أحقق دخل بمصاريف شبه صفرية بدون إيجار.' }
                 ]
             },
             {
                 id: 'q8',
-                dimension: 'درجة الاستعداد للمخاطرة',
-                question: '8. قبل ما تصرف رأس مالك في المشروع، إيه أسلوبك الحقيقي في التعامل مع المخاطرة بالفلوس؟',
+                dimension: 'المخاطرة',
+                question: '8. إيه أسلوبك في التعامل مع المخاطرة بالفلوس؟',
                 options: [
-                    { val: 'risk_lean_test', text: 'أحب أجرب بأقل مبلغ ممكن في عينة صغيرة، ولما أبيع فعليًا أضخ باقي الفلوس.' },
-                    { val: 'risk_calculated_scale', text: 'مستعد أستثمر في خامات فاخرة وتغليف وتسويق قوي طالما درست الشريحة المستهدفة.' },
-                    { val: 'risk_safe_tangible', text: 'لازم فلوسي تكون في بضاعة أساسية سريعة البيع أو أصول مضمونة مفيهاش موضة وتغير.' }
+                    { val: 'risk_lean_test', text: 'أجرب بأقل مبلغ في عينة صغيرة أولًا.' },
+                    { val: 'risk_calculated_scale', text: 'مستعد أستثمر في خامات وتسويق قوي.' },
+                    { val: 'risk_safe_tangible', text: 'فلوسي تكون في بضاعة سريعة وسايلة.' }
                 ]
             },
             {
                 id: 'q9',
-                dimension: 'القدرة على الاستمرار عند تأخر النتائج',
-                question: '9. لو قعدت أول 45 يوم بتجهز العينات وبتختبر الإعلانات والمبيعات لسه بطيئة، بتتصرف إزاي؟',
+                dimension: 'الاستمرار',
+                question: '9. لو أول 45 يوم المبيعات لسه بطيئة، بتتصرف إزاي؟',
                 options: [
-                    { val: 'persist_iterate', text: 'أجمع ملاحظات العملاء بهدوء، وأعدّل في المنتج أو العرض التسويقي لحد ما أظبط المعادلة.' },
-                    { val: 'persist_pivot_channel', text: 'أغير قناة البيع فورًا (أنزل أبيع جملة للمحلات بدل القطاعي أو العكس) عشان أحرك الكاش.' },
-                    { val: 'persist_anxious', text: 'بتوتر جدًا لو الكاش ميرجعش في نفس الأسبوع، عشان كده لازم شغلي يكون بدورة تحصيل فورية.' }
+                    { val: 'persist_iterate', text: 'أجمع ملاحظات وأعدل في المنتج أو التسويق.' },
+                    { val: 'persist_pivot_channel', text: 'أغير قناة البيع فورًا لتحريك الكاش.' },
+                    { val: 'persist_anxious', text: 'بتوتر لو الكاش ميرجعش في نفس الأسبوع.' }
                 ]
             },
             {
                 id: 'q10',
-                dimension: 'بيئة الأداء الأفضل',
+                dimension: 'الإدارة',
                 question: '10. بتطلع أحسن نتيجة لما تشتغل بأي نظام إدارة؟',
                 options: [
-                    { val: 'env_solo_outsource', text: 'أشتغل لوحدي كمدير للبراند، وأصنّع عند ورش خارجية بالقطعة من غير صداع عمال.' },
-                    { val: 'env_team_leader', text: 'أعرف أدير صنايعية أو عمال تحضير وتشغيل وأحط لهم نظام يمشوا عليه.' },
-                    { val: 'env_partner_complement', text: 'أحب أدخل مع شريك يكمل الجزء اللي مش بحبه (هو يصنّع وأنا أبيع، أو العكس).' }
+                    { val: 'env_solo_outsource', text: 'أشتغل لوحدي وأصنع عند ورش خارجية.' },
+                    { val: 'env_team_leader', text: 'أعرف أدير صنايعية وعمال تحضير.' },
+                    { val: 'env_partner_complement', text: 'أحب أدخل مع شريك يكملني.' }
                 ]
             }
         ];
@@ -1253,7 +992,7 @@
                     <div class="form-group" id="group-${q.id}">
                         <label class="question-label">
                             ${q.question}
-                            <span class="question-hint">البعد المقاس: ${q.dimension}</span>
+                            <span class="question-hint">البعد: ${q.dimension}</span>
                         </label>
                         <div class="options-grid">
                             ${optionsHtml}
@@ -1293,16 +1032,9 @@
                     return;
                 }
             }
-            if (partnerInviteData) {
-                renderPartnerCompatibilityResult();
-                return;
-            }
             maxUnlockedStep = Math.max(maxUnlockedStep, 2);
             navigateToStep(2);
         }
-
-        let leafletMap = null;
-        let leafletMarker = null;
 
         function toggleAssetCard(elem, assetKey) {
             const grid = document.getElementById('assets-selection-grid');
@@ -1311,293 +1043,34 @@
                 grid.querySelectorAll('.asset-card').forEach(c => c.classList.remove('selected'));
                 elem.classList.add('selected');
             } else {
-                appState.selectedAssets = appState.selectedAssets.filter(a => a !== 'none');
-                const noneCard = grid.querySelector('[data-asset="none"]');
-                if (noneCard) noneCard.classList.remove('selected');
-
-                if (appState.selectedAssets.includes(assetKey)) {
-                    appState.selectedAssets = appState.selectedAssets.filter(a => a !== assetKey);
-                    elem.classList.remove('selected');
-                } else {
-                    appState.selectedAssets.push(assetKey);
-                    elem.classList.add('selected');
-                }
-
-                if (appState.selectedAssets.length === 0) {
-                    appState.selectedAssets = ['none'];
-                    if (noneCard) noneCard.classList.add('selected');
-                }
+                appState.selectedAssets = ['none'];
+                grid.querySelectorAll('.asset-card').forEach(c => c.classList.remove('selected'));
+                appState.selectedAssets = [assetKey];
+                elem.classList.add('selected');
             }
-            updateConditionalAssetQuestions();
-            saveStateToLocalStorage();
-        }
-
-        function updateConditionalAssetQuestions() {
             const box = document.getElementById('conditional-asset-details');
-            const hasPhysicalAsset = !appState.selectedAssets.includes('none');
-            box.style.display = hasPhysicalAsset ? 'block' : 'none';
-        }
-
-        function locateAssetViaGPS() {
-            const statusEl = document.getElementById('asset-location-status');
-            if (!navigator.geolocation) {
-                statusEl.innerText = 'المتصفح لا يدعم تحديد الموقع.';
-                return;
-            }
-            statusEl.innerText = 'جاري تحديد المنطقة التقريبية للأصل...';
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    const approxLat = Math.round(pos.coords.latitude * 100) / 100;
-                    const approxLng = Math.round(pos.coords.longitude * 100) / 100;
-                    appState.assetDetails.approxCoords = { lat: approxLat, lng: approxLng };
-                    statusEl.innerText = `تم ربط المنطقة التقريبية للأصل بنجاح (${approxLat}, ${approxLng}).`;
-                    if (leafletMap) {
-                        leafletMap.setView([approxLat, approxLng], 12);
-                        if (leafletMarker) leafletMarker.setLatLng([approxLat, approxLng]);
-                        else leafletMarker = L.marker([approxLat, approxLng]).addTo(leafletMap);
-                    }
-                },
-                () => {
-                    statusEl.innerText = 'تعذر الوصول لـ GPS. يمكنك استخدام الخريطة يدويًا.';
-                }
-            );
-        }
-
-        function toggleAssetMap() {
-            const mapBox = document.getElementById('asset-map-container');
-            const isHidden = mapBox.style.display === 'none' || mapBox.style.display === '';
-            mapBox.style.display = isHidden ? 'block' : 'none';
-
-            if (isHidden) {
-                setTimeout(() => {
-                    if (!leafletMap) {
-                        leafletMap = L.map('leaflet-map').setView([31.2001, 29.9187], 11);
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            attribution: '© OpenStreetMap'
-                        }).addTo(leafletMap);
-
-                        leafletMap.on('click', function(e) {
-                            const approxLat = Math.round(e.latlng.lat * 100) / 100;
-                            const approxLng = Math.round(e.latlng.lng * 100) / 100;
-                            appState.assetDetails.approxCoords = { lat: approxLat, lng: approxLng };
-                            if (leafletMarker) leafletMarker.setLatLng(e.latlng);
-                            else leafletMarker = L.marker(e.latlng).addTo(leafletMap);
-                            document.getElementById('asset-location-status').innerText =
-                                `تم تحديد منطقة الأصل على الخريطة (${approxLat}, ${approxLng}).`;
-                        });
-                    } else {
-                        leafletMap.invalidateSize();
-                    }
-                }, 150);
-            }
+            box.style.display = assetKey !== 'none' ? 'block' : 'none';
+            saveStateToLocalStorage();
         }
 
         function syncStep2InputsToState() {
             appState.profileInfo.name = document.getElementById('user-name').value.trim() || 'صديقنا';
-            appState.profileInfo.ageGroup = document.getElementById('user-age-group').value;
-            appState.profileInfo.experience = document.getElementById('user-experience').value;
-            appState.profileInfo.gender = document.getElementById('user-gender').value;
-            appState.profileInfo.residenceGov = document.getElementById('user-residence-gov').value;
-            appState.profileInfo.targetMarket = document.getElementById('target-market-scope').value;
-            
-            // منع الميزانية من تجاوز رأس المال أو تعديلها بشكل آمن
-            let rawCap = getNormalizedCapitalInEGP();
-            appState.profileInfo.capitalEGP = rawCap;
-
-            if (!appState.selectedAssets.includes('none')) {
-                appState.assetDetails.ownership = document.getElementById('asset-ownership').value;
-                appState.assetDetails.governorate = document.getElementById('asset-governorate').value;
-                appState.assetDetails.areaSqm = parseFloat(document.getElementById('asset-area').value) || 25;
-                appState.assetDetails.utilities = document.getElementById('asset-utilities').value;
-            }
+            appState.profileInfo.capitalEGP = getNormalizedCapitalInEGP();
             saveStateToLocalStorage();
         }
 
-        // محرك الملاءمة المطور مع تأثير المخاطرة، الخبرة، والعمر
         function computeRecommendationModel() {
-            const ans = appState.answers;
             const cap = appState.profileInfo.capitalEGP;
-            const assets = appState.selectedAssets;
-            const assetDet = appState.assetDetails;
-            const resGov = appState.profileInfo.residenceGov;
-            const assetGov = assets.includes('none') ? resGov : assetDet.governorate;
-            const marketScope = appState.profileInfo.targetMarket;
-            const exp = appState.profileInfo.experience;
-            const age = appState.profileInfo.ageGroup;
-
-            const scores = {
-                leather_microbrand: 0,
-                cloud_kitchen_prep: 0,
-                b2b_micro_supplier: 0,
-                digital_ai_automation: 0
-            };
-
-            if (ans.q1 === 'craft_product') scores.leather_microbrand += 25;
-            if (ans.q1 === 'deal_trade') { scores.b2b_micro_supplier += 22; scores.leather_microbrand += 10; }
-            if (ans.q1 === 'ops_system') scores.cloud_kitchen_prep += 25;
-            if (ans.q1 === 'digital_build') scores.digital_ai_automation += 26;
-
-            if (ans.q2 === 'made_tangible') scores.leather_microbrand += 20;
-            if (ans.q2 === 'sold_convinced') { scores.b2b_micro_supplier += 18; }
-            if (ans.q2 === 'organized_process') { scores.cloud_kitchen_prep += 24; }
-            if (ans.q2 === 'solved_tech') scores.digital_ai_automation += 22;
-
-            // تأثير المخاطرة والاستمرار (س8 و س9)
-            if (ans.q8 === 'risk_safe_tangible') {
-                scores.b2b_micro_supplier += 15;
-            } else if (ans.q8 === 'risk_calculated_scale') {
-                scores.leather_microbrand += 15;
-            }
-
-            if (ans.q9 === 'persist_anxious') {
-                scores.b2b_micro_supplier += 15; // دورة كاش سريعة
-            } else {
-                scores.leather_microbrand += 10; // صبر على بناء براند
-            }
-
-            // تأثير الخبرة والعمر
-            if (exp === 'business_owner' || exp === 'employee') {
-                scores.b2b_micro_supplier += 10;
-            }
-
-            const hasLatentKitchenOps =
-                (ans.q1 === 'deal_trade' || ans.q2 === 'sold_convinced') &&
-                (ans.q2 === 'organized_process' || ans.q4 === 'prob_kitchen_ops' || ans.q5 === 'tolerate_prep' || ans.q10 === 'env_team_leader');
-
-            if (hasLatentKitchenOps && ans.q6 !== 'hate_workshop_dust') {
-                scores.cloud_kitchen_prep += 28;
-            }
-
-            const sortedModels = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
-            const topModelKey = sortedModels[0];
-
-            return buildDetailedCapsuleForModel(topModelKey, {
-                cap,
-                assets,
-                assetDet,
-                resGov,
-                assetGov,
-                marketScope,
-                hasLatentKitchenOps
-            });
-        }
-
-        function buildDetailedCapsuleForModel(modelKey, ctx) {
-            const { cap, assets, assetDet, resGov, assetGov, marketScope, hasLatentKitchenOps } = ctx;
-            const ownershipLabelMap = { owned_self: 'ملكك شخصيًا', owned_family: 'ملك للأهل', rented: 'مؤجر' };
-            const ownershipText = ownershipLabelMap[assetDet.ownership] || 'متاح لك';
-
-            let triLocationExplanation = assets.includes('none')
-                ? `إقامتك في (${resGov})، ولا تعتمد على عقار ثابت في البداية.`
-                : `تم الفصل بين إقامتك في (${resGov}) والأصل (${ownershipText}) في (${assetGov} — مساحة ~${assetDet.areaSqm} م²) وسوق البيع (${getMarketScopeLabel(marketScope)}).`;
-
-            if (modelKey === 'leather_microbrand') {
-                const isPremiumTier = cap >= 120000;
-                let planTitle = isPremiumTier ? 'تأسيس علامة تجارية متخصصة بشريحة فاخرة (Premium Microbrand)' : 'إطلاق علامة تجارية متخصصة رشيقة (Microbrand) للمنتجات الجلدية';
-                
-                // التأكد من عدم تجاوز ميزانية التأسيس لرأس المال المتاح
-                let setupAlloc = isPremiumTier ? Math.min(cap, 65000) : Math.min(cap, 15000);
-                let workingAlloc = Math.max(0, cap - setupAlloc);
-
-                return {
-                    id: 'rec_leather_microbrand',
-                    personalDiscovery: 'ظهر من إجاباتك ميل واجذاب نحو التفاصيل الحرفية والتصميم الملموس، مع قدرة على الصبر لبناء أصل تجاري ذو قيمة.',
-                    title: planTitle,
-                    whyRecommended: ['يتطابق مع ميلك السلوكي للإنتاج والتصميم.', `تم تخصيص الميزانية بدقة ضمن رأس مالك المتاح (${formatMoney(cap)}).`, triLocationExplanation],
-                    businessModelText: 'الاعتماد على التصنيع لدى الغير واختبار الطلب المسبق قبل إنتاج كميات تجمد السيولة.',
-                    capitalBreakdown: [
-                        { item: 'تصنيع العينات والدفعة الأولى المركزة', amount: setupAlloc },
-                        { item: 'التغليف والتسويق واختبار الإعلانات', amount: workingAlloc }
-                    ],
-                    assetSuitabilityNote: `الاستفادة من مساحة التخزين والفحص في (${assetGov}) مع التصنيع الخارجي.`,
-                    targetSegment: 'الباحثون عن الجلود الطبيعية العملية ذات الطابع الراقي.',
-                    suppliersGuide: {
-                        clusters: ['القاهرة: باب الشعرية والجمالية.', 'الإسكندرية: المنشية والعطارين.'],
-                        searchKeywordsAr: ['تجار جلد طبيعي باب الشعرية', 'ورشة تصنيع محافظ'],
-                        searchKeywordsEn: ['Full grain leather supplier Egypt', 'Leather goods contract manufacturing']
-                    },
-                    legalRequirements: getLegalMatrixForCategory('craft_brand'),
-                    microLessons: getLessonsForCategory('leather_microbrand'),
-                    firstExperiment: 'تنفيذ 3 عينات فقط وعرضها للطلب المسبق عبر الإنترنت قبل إنتاج الدفعة الكاملة.',
-                    firstFiveSteps: ['تحديد التصميم الأول بدقة.', 'جمع عروض أسعار الورش المحلية.', 'تنفيذ العينات واختبارها.', 'حساب تكلفة الوحدة بدقة.', 'إطلاق الحملة الإعلانية الاختبارية.'],
-                    risksAndAssumptions: ['افتراض وجود رغبة شرائية بالسعر المقترح.', 'مخاطرة تفاوت التشطيب بين العينات والإنتاج الكمي.']
-                };
-            }
-
-            // باقي النماذج المماثلة (Cloud Kitchen / B2B / Digital)
             return {
-                id: 'rec_b2b_supplier',
-                personalDiscovery: 'إجاباتك تظهر حسًا تجاريًا وعمليًا عاليًا يفضل حركة السيولة السريعة والتحصيل الفوري.',
-                title: 'تأسيس وكالة توريد مصغر للمستهلكات السريعة (B2B Micro Supplier)',
-                whyRecommended: ['يستثمر قدرتك على التفاوض المباشر وتحصيل الكاش.', `متوافق مع رأس مالك المتاح (${formatMoney(cap)}).`, triLocationExplanation],
-                businessModelText: 'توفير المستهلكات اليومية للمحلات والعيادات بسعر جملة والتحصيل النقدي الفوري.',
-                capitalBreakdown: [{ item: 'شراء الدفعة الأولى', amount: Math.round(cap * 0.7) }, { item: 'مصاريف التشغيل والطوارئ', amount: Math.round(cap * 0.3) }],
-                assetSuitabilityNote: `مساحة تخزين جافة وآمنة في (${assetGov}).`,
-                targetSegment: 'المحلات والعيادات والمطاعم المحلية.',
-                suppliersGuide: {
-                    clusters: ['العتبة وشارع الجمهورية بالقاهرة.', 'المنشية بالإسكندرية.'],
-                    searchKeywordsAr: ['مورد جملة مستهلكات'],
-                    searchKeywordsEn: ['B2B wholesale distribution']
-                },
-                legalRequirements: getLegalMatrixForCategory('b2b_trade'),
-                microLessons: getLessonsForCategory('b2b_micro_supplier'),
-                firstExperiment: 'النزول بـ 3 عينات وقائمة أسعار على 15 محلًا لجمع طلبات فعلية.',
-                firstFiveSteps: ['تحديد القطاع المستهدف.', 'جمع عروض أسعار الجملة.', 'النزول الميداني وتحصيل الطلبات.', 'التسليم النقدي الفوري.', 'تثبيت خط سير أسبوعي.'],
-                risksAndAssumptions: ['حظر البيع بالآجل تمامًا لضمان السيولة.', 'الحفاظ على ثبات أسعار التوريد.']
+                id: 'rec_leather_microbrand',
+                title: 'تأسيس علامة تجارية متخصصة (Microbrand) للمنتجات الجلدية',
+                personalDiscovery: 'إجابتك تظهر ميلاً واضحاً للإنتاج الملموس والتصميم عالي الجودة.',
+                whyRecommended: ['يتطابق مع اهتمامك بالتفاصيل والتنفيذ اليدوي.', `يناسب رأس مالك (${cap} ج.م).`],
+                capitalBreakdown: [
+                    { item: 'شراء العينات والتشكيلة الأولى', amount: Math.round(cap * 0.5) },
+                    { item: 'التغليف والتسويق والاختبار', amount: Math.round(cap * 0.5) }
+                ]
             };
-        }
-
-        function getLegalMatrixForCategory(catType) {
-            const verifyDate = 'أكتوبر 2026';
-            if (catType === 'craft_brand') {
-                return [
-                    {
-                        stage: '1. قبل بدء النشاط',
-                        reqName: 'فتح ملف ضريبي وسجل تجاري مبسط',
-                        authority: 'مصلحة الضرائب المصرية / جهاز تنمية المشروعات (MSMEDA)',
-                        docs: 'بطاقة الرقم القومي، سند الحيازة.',
-                        howTo: 'التسجيل للاستفادة من القانون 152 لسنة 2020 للمشروعات الصغيرة.',
-                        officialUrl: 'https://www.msmeda.org.eg',
-                        lastVerified: verifyDate
-                    }
-                ];
-            }
-            return [
-                {
-                    stage: '1. قبل بدء النشاط',
-                    reqName: 'البطاقة الضريبية والسجل التجاري',
-                    authority: 'مصلحة الضرائب المصرية',
-                    docs: 'بطاقة الرقم القومي، إيصال مرافق.',
-                    howTo: 'التقديم المباشر أو عبر بوابة مصر الرقمية.',
-                    officialUrl: 'https://www.eta.gov.eg',
-                    lastVerified: verifyDate
-                }
-            ];
-        }
-
-        function getLessonsForCategory(modelKey) {
-            return [
-                {
-                    id: 'les_1',
-                    title: 'الدرس 1: حساب تكلفة الوحدة الحقيقية بدقة',
-                    explanation: 'التكلفة لا تقتصر على ثمن الخامة فقط، بل تشمل الهدر والنقل والتسويق.',
-                    realExample: 'إضافة نسبة الهدر والنقل تمنع تآكل أرباحك الصافية.',
-                    enTerm: 'Contribution Margin',
-                    toolHint: 'استخدم حاسبة الوحدة بمساحة مشروعك.',
-                    practicalTask: 'احسب التكلفة المتغيرة لكل وحدة.',
-                    masteryIndicator: 'التأكد من إيجابية هامش المساهمة.'
-                }
-            ];
-        }
-
-        function getMarketScopeLabel(scopeKey) {
-            const map = {
-                local_neighborhood: 'المنطقة والأحياء المحيطة',
-                governorate_wide: 'داخل المحافظة بالكامل',
-                national_egypt: 'جميع محافظات مصر',
-                export_mena_global: 'مصر + التصدير للخارج'
-            };
-            return map[scopeKey] || 'السوق المصري';
         }
 
         function generateSingleRecommendation() {
@@ -1611,135 +1084,21 @@
         function renderStep3Capsule() {
             const rec = appState.activeRecommendation;
             if (!rec) return;
-
-            const capEGP = appState.profileInfo.capitalEGP;
             const container = document.getElementById('capsule-main-card');
-
-            const breakdownRowsHtml = rec.capitalBreakdown.map(b => `
-                <tr>
-                    <td>${b.item}</td>
-                    <td><strong>${formatMoney(b.amount)}</strong> <span class="status-tag tag-unverified">ضمن رأس مالك</span></td>
-                </tr>
-            `).join('');
-
-            const legalRowsHtml = rec.legalRequirements.map(l => `
-                <tr>
-                    <td><strong>${l.stage}</strong></td>
-                    <td>${l.reqName}<br><span style="font-size:0.76rem; color:var(--text-secondary);">المستندات: ${l.docs}</span></td>
-                    <td>${l.authority}</td>
-                    <td>
-                        <a href="${l.officialUrl}" target="_blank" rel="noopener noreferrer" class="nav-btn" style="font-size:0.75rem;">
-                            <span>المصدر الرسمي</span>
-                            <i data-lucide="external-link" style="width:12px; height:12px;"></i>
-                        </a>
-                        <div style="font-size:0.7rem; color:var(--text-secondary); margin-top:4px;">آخر تحقق: ${l.lastVerified}</div>
-                    </td>
-                </tr>
-            `).join('');
-
             container.innerHTML = `
                 <div class="section-header-row">
                     <div class="section-title">
-                        <i data-lucide="award" style="width:22px; height:22px;"></i>
-                        <span>كبسولة البداية والتوصية الرئيسية المخصصة لك</span>
-                    </div>
-                    <button class="btn-secondary" onclick="navigateToStep(2)" style="padding:8px 14px; font-size:0.8rem;">
-                        <i data-lucide="sliders" style="width:14px; height:14px;"></i>
-                        <span>تعديل رأس المال أو الأصول</span>
-                    </button>
-                </div>
-
-                <div class="insight-block">
-                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
-                        <strong style="font-size:0.96rem;">1. ماذا اكتشفنا عن نمط عملك؟</strong>
-                        <span class="status-tag">تحليل سلوكي مخصص</span>
-                    </div>
-                    <p style="font-size:0.9rem;">${rec.personalDiscovery}</p>
-                </div>
-
-                <div class="insight-block strong-border">
-                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-                        <span class="status-tag tag-official">التوصية الرئيسية الواحدة</span>
-                        <span class="status-tag">رأس المال المعتمد: ${formatMoney(capEGP)}</span>
-                    </div>
-                    <h2 style="font-size:1.35rem; margin-bottom:14px; line-height:1.45;">${rec.title}</h2>
-                    
-                    <div style="margin-bottom:14px;">
-                        <strong style="display:block; margin-bottom:6px;">لماذا تم ترشيح هذه الفرصة لك تحديدًا؟</strong>
-                        <ul style="padding-right:20px; font-size:0.88rem;">
-                            ${rec.whyRecommended.map(r => `<li style="margin-bottom:4px;">${r}</li>`).join('')}
-                        </ul>
+                        <span>كبسولة البداية والتوصية الرئيسية</span>
                     </div>
                 </div>
-
-                <div style="margin:28px 0;">
-                    <h3 style="font-size:1.05rem; margin-bottom:10px;">توزيع رأس المال (${formatMoney(capEGP)}) وضمن حدودك المالية</h3>
-                    <div class="mono-table-wrapper">
-                        <table class="mono-table">
-                            <thead>
-                                <tr>
-                                    <th>البند التشغيلي / التأسيسي</th>
-                                    <th>المبلغ المخصص</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${breakdownRowsHtml}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div style="margin:28px 0;">
-                    <h3 style="font-size:1.05rem; margin-bottom:10px;">الاشتراطات القانونية والمصادر الرسمية الموثقة</h3>
-                    <div class="mono-table-wrapper">
-                        <table class="mono-table">
-                            <thead>
-                                <tr>
-                                    <th>المرحلة</th>
-                                    <th>الاشتراط والمستندات</th>
-                                    <th>الجهة</th>
-                                    <th>المصدر</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${legalRowsHtml}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="insight-block strong-border" style="background:var(--bg-secondary);">
-                    <h3 style="font-size:1.1rem; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
-                        <i data-lucide="folder-kanban" style="width:20px; height:20px;"></i>
-                        <span>افتح مساحة مشروعك الشخصية واستلم رابطك الآمن</span>
-                    </h3>
-                    <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">
-                        أدخل بريدك الإلكتروني لتوليد رابط وصول آمن وحفظ مشروعك حقيقيًا عبر البريد:
-                    </p>
-                    <div class="grid-2col" style="margin-bottom:14px;">
-                        <input type="text" id="capsule-user-name" placeholder="اسمك">
-                        <input type="email" id="capsule-user-email" placeholder="بريدك الإلكتروني الحقيقي" dir="ltr" style="text-align:left;">
-                    </div>
-                    <button type="button" class="btn-primary" onclick="createAndOpenPersonalWorkspace()">
-                        <span>أنشئ وافتح مساحة مشروعي الشخصية الآن</span>
-                        <i data-lucide="arrow-left" style="width:18px; height:18px;"></i>
-                    </button>
-                </div>
+                <h2>${rec.title}</h2>
+                <p>${rec.personalDiscovery}</p>
+                <button class="btn-primary" onclick="createAndOpenPersonalWorkspace()" style="margin-top:20px;">إنشاء مساحة مشروعي الشخصية</button>
             `;
             lucide.createIcons();
         }
 
         function createAndOpenPersonalWorkspace() {
-            const nameEl = document.getElementById('capsule-user-name');
-            const emailEl = document.getElementById('capsule-user-email');
-
-            if (nameEl && nameEl.value.trim()) appState.profileInfo.name = nameEl.value.trim();
-            if (emailEl && emailEl.value.trim()) appState.profileInfo.email = emailEl.value.trim();
-            
-            if (!appState.profileInfo.workspaceToken) {
-                appState.profileInfo.workspaceToken = Math.random().toString(36).substring(2) + Date.now().toString(36);
-            }
-
             maxUnlockedStep = 4;
             document.getElementById('workspace-quick-btn').style.display = 'inline-flex';
             saveStateToLocalStorage();
@@ -1748,49 +1107,12 @@
         }
 
         function renderStep4Workspace() {
-            const rec = appState.activeRecommendation || computeRecommendationModel();
-            const userName = appState.profileInfo.name || 'صديقنا';
-            const userEmail = appState.profileInfo.email || 'غير مسجل';
-            const token = appState.profileInfo.workspaceToken;
-            const safeWorkspaceUrl = `${window.location.origin}${window.location.pathname}?ws_token=${token}`;
-
             const container = document.getElementById('personal-workspace-card');
             container.innerHTML = `
-                <div class="section-header-row">
-                    <div>
-                        <span class="status-tag tag-official" style="margin-bottom:6px;">مساحة المشروع الشخصية الآمنة</span>
-                        <h2 style="font-size:1.5rem; margin-top:4px;">أهلًا يا ${escapeHtml(userName)}</h2>
-                        <p style="font-size:0.86rem; color:var(--text-secondary);">${rec.title}</p>
-                    </div>
-                </div>
-
-                <div class="insight-block" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px;">
-                    <div>
-                        <strong style="font-size:0.88rem;">رابط الوصول الآمن الخاص بك (مرتبط ببريدك ${escapeHtml(userEmail)}):</strong>
-                        <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px;">${safeWorkspaceUrl}</p>
-                    </div>
-                    <button type="button" class="btn-secondary" onclick="sendRealEmailNotification('${safeWorkspaceUrl}')">
-                        <i data-lucide="mail" style="width:14px; height:14px;"></i>
-                        <span>إرسال بريد حقيقي بالرابط</span>
-                    </button>
-                </div>
-
-                <div style="margin-top:24px;">
-                    <button type="button" class="btn-secondary" onclick="exportUserWorkspaceJSON()">تنزيل بياناتي JSON</button>
-                    <button type="button" class="btn-secondary" style="color:var(--text-secondary);" onclick="deleteAllUserDataPermanently()">حذف الحفظ المحلي</button>
-                </div>
+                <h2>مساحة مشروعي الشخصية</h2>
+                <p>أهلًا بك في مساحتك الخاصة لتتبع المهام وتسجيل الموردين.</p>
             `;
             lucide.createIcons();
-        }
-
-        function sendRealEmailNotification(url) {
-            const email = appState.profileInfo.email;
-            if (!email || email === 'غير مسجل') {
-                alert('يرجى إدخال بريد إلكتروني صالح أولًا.');
-                return;
-            }
-            // محاكاة إرسال بريد سحابي حقيقي عبر الـ Webhook أو الـ Serverless
-            alert(`تم إرسال رسالة بريد إلكتروني حقيقية بنجاح إلى (${email}) تحتوي على رابط مساحتك الآمنة.`);
         }
 
         function navigateToStep(stepNum) {
@@ -1810,73 +1132,27 @@
         }
 
         function tryJumpStep(stepNum) {
-            if (stepNum <= maxUnlockedStep) {
-                if (stepNum === 3) renderStep3Capsule();
-                if (stepNum === 4) renderStep4Workspace();
-                navigateToStep(stepNum);
-            }
+            if (stepNum <= maxUnlockedStep) navigateToStep(stepNum);
         }
 
         function saveStateToLocalStorage() {
-            try {
-                localStorage.setItem('ebda2_discover_yourself_v4', JSON.stringify(appState));
-            } catch (e) {}
+            try { localStorage.setItem('ebda2_v5', JSON.stringify(appState)); } catch(e){}
         }
 
         function loadStateFromLocalStorage() {
             try {
-                const raw = localStorage.getItem('ebda2_discover_yourself_v4');
+                const raw = localStorage.getItem('ebda2_v5');
                 if (!raw) return;
                 const parsed = JSON.parse(raw);
                 if (parsed.answers) appState.answers = parsed.answers;
-                if (parsed.selectedAssets) appState.selectedAssets = parsed.selectedAssets;
-                if (parsed.profileInfo) appState.profileInfo = { ...appState.profileInfo, ...parsed.profileInfo };
-                if (appState.profileInfo.name) document.getElementById('user-name').value = appState.profileInfo.name;
-                if (appState.profileInfo.capitalEGP) document.getElementById('capital-input').value = appState.profileInfo.capitalEGP;
-
-                const answeredCount = behavioralQuestions.filter(q => Boolean(appState.answers[q.id])).length;
-                if (answeredCount === 10) {
-                    maxUnlockedStep = 3;
-                    appState.activeRecommendation = computeRecommendationModel();
-                }
-                if (appState.profileInfo.workspaceToken) {
-                    maxUnlockedStep = 4;
-                    document.getElementById('workspace-quick-btn').style.display = 'inline-flex';
-                }
-            } catch (e) {}
+                if (parsed.profileInfo) appState.profileInfo = parsed.profileInfo;
+            } catch(e){}
         }
 
-        function exportUserWorkspaceJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
-            const dlAnchor = document.createElement('a');
-            dlAnchor.setAttribute("href", dataStr);
-            dlAnchor.setAttribute("download", `ebda2-workspace.json`);
-            document.body.appendChild(dlAnchor);
-            dlAnchor.click();
-            dlAnchor.remove();
-        }
-
-        function deleteAllUserDataPermanently() {
-            if (confirm('هل أنت متأكد من حذف البيانات؟')) {
-                localStorage.removeItem('ebda2_discover_yourself_v4');
-                window.location.reload();
-            }
-        }
-
-        // إصلاح دالة escapeHtml الأمنية بالكامل
-        function escapeHtml(str) {
-            return String(str || '')
-                .replace(/&/g, '&')
-                .replace(/</g, '<')
-                .replace(/>/g, '>')
-                .replace(/"/g, '"')
-                .replace(/'/g, ''');
-        }
-
-        // التأكد من استدعاء دالة العرض في التوقيت المناسب بعد تحميل الصفحة بالكامل (DOMContentLoaded)
+        // الاستدعاء الأكيد بعد اكتمال تحميل عناصر الصفحة بالكامل
         window.addEventListener('DOMContentLoaded', () => {
-            renderBehavioralQuestions();
             loadStateFromLocalStorage();
+            renderBehavioralQuestions();
             fetchLiveMarketData();
             lucide.createIcons();
         });

@@ -1,691 +1,186 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كتاب رواد الأعمال المصريين | الدليل المنهجي الشامل لتأسيس مشروعك الناجح</title>
-    
-    <!-- الخطوط المعتمدة: IBM Plex Sans Arabic & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- أيقونات Lucide -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        :root {
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F5F5F5;
-            --bg-element: #FAFAFA;
-            --text-primary: #111111;
-            --text-secondary: #777777;
-            --text-muted: #AAAAAA;
-            --border-color: #E5E5E5;
-            --btn-primary-bg: #111111;
-            --btn-primary-text: #FFFFFF;
-            --radius-lg: 16px;
-            --radius-md: 10px;
-            --radius-sm: 6px;
-            --transition: 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-size: 0.96rem;
-            line-height: 1.9;
-            padding: 0 20px 80px 20px;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        .en-term, .Selectable-term {
-            font-family: 'Inter', system-ui, sans-serif;
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            direction: ltr;
-            display: inline-block;
-        }
-
-        /* الشريط العلوي */
-        .top-nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.96);
-            border-bottom: 1px solid var(--border-color);
-            padding: 16px 0;
-            margin: 0 -20px 48px -20px;
-        }
-
-        .top-nav-inner {
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-        }
-
-        .brand-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: var(--btn-primary-bg);
-            color: var(--btn-primary-text);
-            border: 1px solid var(--btn-primary-bg);
-            padding: 10px 20px;
-            border-radius: var(--radius-md);
-            font-size: 0.88rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-primary:hover { opacity: 0.88; }
-
-        .btn-secondary {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            padding: 8px 14px;
-            border-radius: var(--radius-md);
-            font-size: 0.82rem;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-secondary:hover { border-color: var(--text-primary); background: var(--bg-secondary); }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* الفهرس الجانبي السريع */
-        .book-toc {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 24px 28px;
-            margin-bottom: 48px;
-        }
-
-        .book-toc h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .book-toc ul {
-            padding-right: 20px;
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-        }
-
-        .book-toc li {
-            margin-bottom: 8px;
-        }
-
-        .book-toc a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .book-toc a:hover {
-            text-decoration: underline;
-        }
-
-        /* ترويسة الكتاب */
-        .hero-header {
-            margin-bottom: 56px;
-            padding-bottom: 36px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .eyebrow {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            background: var(--bg-secondary);
-            padding: 4px 12px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 16px;
-        }
-
-        .hero-header h1 {
-            font-size: 2.1rem;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 18px;
-            letter-spacing: -0.4px;
-        }
-
-        .hero-header p {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            line-height: 1.85;
-        }
-
-        /* فصول الكتاب */
-        .chapter-section {
-            margin-bottom: 64px;
-            padding-top: 24px;
-        }
-
-        .chapter-number {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .chapter-section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.45;
-        }
-
-        .prose-p {
-            margin-bottom: 18px;
-            color: var(--text-primary);
-        }
-
-        .quote-block {
-            background: var(--bg-secondary);
-            border-right: 3px solid var(--text-primary);
-            padding: 20px 24px;
-            border-radius: var(--radius-md);
-            margin: 24px 0;
-            font-weight: 500;
-        }
-
-        /* جدول مراحل العمل الإطاري (المدرسة) */
-        .timeline-box {
-            background: var(--bg-element);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 28px;
-            margin: 32px 0;
-        }
-
-        .timeline-step {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .timeline-step:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .step-badge {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 0.85rem;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .step-content h4 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .step-content p {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-
-        .step-timeframe {
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            background: var(--bg-secondary);
-            padding: 2px 10px;
-            border-radius: 12px;
-            display: inline-block;
-        }
-
-        /* بطاقات معادلة النجاح */
-        .success-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin: 28px 0;
-        }
-
-        .success-card {
-            background: var(--bg-element);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 22px 24px;
-        }
-
-        .success-card h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .success-card p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .term-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 2px 10px;
-            border-radius: var(--radius-sm);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin: 0 4px;
-            vertical-align: middle;
-        }
-
-        .copy-term-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            padding: 2px;
-            transition: var(--transition);
-        }
-
-        .copy-term-btn:hover { color: var(--text-primary); }
-
-        /* بحث القاموس */
-        .glossary-search {
-            width: 100%;
-            padding: 14px 18px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            font-size: 0.95rem;
-            background: var(--bg-element);
-            color: var(--text-primary);
-            margin-bottom: 24px;
-            outline: none;
-            transition: var(--transition);
-        }
-
-        .glossary-search:focus {
-            border-color: var(--text-primary);
-            background: var(--bg-primary);
-        }
-
-        .glossary-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        .glossary-card {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 22px 24px;
-        }
-
-        .glossary-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .glossary-ar-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
-
-        .glossary-example {
-            background: var(--bg-secondary);
-            padding: 12px 16px;
-            border-radius: var(--radius-md);
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            margin-top: 10px;
-        }
-
-        .footer-cta {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 40px 32px;
-            text-align: center;
-            margin-top: 64px;
-        }
-
-        .footer-cta h3 {
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-        }
-
-        .footer-cta p {
-            color: var(--text-secondary);
-            max-width: 540px;
-            margin: 0 auto 24px auto;
-        }
-
-        @media (max-width: 640px) {
-            .hero-header h1 { font-size: 1.6rem; }
-            .success-grid { grid-index: 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ابدأ مشروعك | اعرف نفسك وأصولك واختار مشروعك</title>
+<meta name="description" content="أسئلة قصيرة عن طباعك وأصولك ورأس مالك، وتطلع باسم مشروع مبدئي وخطوات أول أسبوع.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="bar"><div class="wrap">
+  <a class="brand" href="index.html">ابدأ مشروعك</a>
+  <a class="link" href="about.html">ليه نبدأ بأصولك؟ وقاموس المصطلحات</a>
+</div></div>
+<main class="wrap">
+  <h1>مش عارف تبدأ بأي مشروع؟ ابدأ بنفسك وباللي معاك.</h1>
+  <p>ثمانية أسئلة قصيرة عن طباعك واهتماماتك وأصولك ورأس مالك. في الآخر هتخرج باسم مشروع مبدئي وخطوات أول أسبوع.</p>
+  <div id="app"></div>
+  <p class="note">النتيجة ترشيح مبدئي مبني على إجاباتك. مش دراسة جدوى ولا نصيحة مالية. اقرأ <a href="about.html">إزاي بنوصل للترشيح</a>.</p>
+</main>
+<script>
+const $ = s => document.querySelector(s);
+function h(t, c, x) { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
 
-    <nav class="top-nav">
-        <div class="top-nav-inner">
-            <a href="index.html" class="brand-title">
-                <i data-lucide="compass" style="width:20px; height:20px;"></i>
-                <span>ابدأ مشروعك — كتاب رائد الأعمال</span>
-            </a>
-            <a href="index.html" class="btn-primary">
-                <span>ابدأ تجربة اكتشف نفسك</span>
-                <i data-lucide="arrow-left" style="width:16px; height:16px;"></i>
-            </a>
-        </div>
-    </nav>
+const Q = [
+  { id: 'q1', w: 2, t: 'لو قدامك يومين فاضيين، إيه النشاط اللي بتندمج فيه من نفسك؟', o: [
+    ['craft', 'أفحص خامات وأصنع أو أصلّح حاجة بإيدي.'],
+    ['trade', 'أدوّر على بضاعة وأتفاوض وأقفل بيعة.'],
+    ['ops', 'أرتب مكان شغال وأظبط خطوات التشغيل.'],
+    ['digital', 'أبني أداة أو موقع يحل مشكلة للناس.']] },
+  { id: 'q2', w: 2, t: 'آخر حاجة الناس اعتمدت عليك فيها كانت إيه؟', o: [
+    ['craft', 'نفّذت حاجة ملموسة أو اكتشفت عيب في خامة.'],
+    ['trade', 'بعت حاجة أو فاصلت في صفقة صعبة.'],
+    ['ops', 'نظمت حسابات أو مخزن متلخبط.'],
+    ['digital', 'عملت شيت أو سيستم رقمي سهّل الشغل.']] },
+  { id: 'q3', w: 1, t: 'لما بتدخل مجال جديد، إيه أسرع طريقة تفهمه بيها؟', o: [
+    ['craft', 'أنزل الورش وأمسك الخامة وأجرب عينة.'],
+    ['trade', 'أسأل التجار وأشوف البضاعة بتتحرك إزاي.'],
+    ['ops', 'أحسب تكلفة كل وحدة وأحلل المنافسين.'],
+    ['digital', 'أبحث على الإنترنت وأجرب بنفسي.']] },
+  { id: 'q4', w: 2, t: 'أي مشكلة من دول بتستمتع إنك تفككها؟', o: [
+    ['craft', 'المنتج تقليدي وأقدر أطلّع نسخة أحسن.'],
+    ['trade', 'محلات ناقصها صنف وأقدر أوفره بانتظام.'],
+    ['ops', 'طلبات كتير محتاجة تنظيم وتسليم في ميعاده.'],
+    ['digital', 'ناس بتضيّع وقتها في شغل متكرر وأقدر أخليه آلي.']] },
+  { id: 'q5', w: -2, t: 'إيه الحاجة اللي لو اتفرضت عليك كل يوم هتخنقك؟', o: [
+    ['trade', 'اللف والفصال المباشر مع الناس.'],
+    ['craft', 'الوقوف الطويل في الورش وسط الخامات.'],
+    ['ops', 'ضغط التجهيز اليومي ومواعيد التسليم.'],
+    ['digital', 'القعدة الطويلة قدام الشاشة.']] },
+  { id: 'q6', w: 1, t: 'إيه أهم هدف من المشروع بالنسبة لك؟', o: [
+    ['craft', 'أبني اسم وعلامة تكبر مع الوقت.'],
+    ['trade', 'أدوّر فلوسي بسرعة وأطلّع كاش أسبوعي.'],
+    ['ops', 'أعمل وحدة شغل عليها طلب يومي ثابت.'],
+    ['digital', 'دخل بمصاريف ثابتة قليلة جدًا.']] }
+];
+const LIKES = [['food', 'أكل وقهوة وضيافة'], ['fashion', 'جلود وموضة وإكسسوارات'], ['home', 'بيت ومفروشات وديكور'], ['tech', 'تكنولوجيا وأدوات رقمية'], ['kids', 'أطفال وتعليم'], ['health', 'صحة وأكل صحي']];
+const HAVE = [['space', 'مكان فاضي (غرفة / ورشة / مخزن / سطح)'], ['vehicle', 'عربية أو تروسيكل أو فان'], ['gear', 'معدات أو أجهزة (ماكينة، لابتوب، كاميرا…)'], ['skill', 'مهارة أقدر أبيعها (تصميم، طبخ، خياطة، برمجة…)'], ['crowd', 'جمهور أو علاقات في السوق'], ['none', 'مفيش حاجة من دول دلوقتي']];
+const CAP = [['8000', 'أقل من 10 آلاف جنيه'], ['25000', 'من 10 إلى 40 ألف جنيه'], ['70000', 'من 40 إلى 100 ألف جنيه'], ['150000', 'أكتر من 100 ألف جنيه']];
+const STEPS = Q.concat([
+  { id: 'likes', m: 1, t: 'إيه المجالات اللي بتشدك؟ اختار كل اللي يناسبك.', o: LIKES },
+  { id: 'have', m: 1, t: 'إيه الأصول اللي تحت إيدك دلوقتي؟', o: HAVE },
+  { id: 'cap', t: 'تقدر تصرف كام فعلًا على البداية؟ (تقدير تقريبي)', o: CAP }]);
 
-    <main class="container">
-        
-        <!-- الترويسة -->
-        <header class="hero-header">
-            <span class="eyebrow">
-                <i data-lucide="book-open" style="width:14px; height:14px;"></i>
-                <span>الكتاب المنهجي التأسيسي لرواد الأعمال في مصر</span>
-            </span>
-            <h1>فلسفة بناء المشروعات الناجحة: من الفوضى والتردد إلى أول زبون راضي</h1>
-            <p>
-                هذا الكتاب الإلكتروني مصمم خصيصًا ليغير طريقة تفكيرك في التجارة والأعمال داخل السوق المصري. هنا لا نتعامل مع نظريات أكاديمية معقدة، بل نقدم لك "دليل تشغيل" عملي يقسم رحلتك لمراحل زمنية واضحة، ويوضح لك لماذا يعتبر الحصول على "أول زبون راضي بأقل تكلفة" أهم بكثير من الأرباح الورقية في الشهر الأول.
-            </p>
-        </header>
+/* كتالوج المشاريع: الحد الأدنى (min) بالجنيه تقدير مبدئي ويحتاج مراجعتك */
+const P = [
+  { t: 'علامة جلدية صغيرة لموديل واحد متقن', a: 'craft', like: ['fashion'], need: ['space', 'gear', 'skill'], min: 8000, names: ['خيط', 'أصيل', 'مقاس'] },
+  { t: 'ملايات ومفروشات متخصصة بتصنيع عند ورشة قائمة', a: 'craft', like: ['home'], need: [], min: 15000, names: ['سَكَن', 'قطنة', 'نَوم'] },
+  { t: 'صناديق أنشطة وتعليم للأطفال', a: 'craft', like: ['kids'], need: ['skill', 'crowd'], min: 6000, names: ['صندوق العجايب', 'ركن', 'فكرة ولعبة'] },
+  { t: 'مطبخ منزلي لأصناف محددة بتوصيل واشتراكات', a: 'ops', like: ['food'], need: ['space', 'gear'], min: 10000, names: ['مطبخ الحارة', 'طبق ثابت', 'لقمة'] },
+  { t: 'سناكس صحية بتصنيع عند مطبخ قائم', a: 'ops', like: ['health', 'food'], need: [], min: 12000, names: ['خفيف', 'نص طبق', 'بسيطة'] },
+  { t: 'توصيل وتوريد للمحلات الصغيرة بمواعيد ثابتة', a: 'ops', like: [], need: ['vehicle'], min: 5000, names: ['وصّل', 'على طول', 'مشوار'] },
+  { t: 'مورّد صغير لصنف واحد للمقاهي والمطاعم', a: 'trade', like: ['food'], need: ['vehicle', 'crowd'], min: 15000, names: ['توريدة', 'على الميعاد', 'خامة'] },
+  { t: 'أدوات وشيتات جاهزة للمحلات الصغيرة', a: 'digital', like: ['tech'], need: ['skill', 'gear'], min: 2000, names: ['حسبة', 'دفتر', 'شيتي'] },
+  { t: 'ردود آلية وتنظيم طلبات واتساب للمحلات', a: 'digital', like: ['tech'], need: ['skill', 'gear'], min: 3000, names: ['رد', 'ماشي', 'شغّلها'] }
+];
+const AR = { craft: 'الصنع وضبط الجودة بإيدك', trade: 'التوريد والتفاوض', ops: 'التشغيل والتنظيم', digital: 'بناء الأدوات الرقمية' };
+const NEED_AR = Object.fromEntries(HAVE);
+const LIKE_AR = Object.fromEntries(LIKES);
+const SPLIT = {
+  craft: [['خامات وعينات', 35], ['تصنيع دفعة صغيرة', 35], ['تصوير وتغليف وإعلان تجريبي', 30]],
+  trade: [['بضاعة بكمية صغيرة', 50], ['نقل وتغليف', 15], ['تسويق واختبار', 15], ['احتياطي', 20]],
+  ops: [['تجهيز وأدوات', 35], ['خامات أول أسبوعين', 30], ['تغليف وتوصيل', 20], ['احتياطي', 15]],
+  digital: [['أدوات واشتراكات', 20], ['تسويق تجريبي', 40], ['مساعدة أو تصميم', 20], ['احتياطي', 20]]
+};
+const WEEK1 = {
+  craft: ['اعمل عينة واحدة من موديل واحد وصوّرها.', 'اعرضها على 10 ناس من الفئة المستهدفة واسألهم هيدفعوا كام.', 'خد 5 طلبات مسبقة قبل ما تصنّع أول دفعة.'],
+  trade: ['اختار صنف واحد ومورّدين اتنين واطلب عينة.', 'احسب التكلفة الكلية للوحدة بعد النقل والفاقد.', 'اعرض طلبية تجريبية صغيرة على 10 محلات.'],
+  ops: ['حدد صنفين أو تلاتة بس واحسب تكلفة كل وحدة.', 'جرّب الإنتاج لـ10 طلبات من معارفك.', 'قِس الوقت والفاقد وسعّر على أساسهم.'],
+  digital: ['اختار مشكلة واحدة لفئة واحدة وجرّب تحلها يدويًا الأول.', 'اعرض الحل على 5 ناس واسألهم مستعدين يدفعوا كام.', 'ابني النسخة البسيطة بعد أول عميل يدفع.']
+};
 
-        <!-- الفهرس السريع -->
-        <div class="book-toc">
-            <h3><i data-lucide="list-tree" style="width:18px; height:18px;"></i> فصول الكتاب المنهجي:</h3>
-            <ul>
-                <li><a href="#chapter-1">الفصل الأول: كتالوج العمل المصري وقواعد السوق الحقيقي</a></li>
-                <li><a href="#chapter-2">الفصل الثاني: معادلة النجاح الاستراتيجية (المشكلة، الشكل، التوقيت، التسعير)</a></li>
-                <li><a href="#chapter-3">الفصل الثالث: خريطة المراحل الزمنية لإدارة التقدم (مدرسة رائد الأعمال)</a></li>
-                <li><a href="#chapter-4">الفصل الرابع: فلسفة "أول زبون راضي" (الزبون المبشر بدل الأرباح الوهمية)</a></li>
-                <li><a href="#chapter-5">الفصل الخامس: قاموس المصطلحات المعتمدة</a></li>
-            </ul>
-        </div>
+let S = { i: 0 };
+try { Object.assign(S, JSON.parse(localStorage.getItem('ebda2_v6') || '{}')); } catch (e) {}
+if (!(S.i >= 0 && S.i <= STEPS.length)) S.i = 0;
+function save() { try { localStorage.setItem('ebda2_v6', JSON.stringify(S)); } catch (e) {} }
 
-        <!-- الفصل الأول -->
-        <section class="chapter-section" id="chapter-1">
-            <span class="chapter-number">CHAPTER 01 — EGYPTIAN MARKET CATALOGUE</span>
-            <h2>الفصل الأول: كتالوج العمل الخاص في مصر وقواعد السوق الحقيقي</h2>
-            <p class="prose-p">
-                السوق المصري يتميز بخصوصية شديدة لا تشبه أسواق الخليج أو أوروبا. التاجر المصري أو رائد الأعمال الناجح لا يعتمد على الإعلانات الضخمة في بداياته، بل يعتمد على <strong>"الشبكة، والسمعة، وضبط كلفة التشغيل"</strong>. عندما تبدأ مشروعك في مصر، أنت لا تبني شركة برمجيات وادي السيلكون، أنت تبدأ بـ "كتالوج عمل" مرن يتكيف مع حركة السيولة اليومية وتغيرات الأسعار.
-            </p>
-            <p class="prose-p">
-                قاعدة كتالوج العمل في مصر تلخصها جملة واحدة: <strong>"لا تشتري ما لا تستطيع تدويره في 30 يومًا"</strong>. سواء كنت تطلق علامة تجارية متخصصة <span class="term-pill"><span class="en-term">Microbrand</span><button class="copy-term-btn" onclick="copyTerm('Microbrand', this)" title="نسخ المصطلح"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span>، أو تؤسس مطبخًا سحابيًا <span class="term-pill"><span class="en-term">Cloud Kitchen</span><button class="copy-term-btn" onclick="copyTerm('Cloud Kitchen', this)" title="نسخ المصطلح"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span>، أو توفر مستلزمات للشركات <span class="term-pill"><span class="en-term">B2B Micro Supplier</span><button class="copy-term-btn" onclick="copyTerm('Microbrand', this)" title="نسخ المصطلح"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span>، فالنجاح يبدأ باستغلال الأصول المتاحة لديك (غرفة، شقة، سطح، عربية) وتجنب الديون التأسيسية الباهظة.
-            </p>
-            <div class="quote-block">
-                «في مصر، السيولة هي الأكسجين. المشروع الذي يحقق أرباحًا على الورق لكنه يعاني من تعثر الكاش، ميت لا محالة. اجعل أولوياتك حماية رأس المال العامل قبل التفكير في الديكورات والمظاهر.»
-            </div>
-        </section>
+function pick() {
+  const a = { craft: 0, trade: 0, ops: 0, digital: 0 };
+  Q.forEach(q => { if (S[q.id]) a[S[q.id]] += q.w; });
+  const cap = +S.cap || 0, likes = S.likes || [], have = S.have || [];
+  const r = P.filter(p => p.min <= cap).map(p => {
+    const lk = p.like.filter(x => likes.includes(x));
+    const hv = p.need.filter(x => have.includes(x));
+    const as = !p.need.length ? 1 : hv.length ? 2 : -1;
+    return { p, lk, hv, s: a[p.a] + 1.5 * lk.length + as };
+  }).sort((x, y) => y.s - x.s);
+  return { a, r };
+}
 
-        <!-- الفصل الثاني -->
-        <section class="chapter-section" id="chapter-2">
-            <span class="chapter-number">CHAPTER 02 — THE SUCCESS EQUATION</span>
-            <h2>الفصل الثاني: معادلة النجاح الاستراتيجية (القيمة، التسعير، المشكلة، التوقيت)</h2>
-            <p class="prose-p">
-                لماذا تفشل 80% من الأفكار الممتازة؟ لأن أصحابها ركّزوا على "المنتج الجميل" وتنازلوا عن عناصر المعادلة الأربعة المتكاملة. النجاح التجاري ليس صدفة، بل هو حاصل ضرب أربعة محاور أساسية:
-            </p>
+function render() {
+  const app = $('#app'); app.replaceChildren();
+  if (S.i >= STEPS.length) return result(app);
+  const st = STEPS[S.i], card = h('section', 'card');
+  const pr = h('div', 'prog'), bar = h('i'); bar.style.width = (S.i / STEPS.length * 100) + '%'; pr.append(bar);
+  const title = h('h2', 0, st.t); title.tabIndex = -1;
+  card.append(pr, h('p', 'muted', 'سؤال ' + (S.i + 1) + ' من ' + STEPS.length), title);
+  const box = h('div', 'opts'), row = h('div', 'row');
+  const next = h('button', 'btn', 'التالي'); next.type = 'button';
+  const cur = () => S[st.id] || (st.m ? [] : null);
+  st.o.forEach(([v, txt]) => {
+    const b = h('button', 'opt', txt); b.type = 'button';
+    const on = () => st.m ? cur().includes(v) : cur() === v;
+    b.setAttribute('aria-pressed', on());
+    b.onclick = () => {
+      if (!st.m) { S[st.id] = v; S.i++; save(); render(); return; }
+      let c = cur().slice();
+      if (c.includes(v)) c = c.filter(x => x !== v);
+      else c = (v === 'none') ? ['none'] : c.filter(x => x !== 'none').concat(v);
+      S[st.id] = c; save();
+      box.querySelectorAll('.opt').forEach((o, k) => o.setAttribute('aria-pressed', c.includes(st.o[k][0])));
+      next.disabled = !c.length;
+    };
+    box.append(b);
+  });
+  const back = h('button', 'btn ghost', 'رجوع'); back.type = 'button';
+  back.onclick = () => { S.i = Math.max(0, S.i - 1); save(); render(); };
+  row.append(S.i ? back : h('span'));
+  if (st.m) { next.disabled = !cur().length; next.onclick = () => { S.i++; save(); render(); }; row.append(next); }
+  card.append(box, row); app.append(card);
+  title.focus({ preventScroll: true });
+}
 
-            <div class="success-grid">
-                <div class="success-card">
-                    <h3><i data-lucide="target" style="width:18px; height:18px;"></i> 1. حل المشكلة الصحيحة</h3>
-                    <p>أن تكتشف وجعًا حقيقيًا يعاني منه العميل يوميًا (مثل تلف الكروت، انتفاخ الملايات، ضياع وقت الرد على العملاء)، بدل حل مشكلة وهمية لا تهز شعرة في رأس المشتري.</p>
-                </div>
-                <div class="success-card">
-                    <h3><i data-lucide="check-circle" style="width:18px; height:18px;"></i> 2. بالشكل الصحيح</h3>
-                    <p>أن تقدم الحل بأبسط وأدق طريقة ممكنة (الحد الأدنى للمنتج <span class="term-pill"><span class="en-term">MVP</span><button class="copy-term-btn" onclick="copyTerm('MVP', this)"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span>) دون تعقيدات تصنيعية أو تشغيلية تستنزف وقتك وطاقتك.</p>
-                </div>
-                <div class="success-card">
-                    <h3><i data-lucide="clock" style="width:18px; height:18px;"></i> 3. في التوقيت الصحيح</h3>
-                    <p>أن تطلق منتجك عندما يكون السوق مستعدًا وقبله الناس نفسيًا وماديًا، مستفيدًا من التريندات الحقيقية وموسمية الطلب في السوق المصري.</p>
-                </div>
-                <div class="success-card">
-                    <h3><i data-lucide="badge-dollar-sign" style="width:18px; height:18px;"></i> 4. التسعير الملائم</h3>
-                    <p>أن تغطي تكلفتك الكلية الحقيقية (شاملة الهدر والنقل والإعلان) وتحقق <span class="term-pill"><span class="en-term">Contribution Margin</span><button class="copy-term-btn" onclick="copyTerm('Contribution Margin', this)"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span> مجزيًا يضمن بقاءك دون مغالاة تبعد الزبون.</p>
-                </div>
-            </div>
-        </section>
+function result(app) {
+  const { a, r } = pick(), top = r[0], p = top.p;
+  const best = Object.keys(a).sort((x, y) => a[y] - a[x])[0];
+  const c = h('section', 'card');
+  c.append(h('p', 'muted', 'اسم مشروعك المقترح للبداية'), h('div', 'name', p.names[0]), h('p', 0, p.t));
+  const alt = h('div', 'chips'); alt.append(h('span', 'muted', 'أسماء بديلة:'));
+  p.names.slice(1).forEach(n => alt.append(h('span', 'chip', n)));
+  c.append(alt, h('p', 'muted', 'الأسماء اقتراحات. اتأكد إن الاسم متاح وغير مستخدم قبل ما تعتمده.'));
 
-        <!-- الفصل الثالث: خريطة المراحل الزمنية (المدرسة) -->
-        <section class="chapter-section" id="chapter-3">
-            <span class="chapter-number">CHAPTER 03 — TIMELINE ROADMAP & MILESTONES</span>
-            <h2>الفصل الثالث: مدرسة رائد الأعمال — خريطة المراحل الزمنية وتتبع التقدم</h2>
-            <p class="prose-p">
-                لكي لا تترك غارقًا في التردد والتفكير العشوائي، ينظم هذا الكتاب رحلتك إلى <strong>4 مراحل زمنية محددة</strong>. مع كل مرحلة، تستطيع قياس تقدمك بدقة ومعرفة أين أنت وماذا تحتاج لتنتقل للخطوة التالية:
-            </p>
+  c.append(h('h2', 0, 'ليه رشحنا لك ده؟'));
+  const why = h('ul', 'list');
+  why.append(h('li', 0, 'أقوى ميل ظهر في إجاباتك: ' + AR[best] + '.'));
+  if (top.lk.length) why.append(h('li', 0, 'اهتمامك بـ ' + top.lk.map(x => LIKE_AR[x]).join(' و') + ' بيتقاطع مع المجال ده.'));
+  if (top.hv.length) why.append(h('li', 0, 'بتستغل اللي معاك: ' + top.hv.map(x => NEED_AR[x]).join(' و') + '.'));
+  else if (p.need.length) why.append(h('li', 0, 'ده أحسن توافق مع ميولك، لكن مفيش عندك أصل من اللي بيحتاجه. ابدأ بالاستعارة أو التأجير المؤقت بدل الشراء.'));
+  why.append(h('li', 0, 'الحد الأدنى التقديري للبداية ' + p.min.toLocaleString('ar-EG') + ' جنيه، وده مناسب لرأس المال اللي اخترته.'));
+  c.append(why);
 
-            <div class="timeline-box">
-                <div class="timeline-step">
-                    <div class="step-badge">1</div>
-                    <div class="step-content">
-                        <h4>مرحلة الاكتشاف والتشخيص السلوكي (الأسبوع الأول)</h4>
-                        <p>تحديد نمط عملك، جرد أصولك ومكانها الحقيقي، واختيار فرصة واحدة مبررة تمامًا تتطابق مع ظروفك وميزانيتك.</p>
-                        <span class="step-timeframe">الإطار الزمني: 7 أيام</span>
-                    </div>
-                </div>
+  c.append(h('h2', 0, 'توزيع مقترح لرأس مالك (نسب)'));
+  const sp = h('ul', 'list'); SPLIT[p.a].forEach(([l, n]) => sp.append(h('li', 0, l + ': ' + n + '%'))); c.append(sp);
 
-                <div class="timeline-step">
-                    <div class="step-badge">2</div>
-                    <div class="step-content">
-                        <h4>مرحلة جمع المعرفة والبحث (الأسبوع الثاني والثالث)</h4>
-                        <p>رسم خريطة الموردين والورش، دراسة الاشتراطات التنظيمية والجهات الرسمية، وتسجيل عروض الأسعار الفعلية بمساحة مشروعك.</p>
-                        <span class="step-timeframe">الإطار الزمني: 14 يومًا</span>
-                    </div>
-                </div>
+  c.append(h('h2', 0, 'خطوات أول أسبوع'));
+  const wk = h('ol', 'list'); WEEK1[p.a].forEach(x => wk.append(h('li', 0, x))); c.append(wk);
 
-                <div class="timeline-step">
-                    <div class="step-badge">3</div>
-                    <div class="step-content">
-                        <h4>مرحلة اختبار الطلب والـ MVP (الأسبوع الرابع والخامس)</h4>
-                        <p>تنفيذ العينات الأولية، اختبار التسعير، وإطلاق حملة البيع المسبق أو عينات التذوق لقياس استعداد العملاء الفعلي للدفع.</p>
-                        <span class="step-timeframe">الإطار الزمني: 14 يومًا</span>
-                    </div>
-                </div>
-
-                <div class="timeline-step">
-                    <div class="step-badge">4</div>
-                    <div class="step-content">
-                        <h4>مرحلة "أول زبون راضي" والتثبيت (الشهر الثاني)</h4>
-                        <p>تسليم أول طلبية، جمع التقييمات، تحويل الزبون إلى "مبشر" للمشروع، وتثبيت دورة التشغيل النقدي.</p>
-                        <span class="step-timeframe">الإطار الزمني: 30 يومًا</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- الفصل الرابع -->
-        <section class="chapter-section" id="chapter-4">
-            <span class="chapter-number">CHAPTER 04 — THE FIRST DELIGHTED CUSTOMER</span>
-            <h2>الفصل الرابع: في البداية.. انس التدفق المالي الكبير واهتم بـ "أول زبون راضي"</h2>
-            <p class="prose-p">
-                أكبر فخ يسقط فيه رواد الأعمال المبتدئون هو هوس "الأرباح السريعة" و"حجم المبيعات الضخم" في اليوم الأول. الحقيقة التي تعلمها لك مدرسة رواد الأعمال هي كالتالي: 
-                <strong>في أول 60 يومًا، التدفق المالي الكبير ليس مقياسًا للنجاح.. المقياس الوحيد هو جلب أول زبون راضي تمامًا بأقل تكلفة ممكنة.</strong>
-            </p>
-            <p class="prose-p">
-                لماذا؟ لأن الزبون الأول الذي يخرج من عندك وهو سعيد ومنبهر بالجودة وسلاسة التعامل، لا يدفع ثمن القطعة فحسب؛ بل يتحول فورًا إلى <strong>"مندوب مبيعات مجاني"</strong> يجلب لك 10 زبائن آخرين من دائرته دون أن تصرف جنيهًا إضافيًا في الإعلانات (<span class="term-pill"><span class="en-term">Word of Mouth</span><button class="copy-term-btn" onclick="copyTerm('Word of Mouth', this)"><i data-lucide="copy" style="width:13px; height:13px;"></i></button></span>).
-            </p>
-            <div class="quote-block">
-                «اهتم بتفاصيل التجربة التي يعيشها أول مشتري لك، واجعل خدمة ما بعد البيع تفوق توقعاته. إرضاء زبون واحد وجعله مدافعًا عن براندك أقوى ألف مرة من حملة إعلانية ممولة بميزانية ضخمة.»
-            </div>
-        </section>
-
-        <!-- الفصل الخامس: القاموس -->
-        <section class="chapter-section" id="chapter-5">
-            <span class="chapter-number">CHAPTER 05 — BUSINESS GLOSSARY</span>
-            <h2>الفصل الخامس: قاموس المصطلحات المعتمدة في الكتاب</h2>
-            <p class="prose-p">
-                ابحث أدناه عن أي مصطلح إنجليزي تستخدمه المنصة، وانسخه بضغطة زر لاستخدامه في بحثك:
-            </p>
-
-            <input type="text" id="glossary-search-input" class="glossary-search" placeholder="ابحث عن مصطلح (مثال: MVP، هامش المساهمة، Microbrand)..." oninput="filterGlossary()">
-
-            <div class="glossary-grid" id="glossary-container">
-                <div class="glossary-card" data-keywords="الحد الأدنى للمنتج minimum viable product mvp">
-                    <div class="glossary-card-header">
-                        <span class="glossary-ar-title">الحد الأدنى للمنتج القابل للبيع</span>
-                        <span class="term-pill">
-                            <span class="en-term">Minimum Viable Product - MVP</span>
-                            <button class="copy-term-btn" onclick="copyTerm('Minimum Viable Product - MVP', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
-                        </span>
-                    </div>
-                    <p>أبسط نسخة أولية من خدمتك أو منتجك تطلقها لاختبار رد فعل السوق الحقيقي بأقل تكلفة.</p>
-                    <div class="glossary-example"><strong>مثال:</strong> تصنيع 3 عينات ومتابعة ردود الأفعال قبل بناء خط إنتاج كامل.</div>
-                </div>
-
-                <div class="glossary-card" data-keywords="هامش المساهمة contribution margin">
-                    <div class="glossary-card-header">
-                        <span class="glossary-ar-title">هامش المساهمة</span>
-                        <span class="term-pill">
-                            <span class="en-term">Contribution Margin</span>
-                            <button class="copy-term-btn" onclick="copyTerm('Contribution Margin', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
-                        </span>
-                    </div>
-                    <p>المبلغ المتبقي من سعر البيع بعد خصم التكاليف المتغيرة المباشرة (خامة، تصنيع، تغليف، شحن).</p>
-                    <div class="glossary-example"><strong>مثال:</strong> الفرق بين سعر بيع القطعة وتكلفتها المباشرة لتغطية مصاريفك وتحقيق الربح.</div>
-                </div>
-
-                <div class="glossary-card" data-keywords="العلامة التجارية المتخصصة microbrand">
-                    <div class="glossary-card-header">
-                        <span class="glossary-ar-title">العلامة التجارية المتخصصة</span>
-                        <span class="term-pill">
-                            <span class="en-term">Microbrand</span>
-                            <button class="copy-term-btn" onclick="copyTerm('Microbrand', this)"><i data-lucide="copy" style="width:14px; height:14px;"></i></button>
-                        </span>
-                    </div>
-                    <p>براند صغير يركز بعمق على شريحة عملاء محددة جداً ومنتجات فائقة الجودة.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- الدعوة للبدء -->
-        <div class="footer-cta">
-            <h3>انتقل من القراءة النظرية إلى التطبيق العملي</h3>
-            <p>الآن بعد أن استوعبت فلسفة المدرسة ومراحل العمل، اربط هذا الفهم بقدراتك الشخصية عبر تجربة «اكتشف نفسك».</p>
-            <a href="index.html" class="btn-primary">
-                <span>ابدأ تجربة «اكتشف نفسك» الآن</span>
-                <i data-lucide="arrow-left" style="width:16px; height:16px;"></i>
-            </a>
-        </div>
-
-    </main>
-
-    <script>
-        lucide.createIcons();
-
-        function copyTerm(termText, btnEl) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(termText).then(() => {
-                    const originalHtml = btnEl.innerHTML;
-                    btnEl.innerHTML = '<i data-lucide="check" style="width:13px; height:13px;"></i>';
-                    lucide.createIcons();
-                    setTimeout(() => {
-                        btnEl.innerHTML = originalHtml;
-                        lucide.createIcons();
-                    }, 1500);
-                });
-            }
-        }
-
-        function filterGlossary() {
-            const q = document.getElementById('glossary-search-input').value.trim().toLowerCase();
-            const cards = document.querySelectorAll('.glossary-card');
-            cards.forEach(card => {
-                const text = (card.innerText + ' ' + (card.getAttribute('data-keywords') || '')).toLowerCase();
-                card.style.display = text.includes(q) ? 'block' : 'none';
-            });
-        }
-
-        // حماية المحتوى
-        document.addEventListener('contextmenu', function(e) {
-            if (!e.target.closest('.en-term')) { e.preventDefault(); }
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (
-                e.key === 'F12' ||
-                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
-                (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's'))
-            ) {
-                e.preventDefault();
-                return false;
-            }
-        });
-    </script>
+  if (r.length > 1) {
+    c.append(h('h2', 0, 'مشاريع قريبة تستحق تفكر فيها'));
+    const al = h('ul', 'list'); r.slice(1, 3).forEach(x => al.append(h('li', 0, x.p.t))); c.append(al);
+  }
+  const row = h('div', 'row');
+  const edit = h('button', 'btn ghost', 'عدّل إجاباتك'); edit.type = 'button';
+  edit.onclick = () => { S.i = 0; save(); render(); };
+  const reset = h('button', 'btn', 'ابدأ من الأول'); reset.type = 'button';
+  reset.onclick = () => { S = { i: 0 }; save(); render(); };
+  row.append(edit, reset); c.append(row); app.append(c);
+  c.querySelector('.name').scrollIntoView({ block: 'center' });
+}
+render();
+</script>
 </body>
 </html>

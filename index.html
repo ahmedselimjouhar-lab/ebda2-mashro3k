@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ابدأ مشروعك | اعرف نفسك وأصولك واختار مشروعك</title>
+<title>ابدأ مشروعك</title>
 <meta name="description" content="أسئلة قصيرة عن طباعك وأصولك ورأس مالك، وتطلع باسم مشروع مبدئي وخطوات أول أسبوع.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@ p{margin-bottom:14px;max-width:64ch}
 .prog{height:4px;background:var(--soft);border-radius:4px;margin-bottom:18px}
 .prog i{display:block;height:100%;background:var(--ink);border-radius:4px;transition:width .2s}
 .opts{display:grid;gap:10px;margin:18px 0}
-.opt{text-align:right;font:inherit;line-height:1.7;background:var(--paper);color:inherit;border:1px solid var(--line);border-radius:10px;padding:12px 16px;cursor:pointer}
+.opt{text-align:start;font:inherit;line-height:1.7;background:var(--paper);color:inherit;border:1px solid var(--line);border-radius:10px;padding:12px 16px;cursor:pointer}
 .opt:hover{border-color:var(--ink)}
 .opt[aria-pressed=true]{border:2px solid var(--ink);padding:11px 15px;background:var(--soft);font-weight:600}
 .btn{font:inherit;font-weight:600;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:10px;padding:11px 22px;cursor:pointer;text-decoration:none;display:inline-block}
@@ -38,7 +38,7 @@ p{margin-bottom:14px;max-width:64ch}
 .name{font-size:clamp(2.2rem,10vw,3.6rem);font-weight:700;line-height:1.3;margin:4px 0 8px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
 .chip{border:1px solid var(--line);border-radius:99px;padding:2px 14px;font-size:.92rem}
-.list{padding-right:22px;margin-bottom:14px}
+.list{padding-inline-start:22px;margin-bottom:14px}
 .list li{margin-bottom:6px}
 .note{background:var(--soft);border-radius:10px;padding:12px 16px;font-size:.9rem;color:var(--mute);margin-top:18px}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0}
@@ -52,179 +52,178 @@ p{margin-bottom:14px;max-width:64ch}
 .copy{font:inherit;font-size:.82rem;margin-inline-start:6px;background:none;border:1px solid var(--line);border-radius:6px;padding:0 8px;cursor:pointer;color:inherit}
 .g p{margin-bottom:6px;font-size:.94rem}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.lg{padding:1px 12px;font-size:.9rem;margin-inline-end:6px}
 </style>
 </head>
 <body>
 <div class="bar"><div class="wrap">
-  <a class="brand" href="index.html">ابدأ مشروعك</a>
-  <a class="link" href="about.html">ليه نبدأ بأصولك؟ وقاموس المصطلحات</a>
+<a class="brand" href="index.html" id="br"></a>
+<span><button class="opt lg" id="lgA" type="button">مصري</button><button class="opt lg" id="lgE" type="button">English</button><a class="link" href="about.html" id="ab"></a></span>
 </div></div>
-<main class="wrap">
-  <h1>مش عارف تبدأ بأي مشروع؟ ابدأ بنفسك وباللي معاك.</h1>
-  <p>ثمانية أسئلة قصيرة عن طباعك واهتماماتك وأصولك ورأس مالك. في الآخر هتخرج باسم مشروع مبدئي وخطوات أول أسبوع.</p>
-  <div id="app"></div>
-  <p class="note">النتيجة ترشيح مبدئي مبني على إجاباتك. مش دراسة جدوى ولا نصيحة مالية. اقرأ <a href="about.html">إزاي بنوصل للترشيح</a>.</p>
-</main>
+<main class="wrap"><h1 id="h1"></h1><p id="p1"></p><div id="app"></div><p class="note" id="nt"></p></main>
 <script>
-const $ = s => document.querySelector(s);
-function h(t, c, x) { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+const $=s=>document.querySelector(s);
+const h=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+let LG='ar';try{LG=localStorage.getItem('ebda2_lg')||'ar'}catch(e){}
+const t=p=>p[LG=='ar'?0:1];
+const U={
+br:['ابدأ مشروعك','Start Your Project'],ab:['ليه نبدأ بأصولك؟ (بالمصري)','Why start with assets? (Egyptian Arabic)'],
+h1:['مش عارف تبدأ بأي مشروع؟ ابدأ بنفسك وباللي معاك.','Not sure which project to start? Start with yourself and what you have.'],
+p1:['اسئلة قصيرة عن طبعك ودوافعك وأصولك. هتخرج باسم مشروع، أو بمسار تاني لو ده الأنسب ليك دلوقتي.','Short questions about your nature, motives and assets. You will leave with a project name, or another path if that fits you better right now.'],
+nt:['ترشيح مبدئي من إجاباتك. مش دراسة جدوى ولا نصيحة مالية.','A first suggestion from your answers. Not a feasibility study or financial advice.'],
+q:['سؤال','Question'],of:['من','of'],nx:['التالي','Next'],bk:['رجوع','Back'],
+nm:['اسم مشروعك المقترح','Your suggested project name'],alt:['أسماء بديلة:','Alternatives:'],
+nmn:['الأسماء اقتراحات. اتأكد إنها متاحة قبل ما تعتمدها.','Names are ideas. Check availability before you commit.'],
+why:['ليه رشحنا لك ده؟','Why this one?'],sp:['توزيع مقترح لرأس مالك (نسب)','Suggested split of your capital (%)'],
+wk:['خطوات أول أسبوع','Your first week'],near:['مشاريع قريبة','Close options'],
+ed:['عدّل إجاباتك','Edit answers'],rs:['ابدأ من الأول','Start over'],
+cb:['ابدأ الكبسولة:','Start the capsule:'],cw1:['الكبسولة دي لأن ناقصك مهارة محتاجها المشروع.','This capsule is here because the project needs a skill you do not have yet.'],
+cw2:['الكبسولة دي لأن ده أكتر حاجة بتعطلك.','This capsule is here because this is what holds you back most.'],
+sc:['نتيجتك','Your score'],bkr:['ارجع للنتيجة','Back to results'],
+ok:['✓ اختيار سليم.','✓ Good choice.'],no:['✗ مش أحسن اختيار.','✗ Not the best choice.'],
+mix:['ميولك متوزعة بين','Your leanings are split between'],and:[' و',' and '],
+top:['أقوى ميل ظهر في إجاباتك:','Your strongest leaning:'],
+lk:['اهتماماتك بتتقاطع مع المجال ده:','Your interests overlap with this field:'],
+hv:['بتستغل اللي معاك:','You use what you have:'],
+nh:['ده أنسب لميولك، بس مفيش عندك أصل من اللي بيحتاجه. ابدأ بالاستعارة أو التأجير بدل الشراء.','Best fit for your leanings, but you hold none of the assets it needs. Borrow or rent instead of buying.'],
+mn:['الحد الأدنى التقديري للبداية','Estimated minimum to start'],egp:['جنيه','EGP'],
+ot:['المسار الأنسب ليك دلوقتي','The path that fits you best right now'],
+otw:['إجاباتك بتقول إن الاستقرار وخطوات واضحة أنسب ليك حاليًا من المخاطرة بمشروع. ده مش حكم على شخصيتك، ده الأنسب لظروفك الحالية.','Your answers suggest stability and clear steps fit you better today than the risk of a project. This is not a verdict on who you are, only on your situation now.'],
+pt:['ممكن كمان شريك يكمّلك في مشروع.','A partner who complements you in a project is also an option.'],
+try:['عايز تجرب مشروع برضه؟','Want to try a project anyway?'],ty:['اعرض لي مشروع جانبي','Show me a side project'],
+sd:['ابدأه جانبي: خلي دخلك الثابت زي ما هو، وما تصرفش غير مبلغ تقدر تستغنى عنه.','Start it on the side: keep your steady income and spend only money you can afford to lose.'],
+ob:['اللي بيوقفك:','What tends to stop you:'],mv:['اللي بتدور عليه فعلًا:','What you are really after:']};
+const MV={free:['حريتك في وقتك','freedom over your time'],rec:['إن اسمك يتعرف','being recognised for your name'],sec:['دخل ثابت مريّح','a calm, steady income'],mast:['إنك تتقن حاجة','mastering a craft']};
+const OB={sell:['الكسوف من طلب الفلوس','shyness about asking for money'],perf:['إنك مش بتخلّص قبل ما يبقى كامل','not finishing until it is perfect'],money:['القلق من الخسارة','fear of losing money'],focus:['التشتت وبدء حاجات كتير','scattering across many starts']};
+const Q=[
+{id:'q1',w:2,t:['لو قدامك يومين فاضيين، بتندمج في إيه من نفسك؟','With two free days, what do you sink into by yourself?'],o:[['craft',['أصنع أو أصلّح حاجة بإيدي.','Making or fixing something by hand.']],['trade',['أدوّر على بضاعة وأتفاوض وأقفل بيعة.','Hunting goods, negotiating, closing a sale.']],['ops',['أرتب مكان وأظبط خطوات الشغل.','Organising a place and its workflow.']],['digital',['أبني أداة أو موقع يحل مشكلة.','Building a tool or site that solves a problem.']]]},
+{id:'q2',w:2,t:['آخر حاجة الناس اعتمدت عليك فيها كانت إيه؟','What did people last rely on you for?'],o:[['craft',['نفّذت حاجة ملموسة أو كشفت عيب في خامة.','Made something real or spotted a material flaw.']],['trade',['بعت حاجة أو فاصلت في صفقة صعبة.','Sold something or won a tough deal.']],['ops',['نظمت حسابات أو مخزن متلخبط.','Sorted out accounts or a messy stockroom.']],['digital',['عملت شيت أو سيستم سهّل الشغل.','Built a sheet or system that eased the work.']]]},
+{id:'q4',w:2,t:['أي مشكلة بتستمتع إنك تفككها؟','Which problem do you enjoy taking apart?'],o:[['craft',['منتج تقليدي وأقدر أطلّع نسخة أحسن.','A dull product I can make better.']],['trade',['محلات ناقصها صنف وأقدر أوفره بانتظام.','Shops missing an item I can supply reliably.']],['ops',['طلبات كتير محتاجة تنظيم وتسليم في ميعاده.','Many orders needing order and on-time delivery.']],['digital',['ناس بتضيّع وقتها في شغل متكرر وأقدر أخليه آلي.','People wasting time on repetitive work I can automate.']]]},
+{id:'q5',w:-2,t:['إيه اللي لو اتفرض عليك كل يوم هيخنقك؟','What would suffocate you if forced on you every day?'],o:[['trade',['اللف والفصال مع الناس.','Chasing people and haggling.']],['craft',['الوقوف الطويل وسط الخامات.','Long hours standing among materials.']],['ops',['ضغط التجهيز ومواعيد التسليم.','Daily prep pressure and deadlines.']],['digital',['القعدة الطويلة قدام الشاشة.','Long hours at a screen.']]]},
+{id:'m',t:['لو المشروع نجح جدًا، إيه أكتر حاجة هتفرحك؟','If the project succeeds, what would make you happiest?'],o:[['free',['إني أتحكم في وقتي.','Controlling my own time.']],['rec',['إن اسمي يتعرف.','My name being known.']],['sec',['دخل ثابت مريّح.','A calm, steady income.']],['mast',['إني أبقى متقن حاجة.','Becoming truly skilled at something.']]]},
+{id:'r',t:['لو دخلك وقف 3 شهور، إيه اللي هيحصل؟','If your income stopped for 3 months, what would happen?'],o:[['ok',['مغطي مصاريفي.','My expenses are covered.']],['tight',['هتضغط عليا بس أقدر.','Tough, but I can manage.']],['no',['مش هقدر.','I could not manage.']]]},
+{id:'u',t:['لما الأمور مش واضحة، بتعمل إيه؟','When things are unclear, what do you do?'],o:[['go',['أتحرك وأصحّح في الطريق.','Move and correct along the way.']],['plan',['أحتاج خطة قبل ما أتحرك.','I need a plan before moving.']],['stuck',['بتجمد أو بأجّل.','I freeze or postpone.']]]},
+{id:'o',t:['إيه اللي غالبًا بيوقفك؟','What usually stops you?'],o:[['sell',['الكسوف من طلب الفلوس.','Shyness about asking for money.']],['perf',['مش بخلّص قبل ما يبقى كامل.','I do not finish until it is perfect.']],['money',['القلق من الخسارة.','Fear of losing money.']],['focus',['بتشتت وببدأ حاجات كتير.','I scatter and start too many things.']]]},
+{id:'a',t:['تحب تشتغل إزاي؟','How do you like to work?'],o:[['solo',['لوحدي وأنا المسؤول.','Alone, in charge.']],['lead',['أدير ناس.','Leading people.']],['part',['مع شريك يكمّلني.','With a partner who complements me.']],['team',['جوه فريق فيه حد مسؤول.','In a team with someone in charge.']]]}];
+const LIKES=[['food',['أكل وقهوة وضيافة','Food, coffee, hospitality']],['fashion',['جلود وموضة','Leather and fashion']],['home',['بيت ومفروشات','Home and furnishings']],['tech',['تكنولوجيا وأدوات رقمية','Tech and digital tools']],['kids',['أطفال وتعليم','Kids and learning']],['health',['صحة وأكل صحي','Health and healthy food']]];
+const HAVE=[['space',['مكان فاضي (غرفة / ورشة / مخزن)','A spare space (room / workshop / storage)']],['vehicle',['عربية أو تروسيكل أو فان','A car, tuk-tuk or van']],['gear',['معدات أو أجهزة','Equipment or devices']],['skill',['مهارة أقدر أبيعها','A skill I can sell']],['crowd',['جمهور أو علاقات في السوق','An audience or market contacts']],['none',['مفيش حاجة من دول','None of these']]];
+const CAP=[['3000',['أقل من 5 آلاف جنيه','Under 5,000 EGP']],['8000',['من 5 لـ10 آلاف','5,000 to 10,000']],['25000',['من 10 لـ40 ألف','10,000 to 40,000']],['70000',['من 40 لـ100 ألف','40,000 to 100,000']],['150000',['أكتر من 100 ألف','Over 100,000']]];
+const STEPS=Q.concat([{id:'likes',m:1,t:['إيه المجالات اللي بتشدك؟ اختار كل اللي يناسبك.','Which fields pull you? Pick all that apply.'],o:LIKES},{id:'have',m:1,t:['إيه الأصول اللي تحت إيدك دلوقتي؟','Which assets do you have right now?'],o:HAVE},{id:'cap',t:['تقدر تصرف كام فعلًا على البداية؟ (تقدير تقريبي)','Roughly how much can you really spend to start?'],o:CAP}]);
+/* min بالجنيه تقدير مبدئي ويحتاج مراجعة */
+const P=[
+{t:['علامة جلدية صغيرة لموديل واحد متقن','A small leather brand around one well-made model'],a:'craft',like:['fashion'],need:['space','gear','skill'],min:8000,n:[['خيط','Khayt'],['أصيل','Aseel'],['مقاس','Fit']]},
+{t:['ملايات ومفروشات متخصصة بتصنيع عند ورشة','Specialised bedding made by an existing workshop'],a:'craft',like:['home'],need:[],min:15000,n:[['سَكَن','Sakan'],['قطنة','Cotton'],['نَوم','Nawm']]},
+{t:['صناديق أنشطة وتعليم للأطفال','Activity and learning boxes for kids'],a:'craft',like:['kids'],need:['skill','crowd'],min:6000,n:[['صندوق العجايب','Wonder Box'],['ركن','Corner'],['فكرة ولعبة','Idea & Play']]},
+{t:['مطبخ منزلي لأصناف محددة بتوصيل واشتراكات','A home kitchen for a few set dishes, delivery and subscriptions'],a:'ops',like:['food'],need:['space','gear'],min:10000,n:[['مطبخ الحارة','Alley Kitchen'],['طبق ثابت','Set Plate'],['لقمة','Bite']]},
+{t:['سناكس صحية بتصنيع عند مطبخ قائم','Healthy snacks made at an existing kitchen'],a:'ops',like:['health','food'],need:[],min:12000,n:[['خفيف','Light'],['نص طبق','Half Plate'],['بسيطة','Simple']]},
+{t:['توصيل وتوريد للمحلات الصغيرة بمواعيد ثابتة','Scheduled delivery and supply for small shops'],a:'ops',like:[],need:['vehicle'],min:5000,n:[['وصّل','Deliver'],['على طول','Straight Away'],['مشوار','Run']]},
+{t:['مورّد صغير لصنف واحد للمقاهي والمطاعم','A small single-item supplier for cafes and restaurants'],a:'trade',like:['food'],need:['vehicle','crowd'],min:15000,n:[['توريدة','Supply Run'],['على الميعاد','On Time'],['خامة','Raw']]},
+{t:['أدوات وشيتات جاهزة للمحلات الصغيرة','Ready-made sheets and tools for small shops'],a:'digital',like:['tech'],need:['skill','gear'],min:2000,n:[['حسبة','Hesba'],['دفتر','Ledger'],['شيتي','My Sheet']]},
+{t:['ردود آلية وتنظيم طلبات واتساب للمحلات','Automated replies and WhatsApp order handling for shops'],a:'digital',like:['tech'],need:['skill','gear'],min:3000,n:[['رد','Reply'],['ماشي','Done'],['شغّلها','Run It']]}];
+const AR={craft:['الصنع وضبط الجودة','making and quality control'],trade:['التوريد والتفاوض','sourcing and negotiating'],ops:['التشغيل والتنظيم','operations and organising'],digital:['بناء الأدوات الرقمية','building digital tools']};
+const PATH={craft:['صنايعي أو مصمم منتج محترف جوه ورشة أو شركة','A skilled maker or product designer inside a workshop or company'],trade:['مبيعات أو مشتريات B2B في شركة','B2B sales or sourcing at a company'],ops:['تشغيل أو سلاسل إمداد جوه شركة','Operations or supply chain inside a company'],digital:['مطوّر أو محلل في فريق','Developer or analyst in a team']};
+const MOT={free:{digital:1.5,trade:.5},rec:{craft:1.5},sec:{ops:1.5},mast:{craft:1,digital:1}};
+const SPLIT={craft:[[['خامات وعينات','Materials and samples'],35],[['تصنيع دفعة صغيرة','A small batch'],35],[['تصوير وتغليف وإعلان تجريبي','Photos, packaging, a test ad'],30]],trade:[[['بضاعة بكمية صغيرة','Stock, small quantity'],50],[['نقل وتغليف','Transport and packing'],15],[['تسويق واختبار','Marketing and testing'],15],[['احتياطي','Reserve'],20]],ops:[[['تجهيز وأدوات','Setup and tools'],35],[['خامات أول أسبوعين','First two weeks of supplies'],30],[['تغليف وتوصيل','Packing and delivery'],20],[['احتياطي','Reserve'],15]],digital:[[['أدوات واشتراكات','Tools and subscriptions'],20],[['تسويق تجريبي','Test marketing'],40],[['مساعدة أو تصميم','Help or design'],20],[['احتياطي','Reserve'],20]]};
+const WEEK={craft:[['اعمل عينة واحدة من موديل واحد.','Make one sample of one model.'],['اعرضها على 10 ناس واسألهم هيدفعوا كام.','Show it to 10 people and ask what they would pay.'],['خد 5 طلبات مسبقة قبل أول دفعة.','Get 5 pre-orders before the first batch.']],trade:[['اختار صنف ومورّدين اتنين واطلب عينة.','Pick one item and two suppliers, ask for samples.'],['احسب تكلفة الوحدة بعد النقل والفاقد.','Cost one unit after transport and waste.'],['اعرض طلبية تجريبية على 10 محلات.','Offer a trial order to 10 shops.']],ops:[['حدد صنفين أو تلاتة واحسب تكلفة كل وحدة.','Pick two or three items and cost each unit.'],['جرّب الإنتاج لـ10 طلبات من معارفك.','Run 10 orders for people you know.'],['قِس الوقت والفاقد وسعّر على أساسهم.','Measure time and waste, then price from that.']],digital:[['اختار مشكلة واحدة لفئة واحدة وحلها يدويًا.','Pick one problem for one group and solve it by hand.'],['اعرض الحل على 5 ناس واسألهم هيدفعوا كام.','Show it to 5 people and ask what they would pay.'],['ابني النسخة البسيطة بعد أول عميل يدفع.','Build the simple version after the first paying customer.']]};
+const CAPS={
+cost:{n:['كبسولة: احسب ربحك صح','Capsule: count your profit properly'],k:['الربح الحقيقي = السعر − كل التكاليف المتغيرة. والحد الأدنى للطلب الصغير بيحمي سيولتك.','Real profit = price minus every variable cost, and a small minimum order protects your cash.'],s:[
+{s:['بتبيع بـ400 والخامة والتصنيع والتغليف 280. هتقول إن ربحك 120؟','You sell at 400; materials, making and packing cost 280. Is your profit 120?'],o:[[['أيوه، 120 خلاص.','Yes, 120.'],0],[['لأ، لسه هخصم الإعلان والشحن والفاقد.','No, I still deduct ads, shipping and waste.'],1],[['أزوّد 20% وخلاص.','Add 20% and move on.'],0]],w:['اللي فاضل بعد كل التكاليف المتغيرة هو هامش المساهمة، ومنه بتغطي مصاريفك الثابتة.','What is left after all variable costs is the contribution margin; it covers your fixed costs.']},
+{s:['مورد بيبيع 1000 قطعة بسعر أرخص، وتاني 50 قطعة بسعر أغلى شوية. لسه مجربتش السوق.','One supplier sells 1,000 pieces cheaper, another 50 a bit dearer. You have not tested the market.'],o:[[['الـ1000 عشان أوفر.','The 1,000 to save money.'],0],[['الـ50، وأجرّب الأول.','The 50, and test first.'],1],[['الاتنين.','Both.'],0]],w:['الكمية الصغيرة بتحمي سيولتك لحد ما تتأكد إن الناس بتشتري.','The small quantity protects your cash until you know people buy.']}]},
+sell:{n:['كبسولة: أول محادثة بيع','Capsule: your first sales conversation'],k:['البيع هو بناء ثقة وتقليل مخاطرة على المشتري. قول السعر بهدوء واسمع.','Selling is building trust and lowering the buyer\'s risk. State the price calmly and listen.'],s:[
+{s:['العميل قال: غالي.','The customer says: too expensive.'],o:[[['أنزّل السعر فورًا.','Drop the price at once.'],0],[['أسأله: غالي مقارنة بإيه؟ وأوضح اللي بيوفره.','Ask: expensive compared to what? Then show what it saves him.'],1],[['أقوله مش هتلاقي أحسن.','Tell him he will not find better.'],0]],w:['السؤال بيكشف المشكلة الحقيقية، والخصم الفوري بيقول للعميل إن السعر كان مبالغ فيه.','The question reveals the real concern; an instant discount tells him the price was inflated.']},
+{s:['جه وقت تطلب الفلوس وإنت محرج.','It is time to ask for payment and you feel awkward.'],o:[[['أبرر كتير.','Justify at length.'],0],[['أقول السعر بهدوء وأسكت.','Say the price calmly and stay quiet.'],1],[['أقول: اللي تشوفه.','Say: whatever you think.'],0]],w:['السعر الواضح بيدي ثقة. التبرير الكتير بيخلي العميل يشك.','A clear price builds confidence; over-explaining makes buyers doubt.']}]},
+test:{n:['كبسولة: اختبر قبل ما تكمّل','Capsule: test before you perfect'],k:['نسخة صغيرة قدام ناس حقيقيين أفيد من كمال محدش شافه.','A small version in front of real people beats a perfect one nobody saw.'],s:[
+{s:['جهزت 5 ألوان و500 قطعة قبل أول بيعة.','You prepared 5 colours and 500 pieces before the first sale.'],o:[[['كده تمام.','That is fine.'],0],[['كان الأحسن 10 قطع من موديل واحد وأعرضها للبيع.','Better: 10 pieces of one model, offered for sale.'],1],[['أزوّد الألوان.','Add more colours.'],0]],w:['اختبار صغير بيجاوب: هل الناس هتدفع؟ قبل ما تجمّد فلوسك في مخزون.','A small test answers whether people will pay, before cash gets stuck in stock.']},
+{s:['نسختك مش كاملة بس بتشتغل.','Your version is not perfect but it works.'],o:[[['أستنى لما تتكمل.','Wait until it is perfect.'],0],[['أعرضها على 5 ناس وأسمع.','Show it to 5 people and listen.'],1],[['أعدّل لوحدي شهر كمان.','Tweak alone for another month.'],0]],w:['رأي ناس حقيقيين بيوفر عليك شهور تعديل في الفراغ.','Real feedback saves months of tweaking in a vacuum.']}]}};
 
-const Q = [
-  { id: 'q1', w: 2, t: 'لو قدامك يومين فاضيين، إيه النشاط اللي بتندمج فيه من نفسك؟', o: [
-    ['craft', 'أفحص خامات وأصنع أو أصلّح حاجة بإيدي.'],
-    ['trade', 'أدوّر على بضاعة وأتفاوض وأقفل بيعة.'],
-    ['ops', 'أرتب مكان شغال وأظبط خطوات التشغيل.'],
-    ['digital', 'أبني أداة أو موقع يحل مشكلة للناس.']] },
-  { id: 'q2', w: 2, t: 'آخر حاجة الناس اعتمدت عليك فيها كانت إيه؟', o: [
-    ['craft', 'نفّذت حاجة ملموسة أو اكتشفت عيب في خامة.'],
-    ['trade', 'بعت حاجة أو فاصلت في صفقة صعبة.'],
-    ['ops', 'نظمت حسابات أو مخزن متلخبط.'],
-    ['digital', 'عملت شيت أو سيستم رقمي سهّل الشغل.']] },
-  { id: 'q3', w: 1, t: 'لما بتدخل مجال جديد، إيه أسرع طريقة تفهمه بيها؟', o: [
-    ['craft', 'أنزل الورش وأمسك الخامة وأجرب عينة.'],
-    ['trade', 'أسأل التجار وأشوف البضاعة بتتحرك إزاي.'],
-    ['ops', 'أحسب تكلفة كل وحدة وأحلل المنافسين.'],
-    ['digital', 'أبحث على الإنترنت وأجرب بنفسي.']] },
-  { id: 'q4', w: 2, t: 'أي مشكلة من دول بتستمتع إنك تفككها؟', o: [
-    ['craft', 'المنتج تقليدي وأقدر أطلّع نسخة أحسن.'],
-    ['trade', 'محلات ناقصها صنف وأقدر أوفره بانتظام.'],
-    ['ops', 'طلبات كتير محتاجة تنظيم وتسليم في ميعاده.'],
-    ['digital', 'ناس بتضيّع وقتها في شغل متكرر وأقدر أخليه آلي.']] },
-  { id: 'q5', w: -2, t: 'إيه الحاجة اللي لو اتفرضت عليك كل يوم هتخنقك؟', o: [
-    ['trade', 'اللف والفصال المباشر مع الناس.'],
-    ['craft', 'الوقوف الطويل في الورش وسط الخامات.'],
-    ['ops', 'ضغط التجهيز اليومي ومواعيد التسليم.'],
-    ['digital', 'القعدة الطويلة قدام الشاشة.']] },
-  { id: 'q6', w: 1, t: 'إيه أهم هدف من المشروع بالنسبة لك؟', o: [
-    ['craft', 'أبني اسم وعلامة تكبر مع الوقت.'],
-    ['trade', 'أدوّر فلوسي بسرعة وأطلّع كاش أسبوعي.'],
-    ['ops', 'أعمل وحدة شغل عليها طلب يومي ثابت.'],
-    ['digital', 'دخل بمصاريف ثابتة قليلة جدًا.']] }
-];
-const LIKES = [['food', 'أكل وقهوة وضيافة'], ['fashion', 'جلود وموضة وإكسسوارات'], ['home', 'بيت ومفروشات وديكور'], ['tech', 'تكنولوجيا وأدوات رقمية'], ['kids', 'أطفال وتعليم'], ['health', 'صحة وأكل صحي']];
-const HAVE = [['space', 'مكان فاضي (غرفة / ورشة / مخزن / سطح)'], ['vehicle', 'عربية أو تروسيكل أو فان'], ['gear', 'معدات أو أجهزة (ماكينة، لابتوب، كاميرا…)'], ['skill', 'مهارة أقدر أبيعها (تصميم، طبخ، خياطة، برمجة…)'], ['crowd', 'جمهور أو علاقات في السوق'], ['none', 'مفيش حاجة من دول دلوقتي']];
-const CAP = [['8000', 'أقل من 10 آلاف جنيه'], ['25000', 'من 10 إلى 40 ألف جنيه'], ['70000', 'من 40 إلى 100 ألف جنيه'], ['150000', 'أكتر من 100 ألف جنيه']];
-const STEPS = Q.concat([
-  { id: 'likes', m: 1, t: 'إيه المجالات اللي بتشدك؟ اختار كل اللي يناسبك.', o: LIKES },
-  { id: 'have', m: 1, t: 'إيه الأصول اللي تحت إيدك دلوقتي؟', o: HAVE },
-  { id: 'cap', t: 'تقدر تصرف كام فعلًا على البداية؟ (تقدير تقريبي)', o: CAP }]);
+let S={i:0};try{Object.assign(S,JSON.parse(localStorage.getItem('ebda2_v7')||'{}'))}catch(e){}
+if(!(S.i>=0&&S.i<=STEPS.length))S.i=0;
+const save=()=>{try{localStorage.setItem('ebda2_v7',JSON.stringify(S))}catch(e){}};
 
-/* كتالوج المشاريع: الحد الأدنى (min) بالجنيه تقدير مبدئي ويحتاج مراجعتك */
-const P = [
-  { t: 'علامة جلدية صغيرة لموديل واحد متقن', a: 'craft', like: ['fashion'], need: ['space', 'gear', 'skill'], min: 8000, names: ['خيط', 'أصيل', 'مقاس'] },
-  { t: 'ملايات ومفروشات متخصصة بتصنيع عند ورشة قائمة', a: 'craft', like: ['home'], need: [], min: 15000, names: ['سَكَن', 'قطنة', 'نَوم'] },
-  { t: 'صناديق أنشطة وتعليم للأطفال', a: 'craft', like: ['kids'], need: ['skill', 'crowd'], min: 6000, names: ['صندوق العجايب', 'ركن', 'فكرة ولعبة'] },
-  { t: 'مطبخ منزلي لأصناف محددة بتوصيل واشتراكات', a: 'ops', like: ['food'], need: ['space', 'gear'], min: 10000, names: ['مطبخ الحارة', 'طبق ثابت', 'لقمة'] },
-  { t: 'سناكس صحية بتصنيع عند مطبخ قائم', a: 'ops', like: ['health', 'food'], need: [], min: 12000, names: ['خفيف', 'نص طبق', 'بسيطة'] },
-  { t: 'توصيل وتوريد للمحلات الصغيرة بمواعيد ثابتة', a: 'ops', like: [], need: ['vehicle'], min: 5000, names: ['وصّل', 'على طول', 'مشوار'] },
-  { t: 'مورّد صغير لصنف واحد للمقاهي والمطاعم', a: 'trade', like: ['food'], need: ['vehicle', 'crowd'], min: 15000, names: ['توريدة', 'على الميعاد', 'خامة'] },
-  { t: 'أدوات وشيتات جاهزة للمحلات الصغيرة', a: 'digital', like: ['tech'], need: ['skill', 'gear'], min: 2000, names: ['حسبة', 'دفتر', 'شيتي'] },
-  { t: 'ردود آلية وتنظيم طلبات واتساب للمحلات', a: 'digital', like: ['tech'], need: ['skill', 'gear'], min: 3000, names: ['رد', 'ماشي', 'شغّلها'] }
-];
-const AR = { craft: 'الصنع وضبط الجودة بإيدك', trade: 'التوريد والتفاوض', ops: 'التشغيل والتنظيم', digital: 'بناء الأدوات الرقمية' };
-const NEED_AR = Object.fromEntries(HAVE);
-const LIKE_AR = Object.fromEntries(LIKES);
-const SPLIT = {
-  craft: [['خامات وعينات', 35], ['تصنيع دفعة صغيرة', 35], ['تصوير وتغليف وإعلان تجريبي', 30]],
-  trade: [['بضاعة بكمية صغيرة', 50], ['نقل وتغليف', 15], ['تسويق واختبار', 15], ['احتياطي', 20]],
-  ops: [['تجهيز وأدوات', 35], ['خامات أول أسبوعين', 30], ['تغليف وتوصيل', 20], ['احتياطي', 15]],
-  digital: [['أدوات واشتراكات', 20], ['تسويق تجريبي', 40], ['مساعدة أو تصميم', 20], ['احتياطي', 20]]
-};
-const WEEK1 = {
-  craft: ['اعمل عينة واحدة من موديل واحد وصوّرها.', 'اعرضها على 10 ناس من الفئة المستهدفة واسألهم هيدفعوا كام.', 'خد 5 طلبات مسبقة قبل ما تصنّع أول دفعة.'],
-  trade: ['اختار صنف واحد ومورّدين اتنين واطلب عينة.', 'احسب التكلفة الكلية للوحدة بعد النقل والفاقد.', 'اعرض طلبية تجريبية صغيرة على 10 محلات.'],
-  ops: ['حدد صنفين أو تلاتة بس واحسب تكلفة كل وحدة.', 'جرّب الإنتاج لـ10 طلبات من معارفك.', 'قِس الوقت والفاقد وسعّر على أساسهم.'],
-  digital: ['اختار مشكلة واحدة لفئة واحدة وجرّب تحلها يدويًا الأول.', 'اعرض الحل على 5 ناس واسألهم مستعدين يدفعوا كام.', 'ابني النسخة البسيطة بعد أول عميل يدفع.']
-};
+function calc(){
+ const a={craft:0,trade:0,ops:0,digital:0};
+ Q.filter(q=>q.w).forEach(q=>{if(S[q.id])a[S[q.id]]+=q.w});
+ const R=({ok:2,tight:1,no:-1}[S.r]||0)+({go:2,plan:1,stuck:-1}[S.u]||0)+({solo:2,lead:2,part:1,team:-1}[S.a]||0);
+ let mode=R>=4?'ready':R>=2?'side':'other';if(S.r=='no'&&mode=='ready')mode='side';
+ const ks=Object.keys(a).sort((x,y)=>a[y]-a[x]),cap=+S.cap||0,likes=S.likes||[],have=S.have||[];
+ const r=P.filter(p=>p.min<=cap).map(p=>{const lk=p.like.filter(x=>likes.includes(x)),hv=p.need.filter(x=>have.includes(x));
+  const as=p.need.length?4*hv.length/p.need.length-1.5:.5;
+  return{p,lk,hv,s:a[p.a]+((MOT[S.m]||{})[p.a]||0)+1.5*lk.length+as}}).sort((x,y)=>y.s-x.s);
+ return{a,ks,mode,r,mixed:a[ks[0]]-a[ks[1]]<2};
+}
+const lbl=(L,v)=>t(L.find(x=>x[0]==v)[1]);
+const li=(ul,x)=>ul.append(h('li',0,x));
+function btn(x,c,f){const b=h('button','btn '+(c||''),x);b.type='button';b.onclick=f;return b}
 
-let S = { i: 0 };
-try { Object.assign(S, JSON.parse(localStorage.getItem('ebda2_v6') || '{}')); } catch (e) {}
-if (!(S.i >= 0 && S.i <= STEPS.length)) S.i = 0;
-function save() { try { localStorage.setItem('ebda2_v6', JSON.stringify(S)); } catch (e) {} }
-
-function pick() {
-  const a = { craft: 0, trade: 0, ops: 0, digital: 0 };
-  Q.forEach(q => { if (S[q.id]) a[S[q.id]] += q.w; });
-  const cap = +S.cap || 0, likes = S.likes || [], have = S.have || [];
-  const r = P.filter(p => p.min <= cap).map(p => {
-    const lk = p.like.filter(x => likes.includes(x));
-    const hv = p.need.filter(x => have.includes(x));
-    const as = !p.need.length ? 1 : hv.length ? 2 : -1;
-    return { p, lk, hv, s: a[p.a] + 1.5 * lk.length + as };
-  }).sort((x, y) => y.s - x.s);
-  return { a, r };
+function render(){
+ const app=$('#app');app.replaceChildren();
+ if(S.i>=STEPS.length)return S.v=='cap'?capsule(app):result(app);
+ const st=STEPS[S.i],card=h('section','card'),pr=h('div','prog'),bar=h('i');bar.style.width=(S.i/STEPS.length*100)+'%';pr.append(bar);
+ const title=h('h2',0,t(st.t));title.tabIndex=-1;
+ card.append(pr,h('p','muted',t(U.q)+' '+(S.i+1)+' '+t(U.of)+' '+STEPS.length),title);
+ const box=h('div','opts'),row=h('div','row'),next=btn(t(U.nx),'',()=>{S.i++;save();render()});
+ const cur=()=>S[st.id]||(st.m?[]:null);
+ st.o.forEach(([v,L])=>{const b=h('button','opt',t(L));b.type='button';
+  b.setAttribute('aria-pressed',st.m?cur().includes(v):cur()===v);
+  b.onclick=()=>{if(!st.m){S[st.id]=v;S.i++;save();render();return}
+   let c=cur().slice();c=c.includes(v)?c.filter(x=>x!==v):(v=='none'?['none']:c.filter(x=>x!=='none').concat(v));
+   S[st.id]=c;save();box.querySelectorAll('.opt').forEach((o,k)=>o.setAttribute('aria-pressed',c.includes(st.o[k][0])));next.disabled=!c.length};
+  box.append(b)});
+ row.append(S.i?btn(t(U.bk),'ghost',()=>{S.i--;save();render()}):h('span'));
+ if(st.m){next.disabled=!cur().length;row.append(next)}
+ card.append(box,row);app.append(card);title.focus({preventScroll:true});
 }
 
-function render() {
-  const app = $('#app'); app.replaceChildren();
-  if (S.i >= STEPS.length) return result(app);
-  const st = STEPS[S.i], card = h('section', 'card');
-  const pr = h('div', 'prog'), bar = h('i'); bar.style.width = (S.i / STEPS.length * 100) + '%'; pr.append(bar);
-  const title = h('h2', 0, st.t); title.tabIndex = -1;
-  card.append(pr, h('p', 'muted', 'سؤال ' + (S.i + 1) + ' من ' + STEPS.length), title);
-  const box = h('div', 'opts'), row = h('div', 'row');
-  const next = h('button', 'btn', 'التالي'); next.type = 'button';
-  const cur = () => S[st.id] || (st.m ? [] : null);
-  st.o.forEach(([v, txt]) => {
-    const b = h('button', 'opt', txt); b.type = 'button';
-    const on = () => st.m ? cur().includes(v) : cur() === v;
-    b.setAttribute('aria-pressed', on());
-    b.onclick = () => {
-      if (!st.m) { S[st.id] = v; S.i++; save(); render(); return; }
-      let c = cur().slice();
-      if (c.includes(v)) c = c.filter(x => x !== v);
-      else c = (v === 'none') ? ['none'] : c.filter(x => x !== 'none').concat(v);
-      S[st.id] = c; save();
-      box.querySelectorAll('.opt').forEach((o, k) => o.setAttribute('aria-pressed', c.includes(st.o[k][0])));
-      next.disabled = !c.length;
-    };
-    box.append(b);
-  });
-  const back = h('button', 'btn ghost', 'رجوع'); back.type = 'button';
-  back.onclick = () => { S.i = Math.max(0, S.i - 1); save(); render(); };
-  row.append(S.i ? back : h('span'));
-  if (st.m) { next.disabled = !cur().length; next.onclick = () => { S.i++; save(); render(); }; row.append(next); }
-  card.append(box, row); app.append(card);
-  title.focus({ preventScroll: true });
+function result(app){
+ const c=h('section','card'),{a,ks,mode,r,mixed}=calc();
+ if(mode=='other'&&!S.force){
+  c.append(h('p','muted',t(U.ot)),h('div','name',t(PATH[ks[0]])),h('p',0,t(U.otw)));
+  const u=h('ul','list');li(u,t(U.mv)+' '+t(MV[S.m]));li(u,t(U.ob)+' '+t(OB[S.o]));if(S.a=='part')li(u,t(U.pt));c.append(u,h('h2',0,t(U.try)),btn(t(U.ty),'',()=>{S.force=1;save();render()}));
+ }else{
+  const top=r[0],p=top.p;
+  c.append(h('p','muted',t(U.nm)),h('div','name',t(p.n[0])),h('p',0,t(p.t)));
+  const alt=h('div','chips');alt.append(h('span','muted',t(U.alt)));p.n.slice(1).forEach(n=>alt.append(h('span','chip',t(n))));
+  c.append(alt,h('p','muted',t(U.nmn)));
+  if(mode!='ready')c.append(h('p','note',t(U.sd)));
+  c.append(h('h2',0,t(U.why)));const u=h('ul','list');
+  li(u,mixed?t(U.mix)+' '+t(AR[ks[0]])+t(U.and)+t(AR[ks[1]])+'.':t(U.top)+' '+t(AR[ks[0]])+'.');
+  li(u,t(U.mv)+' '+t(MV[S.m])+'.');
+  if(top.lk.length)li(u,t(U.lk)+' '+top.lk.map(x=>lbl(LIKES,x)).join('، ')+'.');
+  if(top.hv.length)li(u,t(U.hv)+' '+top.hv.map(x=>lbl(HAVE,x)).join('، ')+'.');else if(p.need.length)li(u,t(U.nh));
+  li(u,t(U.ob)+' '+t(OB[S.o])+'.');li(u,t(U.mn)+' '+p.min.toLocaleString(LG=='ar'?'ar-EG':'en-US')+' '+t(U.egp)+'.');c.append(u);
+  c.append(h('h2',0,t(U.sp)));const sp=h('ul','list');SPLIT[p.a].forEach(([l,n])=>li(sp,t(l)+': '+n+'%'));c.append(sp);
+  c.append(h('h2',0,t(U.wk)));const wk=h('ol','list');WEEK[p.a].forEach(x=>li(wk,t(x)));c.append(wk);
+  const gap=p.need.includes('skill')&&!(S.have||[]).includes('skill');
+  const ck=gap?{craft:'test',trade:'sell',ops:'cost',digital:'test'}[p.a]:{sell:'sell',perf:'test',money:'cost',focus:'test'}[S.o];
+  c.append(h('p','note',t(gap?U.cw1:U.cw2)),btn(t(U.cb)+' '+t(CAPS[ck].n),'',()=>{S.v='cap';S.ck=ck;S.ci=0;S.cs=0;S.cp=null;save();render()}));
+  if(r.length>1){c.append(h('h2',0,t(U.near)));const al=h('ul','list');r.slice(1,3).forEach(x=>li(al,t(x.p.t)));c.append(al)}
+ }
+ const row=h('div','row');
+ row.append(btn(t(U.ed),'ghost',()=>{S.i=0;S.force=0;save();render()}),btn(t(U.rs),'',()=>{S={i:0};save();render()}));c.append(row);app.append(c);
 }
 
-function result(app) {
-  const { a, r } = pick(), top = r[0], p = top.p;
-  const best = Object.keys(a).sort((x, y) => a[y] - a[x])[0];
-  const c = h('section', 'card');
-  c.append(h('p', 'muted', 'اسم مشروعك المقترح للبداية'), h('div', 'name', p.names[0]), h('p', 0, p.t));
-  const alt = h('div', 'chips'); alt.append(h('span', 'muted', 'أسماء بديلة:'));
-  p.names.slice(1).forEach(n => alt.append(h('span', 'chip', n)));
-  c.append(alt, h('p', 'muted', 'الأسماء اقتراحات. اتأكد إن الاسم متاح وغير مستخدم قبل ما تعتمده.'));
-
-  c.append(h('h2', 0, 'ليه رشحنا لك ده؟'));
-  const why = h('ul', 'list');
-  why.append(h('li', 0, 'أقوى ميل ظهر في إجاباتك: ' + AR[best] + '.'));
-  if (top.lk.length) why.append(h('li', 0, 'اهتمامك بـ ' + top.lk.map(x => LIKE_AR[x]).join(' و') + ' بيتقاطع مع المجال ده.'));
-  if (top.hv.length) why.append(h('li', 0, 'بتستغل اللي معاك: ' + top.hv.map(x => NEED_AR[x]).join(' و') + '.'));
-  else if (p.need.length) why.append(h('li', 0, 'ده أحسن توافق مع ميولك، لكن مفيش عندك أصل من اللي بيحتاجه. ابدأ بالاستعارة أو التأجير المؤقت بدل الشراء.'));
-  why.append(h('li', 0, 'الحد الأدنى التقديري للبداية ' + p.min.toLocaleString('ar-EG') + ' جنيه، وده مناسب لرأس المال اللي اخترته.'));
-  c.append(why);
-
-  c.append(h('h2', 0, 'توزيع مقترح لرأس مالك (نسب)'));
-  const sp = h('ul', 'list'); SPLIT[p.a].forEach(([l, n]) => sp.append(h('li', 0, l + ': ' + n + '%'))); c.append(sp);
-
-  c.append(h('h2', 0, 'خطوات أول أسبوع'));
-  const wk = h('ol', 'list'); WEEK1[p.a].forEach(x => wk.append(h('li', 0, x))); c.append(wk);
-
-  if (r.length > 1) {
-    c.append(h('h2', 0, 'مشاريع قريبة تستحق تفكر فيها'));
-    const al = h('ul', 'list'); r.slice(1, 3).forEach(x => al.append(h('li', 0, x.p.t))); c.append(al);
-  }
-  const row = h('div', 'row');
-  const edit = h('button', 'btn ghost', 'عدّل إجاباتك'); edit.type = 'button';
-  edit.onclick = () => { S.i = 0; save(); render(); };
-  const reset = h('button', 'btn', 'ابدأ من الأول'); reset.type = 'button';
-  reset.onclick = () => { S = { i: 0 }; save(); render(); };
-  row.append(edit, reset); c.append(row); app.append(c);
-  c.querySelector('.name').scrollIntoView({ block: 'center' });
+function capsule(app){
+ const C=CAPS[S.ck],c=h('section','card');c.append(h('h2',0,t(C.n)));
+ if(S.ci>=C.s.length){
+  c.append(h('p',0,t(U.sc)+': '+S.cs+' / '+C.s.length),h('p','note',t(C.k)),btn(t(U.bkr),'',()=>{S.v=0;save();render()}));
+ }else{
+  const sc=C.s[S.ci],done=S.cp!=null,box=h('div','opts');
+  c.append(h('p','muted',(S.ci+1)+' / '+C.s.length),h('p',0,t(sc.s)));
+  sc.o.forEach(([L,g],k)=>{const b=h('button','opt',t(L));b.type='button';b.setAttribute("aria-pressed",!!(done&&(g||S.cp==k)));
+   b.onclick=()=>{if(done)return;S.cp=k;S.cs+=g;save();render()};box.append(b)});
+  c.append(box);
+  if(done){c.append(h('p','note',t(sc.o[S.cp][1]?U.ok:U.no)+' '+t(sc.w)),btn(t(U.nx),'',()=>{S.ci++;S.cp=null;save();render()}))}
+ }
+ app.append(c);
 }
-render();
+
+function applyLang(){
+ const d=document.documentElement;d.lang=LG=='ar'?'ar-EG':'en';d.dir=LG=='ar'?'rtl':'ltr';
+ document.title=t(U.br);['br','ab','h1','p1','nt'].forEach(k=>{$('#'+k).textContent=t(U[k])});
+ $('#lgA').setAttribute('aria-pressed',LG=='ar');$('#lgE').setAttribute('aria-pressed',LG!='ar');render();
+}
+[['lgA','ar'],['lgE','en']].forEach(([id,l])=>$('#'+id).onclick=()=>{LG=l;try{localStorage.setItem('ebda2_lg',l)}catch(e){}applyLang()});
+applyLang();
 </script>
 </body>
 </html>

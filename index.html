@@ -5,15 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ابدأ مشروعك | اكتشف نفسك واكتشف إمكانيات لم تكن تعرف أنها لديك</title>
     
-    <!-- الخطوط المعتمدة: IBM Plex Sans Arabic & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- أيقونات Lucide الموحدة -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- مكتبة الخرائط Leaflet لتحديد موقع الأصل -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -24,7 +19,6 @@
             --bg-element: #FAFAFA;
             --text-primary: #111111;
             --text-secondary: #777777;
-            --text-muted: #AAAAAA;
             --border-color: #E5E5E5;
             --btn-primary-bg: #111111;
             --btn-primary-text: #FFFFFF;
@@ -34,577 +28,100 @@
             --transition: 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-size: 0.94rem;
-            line-height: 1.8;
-            padding: 0 18px 80px 18px;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        input, textarea, select, .en-term {
-            user-select: text !important;
-            -webkit-user-select: text !important;
-        }
-
-        .en-term {
-            font-family: 'Inter', system-ui, sans-serif;
-            direction: ltr;
-            display: inline-block;
-        }
-
-        /* الشريط العلوي */
-        .top-bar-wrapper {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.96);
-            border-bottom: 1px solid var(--border-color);
-            padding: 12px 18px;
-            margin: 0 -18px 36px -18px;
-        }
-
-        .top-bar-inner {
-            max-width: 880px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .brand-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .live-tickers {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.76rem;
-            color: var(--text-secondary);
-        }
-
-        .ticker-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--bg-element);
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-        }
-
-        .ticker-item strong {
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background-color: var(--text-primary);
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .nav-btn {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            font-size: 0.78rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-btn:hover {
-            border-color: var(--text-primary);
-            background: var(--bg-secondary);
-        }
-
-        .currency-select {
-            width: auto;
-            padding: 5px 10px;
-            border-radius: var(--radius-md);
-            font-size: 0.78rem;
-            font-weight: 500;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-
-        .container {
-            max-width: 820px;
-            margin: 0 auto;
-        }
-
-        /* الترويسة الرئيسية */
-        header.hero-section {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 28px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .eyebrow-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        header.hero-section h1 {
-            font-size: 1.85rem;
-            font-weight: 700;
-            line-height: 1.4;
-            letter-spacing: -0.4px;
-            margin-bottom: 14px;
-            max-width: 680px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        header.hero-section p {
-            color: var(--text-secondary);
-            font-size: 0.96rem;
-            max-width: 620px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        /* شريط تقدم المراحل */
-        .journey-stepper {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 28px;
-        }
-
-        .step-indicator {
-            background: var(--bg-element);
-            border: 1px solid var(--border-color);
-            padding: 10px 12px;
-            border-radius: var(--radius-md);
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition);
-        }
-
-        .step-indicator.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .step-indicator.completed {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border-color: var(--text-primary);
-            cursor: pointer;
-        }
-
-        /* البطاقات والأقسام */
-        .card {
-            background: var(--bg-primary);
-            border-radius: var(--radius-lg);
-            padding: 36px 40px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 28px;
-            transition: var(--transition);
-        }
-
-        .section-header-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .progress-pill {
-            font-size: 0.76rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 4px 12px;
-            border-radius: 20px;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        /* الأسئلة والحقول */
-        .form-group {
-            margin-bottom: 28px;
-            padding: 6px;
-            border-radius: var(--radius-md);
-            transition: var(--transition);
-        }
-
-        .form-group.unanswered-highlight {
-            background: var(--bg-secondary);
-            border: 1.5px dashed var(--text-primary);
-            padding: 16px;
-        }
-
-        label.question-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 12px;
-            font-size: 0.94rem;
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
-
-        .question-hint {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            margin-top: 2px;
-        }
-
-        select, input[type="text"], input[type="number"], input[type="email"], textarea {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            font-size: 0.9rem;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            transition: var(--transition);
-        }
-
-        select:focus, input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--text-primary);
-            background: var(--bg-element);
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-
-        .grid-2col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-
-        .grid-3col {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 10px;
-        }
-
-        .option-card, .asset-card {
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 14px 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            background: var(--bg-element);
-            color: var(--text-primary);
-            font-size: 0.88rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .option-card:hover, .asset-card:hover {
-            border-color: var(--text-primary);
-            background: var(--bg-secondary);
-        }
-
-        .option-card.selected, .asset-card.selected {
-            border-color: var(--text-primary);
-            border-width: 1.5px;
-            background: var(--bg-primary);
-            font-weight: 600;
-        }
-
-        .check-circle {
-            width: 18px;
-            height: 18px;
-            border: 1px solid var(--text-secondary);
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 0.7rem;
-        }
-
-        .selected .check-circle {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-        }
-
-        /* الأزرار */
-        .btn-primary {
-            background: var(--btn-primary-bg);
-            color: var(--btn-primary-text);
-            border: 1px solid var(--btn-primary-bg);
-            width: 100%;
-            padding: 15px 22px;
-            border-radius: var(--radius-md);
-            font-size: 0.94rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.88;
-        }
-
-        .btn-secondary {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            padding: 12px 18px;
-            border-radius: var(--radius-md);
-            font-size: 0.86rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--text-primary);
-            background: var(--bg-secondary);
-        }
-
-        .actions-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .term-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 2px 9px;
-            border-radius: var(--radius-sm);
-            font-size: 0.82rem;
-            font-weight: 600;
-            margin: 0 3px;
-            vertical-align: middle;
-        }
-
-        .copy-term-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            padding: 2px;
-            transition: var(--transition);
-        }
-
-        .copy-term-btn:hover {
-            color: var(--text-primary);
-        }
-
-        #asset-map-container {
-            display: none;
-            margin-top: 14px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        #leaflet-map {
-            width: 100%;
-            height: 260px;
-            filter: grayscale(100%) contrast(1.05);
-        }
-
-        .status-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.74rem;
-            font-weight: 600;
-            padding: 3px 10px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-        }
-
-        .status-tag.tag-official {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-        }
-
-        .status-tag.tag-user {
-            background: var(--bg-primary);
-            border-style: solid;
-            border-color: var(--text-primary);
-        }
-
-        .status-tag.tag-unverified {
-            background: var(--bg-element);
-            border-style: dashed;
-            border-color: var(--text-secondary);
-            color: var(--text-secondary);
-        }
-
-        .insight-block {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 20px 24px;
-            margin-bottom: 20px;
-        }
-
-        .insight-block.strong-border {
-            background: var(--bg-primary);
-            border: 1.5px solid var(--text-primary);
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 12px;
-            margin: 18px 0;
-        }
-
-        .metric-box {
-            background: var(--bg-element);
-            border: 1px solid var(--border-color);
-            padding: 14px 16px;
-            border-radius: var(--radius-md);
-        }
-
-        .metric-box span {
-            display: block;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-
-        .metric-box strong {
-            font-size: 0.96rem;
-            color: var(--text-primary);
-        }
-
-        .mono-table-wrapper {
-            overflow-x: auto;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            margin: 16px 0;
-        }
-
-        table.mono-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.84rem;
-            text-align: right;
-        }
-
-        table.mono-table th, table.mono-table td {
-            padding: 12px 14px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        table.mono-table th {
-            background: var(--bg-secondary);
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .privacy-notice-bar {
-            background: var(--bg-element);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 14px 18px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .hidden-step {
-            display: none;
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--bg-primary); color: var(--text-primary); font-size: 0.94rem; line-height: 1.8; padding: 0 18px 80px 18px; }
+        .en-term { font-family: 'Inter', system-ui, sans-serif; direction: ltr; display: inline-block; user-select: text !important; -webkit-user-select: text !important; }
+
+        .top-bar-wrapper { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.96); border-bottom: 1px solid var(--border-color); padding: 12px 18px; margin: 0 -18px 24px -18px; }
+        .top-bar-inner { max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+        .brand-logo { font-weight: 700; font-size: 1rem; color: var(--text-primary); text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .live-tickers { display: flex; align-items: center; gap: 8px; font-size: 0.76rem; color: var(--text-secondary); }
+        .ticker-item { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-element); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-color); }
+        .nav-controls { display: flex; align-items: center; gap: 8px; }
+        .nav-btn { background: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: var(--radius-md); cursor: pointer; font-size: 0.78rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: var(--transition); }
+        .nav-btn:hover { border-color: var(--text-primary); background: var(--bg-secondary); }
+        .currency-select { padding: 5px 10px; border-radius: var(--radius-md); font-size: 0.78rem; background: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-color); cursor: pointer; }
+
+        .container { max-width: 840px; margin: 0 auto; }
+        
+        header.hero-section { text-align: center; margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--border-color); }
+        .eyebrow-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 5px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; margin-bottom: 14px; }
+        header.hero-section h1 { font-size: 1.8rem; font-weight: 700; line-height: 1.4; margin-bottom: 12px; max-width: 680px; margin-left: auto; margin-right: auto; }
+        header.hero-section p { color: var(--text-secondary); font-size: 0.95rem; max-width: 620px; margin: 0 auto; line-height: 1.8; }
+
+        .journey-stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 24px; }
+        .step-indicator { background: var(--bg-element); border: 1px solid var(--border-color); padding: 10px 12px; border-radius: var(--radius-md); font-size: 0.78rem; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; transition: var(--transition); }
+        .step-indicator.active { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); font-weight: 600; }
+        .step-indicator.completed { background: var(--bg-secondary); color: var(--text-primary); border-color: var(--text-primary); cursor: pointer; }
+
+        .card { background: var(--bg-primary); border-radius: var(--radius-lg); padding: 34px 36px; border: 1px solid var(--border-color); margin-bottom: 28px; }
+        .section-header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); }
+        .section-title { font-size: 1.18rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .progress-pill { font-size: 0.76rem; background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 4px 12px; border-radius: 20px; color: var(--text-primary); font-weight: 600; }
+
+        .form-group { margin-bottom: 26px; padding: 6px; border-radius: var(--radius-md); }
+        .form-group.unanswered-highlight { background: var(--bg-secondary); border: 1.5px dashed var(--text-primary); padding: 16px; }
+        label.question-label { display: block; font-weight: 600; margin-bottom: 12px; font-size: 0.94rem; color: var(--text-primary); line-height: 1.6; }
+        .question-hint { display: block; font-size: 0.8rem; color: var(--text-secondary); font-weight: 400; margin-top: 2px; }
+
+        select, input[type="text"], input[type="number"], input[type="email"], textarea { width: 100%; padding: 12px 14px; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-size: 0.9rem; background: var(--bg-primary); color: var(--text-primary); }
+        select:focus, input:focus, textarea:focus { outline: none; border-color: var(--text-primary); background: var(--bg-element); }
+
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .grid-3col { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+
+        .option-card, .asset-card { border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px 16px; cursor: pointer; transition: var(--transition); background: var(--bg-element); color: var(--text-primary); font-size: 0.88rem; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .option-card:hover, .asset-card:hover { border-color: var(--text-primary); background: var(--bg-secondary); }
+        .option-card.selected, .asset-card.selected { border-color: var(--text-primary); border-width: 1.5px; background: var(--bg-primary); font-weight: 600; }
+        .check-circle { width: 18px; height: 18px; border: 1px solid var(--text-secondary); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.7rem; }
+        .selected .check-circle { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
+
+        .btn-primary { background: var(--btn-primary-bg); color: var(--btn-primary-text); border: 1px solid var(--btn-primary-bg); width: 100%; padding: 15px 22px; border-radius: var(--radius-md); font-size: 0.94rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: var(--transition); }
+        .btn-primary:hover { opacity: 0.88; }
+        .btn-secondary { background: var(--bg-primary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 10px 16px; border-radius: var(--radius-md); font-size: 0.84rem; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: var(--transition); }
+        .btn-secondary:hover { border-color: var(--text-primary); background: var(--bg-secondary); }
+        .actions-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color); }
+
+        .term-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 2px 9px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 600; margin: 0 3px; vertical-align: middle; }
+        .copy-term-btn { background: none; border: none; color: var(--text-secondary); cursor: pointer; display: inline-flex; align-items: center; padding: 2px; font-size: 0.75rem; }
+        .copy-term-btn:hover { color: var(--text-primary); }
+
+        #asset-map-container { display: none; margin-top: 14px; border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; }
+        #leaflet-map { width: 100%; height: 260px; filter: grayscale(100%) contrast(1.05); }
+
+        .status-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); }
+        .status-tag.tag-official { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
+        .status-tag.tag-user { background: var(--bg-primary); border-style: solid; border-color: var(--text-primary); }
+        .status-tag.tag-unverified { background: var(--bg-element); border-style: dashed; border-color: var(--text-secondary); color: var(--text-secondary); }
+
+        .insight-block { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 20px; }
+        .insight-block.strong-border { background: var(--bg-primary); border: 1.5px solid var(--text-primary); }
+
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 18px 0; }
+        .metric-box { background: var(--bg-element); border: 1px solid var(--border-color); padding: 14px 16px; border-radius: var(--radius-md); }
+        .metric-box span { display: block; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px; }
+        .metric-box strong { font-size: 0.95rem; color: var(--text-primary); }
+
+        .mono-table-wrapper { overflow-x: auto; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin: 16px 0; }
+        table.mono-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; text-align: right; }
+        table.mono-table th, table.mono-table td { padding: 12px 14px; border-bottom: 1px solid var(--border-color); }
+        table.mono-table th { background: var(--bg-secondary); font-weight: 600; color: var(--text-primary); }
+
+        .lesson-card { background: var(--bg-element); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; margin-bottom: 16px; }
+        .lesson-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+        .task-check-row { display: flex; align-items: flex-start; gap: 12px; background: var(--bg-primary); border: 1px solid var(--border-color); padding: 14px 16px; border-radius: var(--radius-md); margin-bottom: 10px; cursor: pointer; }
+        .task-check-row.done { background: var(--bg-secondary); color: var(--text-secondary); }
+
+        .privacy-notice-bar { background: var(--bg-element); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 14px 18px; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 24px; display: flex; align-items: flex-start; gap: 10px; }
+        .hidden-step { display: none !important; }
+
+        @media (max-width: 680px) {
+            .journey-stepper { grid-template-columns: 1fr 1fr; }
+            .grid-2col { grid-template-columns: 1fr; }
+            .card { padding: 22px 16px; }
+            header.hero-section h1 { font-size: 1.45rem; }
+            .actions-footer { flex-direction: column-reverse; align-items: stretch; }
         }
     </style>
 </head>
@@ -613,13 +130,12 @@
     <div class="top-bar-wrapper">
         <div class="top-bar-inner">
             <a class="brand-logo" onclick="navigateToStep(1)">
-                <i data-lucide="compass" style="width:20px; height:20px;"></i>
                 <span>ابدأ مشروعك — Ebda2 Mashro3k</span>
             </a>
 
             <div class="live-tickers">
-                <div class="ticker-item">
-                    <span class="status-dot" id="fx-status-dot"></span>
+                <div class="ticker-item" title="سعر الصرف المرجعي">
+                    <span class="status-dot"></span>
                     <span>الدولار:</span>
                     <strong id="usd-rate-display">56.15 EGP</strong>
                 </div>
@@ -634,11 +150,9 @@
                     <option value="AED">درهم (AED)</option>
                 </select>
                 <a href="about.html" class="nav-btn">
-                    <i data-lucide="book-open" style="width:15px; height:15px;"></i>
-                    <span>دليل الفهم والمصطلحات</span>
+                    <span>كتاب رائد الأعمال والمراجع العلمية</span>
                 </a>
-                <button class="nav-btn" id="workspace-quick-btn" style="display:none;" onclick="navigateToStep(4)">
-                    <i data-lucide="folder-kanban" style="width:15px; height:15px;"></i>
+                <button type="button" class="nav-btn" id="workspace-quick-btn" style="display:none;" onclick="navigateToStep(4)">
                     <span>مساحة مشروعي</span>
                 </button>
             </div>
@@ -646,14 +160,14 @@
     </div>
 
     <div class="container">
+
         <header class="hero-section" id="main-hero">
             <div class="eyebrow-badge">
-                <i data-lucide="sparkles" style="width:14px; height:14px;"></i>
-                <span>تجربة اكتشف نفسك</span>
+                <span>تجربة اكتشف نفسك (بناءً على أحدث المدارس العالمية)</span>
             </div>
             <h1>اكتشف نفسك، واكتشف إمكانيات لم تكن تعرف أنها لديك.</h1>
             <p>
-                خلينا نكتشف طبيعة الشغل اللي يناسبك، ونربط قدراتك والأصول اللي تحت إيدك بفرصة تجارية واحدة مدروسة.
+                نساعدك على الإجابة عن أربعة أسئلة أساسية وتحويل إمكانياتك إلى فرصة حقيقية ومدروسة بمساعدة أطر نفسية واقتصادية عالمية.
             </p>
         </header>
 
@@ -661,58 +175,51 @@
 
         <div class="journey-stepper" id="journey-stepper">
             <div class="step-indicator active" id="ind-step-1" onclick="tryJumpStep(1)">
-                <i data-lucide="user-check" style="width:16px; height:16px;"></i>
-                <span>1. اكتشف نفسك</span>
+                <span>1. اكتشف نفسك (16 سؤالاً)</span>
             </div>
             <div class="step-indicator" id="ind-step-2" onclick="tryJumpStep(2)">
-                <i data-lucide="building-2" style="width:16px; height:16px;"></i>
-                <span>2. ظروفك والأصل المتاح</span>
+                <span>2. ظروفك، تعليمك وأصولك</span>
             </div>
             <div class="step-indicator" id="ind-step-3" onclick="tryJumpStep(3)">
-                <i data-lucide="lightbulb" style="width:16px; height:16px;"></i>
                 <span>3. فرصتك وكبسولة البداية</span>
             </div>
             <div class="step-indicator" id="ind-step-4" onclick="tryJumpStep(4)">
-                <i data-lucide="layout-dashboard" style="width:16px; height:16px;"></i>
                 <span>4. مساحة مشروعك الشخصية</span>
             </div>
         </div>
 
-        <!-- المرحلة الأولى -->
+        <!-- المرحلة الأولى: 16 سؤالاً سلوكياً وفق المدارس العالمية -->
         <section class="card" id="step-1-section">
             <div class="section-header-row">
                 <div class="section-title">
-                    <i data-lucide="compass" style="width:22px; height:22px;"></i>
-                    <span>الخطوة الأولى: اكتشف نمط عملك الحقيقي</span>
+                    <span>الخطوة الأولى: تقييم الميول، التدفق والعوائق النفسية</span>
                 </div>
-                <span class="progress-pill" id="quiz-progress-pill">تمت الإجابة على 0 من 10</span>
+                <span class="progress-pill" id="quiz-progress-pill">تمت الإجابة على 0 من 16</span>
             </div>
 
             <div class="privacy-notice-bar">
-                <i data-lucide="shield-check" style="width:18px; height:18px; flex-shrink:0; margin-top:2px;"></i>
-                <div>هذه الأسئلة تساعد النظام على فهم المهام التي تبدع فيها لتحديد التوصية المناسبة بدقة.</div>
+                <div>
+                    الأسئلة الـ 16 التالية مبنية على دمج المدارس العالمية (الأمريكية لتقييم التدفق، الأوروبية للرادار الفطري، الهندية لاقتصاديات الشطارة وتدوير الموارد، ومصفوفة تحييد العوائق الحسابية). أجب ببساطة عما تفعله وتشعر به طبيعيًا في حياتك.
+                </div>
             </div>
 
-            <!-- حاوية الأسئلة التي يجب أن تتواجد لكي تظهر الأسئلة -->
             <div id="behavioral-questions-container"></div>
 
             <div class="actions-footer">
                 <span></span>
-                <button class="btn-primary" onclick="proceedToStep2()">
-                    <span>حفظ والانتقال لتحديد ظروفك وأصولك</span>
-                    <i data-lucide="arrow-left" style="width:18px; height:18px;"></i>
+                <button type="button" class="btn-primary" onclick="proceedToStep2()">
+                    <span>حفظ والانتقال لتحديد ظروفك، تعليمك وأصولك ←</span>
                 </button>
             </div>
         </section>
 
-        <!-- المرحلة الثانية -->
+        <!-- المرحلة الثانية: ملف المستخدم، التعليم، الأصول ورأس المال -->
         <section class="card hidden-step" id="step-2-section">
             <div class="section-header-row">
                 <div class="section-title">
-                    <i data-lucide="sliders" style="width:22px; height:22px;"></i>
-                    <span>الخطوة الثانية: إمكانياتك، ظروفك، والأصل المتاح لديك</span>
+                    <span>الخطوة الثانية: ظروفك، تعليمك، والأصل المتاح لديك</span>
                 </div>
-                <span class="status-tag">تخصيص دقيق للفرصة</span>
+                <span class="status-tag">تخصيص دقيق للفرصة والأداة</span>
             </div>
 
             <div class="grid-2col" style="margin-bottom:24px;">
@@ -721,28 +228,28 @@
                     <input type="text" id="user-name" placeholder="مثال: أحمد سليم">
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="question-label" for="user-age-group">الفئة العمرية</label>
+                    <label class="question-label" for="user-age-group">الفئة العمرية (تؤثر على نمط التشغيل الميداني أو الإداري)</label>
                     <select id="user-age-group">
-                        <option value="18-24">18 إلى 24 سنة</option>
+                        <option value="18-24">18 إلى 24 سنة (طاقة حركة عالية)</option>
                         <option value="25-34" selected>25 إلى 34 سنة</option>
                         <option value="35-45">35 إلى 45 سنة</option>
-                        <option value="46+">أكثر من 45 سنة</option>
+                        <option value="46+">أكثر من 45 سنة (تفضيل الإدارة والتنظيم من مقر ثابت)</option>
                     </select>
                 </div>
             </div>
 
             <div class="grid-2col" style="margin-bottom:24px;">
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="question-label" for="user-experience">خبرتك العملية السابقة</label>
-                    <select id="user-experience">
-                        <option value="none">أبدأ لأول مرة في العمل التجاري</option>
-                        <option value="employee">موظف ولدي خبرة إدارية أو فنية</option>
-                        <option value="freelance">عملت بشكل حر سابقًا</option>
-                        <option value="business_owner">أدرت مشروعًا من قبل</option>
+                    <label class="question-label" for="user-education">المستوى التعليمي (يحدد لغة الحاسبات وبساطة الشرح)</label>
+                    <select id="user-education">
+                        <option value="literate">محو أمية / يقرأ ويكتب (نعتمد على لغة السوق البسيطة والحسابات المباشرة)</option>
+                        <option value="primary_prep">تعليم أساسي (ابتدائي / إعدادي)</option>
+                        <option value="secondary_vocational" selected>تعليم متوسط / ثانوي / دبلوم فني أو صناعي</option>
+                        <option value="university">تعليم جامعي أو أعلى</option>
                     </select>
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="question-label" for="user-gender">الجنس (اختياري)</label>
+                    <label class="question-label" for="user-gender">الجنس (اختياري — لا يستبعد أي فرصة)</label>
                     <select id="user-gender">
                         <option value="unspecified">أفضل عدم التحديد</option>
                         <option value="male">ذكر</option>
@@ -752,20 +259,40 @@
             </div>
 
             <div class="insight-block" style="margin-bottom:28px;">
-                <h3 style="font-size:1rem; margin-bottom:6px;">الأصل المتاح لديك ومكانه الجغرافي</h3>
+                <h3 style="font-size:1rem; margin-bottom:6px;">الأصل المتاح لديك ومكانه الجغرافي وحيازته</h3>
+                <p style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:16px;">
+                    الأصل هو أي مكان أو وسيلة تحت إيدك (غرفة، شقة، سطح، أرض زراعية، مخزن، ورشة، محل، عربية، أو ماكينات).
+                </p>
+
                 <div class="form-group">
                     <label class="question-label">ما نوع الأصل المتاح لديك حاليًا؟</label>
                     <div class="grid-3col" id="assets-selection-grid">
                         <div class="asset-card selected" data-asset="none" onclick="toggleAssetCard(this, 'none')">
-                            <span>بدون أصل مكاني أو سيارة</span>
+                            <span>بدون أصل مكاني أو سيارة (موبايل/لابتوب فقط)</span>
                             <span class="check-circle">✓</span>
                         </div>
                         <div class="asset-card" data-asset="home_room" onclick="toggleAssetCard(this, 'home_room')">
                             <span>غرفة فاضية داخل مسكني</span>
                             <span class="check-circle">✓</span>
                         </div>
+                        <div class="asset-card" data-asset="vacant_apt" onclick="toggleAssetCard(this, 'vacant_apt')">
+                            <span>شقة مستقلة فاضية</span>
+                            <span class="check-circle">✓</span>
+                        </div>
+                        <div class="asset-card" data-asset="roof" onclick="toggleAssetCard(this, 'roof')">
+                            <span>سطح منزل متاح</span>
+                            <span class="check-circle">✓</span>
+                        </div>
+                        <div class="asset-card" data-asset="land" onclick="toggleAssetCard(this, 'land')">
+                            <span>أرض زراعية أو فضاء</span>
+                            <span class="check-circle">✓</span>
+                        </div>
+                        <div class="asset-card" data-asset="warehouse" onclick="toggleAssetCard(this, 'warehouse')">
+                            <span>مخزن أو بدروم مستقل</span>
+                            <span class="check-circle">✓</span>
+                        </div>
                         <div class="asset-card" data-asset="workshop" onclick="toggleAssetCard(this, 'workshop')">
-                            <span>ورشة أو مخزن</span>
+                            <span>ورشة أو مساحة إنتاج</span>
                             <span class="check-circle">✓</span>
                         </div>
                         <div class="asset-card" data-asset="vehicle" onclick="toggleAssetCard(this, 'vehicle')">
@@ -778,20 +305,21 @@
                 <div id="conditional-asset-details" style="display:none; padding-top:16px; border-top:1px solid var(--border-color);">
                     <div class="grid-2col" style="margin-bottom:16px;">
                         <div>
-                            <label class="question-label" for="asset-ownership">حالة الحيازة</label>
+                            <label class="question-label" for="asset-ownership">حالة حيازة وملكية هذا الأصل</label>
                             <select id="asset-ownership">
-                                <option value="owned_self">مِلكي شخصيًا</option>
-                                <option value="owned_family">مِلك للأهل</option>
-                                <option value="rented">مؤجر</option>
+                                <option value="owned_self">مِلكي شخصيًا بالكامل</option>
+                                <option value="owned_family">مِلك للأهل/العائلة ومسموح لي باستغلاله</option>
+                                <option value="rented">مؤجر وحالته القانونية تسمح بالنشاط</option>
                             </select>
                         </div>
                         <div>
-                            <label class="question-label" for="asset-governorate">المحافظة</label>
+                            <label class="question-label" for="asset-governorate">في أي محافظة يقع هذا الأصل؟</label>
                             <select id="asset-governorate">
                                 <option value="القاهرة الكبرى">القاهرة الكبرى</option>
                                 <option value="الإسكندرية" selected>الإسكندرية</option>
-                                <option value="الدلتا">الدلتا</option>
-                                <option value="الصعيد">الصعيد</option>
+                                <option value="الدلتا">محافظات الدلتا</option>
+                                <option value="مدن القناة">مدن القناة</option>
+                                <option value="الصعيد">محافظات الصعيد</option>
                             </select>
                         </div>
                     </div>
@@ -800,25 +328,30 @@
 
             <div class="grid-2col" style="margin-bottom:24px;">
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="question-label" for="user-residence-gov">محافظة إقامتك</label>
+                    <label class="question-label" for="user-residence-gov">محافظة إقامتك الحالية</label>
                     <select id="user-residence-gov">
                         <option value="الإسكندرية" selected>الإسكندرية</option>
                         <option value="القاهرة الكبرى">القاهرة الكبرى</option>
-                        <option value="الدلتا">الدلتا</option>
-                        <option value="الصعيد">الصعيد</option>
+                        <option value="الدلتا">محافظات الدلتا</option>
+                        <option value="الصعيد">محافظات الصعيد</option>
                     </select>
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
                     <label class="question-label" for="target-market-scope">السوق المستهدف للبيع</label>
                     <select id="target-market-scope">
-                        <option value="local_neighborhood">المنطقة المحيطة</option>
+                        <option value="local_neighborhood">المنطقة المحيطة والأحياء القريبة</option>
                         <option value="national_egypt" selected>جميع محافظات مصر</option>
+                        <option value="export_mena_global">السوق المحلي + التصدير للخارج</option>
                     </select>
                 </div>
             </div>
 
+            <!-- رأس المال وصارم السقف -->
             <div class="form-group" id="group-capital">
-                <label class="question-label" for="capital-input">رأس المال الفعلي المتاح (ج.م)</label>
+                <label class="question-label" for="capital-input">
+                    رأس المال الفعلي المتاح للبدء (بدون اقتراض)
+                    <span class="question-hint">لا يتجاوز النظام هذا السقف أبدًا؛ جرب 8000 أو 20000 أو 160000 لترى كيف تتغير خطة البداية الحقيقية.</span>
+                </label>
                 <div class="grid-2col">
                     <input type="number" id="capital-input" value="20000" min="1000" step="500" oninput="updateCapitalPreview()">
                     <select id="input-currency" onchange="updateCapitalPreview()">
@@ -830,8 +363,12 @@
             </div>
 
             <div class="actions-footer">
-                <button class="btn-secondary" onclick="navigateToStep(1)">رجوع</button>
-                <button class="btn-primary" style="max-width:380px;" onclick="generateSingleRecommendation()">عرض التوصية</button>
+                <button type="button" class="btn-secondary" onclick="navigateToStep(1)">
+                    <span>← رجوع لأسئلة اكتشف نفسك</span>
+                </button>
+                <button type="button" class="btn-primary" style="max-width:380px;" onclick="generateSingleRecommendation()">
+                    <span>اكتشف فرصتك التجارية وكبسولة البداية ←</span>
+                </button>
             </div>
         </section>
 
@@ -856,118 +393,288 @@
         const appState = {
             answers: {},
             selectedAssets: ['none'],
-            assetDetails: { ownership: 'owned_self', governorate: 'الإسكندرية', areaSqm: 25 },
-            profileInfo: { name: '', capitalEGP: 20000, email: '', workspaceToken: '' },
+            assetDetails: { ownership: 'owned_self', governorate: 'الإسكندرية', areaSqm: 30 },
+            profileInfo: {
+                name: '',
+                ageGroup: '25-34',
+                education: 'secondary_vocational',
+                residenceGov: 'الإسكندرية',
+                targetMarket: 'national_egypt',
+                capitalEGP: 20000,
+                email: '',
+                workspaceToken: ''
+            },
             activeRecommendation: null,
-            workspaceData: { suppliersQuotes: [], completedTasks: {} }
+            workspaceData: {
+                suppliersQuotes: [],
+                completedTasks: {},
+                unitCostCalc: { c1: 110, c2: 45, c3: 15, c4: 35, c5: 35, price: 320 }
+            }
         };
 
+        function refreshIconsSafely() {
+            try {
+                if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                    window.lucide.createIcons();
+                }
+            } catch (e) {}
+        }
+
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&')
+                .replace(/</g, '<')
+                .replace(/>/g, '>')
+                .replace(/"/g, '"')
+                .replace(/'/g, ''');
+        }
+
+        function termPillHtml(arText, enTerm) {
+            const safeEn = escapeHtml(enTerm);
+            return `${arText} <span class="term-pill"><span class="en-term">${safeEn}</span><button type="button" class="copy-term-btn" data-term="${safeEn}" onclick="copyEnglishTermFromBtn(this)">[نسخ]</button></span>`;
+        }
+
+        function copyEnglishTermFromBtn(btnEl) {
+            const termText = btnEl.getAttribute('data-term') || '';
+            if (navigator.clipboard && termText) {
+                navigator.clipboard.writeText(termText).then(() => {
+                    const orig = btnEl.innerText;
+                    btnEl.innerText = '[تم ✓]';
+                    setTimeout(() => { btnEl.innerText = orig; }, 1400);
+                });
+            }
+        }
+
+        async function fetchLiveMarketData() {
+            try {
+                const res = await fetch('https://open.er-api.com/v6/latest/USD');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.rates && data.rates.EGP) {
+                        exchangeRates.USD = data.rates.EGP;
+                        document.getElementById('usd-rate-display').innerText = `${data.rates.EGP.toFixed(2)} EGP`;
+                        document.getElementById('last-sync-time').innerText = 'محدث لحظيًا';
+                    }
+                }
+            } catch (e) {}
+            updateCapitalPreview();
+        }
+
+        function getNormalizedCapitalInEGP() {
+            const inputEl = document.getElementById('capital-input');
+            const currEl = document.getElementById('input-currency');
+            const raw = inputEl ? parseFloat(inputEl.value) : 20000;
+            if (isNaN(raw) || raw <= 0) return 20000;
+            const curr = currEl ? currEl.value : 'EGP';
+            return Math.round(raw * (exchangeRates[curr] || 1));
+        }
+
+        function formatMoney(amountEGP) {
+            const rate = exchangeRates[displayCurrency] || 1;
+            const val = amountEGP / rate;
+            const sym = currencySymbols[displayCurrency] || 'ج.م';
+            if (displayCurrency === 'EGP') return `${Math.round(val).toLocaleString()} ${sym}`;
+            return `${val.toLocaleString(undefined, { maximumFractionDigits: 1 })} ${sym}`;
+        }
+
+        function updateCapitalPreview() {
+            const capEGP = getNormalizedCapitalInEGP();
+            appState.profileInfo.capitalEGP = capEGP;
+            const prevEl = document.getElementById('capital-converted-preview');
+            if (prevEl) {
+                prevEl.innerText = `السقف المالي الصارم المعتمد للحساب: ${capEGP.toLocaleString()} ج.م`;
+            }
+        }
+
+        function changeDisplayCurrency() {
+            displayCurrency = document.getElementById('currency-switcher').value;
+            updateCapitalPreview();
+            if (currentStep === 3 && appState.activeRecommendation) renderStep3Capsule();
+            if (currentStep === 4 && appState.activeRecommendation) renderStep4Workspace();
+        }
+
+        // =====================================================================
+        // الـ 16 سؤالاً سلوكياً الجديدة وفق المدارس العالمية
+        // =====================================================================
         const behavioralQuestions = [
+            // أ. الرادار الفطري والفضول (4 أسئلة)
             {
                 id: 'q1',
-                dimension: 'الأنشطة الجاذبة',
-                question: '1. لو قدامك يومين فاضيين، إيه النشاط اللي بتلاقي نفسك بتندمج فيه تلقائيًا؟',
+                dimension: 'الرادار الفطري — الإكسسوارات والفضة مقابل التجارة والتشغيل',
+                question: '1. لما بتتمشى في مكان جديد أو بتقلب في السوشيال ميديا، عينك بتقف تلقائيًا عند إيه وبتقعد تفكر في تفاصيله؟',
                 options: [
-                    { val: 'craft_product', text: 'أفحص خامات وأصمم أو أصلّح منتج ملموس بإيدي.' },
-                    { val: 'deal_trade', text: 'أدور على بضاعة وأتفاوض مع تجار وأقفل بيعة سريعة.' },
-                    { val: 'ops_system', text: 'أرتب مكان شغال وأظبط خطوات تحضير وتشغيل.' },
-                    { val: 'digital_build', text: 'أبني موقع أو أداة رقمية تحل مشكلة للناس عن بُعد.' }
+                    { val: 'a_silver_jewelry', text: 'الإكسسوارات، الحُلي الفضية المصنوعة يدويًا، والقطع الفنية ذات التفاصيل الجمالية.' },
+                    { val: 'a_deals_trade', text: 'الأسعار وفرص البيع والشراء وتدوير البضاعة بسرعة.' },
+                    { val: 'a_food_prep', text: 'أماكن الأكل وتجهيزات المطابخ وترتيب العمليات وتقديم الوجبات.' },
+                    { val: 'a_tech_systems', text: 'مواقع الإنترنت، الأدوات الرقمية، أو الأجهزة الذكية التي تحل المشاكل.' }
                 ]
             },
             {
                 id: 'q2',
-                dimension: 'المهارات',
-                question: '2. ما آخر شيء صنعته أو نظمته من نفسك واعتمد عليك الناس فيه؟',
+                dimension: 'الرادار الفطري — طبيعة الاهتمام',
+                question: '2. إيه أكتر حاجة لو شوفتها في الشارع أو مع حد تعرفه بتحس إنك عندك "رأي" فيها وعاوز تطورها بنفسك؟',
                 options: [
-                    { val: 'made_tangible', text: 'نفذت حاجة عملية ملموسة أو كشفت عيب في خامة.' },
-                    { val: 'sold_convinced', text: 'بعت حاجة أو فاصلت في صفقة صعبة.' },
-                    { val: 'organized_process', text: 'مسكت حسابات أو نظمت مخزن متلخبط.' },
-                    { val: 'solved_tech', text: 'عملت شيت حسابات ذكي أو سيستم رقمي.' }
+                    { val: 'b_craft_design', text: 'تصميم قطعة مجوهرات أو خاتم أو منتج جلدي تعبان وعاوز أعمله بجودة أعلى وفينش أشيك.' },
+                    { val: 'b_arbitrage', text: 'منتج معروض بسعر غالي جدًا وعارف أجيبه منين أرخص وأبيعه لمين.' },
+                    { val: 'b_agri_nature', text: 'خامات طبيعية، أعشاب، نباتات طبية أو محاصيل وعايز أجهزها وأجففها صح.' },
+                    { val: 'b_software', text: 'طريقة شغل ورقية أو بطيئة وعايز أحولها لسيستم إلكتروني سريع.' }
                 ]
             },
             {
                 id: 'q3',
-                dimension: 'التعلم',
-                question: '3. لما بتدخل مجال جديد، إيه أسرع طريقة بتخليك تفهم أسراره؟',
+                dimension: 'الرادار الفطري — الفضول التلقائي',
+                question: '3. لما بتحب تقرأ أو تتفرج على فيديوهات في وقت فراغك من غير ما حد يطلب منك، بتدور على إيه؟',
                 options: [
-                    { val: 'learn_by_touch', text: 'أنزل الورش وأمسك الخامة بإيدي وأجرب عينة.' },
-                    { val: 'learn_by_market', text: 'أسأل التجار والسوق أعرف البضاعة بتتحرك إزاي.' },
-                    { val: 'learn_by_numbers', text: 'أحسب تكلفة كل جرام وأحلل المنافسين.' },
-                    { val: 'learn_by_screen', text: 'أبحث على الإنترنت وأجرب بنفسي.' }
+                    { val: 'c_artisan_crafts', text: 'طريقة صناعة الحُلي، سبك المعادن، وتفاصيل الحرف اليدوية والفنية.' },
+                    { val: 'c_business_deals', text: 'قصص نجاح التجار، صفقات الاستيراد، وأساليب التجارة وتدوير الفلوس.' },
+                    { val: 'c_kitchen_factory', text: 'طريقة تجهيز الأغذية، سلاسل الإمداد الزراعي، أو إدارة المطابخ.' },
+                    { val: 'c_tech_growth', text: 'أدوات الذكاء الاصطناعي، البرمجة، وبناء الأعمال الرقمية.' }
                 ]
             },
             {
                 id: 'q4',
-                dimension: 'المشكلات',
-                question: '4. أي مشكلة من دول لو واجهتك بتحس بمتعة وإنت بتفككها؟',
+                dimension: 'الرادار الفطري — الانطباع الأول',
+                question: '4. لو دخلت محل أو معرض، إيه أول حاجة بتلفت انتباهك وبتشدك للمكان؟',
                 options: [
-                    { val: 'prob_quality', text: 'المنتج تقليدي وعايز أطلع نسخة بجودة أرقى.' },
-                    { val: 'prob_supply', text: 'محلات بتعاني من نقص صنف وعايز أوفره بانتظام.' },
-                    { val: 'prob_kitchen_ops', text: 'طلبيات كتيرة ومحتاجة ضبط مقادير وتسليم سريع.' },
-                    { val: 'prob_automation', text: 'شركات بتضيع وقتها في الرد وعايز أحولها لنظام آلي.' }
+                    { val: 'd_display_aesthetics', text: 'ديكور العرض، فخامة الإضاءة، وتناسق الأشكال الفنية والإكسسوارات المعروضة.' },
+                    { val: 'd_pricing_movement', text: 'سرعة حركة الزباين، حجم البضاعة المباعة، وشطارة البياع في قفل البيعة.' },
+                    { val: 'd_clean_ops', text: 'نظافة المكان، انتظام الرص، وجودة الرائحة والتنظيم التشغيلي.' },
+                    { val: 'd_digital_pos', text: 'استخدام أجهزة كاشير حديثة، شاشات رقمية، ونظام دفع إلكتروني سلس.' }
                 ]
             },
+            // ب. حالة التدفق والنشوة التلقائية (4 أسئلة)
             {
                 id: 'q5',
-                dimension: 'الصعوبات',
-                question: '5. إيه الصعوبة اللي تقدر تستحملها عادي ومبتوقفكش؟',
+                dimension: 'التدفق — متعة الإبداع الفني مقابل متعة تدوير الفلوس',
+                question: '5. إمتى آخر مرة حسيت بمتعة حقيقية ونسيت الوقت تمامًا وإنت شغال؟',
                 options: [
-                    { val: 'tolerate_craft', text: 'التدقيق مع الصنايعية والورش.' },
-                    { val: 'tolerate_b2b', text: 'المرور على المحلات والتفاوض المباشر.' },
-                    { val: 'tolerate_prep', text: 'ضغط التجهيز اليومي ومواعيد التسليم.' },
-                    { val: 'tolerate_screen', text: 'القعدة الطويلة قدام الشاشة لحل المشاكل التقنية.' }
+                    { val: 'flow_craft', text: 'وإنت بتعدّل في تفاصيل شكل قطعة فنية أو إكسسوار لحد ما طلعت تحفة فنية.' },
+                    { val: 'flow_money', text: 'وإنت بتفاصل في سعر صفقة وشريت بضاعة بسعر رخيص وبعتها بربح فوري.' },
+                    { val: 'flow_organize', text: 'وإنت بترتب مخزن أو مطبخ أو شغال في فرز وتجهيز محاصيل ومنتجات.' },
+                    { val: 'flow_code', text: 'وإنت بتكتب كود أو بتصمم واجهة برنامج واشتغلت من أول مرة.' }
                 ]
             },
             {
                 id: 'q6',
-                dimension: 'تجنب العمل',
-                question: '6. إيه الحاجة اللي لو اضطريت تعملها هتحس إنك مخنوق؟',
+                dimension: 'التدفق — مصدر الشغف الفطري',
+                question: '6. إيه الحاجة اللي لو حققت منها أول جنيه ربح، هتحس إنك مش بتشتغل بل "بتلعب لعبتك المفضلة"?',
                 options: [
-                    { val: 'hate_street_sales', text: 'اللف في الشوارع والفصال المباشر.' },
-                    { val: 'hate_workshop_dust', text: 'حبسة الورش والوقفة الطويلة.' },
-                    { val: 'hate_retail_chat', text: 'الرغي مع الزبون الفردي وأفضل الشركات.' },
-                    { val: 'hate_screen_isolation', text: 'القعدة قدام كمبيوتر من غير حركة.' }
+                    { val: 'flow_artisan_sale', text: 'لما حد يشتري قطعة حُلي أو إكسسوار صممتها بذوقك وبيلبسها وهو فخور بيها.' },
+                    { val: 'flow_arbitrage_sale', text: 'لما تشتري صفقة بضاعة وتدوّر رأس المال وتشوف الكاش بيتكاثر قدام عيونك.' },
+                    { val: 'flow_prep_sale', text: 'لما زبون يطلب وجبة أو منتج زراعي مجهز من عندك ويشكر في جودته ونظافته.' },
+                    { val: 'flow_tech_sale', text: 'لما شركة تدفع لك اشتراك مقابل سيستم أتمتة بنيته ببرمجتك.' }
                 ]
             },
             {
                 id: 'q7',
-                dimension: 'الدوافع',
-                question: '7. إيه الهدف المالي والأهم ليك؟',
+                dimension: 'التدفق — الاستغراق التام',
+                question: '7. لو قعدت 5 ساعات متواصلة شغال في حاجة من دي، هتقوم وإنت مرتاح ومش حاسس بتعب بدني؟',
                 options: [
-                    { val: 'goal_brand_asset', text: 'أبني اسم وعلامة تجارية تكبر مع الوقت.' },
-                    { val: 'goal_fast_cashflow', text: 'أدور رأس المال بسرعة في بضاعة تجيب كاش أسبوعي.' },
-                    { val: 'goal_steady_ops', text: 'أأسس وحدة إنتاج عليها طلب يومي متكرر.' },
-                    { val: 'goal_low_overhead', text: 'أحقق دخل بمصاريف شبه صفرية بدون إيجار.' }
+                    { val: 'flow_design_details', text: 'رسم وتصميم موديلات إكسسوارات أو منتجات جلدية أو حُلي.' },
+                    { val: 'flow_negotiating', text: 'اللف في الأسواق ومقارنة الأسعار وإبرام الصفقات مع الموردين.' },
+                    { val: 'flow_processing', text: 'فرز، تجهيز، وتعبئة منتجات طازجة أو زراعية.' },
+                    { val: 'flow_building_tool', text: 'بناء موقع أو أداة رقمية على اللابتوب.' }
                 ]
             },
             {
                 id: 'q8',
-                dimension: 'المخاطرة',
-                question: '8. إيه أسلوبك في التعامل مع المخاطرة بالفلوس؟',
+                dimension: 'التدفق — المحفز النفسي',
+                question: '8. إيه هو أكتر موقف بيفرز في جسمك دوبامين وحماس وأدرينالين إيجابي؟',
                 options: [
-                    { val: 'risk_lean_test', text: 'أجرب بأقل مبلغ في عينة صغيرة أولًا.' },
-                    { val: 'risk_calculated_scale', text: 'مستعد أستثمر في خامات وتسويق قوي.' },
-                    { val: 'risk_safe_tangible', text: 'فلوسي تكون في بضاعة سريعة وسايلة.' }
+                    { val: 'flow_praise_art', text: 'مدح الناس لذوقك واختيارك لشكل وتصميم منتج مميز.' },
+                    { val: 'flow_thrill_deal', text: 'نشوة قفل بيعة صعبة ومكسب سريع في فرق السعر.' },
+                    { val: 'flow_steady_flow', text: 'انتظام العمليات وخروج الطلبيات في ميعادها بدون غلطة.' },
+                    { val: 'flow_solving_bug', text: 'حل مشكلة برمجية معقدة كانت معطلاك.' }
                 ]
             },
+            // ج. كاشف العوائق النفسية والحسابية (4 أسئلة)
             {
                 id: 'q9',
-                dimension: 'الاستمرار',
-                question: '9. لو أول 45 يوم المبيعات لسه بطيئة، بتتصرف إزاي؟',
+                dimension: 'العائق — أزمة الحسابات والأرقام',
+                question: '9. إيه شعورك الحقيقي تجاه مسك الدفاتر، حساب التكاليف، والرياضيات المالية للمشروع؟',
                 options: [
-                    { val: 'persist_iterate', text: 'أجمع ملاحظات وأعدل في المنتج أو التسويق.' },
-                    { val: 'persist_pivot_channel', text: 'أغير قناة البيع فورًا لتحريك الكاش.' },
-                    { val: 'persist_anxious', text: 'بتوتر لو الكاش ميرجعش في نفس الأسبوع.' }
+                    { val: 'blocker_hate_math', text: 'بخاف من الحسابات المعقدة والأرقام الكتير، وكنت دايمًا بحس إنها هتعطلني عن البداية.' },
+                    { val: 'blocker_love_cash', text: 'بعشق لغة الأرباح والخسارة وسرعة تدوير الكاش، ومش بخاف من الأرقام خالص.' },
+                    { val: 'blocker_neutral_ops', text: 'بتعامل مع الحسابات كأداة ضرورية، وطالما السيستم بسيط أقدر أديره.' },
+                    { val: 'blocker_love_excel', text: 'بعشق جداً لغة الشيتات وتحليل البيانات المالية والرياضية.' }
                 ]
             },
             {
                 id: 'q10',
-                dimension: 'الإدارة',
-                question: '10. بتطلع أحسن نتيجة لما تشتغل بأي نظام إدارة؟',
+                dimension: 'العائق — مواجهة الزبائن والفصال',
+                question: '10. إيه رأيك في التعامل المباشر، الفصال، والزن اليومي مع الزبอน الفردي في الشارع أو المحل؟',
                 options: [
-                    { val: 'env_solo_outsource', text: 'أشتغل لوحدي وأصنع عند ورش خارجية.' },
-                    { val: 'env_team_leader', text: 'أعرف أدير صنايعية وعمال تحضير.' },
-                    { val: 'env_partner_complement', text: 'أحب أدخل مع شريك يكملني.' }
+                    { val: 'blocker_hate_retail', text: 'بكراه جدًا! بيستنزف طاقتي، وفضّل البيع أونلاين أو للشركات والمحلات بجملة منظمة.' },
+                    { val: 'blocker_love_street', text: 'بستمتع جدًا بالشد والجذب والفصال وقفل الصفقات وجهًا لوجه.' },
+                    { val: 'blocker_prefer_b2b', text: 'بفضل التعامل مع أصحاب الأعمال والشركات (B2B) بعيدًا عن فصال الأفراد.' },
+                    { val: 'blocker_digital_only', text: 'بفضل الشغل الرقمي بالكامل بدون أي احتكاك بشري مباشر.' }
+                ]
+            },
+            {
+                id: 'q11',
+                dimension: 'العائق — حبسة الورش والجهد العضلي',
+                question: '11. إيه موقفك من الوقفة الطويلة في الورشة، أو حبسة المطبخ، أو المجهود البدني الشاق يوميًا؟',
+                options: [
+                    { val: 'blocker_hate_dust', text: 'بكره تراب الورش وحبسة المكان، وأفضل التصميم والإدارة والتصنيع لدى الغير (Outsourcing).' },
+                    { val: 'blocker_love_workshop', text: 'بعشق الشغل بإيدي في الورشة أو مكان الإنتاج ومش بزهق أبدًا.' },
+                    { val: 'blocker_tolerate_prep', text: 'بستحمل مجهود التجهيز طالما العائد المادي مجزٍ والسيستم ثابت.' },
+                    { val: 'blocker_desk_bound', text: 'مكان العمل المفضل عندي هو مكتبي قدام الشاشة.' }
+                ]
+            },
+            {
+                id: 'q12',
+                dimension: 'العائق — الخوف من تجميد الفلوس والمخاطرة',
+                question: '12. لما تفكر تحط فلوسك في بضاعة أو أصل، إيه الهاجس أو الخوف اللي بيجي في بالك الأول؟',
+                options: [
+                    { val: 'blocker_fear_unsold', text: 'أخاف البضاعة تركن وما تتباعش وتتجمّد فلوسي في موديل ملوش سوق.' },
+                    { val: 'blocker_fear_missing_deal', text: 'أخاف أتردد وتفوتني صفقة لقطة أو بضاعة رخيصة تكسبني كويس.' },
+                    { val: 'blocker_fear_spoils', text: 'أخاف الخامات تبوظ أو تفسد قبل ما أخلص تجهيزها وتوريدها.' },
+                    { val: 'blocker_fear_obsolete', text: 'أخاف التكنولوجيا أو الأدوات اللي اشتريتها تنزل تقنيتها.' }
+                ]
+            },
+            // د. بوصلة التخصص الدقيق والنطاق (4 أسئلة)
+            {
+                id: 'q13',
+                dimension: 'بوصلة التخصص — النطاق السلعي',
+                question: '13. لو خيروك تتخصص في قطاع واحد وتفهم كل أسراره، تختار أنهي قطاع؟',
+                options: [
+                    { val: 'niche_silver_fashion', text: 'الحُلي الفضية، الإكسسوارات الرجالية الفاخرة، والهدايا والمصنوعات الجلدية الراقية.' },
+                    { val: 'niche_fast_arbitrage', text: 'تجارة وتدوير الصفقات السريعة، وتوريد المستهلكات والمكتبيات والورقيات.' },
+                    { val: 'niche_food_agri', text: 'المأكولات والمطابخ السحابية، أو التجفيف والتصنيع الزراعي للمحاصيل.' },
+                    { val: 'niche_tech_saas', text: 'الخدمات البرمجية، الأتمتة، والحلول الرقمية للشركات.' }
+                ]
+            },
+            {
+                id: 'q14',
+                dimension: 'بوصلة التخصص — هيكل التوريد والبيع',
+                question: '14. تفضل تبيع منتجك لمين؟',
+                options: [
+                    { val: 'sell_consumers_brand', text: 'للمستهلك الأخير مباشرة أونلاين عبر براند شخصي له هوية وقصة واضحة.' },
+                    { val: 'sell_b2b_wholesale', text: 'لمحلات، عيادات، شركات، أو مطاعم بكميات وبدون بيع فردي.' },
+                    { val: 'sell_export_global', text: 'للخارج عبر التصدير المصغر بالعملة الصعبة.' },
+                    { val: 'sell_hybrid_channels', text: 'مزيج مرن بين التوريد للشركات والبيع المباشر.' }
+                ]
+            },
+            {
+                id: 'q15',
+                dimension: 'بوصلة التخصص — دور المؤسس',
+                question: '15. تحب يكون دورك اليومي في المشروع عبارة عن إيه؟',
+                options: [
+                    { val: 'role_designer_marketer', text: 'المصمم والمسوق: أبتكر الأشكال وأدير الهوية والإعلانات وأترك التصنيع للورش.' },
+                    { val: 'role_trader_negotiator', text: 'التاجر والمفاوض: أجيب السعر الأرخص وأوزع على المحلات وأقبض الكاش.' },
+                    { val: 'role_ops_manager', text: 'مدير التشغيل والجودة: أضبط المقادير، المعايير، وخطوط الإنتاج.' },
+                    { val: 'role_architect_coder', text: 'المهندس التقني: أبني السيستم والأدوات بنفسي.' }
+                ]
+            },
+            {
+                id: 'q16',
+                dimension: 'بوصلة التخصص — الاستعداد للبداية',
+                question: '16. إيه أكتر أداة لو وفرناها لك جوّه الموقع هتخليك تحس إنك مستعد تبدأ فورًا من بكره؟',
+                options: [
+                    { val: 'tool_silver_calculator', text: 'حاسبة تسعير الفضة والإكسسوارات (جرام + مصنعية + تغليف) عشان ما أتحسبش غلط.' },
+                    { val: 'tool_arbitrage_sheet', text: 'شيت دورت رأس المال وصفقات الجملة للربح السريع.' },
+                    { val: 'tool_recipe_costing', text: 'بطاقة الوصفة المعيارية وحاسبة الهدر والـ Food Cost.' },
+                    { val: 'tool_automation_demo', text: 'نماذج وتجارب حية جاهزة للربط والأتمتة.' }
                 ]
             }
         ];
@@ -992,7 +699,7 @@
                     <div class="form-group" id="group-${q.id}">
                         <label class="question-label">
                             ${q.question}
-                            <span class="question-hint">البعد: ${q.dimension}</span>
+                            <span class="question-hint">البعد العلمي المقاس: ${q.dimension}</span>
                         </label>
                         <div class="options-grid">
                             ${optionsHtml}
@@ -1018,7 +725,7 @@
         function updateQuizProgressPill() {
             const count = behavioralQuestions.filter(q => Boolean(appState.answers[q.id])).length;
             const pill = document.getElementById('quiz-progress-pill');
-            if (pill) pill.innerText = `تمت الإجابة على ${count} من 10`;
+            if (pill) pill.innerText = `تمت الإجابة على ${count} من ${behavioralQuestions.length}`;
         }
 
         function proceedToStep2() {
@@ -1036,6 +743,12 @@
             navigateToStep(2);
         }
 
+        // =====================================================================
+        // 3. إدارة الأصول وموقعها
+        // =====================================================================
+        let leafletMap = null;
+        let leafletMarker = null;
+
         function toggleAssetCard(elem, assetKey) {
             const grid = document.getElementById('assets-selection-grid');
             if (assetKey === 'none') {
@@ -1043,39 +756,366 @@
                 grid.querySelectorAll('.asset-card').forEach(c => c.classList.remove('selected'));
                 elem.classList.add('selected');
             } else {
-                appState.selectedAssets = ['none'];
-                grid.querySelectorAll('.asset-card').forEach(c => c.classList.remove('selected'));
-                appState.selectedAssets = [assetKey];
-                elem.classList.add('selected');
+                appState.selectedAssets = appState.selectedAssets.filter(a => a !== 'none');
+                const noneCard = grid.querySelector('[data-asset="none"]');
+                if (noneCard) noneCard.classList.remove('selected');
+
+                if (appState.selectedAssets.includes(assetKey)) {
+                    appState.selectedAssets = appState.selectedAssets.filter(a => a !== assetKey);
+                    elem.classList.remove('selected');
+                } else {
+                    appState.selectedAssets.push(assetKey);
+                    elem.classList.add('selected');
+                }
+
+                if (appState.selectedAssets.length === 0) {
+                    appState.selectedAssets = ['none'];
+                    if (noneCard) noneCard.classList.add('selected');
+                }
             }
             const box = document.getElementById('conditional-asset-details');
-            box.style.display = assetKey !== 'none' ? 'block' : 'none';
+            box.style.display = !appState.selectedAssets.includes('none') ? 'block' : 'none';
             saveStateToLocalStorage();
         }
 
+        function locateAssetViaGPS() {
+            const statusEl = document.getElementById('asset-location-status');
+            if (!navigator.geolocation) {
+                statusEl.innerText = 'المتصفح لا يدعم تحديد الموقع.';
+                return;
+            }
+            statusEl.innerText = 'جاري تحديد المنطقة التقريبية للأصل...';
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const approxLat = Math.round(pos.coords.latitude * 100) / 100;
+                    const approxLng = Math.round(pos.coords.longitude * 100) / 100;
+                    appState.assetDetails.approxCoords = { lat: approxLat, lng: approxLng };
+                    statusEl.innerText = `تم ربط المنطقة التقريبية للأصل بنجاح (${approxLat}, ${approxLng}).`;
+                    if (leafletMap) {
+                        leafletMap.setView([approxLat, approxLng], 12);
+                        if (leafletMarker) leafletMarker.setLatLng([approxLat, approxLng]);
+                        else leafletMarker = L.marker([approxLat, approxLng]).addTo(leafletMap);
+                    }
+                },
+                () => { statusEl.innerText = 'تعذر الوصول لـ GPS.'; }
+            );
+        }
+
+        function toggleAssetMap() {
+            const mapBox = document.getElementById('asset-map-container');
+            const isHidden = mapBox.style.display === 'none' || mapBox.style.display === '';
+            mapBox.style.display = isHidden ? 'block' : 'none';
+
+            if (isHidden && window.L) {
+                setTimeout(() => {
+                    if (!leafletMap) {
+                        leafletMap = L.map('leaflet-map').setView([31.2001, 29.9187], 11);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(leafletMap);
+                        leafletMap.on('click', function(e) {
+                            const approxLat = Math.round(e.latlng.lat * 100) / 100;
+                            const approxLng = Math.round(e.latlng.lng * 100) / 100;
+                            appState.assetDetails.approxCoords = { lat: approxLat, lng: approxLng };
+                            if (leafletMarker) leafletMarker.setLatLng(e.latlng);
+                            else leafletMarker = L.marker(e.latlng).addTo(leafletMap);
+                            document.getElementById('asset-location-status').innerText = `تم تحديد منطقة الأصل (${approxLat}, ${approxLng}).`;
+                        });
+                    } else { leafletMap.invalidateSize(); }
+                }, 150);
+            }
+        }
+
+        // =====================================================================
+        // 4. محرك الفرص الشامل (التعرف على الحُلي الفضية، تدوير الصفقات، والـ 6 نماذج)
+        // =====================================================================
         function syncStep2InputsToState() {
             appState.profileInfo.name = document.getElementById('user-name').value.trim() || 'صديقنا';
+            appState.profileInfo.education = document.getElementById('user-education').value;
+            appState.profileInfo.residenceGov = document.getElementById('user-residence-gov').value;
+            appState.profileInfo.targetMarket = document.getElementById('target-market-scope').value;
             appState.profileInfo.capitalEGP = getNormalizedCapitalInEGP();
+
+            if (!appState.selectedAssets.includes('none')) {
+                appState.assetDetails.ownership = document.getElementById('asset-ownership').value;
+                appState.assetDetails.governorate = document.getElementById('asset-governorate').value;
+                appState.assetDetails.areaSqm = parseFloat(document.getElementById('asset-area').value) || 30;
+                appState.assetDetails.utilities = document.getElementById('asset-utilities').value;
+            }
             saveStateToLocalStorage();
         }
 
         function computeRecommendationModel() {
+            const ans = appState.answers;
             const cap = appState.profileInfo.capitalEGP;
+            const assets = appState.selectedAssets;
+            const assetDet = appState.assetDetails;
+            const resGov = appState.profileInfo.residenceGov;
+            const assetGov = assets.includes('none') ? resGov : assetDet.governorate;
+            const marketScope = appState.profileInfo.targetMarket;
+
+            // نظام درجات ذكي يحدد أي من المسارات الـ 6 يناسب المستخدم
+            let scores = {
+                silver_jewelry_microbrand: 0,
+                smart_arbitrage_flipping: 0,
+                leather_microbrand: 0,
+                cloud_kitchen_prep: 0,
+                agri_micro_processing: 0,
+                digital_ai_automation: 0
+            };
+
+            // س1 و س2 و س13: النطاق والفضول
+            if (ans.q1 === 'a_silver_jewelry' || ans.q13 === 'niche_silver_fashion') scores.silver_jewelry_microbrand += 35;
+            if (ans.q1 === 'a_deals_trade' || ans.q13 === 'niche_fast_arbitrage') scores.smart_arbitrage_flipping += 35;
+            if (ans.q1 === 'a_food_prep' || ans.q13 === 'niche_food_agri') { scores.cloud_kitchen_prep += 20; scores.agri_micro_processing += 20; }
+            if (ans.q1 === 'a_tech_systems' || ans.q13 === 'niche_tech_saas') scores.digital_ai_automation += 35;
+
+            if (ans.q2 === 'b_craft_design') scores.silver_jewelry_microbrand += 25;
+            if (ans.q2 === 'b_arbitrage') scores.smart_arbitrage_flipping += 25;
+            if (ans.q2 === 'b_agri_nature') scores.agri_micro_processing += 25;
+            if (ans.q2 === 'b_software') scores.digital_ai_automation += 25;
+
+            // س9: عيق الحسابات (يمنح ميزة للحلول والأدوات التلقائية)
+            if (ans.q9 === 'blocker_hate_math') {
+                scores.silver_jewelry_microbrand += 15; // يحب الفن لكنه يكره الحسابات (نوفر له حاسبة الفضة)
+                scores.cloud_kitchen_prep += 10;
+            } else if (ans.q9 === 'blocker_love_cash') {
+                scores.smart_arbitrage_flipping += 20;
+            }
+
+            // س11: كره الورش
+            if (ans.q11 === 'blocker_hate_dust') {
+                scores.silver_jewelry_microbrand += 15; // تصنيع لدى الغير
+                scores.digital_ai_automation += 15;
+            }
+
+            const sortedModels = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+            const topModelKey = sortedModels[0];
+
+            return buildDetailedCapsuleForModel(topModelKey, { cap, assets, assetDet, resGov, assetGov, marketScope });
+        }
+
+        function buildDetailedCapsuleForModel(modelKey, ctx) {
+            const { cap, assets, assetDet, resGov, assetGov, marketScope } = ctx;
+            const ownershipText = assetDet.ownership === 'owned_self' ? 'ملكك شخصياً' : 'متاح لك';
+
+            let triLocationExplanation = assets.includes('none')
+                ? `إقامتك في (${resGov})، ولا تعتمد على عقار ثابت في البداية.`
+                : `تم الفصل بين إقامتك في (${resGov}) والأصل في (${assetGov} — مساحة ~${assetDet.areaSqm} م²) وسوق البيع (${getMarketScopeLabel(marketScope)}).`;
+
+            // =================================================================
+            // المسار الأول: معمل/براند تصميم حُلي فضية وإكسسوارات رجالية
+            // =================================================================
+            if (modelKey === 'silver_jewelry_microbrand') {
+                const isUnderfunded = cap < 12000;
+                const setupAlloc = Math.min(cap, 14000);
+                const workingAlloc = Math.max(0, cap - setupAlloc);
+
+                return {
+                    id: 'rec_silver_jewelry',
+                    modelKey: 'silver_jewelry_microbrand',
+                    calcConfig: {
+                        title: 'حاسبة تسعير الحُلي الفضية ومصنعية السبك (Silver Jewelry Unit Calculator)',
+                        labels: ['وزن الفضة بالجرام × سعر جرام الفضة الخام', 'أجرة الورشة والسبك (المصنعية للقطعة)', 'علبة هدايا قطيفة ومطبوعات البراند', 'تكلفة الشحن الآمن للعميل', 'تكلفة الإعلان للبيعة الواحدة (CAC)'],
+                        defaults: { c1: 180, c2: 95, c3: 35, c4: 45, c5: 50, price: 650 }
+                    },
+                    personalDiscovery: `اكتشف النظام أن لديك ذوقًا فنيًا عاليًا وشغفًا بالإكسسوارات والحُلي، وعادة ما كان يمنعك عن هذا المجال خوفك من تعقيد الحسابات أو حبسة الورش. لذلك، صممنا لك مسارًا يعتمد على التصميم الذكي والتصنيع لدى ورش الصاغة المتخصصة مع توفير ${termPillHtml('حاسبة الفضة الأوتوماتيكية', 'Silver Pricing Tool')} لترتاح تمامًا من الحسابات المعقدة.`,
+                    title: `تأسيس معمل وبراند ${termPillHtml('تصميم حُلي فضية وإكسسوارات رجالية ونسائية فاخرة', 'Silver Jewelry Microbrand')}`,
+                    whyRecommended: [
+                        'يستثمر ذوقك الفني وعينك الدقيقة على التفاصيل الجمالية دون الحاجة لخبرة حسابية مسبقة.',
+                        `تم تخصيص الميزانية بدقة ضمن رأس مالك المتاح (${formatMoney(cap)}) دون أي تجاوز.`,
+                        triLocationExplanation
+                    ],
+                    businessModelText: `تقوم برسم وتصميم موديلات فريدة للخواتم، السلاسل، أو الإكسسوارات الرجالية والنسائية، وتتفق على سبكها وتصنيعها بالقطعة لدى ورشة صاغة محترفة في مناطق الصاغة أو خان الخليلي، ثم تسويقها أونلاين لشريحة تقدر التفاصيل اليدوية الفريدة.`,
+                    capitalBreakdown: [
+                        { item: 'تصميم أول 3 موديلات وتصنيع عينات الماستر وسبك دفعة أولى مركزة (20 إلى 30 قطعة)', amount: setupAlloc },
+                        { item: 'تصميم عبوات هدايا فاخرة وتصوير احترافي وحملة إطلاق لجلب أول زبون راضٍ', amount: workingAlloc }
+                    ],
+                    assetSuitabilityNote: `لا تحتاج إلى مسبك أو محل غالي؛ سيُستغل الأصل المتاح في (${assetGov}) فقط لإدارة الفحص، التغليف، وتلقي الطلبات.`,
+                    targetSegment: 'الباحثون عن الإكسسوارات الفضية الرجالية والنسائية ذات التصاميم غير التقليدية التي تعبر عن الهوية الشخصية.',
+                    suppliersGuide: {
+                        clusters: [
+                            'القاهرة: ورش السبك وتجارة الفضة الخام في منطقة الصاغة (الجمالية) وخان الخليلي ومصر القديمة.',
+                            'الإسكندرية: تجار الفضة ومصانع الصاغة في محطة الرمل ومنشية الإسكندرية.'
+                        ],
+                        searchKeywordsAr: ['ورشة سبك فضة لحساب الغير الصاغة', 'مورد فضة خام عيار 925 جملة', 'علب هدايا مخمل ومجوهرات درب البرابرة'],
+                        searchKeywordsEn: ['925 Sterling silver casting workshop Egypt', 'Handmade silver jewelry microbrand model']
+                    },
+                    legalRequirements: getLegalMatrixForCategory('craft_brand'),
+                    microLessons: [
+                        {
+                            id: 'les_sil_1',
+                            title: 'الدرس 1: كيف تحسب تكلفة جرام الفضة والمصنعية وهامش المساهمة؟',
+                            explanation: 'الفضة تسعر بالجرام مضافًا إليها أجرة السبك والمصنعية بالقطعة. لا تبيع أبدًا بدون حساب وزن الفضة اليومي في البورصة.',
+                            realExample: 'خاتم وزنه 10 جرام فضة عيار 925، سعر الجرام الخام + المصنعية + التغليف = 310 ج.م، يُباع بـ 650 ج.م ليحقق هامش ربح يغطي التسويق والشحن.',
+                            enTerm: 'Contribution Margin',
+                            toolHint: 'حاسبة الفضة التفاعلية في مساحة مشروعك.',
+                            practicalTask: 'اجمع سعر جرام الفضة اليوم من الصاغة وسجل العينات.',
+                            masteryIndicator: 'التأكد من أن سعر البيع يغطي ضعف التكلفة المتغيرة.'
+                        }
+                    ],
+                    firstExperiment: 'تصميم موديل واحد أو اثنين، تنفيذهما كعينات بورشة الصاغة، وعرضهما على 20 شخصًا مهتمًا لجمع أول 3 طلبات شراء حقيقية.',
+                    firstFiveSteps: [
+                        'رسم وتحديد تصميم مميز (مثل خاتم فضة رجالي بتصميم هندسي فريد).',
+                        'الذهاب لورشة صاغة معتمدة في الصاغة أو خان الخليلي والاتفاق على سبك عينة الماستر.',
+                        'حساب تكلفة الجرام والمصنعية والتغليف بدقة عبر حاسبة مساحة مشروعك.',
+                        'تصوير العينات بإضاءة واضحة ونشرها على منصات التواصل المستهدفة.',
+                        'إرضاء أول مشتري تمامًا ليكون "المبشر" الأول للبراند.'
+                    ],
+                    risksAndAssumptions: [
+                        'افتراض يحتاج إلى تحقق: وجود رغبة شرائية للتصميمات الرجالية الفضية عبر الإنترنت.',
+                        'مخاطرة وزنية: تفاوت الوزن الفعلي للفضة المسكوكة عن المخطط (الحل: ميزان دقيق حساس بالمليجرام).вериفيكشن).'
+                    ]
+                };
+            }
+
+            // =================================================================
+            // 2. المسار الثاني: تدوير الصفقات ورأس المال السريع (Smart Capital Arbitrage)
+            // =================================================================
+            if (modelKey === 'smart_arbitrage_flipping') {
+                const b1 = Math.round(cap * 0.70);
+                const b2 = cap - b1;
+
+                return {
+                    id: 'rec_smart_arbitrage',
+                    modelKey: 'smart_arbitrage_flipping',
+                    calcConfig: {
+                        title: 'حاسبة صفقات الجملة وتدوير رأس المال (Arbitrage Cash Flow Calculator)',
+                        labels: ['سعر شراء الصفقة/الكمية جملة', 'تكلفة الفرز والنقل والمخزون', 'مصاريف التغليف والتسليم السريع', 'عمولة التسويق أو المنصة', 'سعر البيع الإجمالي المستهدف'],
+                        defaults: { c1: 15000, c2: 800, c3: 500, c4: 400, c5: 500, price: 19500 }
+                    },
+                    personalDiscovery: `أظهرت إجاباتك شطارة تجارية فطرية وعشقًا للعبة الفلوس، تدوير رأس المال، واقتناص الصفقات السريعة بدون حبسة مصانع أو تعقيد. يمنحك نموذج ${termPillHtml('تدوير الصفقات الذكي', 'Smart Capital Arbitrage')} الحرية لتحقيق ذاتك في التجارة وحركة الكاش اليومي.`,
+                    title: `تأسيس وكالة ${termPillHtml('تدوير الصفقات واقتناص بضائع الجملة السريعة', 'Smart Capital Arbitrage & Flipping Agency')} (Cash-to-Cash)`,
+                    whyRecommended: [
+                        'يستثمر فطرتك التجارية وحبك لسرعة حركة الكاش ودورة رأس المال القصيرة.',
+                        `مضبوط تمامًا ضمن رأس مالك المتاح (${formatMoney(cap)}).`,
+                        triLocationExplanation
+                    ],
+                    businessModelText: `بدل انتظار الإنتاج، ترصد بضائع راكدة أو فرص جملة حقيقية لدى مستوردين أو مصانع (أجهزة منزلية صغيرة، أدوات مطبخ، أو مستهلكات)، وتشتريها بكاش سريع وتعيد توزيعها على شبكة محلات تجزئة أو أونلاين بهامش ربح فوري خلال أقل من 20 يومًا.`,
+                    capitalBreakdown: [
+                        { item: 'شراء صفقة الجملة الأولى بعد فحصها واختبار جودتها وسرعة تسييلها', amount: b1 },
+                        { item: 'نقل، فرز، تصوير، ومصاريف تسويق صفقة التوزيع السريع', amount: b2 }
+                    ],
+                    assetSuitabilityNote: `الأصل المتاح في (${assetGov}) سيُستخدم كمحطة فرز مؤقتة وسريعة لعدم بقاء البضاعة في المخزن لأكثر من أسبوعين.`,
+                    targetSegment: 'محلات التجزئة الصغرى والصفحات أونلاين التي تبحث عن بضائع جاهزة للبيع الفوري بربح مرضي.',
+                    suppliersGuide: {
+                        clusters: [
+                            'أسواق الجملة الكبرى: الموسكي، العتبة، رمسيس، ومنطقة الوكالة في القاهرة، ومخازن الجملة في المكس وباب مخلد بالإسكندرية.'
+                        ],
+                        searchKeywordsAr: ['تصفية بضائع محلات جملة مصر', 'مستوردي أدوات منزلية وعليها عروض الموسكي', 'مخازن تصفية بضائع استيراد'],
+                        searchKeywordsEn: ['Inventory arbitrage wholesale flipping Egypt', 'Fast cash-to-cash cycle trading']
+                    },
+                    legalRequirements: getLegalMatrixForCategory('b2b_trade'),
+                    microLessons: [
+                        {
+                            id: 'les_arb_1',
+                            title: 'الدرس 1: قاعدة سرعة دوران رأس المال (Cash-to-Cash Cycle)',
+                            explanation: 'في تجارة الصفقات، المكسب الحقيقي ليس في نسبة ربح القطعة الواحدة، بل في عدد المرات التي تدور فيها فلوسك خلال الشهر.',
+                            realExample: 'لو كسبت 1,500 جنيه في صفقة تقعد 3 أشهر، فالعائد سنوي ضعيف. لكن لو كسبت 600 جنيه في صفقة تدور كل 10 أيام، فأنت تضاعف رأس مالك أضعافًا.',
+                            enTerm: 'Cash-to-Cash Cycle',
+                            toolHint: 'حاسبة تدوير الصفقات في مساحة مشروعك.',
+                            practicalTask: 'حساب مدة بقاء البضاعة بالمخزن قبل بيعها بالكامل.',
+                            masteryIndicator: 'إتمام أول صفقة وبيعها بالكامل في أقل من 21 يومًا.'
+                        }
+                    ],
+                    firstExperiment: 'شراء ربع كمية صفقة صغيرة جداً (بـ 3 آلاف جنيه مثلاً)، واختبار بيعها لمحلين أو 3 لتقييم سرعة الطلب.',
+                    firstFiveSteps: [
+                        'رصد فرصة بضاعة جملة حقيقية ومضمونة الجودة.',
+                        'التفاوض على سعر كاش يقلل تكلفة القطعة لأدنى حد.',
+                        'فحص عينة من البضاعة والتأكد من سلامتها 100%.',
+                        'توزيع البضاعة على قنوات البيع السريعة وتحصيل الكاش.',
+                        'إعادة تدوير الأرباح فورًا في صفقة جديدة وإرضاء أول زبون جملة.'
+                    ],
+                    risksAndAssumptions: [
+                        'افتراض يحتاج إلى تحقق: سرعة تصريف البضاعة في السوق خلال الأيام العشرين الأولى.',
+                        'مخاطرة تجارية: شراء بضاعة رديئة يصعب تصريفها (الحل: عدم الشراء إلا بعد فحص عينة قطاعية).'
+                    ]
+                };
+            }
+
+            // =================================================================
+            // 4. البقية (الجلود، المطبخ السحابي، الزراعة، والبرمجيات)
+            // =================================================================
+            if (modelKey === 'cloud_kitchen_prep') {
+                return {
+                    id: 'rec_cloud_kitchen',
+                    modelKey: 'cloud_kitchen_prep',
+                    calcConfig: {
+                        title: 'حاسبة تكلفة الوجبة (Food Cost Calculator)',
+                        labels: ['خامات غذائية بالجرام', 'غاز وطاقة', 'تغليف حراري', 'توصيل', 'إعلان البيعة'],
+                        defaults: { c1: 55, c2: 12, c3: 10, c4: 25, c5: 15, price: 165 }
+                    },
+                    personalDiscovery: 'اكتشف النظام أن لديك دقة عالية في تنظيم العمليات والتشغيل وإدارة الهدر، مما يجعلك مناسبًا جداً للمطبخ السحابي.',
+                    title: `تشغيل ${termPillHtml('مطبخ سحابي', 'Cloud Kitchen')} ووحدة تجهيز وتوريد غذائي`,
+                    whyRecommended: ['يتطابق مع مهاراتك التشغيلية.', `مضبوط ضمن ميزانيتك (${formatMoney(cap)}).`, triLocationExplanation],
+                    businessModelText: 'إلغاء تكلفة الصالة والتركيز على التوصيل والتوريد للكافيهات.',
+                    capitalBreakdown: [{ item: 'تجهيزات ومعدات أولية', amount: Math.round(cap * 0.6) }, { item: 'خامات وتشغيل', amount: cap - Math.round(cap * 0.6) }],
+                    assetSuitabilityNote: 'استخدام مساحة مطبخ مرخصة أو مشاركة مطبخ قائم.',
+                    targetSegment: 'الموظفون والكافيهات.',
+                    suppliersGuide: { clusters: ['سوق العبور والجمهورية.'], searchKeywordsAr: ['مطابخ سحابية'], searchKeywordsEn: ['Cloud kitchen'] },
+                    legalRequirements: getLegalMatrixForCategory('food_kitchen'),
+                    microLessons: getLessonsForCategory('cloud_kitchen_prep'),
+                    firstExperiment: 'تحضير 15 عينة وتذوقها مع 5 عملاء.',
+                    firstFiveSteps: ['ضبط الوصفة', 'توفير التغليف', 'توزيع العينات', 'حساب الهدر', 'إطلاق الخدمة'],
+                    risksAndAssumptions: ['الحفاظ على سلامة الغذاء وثبات الجودة.']
+                };
+            }
+
+            // الافتراضي (الجلود)
+            const setupAlloc = Math.min(cap, 14000);
+            const workingAlloc = Math.max(0, cap - setupAlloc);
             return {
                 id: 'rec_leather_microbrand',
-                title: 'تأسيس علامة تجارية متخصصة (Microbrand) للمنتجات الجلدية',
-                personalDiscovery: 'إجابتك تظهر ميلاً واضحاً للإنتاج الملموس والتصميم عالي الجودة.',
-                whyRecommended: ['يتطابق مع اهتمامك بالتفاصيل والتنفيذ اليدوي.', `يناسب رأس مالك (${cap} ج.م).`],
-                capitalBreakdown: [
-                    { item: 'شراء العينات والتشكيلة الأولى', amount: Math.round(cap * 0.5) },
-                    { item: 'التغليف والتسويق والاختبار', amount: Math.round(cap * 0.5) }
-                ]
+                modelKey: 'leather_microbrand',
+                calcConfig: {
+                    title: 'حاسبة تكلفة الوحدة للمنتجات الجلدية (Leather Unit Calculator)',
+                    labels: ['تكلفة الجلد والإكسسوار', 'مصنعية الورشة', 'التغليف', 'الشحن', 'إعلان البيعة (CAC)'],
+                    defaults: { c1: 110, c2: 45, c3: 15, c4: 35, c5: 35, price: 330 }
+                },
+                personalDiscovery: 'اكتشف النظام ميلاً للإنتاج الملموس والجودة العالية مع تفضيل التصنيع لدى الغير.',
+                title: `تأسيس ${termPillHtml('علامة تجارية متخصصة', 'Microbrand')} للمنتجات الجلدية الذكية`,
+                whyRecommended: ['يتطابق مع حسك الفني.', `مضبوط ضمن ميزانيتك (${formatMoney(cap)}).`, triLocationExplanation],
+                businessModelText: 'تصنيع بالقطعة لدى ورشة خارجية والبيع أونلاين بنظام الـ MVP.',
+                capitalBreakdown: [{ item: 'تصنيع العينات والدفعة الأولى', amount: setupAlloc }, { item: 'التغليف والتسويق', amount: workingAlloc }],
+                assetSuitabilityNote: 'استخدام مساحة الغرفة للتغليف فقط.',
+                targetSegment: 'الشباب والموظفون.',
+                suppliersGuide: { clusters: ['باب الشعرية والمنشية.'], searchKeywordsAr: ['جلد طبيعي جملة'], searchKeywordsEn: ['Full grain leather'] },
+                legalRequirements: getLegalMatrixForCategory('craft_brand'),
+                microLessons: getLessonsForCategory('leather_microbrand'),
+                firstExperiment: 'تصنيع 3 عينات وبيعها للمقربين قبل الطلب الكمي.',
+                firstFiveSteps: ['تحديد التصميم', 'مقارنة الموردين', 'تنفيذ العينات', 'ضبط التسعير', 'الإطلاق'],
+                risksAndAssumptions: ['التحقق من جودة الخامات وثبات المصنعية.']
             };
         }
 
+        // =====================================================================
+        // 5. قاعدة البيانات التنظيمية
+        // =====================================================================
+        function getLegalMatrixForCategory(catType) {
+            const verifyDate = '1 نوفمبر 2026';
+            if (catType === 'craft_brand') {
+                return [
+                    { stage: '1. قبل البدء', reqName: 'فتح ملف ضريبي وسجل تجاري مبسط (قانون 152 لسنة 2020)', authority: 'مصلحة الضرائب المصرية / جهاز تنمية المشروعات', docs: 'بطاقة الرقم القومي وسند الحيازة.', officialUrl: 'https://www.msmeda.org.eg', lastVerified: verifyDate }
+                ];
+            }
+            return [
+                { stage: '1. قبل البدء', reqName: 'البطاقة الضريبية والسجل التجاري', authority: 'مصلحة الضرائب المصرية', docs: 'بطاقة الرقم القومي وإيصال مرافق.', officialUrl: 'https://www.eta.gov.eg', lastVerified: verifyDate }
+            ];
+        }
+
+        function getLessonsForCategory(modelKey) {
+            return [
+                { id: 'les_1', title: 'الدرس 1: حساب التكلفة الكلية وهامش المساهمة', explanation: 'لا تحسب ثمن الخامة وحدها بل أضف التغليف والشحن والإعلان.', realExample: 'حساب هامش المساهمة الحقيقي يضمن بقاء مشروعك رابحًا.', enTerm: 'Contribution Margin', toolHint: 'حاسبة مساحة مشروعك', practicalTask: 'حساب التكلفة المتغيرة', masteryIndicator: 'تحقيق هامش ربح موجب.' }
+            ];
+        }
+
+        // =====================================================================
+        // 7. عرض كبسولة البداية
+        // =====================================================================
         function generateSingleRecommendation() {
             syncStep2InputsToState();
             appState.activeRecommendation = computeRecommendationModel();
+            if (appState.activeRecommendation && appState.activeRecommendation.calcConfig) {
+                appState.workspaceData.unitCostCalc = { ...appState.activeRecommendation.calcConfig.defaults };
+            }
             maxUnlockedStep = Math.max(maxUnlockedStep, 3);
             navigateToStep(3);
             renderStep3Capsule();
@@ -1084,21 +1124,94 @@
         function renderStep3Capsule() {
             const rec = appState.activeRecommendation;
             if (!rec) return;
+
+            const capEGP = appState.profileInfo.capitalEGP;
             const container = document.getElementById('capsule-main-card');
+
+            const breakdownRowsHtml = rec.capitalBreakdown.map(b => `
+                <tr>
+                    <td>${b.item}</td>
+                    <td><strong>${formatMoney(b.amount)}</strong> <span class="status-tag tag-unverified">ضمن سقف ميزانيتك</span></td>
+                </tr>
+            `).join('');
+
+            const legalRowsHtml = rec.legalRequirements.map(l => `
+                <tr>
+                    <td><strong>${l.stage}</strong></td>
+                    <td>${l.reqName}<br><span style="font-size:0.76rem; color:var(--text-secondary);">المستندات: ${l.docs}</span></td>
+                    <td>${l.authority}</td>
+                    <td><a href="${l.officialUrl}" target="_blank" rel="noopener" class="nav-btn" style="font-size:0.72rem;"><span>المصدر ↗</span></a><div style="font-size:0.68rem; color:var(--text-secondary); margin-top:2px;">${l.lastVerified}</div></td>
+                </tr>
+            `).join('');
+
             container.innerHTML = `
                 <div class="section-header-row">
                     <div class="section-title">
-                        <span>كبسولة البداية والتوصية الرئيسية</span>
+                        <span>كبسولة البداية والتوصية الرئيسية المخصصة لك</span>
+                    </div>
+                    <button type="button" class="btn-secondary" onclick="navigateToStep(2)"><span>تعديل رأس المال أو الأصول</span></button>
+                </div>
+
+                <div class="insight-block">
+                    <strong>1. ماذا اكتشفنا عن نمط عملك؟</strong>
+                    <p style="font-size:0.9rem; margin-top:6px;">${rec.personalDiscovery}</p>
+                </div>
+
+                <div class="insight-block strong-border">
+                    <span class="status-tag tag-official" style="margin-bottom:8px;">التوصية الرئيسية الواحدة (سقف رأس المال: ${formatMoney(capEGP)})</span>
+                    <h2 style="font-size:1.35rem; margin-bottom:12px;">${rec.title}</h2>
+                    <ul style="padding-right:20px; font-size:0.88rem; margin-bottom:12px;">
+                        ${rec.whyRecommended.map(r => `<li style="margin-bottom:4px;">${r}</li>`).join('')}
+                    </ul>
+                    <div style="background:var(--bg-secondary); padding:14px 16px; border-radius:var(--radius-md); font-size:0.88rem;">
+                        <strong>كيف يعمل نموذج العمل؟</strong>
+                        <p style="margin-top:4px;">${rec.businessModelText}</p>
                     </div>
                 </div>
-                <h2>${rec.title}</h2>
-                <p>${rec.personalDiscovery}</p>
-                <button class="btn-primary" onclick="createAndOpenPersonalWorkspace()" style="margin-top:20px;">إنشاء مساحة مشروعي الشخصية</button>
+
+                <div style="margin:28px 0;">
+                    <h3 style="font-size:1.05rem; margin-bottom:10px;">توزيع رأس المال بدقة (${formatMoney(capEGP)})</h3>
+                    <div class="mono-table-wrapper">
+                        <table class="mono-table">
+                            <thead><tr><th>البند التشغيلي والتأسيسي</th><th>المبلغ المخصص</th></tr></thead>
+                            <tbody>${breakdownRowsHtml}</tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="margin:28px 0;">
+                    <h3 style="font-size:1.05rem; margin-bottom:10px;">الاشتراطات القانونية والمصادر الرسمية</h3>
+                    <div class="mono-table-wrapper">
+                        <table class="mono-table">
+                            <thead><tr><th>المرحلة</th><th>الاشتراط والمستندات</th><th>الجهة</th><th>المصدر</th></tr></thead>
+                            <tbody>${legalRowsHtml}</tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="insight-block strong-border" style="background:var(--bg-secondary);">
+                    <h3 style="font-size:1.1rem; margin-bottom:6px;">الانتقال لمساحة المشروع الشخصية</h3>
+                    <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">سجل اسمك وبريدك لإنشاء مساحتك الخاصة والحاسبة المخصصة لنموذجك:</p>
+                    <div class="grid-2col" style="margin-bottom:14px;">
+                        <input type="text" id="capsule-user-name" placeholder="اسمك">
+                        <input type="email" id="capsule-user-email" placeholder="بريدك الإلكتروني" dir="ltr" style="text-align:left;">
+                    </div>
+                    <button type="button" class="btn-primary" onclick="createAndOpenPersonalWorkspace()"><span>أنشئ مساحة مشروعي الشخصية الآن ←</span></button>
+                </div>
             `;
-            lucide.createIcons();
+            refreshIconsSafely();
         }
 
+        // =====================================================================
+        // 8. مساحة المشروع الشخصية (بدون بيانات وهمية + حاسبة مستقلة)
+        // =====================================================================
         function createAndOpenPersonalWorkspace() {
+            const nameEl = document.getElementById('capsule-user-name');
+            const emailEl = document.getElementById('capsule-user-email');
+            if (nameEl && nameEl.value.trim()) appState.profileInfo.name = nameEl.value.trim();
+            if (emailEl && emailEl.value.trim()) appState.profileInfo.email = emailEl.value.trim();
+            if (!appState.profileInfo.workspaceToken) appState.profileInfo.workspaceToken = Math.random().toString(36).substring(2);
+
             maxUnlockedStep = 4;
             document.getElementById('workspace-quick-btn').style.display = 'inline-flex';
             saveStateToLocalStorage();
@@ -1107,12 +1220,116 @@
         }
 
         function renderStep4Workspace() {
+            const rec = appState.activeRecommendation || computeRecommendationModel();
+            const userName = appState.profileInfo.name || 'صديقنا';
+            const userEmail = appState.profileInfo.email || 'غير مسجل';
+            const calcCfg = rec.calcConfig || { title: 'حاسبة تكلفة الوحدة', labels: ['خامة', 'تصنيع', 'تغليف', 'نقل', 'إعلان'], defaults: {c1:100, c2:40, c3:10, c4:20, c5:30, price:300} };
+            const uc = appState.workspaceData.unitCostCalc;
+            const totalVarCost = (uc.c1 || 0) + (uc.c2 || 0) + (uc.c3 || 0) + (uc.c4 || 0) + (uc.c5 || 0);
+            const contribMargin = (uc.price || 0) - totalVarCost;
+
+            const quotes = appState.workspaceData.suppliersQuotes;
+            const quotesRowsHtml = quotes.map((q, idx) => `
+                <tr>
+                    <td><strong>${escapeHtml(q.supplierName)}</strong></td>
+                    <td>${escapeHtml(q.materialType)}</td>
+                    <td>${formatMoney(q.unitPrice)}</td>
+                    <td>${q.moq} وحدة</td>
+                    <td>${formatMoney(q.shippingCost)}</td>
+                    <td><button type="button" class="btn-secondary" style="padding:4px 8px; font-size:0.72rem;" onclick="removeQuote(${idx})">حذف</button></td>
+                </tr>
+            `).join('');
+
             const container = document.getElementById('personal-workspace-card');
             container.innerHTML = `
-                <h2>مساحة مشروعي الشخصية</h2>
-                <p>أهلًا بك في مساحتك الخاصة لتتبع المهام وتسجيل الموردين.</p>
+                <div class="section-header-row">
+                    <div>
+                        <span class="status-tag tag-official">مساحة المشروع الشخصية</span>
+                        <h2 style="font-size:1.5rem; margin-top:4px;">أهلًا يا ${escapeHtml(userName)}</h2>
+                        <p style="font-size:0.86rem; color:var(--text-secondary);">${rec.title}</p>
+                    </div>
+                </div>
+
+                <div class="insight-block">
+                    <strong>رابط المساحة الآمن (مرتبط ببريدك ${escapeHtml(userEmail)}):</strong>
+                    <p style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px;">${window.location.origin}${window.location.pathname}?ws_token=${appState.profileInfo.workspaceToken}</p>
+                </div>
+
+                <!-- 1. مقارنة عروض الأسعار (خالية تمامًا من أي بيانات وهمية مسبقة) -->
+                <div style="margin:28px 0;">
+                    <h3 style="font-size:1.05rem; margin-bottom:10px;">1. سجل وقارن عروض أسعار الموردين الحقيقية من السوق</h3>
+                    <div class="insight-block" style="background:var(--bg-element);">
+                        <div class="grid-3col" style="margin-bottom:10px;">
+                            <input type="text" id="sq-name" placeholder="اسم المورد أو الورشة">
+                            <input type="text" id="sq-material" placeholder="الخامة أو البند">
+                            <input type="number" id="sq-price" placeholder="سعر الوحدة (ج.م)" min="1">
+                        </div>
+                        <div class="grid-3col" style="margin-bottom:12px;">
+                            <input type="number" id="sq-moq" placeholder="أقل كمية MOQ" value="50">
+                            <input type="number" id="sq-shipping" placeholder="تكلفة النقل (ج.م)" value="150">
+                            <button type="button" class="btn-secondary" onclick="addQuote()">+ تسجيل العرض</button>
+                        </div>
+                    </div>
+                    <div class="mono-table-wrapper">
+                        <table class="mono-table">
+                            <thead><tr><th>المورد</th><th>البند</th><th>السعر</th><th>MOQ</th><th>النقل</th><th>إجراء</th></tr></thead>
+                            <tbody>${quotesRowsHtml || '<tr><td colspan="6" style="text-align:center; color:var(--text-secondary);">لا توجد عروض أسعار مسجلة بعد. أضف أول عرض سعر حقيقي من السوق.</td></tr>'}</tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 2. حاسبة الوحدة المخصصة -->
+                <div style="margin:28px 0;">
+                    <h3 style="font-size:1.05rem; margin-bottom:10px;">2. ${calcCfg.title}</h3>
+                    <div class="grid-3col" style="margin-bottom:14px;">
+                        <div><label style="font-size:0.75rem;">${calcCfg.labels[0]}</label><input type="number" id="uc-c1" value="${uc.c1}" oninput="recalcUnits()"></div>
+                        <div><label style="font-size:0.75rem;">${calcCfg.labels[1]}</label><input type="number" id="uc-c2" value="${uc.c2}" oninput="recalcUnits()"></div>
+                        <div><label style="font-size:0.75rem;">${calcCfg.labels[2]}</label><input type="number" id="uc-c3" value="${uc.c3}" oninput="recalcUnits()"></div>
+                        <div><label style="font-size:0.75rem;">${calcCfg.labels[3]}</label><input type="number" id="uc-c4" value="${uc.c4}" oninput="recalcUnits()"></div>
+                        <div><label style="font-size:0.75rem;">${calcCfg.labels[4]}</label><input type="number" id="uc-c5" value="${uc.c5}" oninput="recalcUnits()"></div>
+                        <div><label style="font-size:0.75rem; font-weight:700;">سعر البيع المقترح</label><input type="number" id="uc-price" value="${uc.price}" oninput="recalcUnits()"></div>
+                    </div>
+                    <div class="insight-block" id="unit-calc-box">
+                        إجمالي التكلفة: <strong>${formatMoney(totalVarCost)}</strong> | هامش المساهمة: <strong>${formatMoney(contribMargin)}</strong>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-secondary" onclick="exportUserWorkspaceJSON()">تنزيل بياناتي JSON</button>
             `;
-            lucide.createIcons();
+            refreshIconsSafely();
+        }
+
+        function addQuote() {
+            const name = document.getElementById('sq-name').value.trim();
+            const material = document.getElementById('sq-material').value.trim() || 'خامة';
+            const price = parseFloat(document.getElementById('sq-price').value);
+            const moq = parseInt(document.getElementById('sq-moq').value, 10) || 1;
+            const shipping = parseFloat(document.getElementById('sq-shipping').value) || 0;
+
+            if (!name || isNaN(price)) { alert('أدخل اسم المورد والسعر'); return; }
+            appState.workspaceData.suppliersQuotes.push({ supplierName: name, materialType: material, unitPrice: price, moq, shippingCost: shipping, quoteDate: new Date().toISOString().split('T')[0] });
+            saveStateToLocalStorage();
+            renderStep4Workspace();
+        }
+
+        function removeQuote(idx) {
+            appState.workspaceData.suppliersQuotes.splice(idx, 1);
+            saveStateToLocalStorage();
+            renderStep4Workspace();
+        }
+
+        function recalcUnits() {
+            const uc = appState.workspaceData.unitCostCalc;
+            uc.c1 = parseFloat(document.getElementById('uc-c1').value) || 0;
+            uc.c2 = parseFloat(document.getElementById('uc-c2').value) || 0;
+            uc.c3 = parseFloat(document.getElementById('uc-c3').value) || 0;
+            uc.c4 = parseFloat(document.getElementById('uc-c4').value) || 0;
+            uc.c5 = parseFloat(document.getElementById('uc-c5').value) || 0;
+            uc.price = parseFloat(document.getElementById('uc-price').value) || 0;
+            saveStateToLocalStorage();
+            const total = uc.c1 + uc.c2 + uc.c3 + uc.c4 + uc.c5;
+            const margin = uc.price - total;
+            document.getElementById('unit-calc-box').innerHTML = `إجمالي التكلفة: <strong>${formatMoney(total)}</strong> | هامش المساهمة: <strong>${formatMoney(margin)}</strong>`;
         }
 
         function navigateToStep(stepNum) {
@@ -1128,34 +1345,30 @@
                 }
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            lucide.createIcons();
+            refreshIconsSafely();
         }
 
-        function tryJumpStep(stepNum) {
-            if (stepNum <= maxUnlockedStep) navigateToStep(stepNum);
-        }
-
-        function saveStateToLocalStorage() {
-            try { localStorage.setItem('ebda2_v5', JSON.stringify(appState)); } catch(e){}
-        }
-
+        function tryJumpStep(stepNum) { if (stepNum <= maxUnlockedStep) navigateToStep(stepNum); }
+        function saveStateToLocalStorage() { try { localStorage.setItem('ebda2_v7', JSON.stringify(appState)); } catch(e){} }
         function loadStateFromLocalStorage() {
             try {
-                const raw = localStorage.getItem('ebda2_v5');
+                const raw = localStorage.getItem('ebda2_v7');
                 if (!raw) return;
                 const parsed = JSON.parse(raw);
                 if (parsed.answers) appState.answers = parsed.answers;
                 if (parsed.profileInfo) appState.profileInfo = parsed.profileInfo;
+                if (parsed.workspaceData) appState.workspaceData = parsed.workspaceData;
             } catch(e){}
         }
 
-        // الاستدعاء الأكيد بعد اكتمال تحميل عناصر الصفحة بالكامل
-        window.addEventListener('DOMContentLoaded', () => {
+        function safeInitApp() {
             loadStateFromLocalStorage();
             renderBehavioralQuestions();
             fetchLiveMarketData();
-            lucide.createIcons();
-        });
+            refreshIconsSafely();
+        }
+
+        if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', safeInitApp); } else { safeInitApp(); }
     </script>
 </body>
 </html>

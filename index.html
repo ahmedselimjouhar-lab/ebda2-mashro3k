@@ -7,87 +7,61 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-:root {
-  --ink: #111111;
-  --paper: #FFFFFF;
-  --soft: #F5F5F5;
-  --elem: #FAFAFA;
-  --line: #E5E5E5;
-  --mute: #777777;
-  --radius-lg: 14px;
-  --radius-md: 10px;
-  --radius-sm: 6px;
-  --transition: 160ms ease;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-body { background: var(--paper); color: var(--ink); font-size: 0.96rem; line-height: 1.75; padding: 0 16px 64px; }
-.en-term { font-family: 'Inter', sans-serif; direction: ltr; unicode-bidi: isolate; display: inline-block; background: var(--soft); border: 1px solid var(--line); padding: 1px 8px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 500; user-select: text !important; -webkit-user-select: text !important; }
-.copy-btn { font-size: 0.74rem; background: var(--paper); color: var(--mute); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1px 7px; margin-inline-start: 4px; cursor: pointer; }
-.copy-btn:hover { border-color: var(--ink); color: var(--ink); }
-
-.bar { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.96); border-bottom: 1px solid var(--line); margin: 0 -16px 24px; padding: 12px 16px; }
-.wrap { max-width: 740px; margin: 0 auto; }
-.bar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-.brand { font-weight: 700; font-size: 1.05rem; color: var(--ink); text-decoration: none; cursor: pointer; }
-.nav-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.ticker { font-size: 0.76rem; color: var(--mute); background: var(--elem); border: 1px solid var(--line); padding: 4px 10px; border-radius: 99px; }
-.ticker strong { color: var(--ink); font-family: 'Inter', sans-serif; }
-.select-sm { width: auto; padding: 5px 10px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.8rem; cursor: pointer; }
-
-.btn { font: inherit; font-size: 0.9rem; font-weight: 600; background: var(--ink); color: var(--paper); border: 1px solid var(--ink); border-radius: var(--radius-md); padding: 11px 20px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: var(--transition); }
-.btn:hover { opacity: 0.88; }
-.btn.ghost { background: var(--paper); color: var(--ink); border-color: var(--line); font-weight: 500; }
-.btn.ghost:hover { border-color: var(--ink); background: var(--soft); }
-.btn.sm { padding: 6px 12px; font-size: 0.8rem; }
-
-.hero { text-align: center; margin-bottom: 22px; }
-h1 { font-size: clamp(1.4rem, 4vw, 1.85rem); line-height: 1.4; font-weight: 700; }
-h2 { font-size: 1.15rem; line-height: 1.5; margin-bottom: 10px; }
-h3 { font-size: 1rem; line-height: 1.5; margin-bottom: 8px; }
-.muted { color: var(--mute); font-size: 0.86rem; }
-
-.card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(18px, 4vw, 28px); margin-bottom: 20px; }
-.prog-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.82rem; font-weight: 600; color: var(--mute); }
-.prog { height: 4px; background: var(--soft); border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
-.prog i { display: block; height: 100%; background: var(--ink); transition: width 180ms ease; }
-
-.q-block { margin-bottom: 20px; padding: 6px; border-radius: var(--radius-md); }
-.q-block.missing { background: var(--soft); border: 1.5px dashed var(--ink); padding: 12px; }
-.q-title { display: block; font-weight: 600; font-size: 0.94rem; margin-bottom: 8px; }
-.opts { display: grid; gap: 8px; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; }
-
-.opt { text-align: right; font: inherit; font-size: 0.88rem; background: var(--elem); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 11px 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 10px; transition: var(--transition); }
-.opt:hover { border-color: var(--ink); background: var(--soft); }
-.opt[aria-pressed="true"] { border: 1.5px solid var(--ink); background: var(--paper); font-weight: 600; }
-.opt-check { width: 17px; height: 17px; border: 1px solid var(--mute); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.68rem; flex-shrink: 0; }
-.opt[aria-pressed="true"] .opt-check { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-
-input[type="text"], input[type="number"], input[type="email"], select { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--paper); color: var(--ink); font: inherit; font-size: 0.88rem; }
-input:focus, select:focus { outline: none; border-color: var(--ink); background: var(--elem); }
-
-.box { background: var(--soft); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 15px 18px; margin-bottom: 14px; }
-.box.strong { background: var(--paper); border: 1.5px solid var(--ink); }
-.tag { display: inline-block; font-size: 0.74rem; font-weight: 600; padding: 2px 10px; border-radius: 99px; border: 1px solid var(--line); background: var(--soft); }
-.tag.solid { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-
-.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-md); margin: 10px 0; }
-table.mono-tbl { width: 100%; border-collapse: collapse; font-size: 0.83rem; text-align: right; }
-table.mono-tbl th, table.mono-tbl td { padding: 10px 12px; border-bottom: 1px solid var(--line); }
-table.mono-tbl th { background: var(--soft); font-weight: 600; }
-
-#asset-map-wrap { display: none; margin-top: 10px; border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; }
-#leaflet-map { width: 100%; height: 220px; filter: grayscale(100%) contrast(1.05); }
-
-.row-between { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--line); }
-.task-item { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border: 1px solid var(--line); border-radius: var(--radius-md); margin-bottom: 8px; cursor: pointer; background: var(--paper); }
-.task-item.done { background: var(--soft); color: var(--mute); text-decoration: line-through; }
-.hidden { display: none !important; }
-@media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+:root{--ink:#111;--paper:#FFF;--soft:#F5F5F5;--elem:#FAFAFA;--line:#E5E5E5;--mute:#777;--r-lg:14px;--r-md:10px;--r-sm:6px}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--ink);font-size:.96rem;line-height:1.75;padding:0 16px 64px}
+.en-term{font-family:'Inter',sans-serif;direction:ltr;unicode-bidi:isolate;display:inline-block;background:var(--soft);border:1px solid var(--line);padding:1px 8px;border-radius:var(--r-sm);font-size:.82rem;font-weight:500;user-select:text!important}
+.copy-btn{font-size:.74rem;background:var(--paper);color:var(--mute);border:1px solid var(--line);border-radius:var(--r-sm);padding:1px 7px;margin-inline-start:4px;cursor:pointer}
+.copy-btn:hover{border-color:var(--ink);color:var(--ink)}
+.bar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);margin:0 -16px 24px;padding:12px 16px}
+.wrap{max-width:740px;margin:0 auto}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none;cursor:pointer}
+.nav-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ticker{font-size:.76rem;color:var(--mute);background:var(--elem);border:1px solid var(--line);padding:4px 10px;border-radius:99px}
+.ticker strong{color:var(--ink);font-family:'Inter',sans-serif}
+.select-sm{width:auto;padding:5px 10px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:.8rem;cursor:pointer}
+.btn{font:inherit;font-size:.9rem;font-weight:600;background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:var(--r-md);padding:11px 20px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:hover{opacity:.88}
+.btn.ghost{background:var(--paper);color:var(--ink);border-color:var(--line);font-weight:500}
+.btn.ghost:hover{border-color:var(--ink);background:var(--soft)}
+.btn.sm{padding:6px 12px;font-size:.8rem}
+.hero{text-align:center;margin-bottom:22px}
+h1{font-size:clamp(1.4rem,4vw,1.85rem);line-height:1.4;font-weight:700}
+h2{font-size:1.15rem;line-height:1.5;margin-bottom:10px}
+h3{font-size:1rem;line-height:1.5;margin-bottom:8px}
+.muted{color:var(--mute);font-size:.86rem}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(18px,4vw,28px);margin-bottom:20px}
+.prog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:.82rem;font-weight:600;color:var(--mute)}
+.prog{height:4px;background:var(--soft);border-radius:4px;margin-bottom:20px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--ink);transition:width .18s ease}
+.q-block{margin-bottom:20px;padding:6px;border-radius:var(--r-md)}
+.q-block.missing{background:var(--soft);border:1.5px dashed var(--ink);padding:12px}
+.q-title{display:block;font-weight:600;font-size:.94rem;margin-bottom:8px}
+.opts{display:grid;gap:8px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.opt{text-align:right;font:inherit;font-size:.88rem;background:var(--elem);color:var(--ink);border:1px solid var(--line);border-radius:var(--r-md);padding:11px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.opt:hover{border-color:var(--ink);background:var(--soft)}
+.opt[aria-pressed="true"]{border:1.5px solid var(--ink);background:var(--paper);font-weight:600}
+.opt-check{width:17px;height:17px;border:1px solid var(--mute);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;flex-shrink:0}
+.opt[aria-pressed="true"] .opt-check{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+input[type="text"],input[type="number"],input[type="email"],select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);color:var(--ink);font:inherit;font-size:.88rem}
+input:focus,select:focus{outline:none;border-color:var(--ink);background:var(--elem)}
+.box{background:var(--soft);border:1px solid var(--line);border-radius:var(--r-md);padding:15px 18px;margin-bottom:14px}
+.box.strong{background:var(--paper);border:1.5px solid var(--ink)}
+.tag{display:inline-block;font-size:.74rem;font-weight:600;padding:2px 10px;border-radius:99px;border:1px solid var(--line);background:var(--soft)}
+.tag.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md);margin:10px 0}
+table.mono-tbl{width:100%;border-collapse:collapse;font-size:.83rem;text-align:right}
+table.mono-tbl th,table.mono-tbl td{padding:10px 12px;border-bottom:1px solid var(--line)}
+table.mono-tbl th{background:var(--soft);font-weight:600}
+.row-between{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.task-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:8px;cursor:pointer;background:var(--paper)}
+.task-item.done{background:var(--soft);color:var(--mute);text-decoration:line-through}
+.hidden{display:none!important}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -116,16 +90,44 @@ table.mono-tbl th { background: var(--soft); font-weight: 600; }
 
   <div id="partner-banner" class="box strong hidden"></div>
 
-  <!-- صفحات الأسئلة (1 إلى 4) -->
+  <!-- صفحات الأسئلة (1 إلى 4) — المجموعة الأولى مدمجة مسبقًا لضمان الظهور الفوري -->
   <section class="card" id="quiz-page-card">
     <div class="prog-head">
       <span id="page-title-lbl">المجموعة 1 من 5</span>
       <span id="page-step-lbl">خطوة 1 / 5</span>
     </div>
     <div class="prog"><i id="page-prog-bar" style="width:20%"></i></div>
-    <div id="questions-mount"></div>
+    <div id="questions-mount">
+      <div class="q-block" id="qb-q1">
+        <span class="q-title">1. في عمل فني أو فيديو أعجبك، ما الذي يلفت انتباهك أولًا؟</span>
+        <div class="opts">
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q1','creator',this)"><span>جمال التصميم والألوان والديكور.</span><span class="opt-check">✓</span></button>
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q1','strategist',this)"><span>ذكاء الحبكة وترتيب الأفكار.</span><span class="opt-check">✓</span></button>
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q1','orchestrator',this)"><span>دقة التنظيم والتوقيت خلف الكواليس.</span><span class="opt-check">✓</span></button>
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q1','arbitrageur',this)"><span>تكلفته وأرباحه وكيف نجح تجاريًا.</span><span class="opt-check">✓</span></button>
+        </div>
+      </div>
+      <div class="q-block" id="qb-q2">
+        <span class="q-title">2. أي نشاط تنسى فيه الوقت لو تفرغت له يومًا كاملًا؟</span>
+        <div class="opts">
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q2','creator',this)"><span>ابتكار شكل أو منتج أو تصميم جديد.</span><span class="opt-check">✓</span></button>
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q2','arbitrageur',this)"><span>اقتناص بضاعة بسعر لقطة وبيعها بمكسب.</span><span class="opt-check">✓</span></button>
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q2','orchestrator',this)"><span>فرز وترتيب مكان أو تشغيل خطوات منظمة.</span><span class="opt-check">✓</span></button>
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q2','strategist',this)"><span>بناء أداة أو جدول يحل مشكلة تلقائيًا.</span><span class="opt-check">✓</span></button>
+        </div>
+      </div>
+      <div class="q-block" id="qb-q3">
+        <span class="q-title">3. عندما يعجبك منتج أو خدمة جديدة، ما أول فكرة تخطر ببالك؟</span>
+        <div class="opts">
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q3','creator',this)"><span>أستطيع تطوير شكله وتغليفه ليصبح أرقى.</span><span class="opt-check">✓</span></button>
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q3','arbitrageur',this)"><span>كم يكلف في مصنعه ولمن أبيع كمية منه؟</span><span class="opt-check">✓</span></button>
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q3','orchestrator',this)"><span>أعجبتني سرعة وانضباط تسليمه.</span><span class="opt-check">✓</span></button>
+          <button type="button" class="opt" aria-pressed="false" onclick="selectOpt('q3','strategist',this)"><span>ما التقنية التي جعلته يعمل بهذه السلاسة؟</span><span class="opt-check">✓</span></button>
+        </div>
+      </div>
+    </div>
     <div class="row-between">
-      <button type="button" class="btn ghost" id="prev-page-btn" onclick="prevPage()">→ السابق</button>
+      <button type="button" class="btn ghost" id="prev-page-btn" style="visibility:hidden" onclick="prevPage()">→ السابق</button>
       <button type="button" class="btn" id="next-page-btn" onclick="nextPage()">التالي ←</button>
     </div>
   </section>
@@ -139,172 +141,60 @@ table.mono-tbl th { background: var(--soft); font-weight: 600; }
     <div class="prog"><i style="width:100%"></i></div>
 
     <div class="grid-2" style="margin-bottom:12px;">
-      <div>
-        <label class="q-title" for="in-name">الاسم</label>
-        <input type="text" id="in-name" placeholder="اسمك">
-      </div>
-      <div>
-        <label class="q-title" for="in-age">العمر</label>
-        <select id="in-age">
-          <option value="18-24">18 - 24</option>
-          <option value="25-34" selected>25 - 34</option>
-          <option value="35-45">35 - 45</option>
-          <option value="46+">+45</option>
-        </select>
-      </div>
+      <div><label class="q-title" for="in-name">الاسم</label><input type="text" id="in-name" placeholder="اسمك"></div>
+      <div><label class="q-title" for="in-age">العمر</label><select id="in-age"><option value="18-24">18 - 24</option><option value="25-34" selected>25 - 34</option><option value="35-45">35 - 45</option><option value="46+">+45</option></select></div>
     </div>
 
     <div class="grid-3" style="margin-bottom:12px;">
-      <div>
-        <label class="q-title" for="in-edu">التعليم</label>
-        <select id="in-edu">
-          <option value="literate">يقرأ ويكتب</option>
-          <option value="basic">ابتدائي / إعدادي</option>
-          <option value="secondary_vocational">ثانوي / دبلوم فني</option>
-          <option value="university" selected>جامعي</option>
-        </select>
-      </div>
-      <div>
-        <label class="q-title" for="in-field">التخصص / الخبرة</label>
-        <select id="in-field">
-          <option value="general" selected>عام / تجاري / إداري</option>
-          <option value="science_chem">علوم / كيمياء / صيدلة</option>
-          <option value="agri_vet">زراعة / بيطري / أغذية</option>
-          <option value="arts_design">فنون / تصميم / عمارة</option>
-          <option value="eng_tech">هندسة / حاسبات / فني</option>
-        </select>
-      </div>
-      <div>
-        <label class="q-title" for="in-gender">الجنس (اختياري)</label>
-        <select id="in-gender">
-          <option value="unspecified">غير محدد</option>
-          <option value="male">ذكر</option>
-          <option value="female">أنثى</option>
-        </select>
-      </div>
+      <div><label class="q-title" for="in-edu">التعليم</label><select id="in-edu"><option value="literate">يقرأ ويكتب</option><option value="basic">ابتدائي / إعدادي</option><option value="secondary_vocational">ثانوي / دبلوم فني</option><option value="university" selected>جامعي</option></select></div>
+      <div><label class="q-title" for="in-field">التخصص / الخبرة</label><select id="in-field"><option value="general" selected>عام / تجاري / إداري</option><option value="science_chem">علوم / كيمياء / صيدلة</option><option value="agri_vet">زراعة / بيطري / أغذية</option><option value="arts_design">فنون / تصميم / عمارة</option><option value="eng_tech">هندسة / حاسبات / فني</option></select></div>
+      <div><label class="q-title" for="in-gender">الجنس (اختياري)</label><select id="in-gender"><option value="unspecified">غير محدد</option><option value="male">ذكر</option><option value="female">أنثى</option></select></div>
     </div>
 
     <div class="grid-2" style="margin-bottom:12px;">
-      <div>
-        <label class="q-title" for="in-res-gov">محافظة السكن</label>
-        <select id="in-res-gov">
-          <option value="الإسكندرية" selected>الإسكندرية</option>
-          <option value="القاهرة الكبرى">القاهرة الكبرى</option>
-          <option value="أسوان والأقصر ومدن السياحة">أسوان / الأقصر / مدن السياحة</option>
-          <option value="محافظات الدلتا">الدلتا</option>
-          <option value="مدن القناة">مدن القناة</option>
-          <option value="محافظات الصعيد والوادي">الصعيد والوادي</option>
-        </select>
-      </div>
-      <div>
-        <label class="q-title" for="in-env-type">طبيعة منطقتك</label>
-        <select id="in-env-type">
-          <option value="metro_city" selected>مدينة كبرى</option>
-          <option value="touristic_city">مدينة سياحية</option>
-          <option value="rural_village">قرية / ريف زراعي</option>
-          <option value="border_port_city">مدينة تجارية / ميناء</option>
-        </select>
-      </div>
+      <div><label class="q-title" for="in-res-gov">محافظة السكن</label><select id="in-res-gov"><option value="الإسكندرية" selected>الإسكندرية</option><option value="القاهرة الكبرى">القاهرة الكبرى</option><option value="أسوان والأقصر ومدن السياحة">أسوان / الأقصر / مدن السياحة</option><option value="محافظات الدلتا">الدلتا</option><option value="مدن القناة">مدن القناة</option><option value="محافظات الصعيد والوادي">الصعيد والوادي</option></select></div>
+      <div><label class="q-title" for="in-env-type">طبيعة منطقتك</label><select id="in-env-type"><option value="metro_city" selected>مدينة كبرى</option><option value="touristic_city">مدينة سياحية</option><option value="rural_village">قرية / ريف زراعي</option><option value="border_port_city">مدينة تجارية / ميناء</option></select></div>
     </div>
 
     <div class="grid-2" style="margin-bottom:16px;">
-      <div>
-        <label class="q-title" for="in-local-raw">أقرب مورد متاح بمحيطك</label>
-        <select id="in-local-raw">
-          <option value="workshops_markets" selected>أسواق جملة وورش ومصانع</option>
-          <option value="palm_dates_waste">نخيل وتمور وجريد نخيل</option>
-          <option value="crops_herbs_farms">مزارع خضار وأعشاب ومحاصيل</option>
-          <option value="african_coffee_spices">بن أفريقي وعطارة وتوابل</option>
-          <option value="no_special_raw">منطقة سكنية / خدمية</option>
-        </select>
-      </div>
-      <div>
-        <label class="q-title" for="in-first-adopter">أقرب عميل أول تبيعه</label>
-        <select id="in-first-adopter">
-          <option value="online_consumers" selected>عملاء أونلاين</option>
-          <option value="local_shops_cafes">محلات وكافيهات وعيادات</option>
-          <option value="tourists_visitors">سياح وبازارات وفنادق</option>
-          <option value="village_farmers">مزارعون وأهالي منطقتي</option>
-        </select>
-      </div>
+      <div><label class="q-title" for="in-local-raw">أقرب مورد متاح بمحيطك</label><select id="in-local-raw"><option value="workshops_markets" selected>أسواق جملة وورش ومصانع</option><option value="palm_dates_waste">نخيل وتمور وجريد نخيل</option><option value="crops_herbs_farms">مزارع خضار وأعشاب ومحاصيل</option><option value="african_coffee_spices">بن أفريقي وعطارة وتوابل</option><option value="no_special_raw">منطقة سكنية / خدمية</option></select></div>
+      <div><label class="q-title" for="in-first-adopter">أقرب عميل أول تبيعه</label><select id="in-first-adopter"><option value="online_consumers" selected>عملاء أونلاين</option><option value="local_shops_cafes">محلات وكافيهات وعيادات</option><option value="tourists_visitors">سياح وبازارات وفنادق</option><option value="village_farmers">مزارعون وأهالي منطقتي</option></select></div>
     </div>
 
     <label class="q-title">الأصل المتاح لديك الآن</label>
     <div class="grid-3" id="asset-cards-box" style="margin-bottom:14px;">
-      <button type="button" class="opt" data-asset="home_room" aria-pressed="true" onclick="toggleAsset(this, 'home_room')"><span>غرفة بالمنزل</span><span class="opt-check">✓</span></button>
-      <button type="button" class="opt" data-asset="vacant_apt" aria-pressed="false" onclick="toggleAsset(this, 'vacant_apt')"><span>شقة فاضية</span><span class="opt-check">✓</span></button>
-      <button type="button" class="opt" data-asset="roof" aria-pressed="false" onclick="toggleAsset(this, 'roof')"><span>سطح منزل</span><span class="opt-check">✓</span></button>
-      <button type="button" class="opt" data-asset="land" aria-pressed="false" onclick="toggleAsset(this, 'land')"><span>أرض زراعية/فضاء</span><span class="opt-check">✓</span></button>
-      <button type="button" class="opt" data-asset="warehouse" aria-pressed="false" onclick="toggleAsset(this, 'warehouse')"><span>مخزن مستقل</span><span class="opt-check">✓</span></button>
-      <button type="button" class="opt" data-asset="workshop" aria-pressed="false" onclick="toggleAsset(this, 'workshop')"><span>ورشة إنتاج</span><span class="opt-check">✓</span></button>
-      <button type="button" class="opt" data-asset="shop_office" aria-pressed="false" onclick="toggleAsset(this, 'shop_office')"><span>محل / مكتب</span><span class="opt-check">✓</span></button>
-      <button type="button" class="opt" data-asset="vehicle" aria-pressed="false" onclick="toggleAsset(this, 'vehicle')"><span>سيارة / فان / تروسيكل</span><span class="opt-check">✓</span></button>
-      <button type="button" class="opt" data-asset="none" aria-pressed="false" onclick="toggleAsset(this, 'none')"><span>موبايل/لابتوب فقط</span><span class="opt-check">✓</span></button>
+      <button type="button" class="opt" data-asset="home_room" aria-pressed="true" onclick="toggleAsset(this,'home_room')"><span>غرفة بالمنزل</span><span class="opt-check">✓</span></button>
+      <button type="button" class="opt" data-asset="vacant_apt" aria-pressed="false" onclick="toggleAsset(this,'vacant_apt')"><span>شقة فاضية</span><span class="opt-check">✓</span></button>
+      <button type="button" class="opt" data-asset="roof" aria-pressed="false" onclick="toggleAsset(this,'roof')"><span>سطح منزل</span><span class="opt-check">✓</span></button>
+      <button type="button" class="opt" data-asset="land" aria-pressed="false" onclick="toggleAsset(this,'land')"><span>أرض زراعية/فضاء</span><span class="opt-check">✓</span></button>
+      <button type="button" class="opt" data-asset="warehouse" aria-pressed="false" onclick="toggleAsset(this,'warehouse')"><span>مخزن مستقل</span><span class="opt-check">✓</span></button>
+      <button type="button" class="opt" data-asset="workshop" aria-pressed="false" onclick="toggleAsset(this,'workshop')"><span>ورشة إنتاج</span><span class="opt-check">✓</span></button>
+      <button type="button" class="opt" data-asset="shop_office" aria-pressed="false" onclick="toggleAsset(this,'shop_office')"><span>محل / مكتب</span><span class="opt-check">✓</span></button>
+      <button type="button" class="opt" data-asset="vehicle" aria-pressed="false" onclick="toggleAsset(this,'vehicle')"><span>سيارة / فان / تروسيكل</span><span class="opt-check">✓</span></button>
+      <button type="button" class="opt" data-asset="none" aria-pressed="false" onclick="toggleAsset(this,'none')"><span>موبايل/لابتوب فقط</span><span class="opt-check">✓</span></button>
     </div>
 
     <div id="asset-details-panel" class="box" style="margin-bottom:16px;">
       <div class="grid-3" style="margin-bottom:10px;">
-        <div>
-          <label class="q-title" for="in-asset-own">الحيازة</label>
-          <select id="in-asset-own">
-            <option value="owned_self">مِلكي</option>
-            <option value="owned_family" selected>مِلك للأهل</option>
-            <option value="rented">إيجار</option>
-          </select>
-        </div>
-        <div>
-          <label class="q-title" for="in-asset-gov">موقع الأصل</label>
-          <select id="in-asset-gov">
-            <option value="نفس محافظة ومكان إقامتي" selected>نفس محافظة سكني</option>
-            <option value="القاهرة الكبرى">القاهرة الكبرى</option>
-            <option value="الإسكندرية">الإسكندرية</option>
-            <option value="أسوان / الأقصر">أسوان / الأقصر</option>
-            <option value="محافظات الدلتا">الدلتا</option>
-            <option value="محافظات الصعيد">الصعيد</option>
-          </select>
-        </div>
-        <div>
-          <label class="q-title" for="in-asset-area">المساحة (م²)</label>
-          <input type="number" id="in-asset-area" value="16" min="2">
-        </div>
+        <div><label class="q-title" for="in-asset-own">الحيازة</label><select id="in-asset-own"><option value="owned_self">مِلكي</option><option value="owned_family" selected>مِلك للأهل</option><option value="rented">إيجار</option></select></div>
+        <div><label class="q-title" for="in-asset-gov">موقع الأصل</label><select id="in-asset-gov"><option value="نفس محافظة ومكان إقامتي" selected>نفس محافظة سكني</option><option value="القاهرة الكبرى">القاهرة الكبرى</option><option value="الإسكندرية">الإسكندرية</option><option value="أسوان / الأقصر">أسوان / الأقصر</option><option value="محافظات الدلتا">الدلتا</option><option value="محافظات الصعيد">الصعيد</option></select></div>
+        <div><label class="q-title" for="in-asset-area">المساحة (م²)</label><input type="number" id="in-asset-area" value="16" min="2"></div>
       </div>
       <div class="grid-2">
+        <div><label class="q-title" for="in-asset-util">طبيعة المرافق</label><select id="in-asset-util"><option value="residential_quiet" selected>سكني هادئ</option><option value="sunny_ventilated">مشمس وجيد التهوية والصرف</option><option value="commercial_licensed">تجاري / قابل للترخيص</option></select></div>
         <div>
-          <label class="q-title" for="in-asset-util">طبيعة المرافق</label>
-          <select id="in-asset-util">
-            <option value="residential_quiet" selected>سكني هادئ</option>
-            <option value="sunny_ventilated">مشمس وجيد التهوية والصرف</option>
-            <option value="commercial_licensed">تجاري / قابل للترخيص</option>
-          </select>
-        </div>
-        <div>
-          <label class="q-title">موقع الأصل على الخريطة (اختياري)</label>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <button type="button" class="btn ghost sm" onclick="locateByGPS()">GPS</button>
-            <button type="button" class="btn ghost sm" onclick="toggleMapPin()">الخريطة</button>
-          </div>
-          <div id="gps-status" class="muted" style="font-size:0.74rem; margin-top:4px;"></div>
+          <label class="q-title">تحديد منطقة الأصل (اختياري)</label>
+          <button type="button" class="btn ghost sm" onclick="locateByGPS()">تحديد عبر GPS</button>
+          <span id="gps-status" class="muted" style="font-size:.74rem;margin-right:6px;"></span>
         </div>
       </div>
-      <div id="asset-map-wrap"><div id="leaflet-map"></div></div>
     </div>
 
     <div class="grid-2" style="margin-bottom:6px;">
-      <div>
-        <label class="q-title" for="in-capital">رأس المال المتاح للبدء</label>
-        <input type="number" id="in-capital" value="20000" min="500" step="500" oninput="updateCapPreview()">
-      </div>
-      <div>
-        <label class="q-title" for="in-cap-curr">العملة</label>
-        <select id="in-cap-curr" onchange="updateCapPreview()">
-          <option value="EGP">جنيه مصري (EGP)</option>
-          <option value="USD">دولار (USD)</option>
-          <option value="SAR">ريال (SAR)</option>
-          <option value="AED">درهم (AED)</option>
-        </select>
-      </div>
+      <div><label class="q-title" for="in-capital">رأس المال المتاح للبدء</label><input type="number" id="in-capital" value="20000" min="500" step="500" oninput="updateCapPreview()"></div>
+      <div><label class="q-title" for="in-cap-curr">العملة</label><select id="in-cap-curr" onchange="updateCapPreview()"><option value="EGP">جنيه مصري (EGP)</option><option value="USD">دولار (USD)</option><option value="SAR">ريال (SAR)</option><option value="AED">درهم (AED)</option></select></div>
     </div>
-    <p id="cap-preview-note" class="muted" style="font-size:0.78rem;"></p>
+    <p id="cap-preview-note" class="muted" style="font-size:.78rem;"></p>
 
     <div class="row-between">
       <button type="button" class="btn ghost" onclick="goPage(4)">→ السابق</button>
@@ -313,88 +203,340 @@ table.mono-tbl th { background: var(--soft); font-weight: 600; }
   </section>
 
   <!-- الصفحة 6: كبسولة البداية -->
-  <section class="card hidden" id="page-6-card">
-    <div id="capsule-mount"></div>
-  </section>
+  <section class="card hidden" id="page-6-card"><div id="capsule-mount"></div></section>
 
   <!-- الصفحة 7: مساحة مشروعي -->
-  <section class="card hidden" id="page-7-card">
-    <div id="workspace-mount"></div>
-  </section>
+  <section class="card hidden" id="page-7-card"><div id="workspace-mount"></div></section>
 </main>
 
 <script>
+// 1. الحالة العامة ودوال التنقل السريع (في مقدمة السكريبت لضمان العمل الفوري)
 let FX = { EGP: 1, USD: 56.15, SAR: 14.97, AED: 15.29 };
 const SYM = { EGP: 'ج.م', USD: '$', SAR: 'ر.س', AED: 'د.إ' };
-let dispCurr = 'EGP';
-let curPage = 1;
-let partnerParams = null;
+let dispCurr = 'EGP', curPage = 1, partnerParams = null;
 
 const state = {
-  ans: {},
-  assets: ['home_room'],
+  ans: {}, assets: ['home_room'],
   assetMeta: { own: 'owned_family', gov: 'نفس محافظة ومكان إقامتي', area: 16, util: 'residential_quiet', coords: null },
-  user: {
-    name: '', age: '25-34', edu: 'university', field: 'general', gender: 'unspecified',
-    resGov: 'الإسكندرية', envType: 'metro_city', localRaw: 'workshops_markets',
-    firstAdopter: 'online_consumers', capEGP: 20000, email: '', token: ''
-  },
-  rec: null,
-  ws: { quotes: [], tasks: {}, calc: { c1: 100, c2: 45, c3: 15, c4: 30, c5: 30, price: 310 } }
+  user: { name: '', age: '25-34', edu: 'university', field: 'general', gender: 'unspecified', resGov: 'الإسكندرية', envType: 'metro_city', localRaw: 'workshops_markets', firstAdopter: 'online_consumers', capEGP: 20000, email: '', token: '' },
+  rec: null, ws: { quotes: [], tasks: {}, calc: { c1: 100, c2: 45, c3: 15, c4: 30, c5: 30, price: 310 } }
 };
 
-function esc(s) {
-  return String(s || '').replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"').replace(/'/g, ''');
+const QUESTION_PAGES = [
+  { title: 'المجموعة 1 من 5', items: [
+    { id: 'q1', q: '1. في عمل فني أو فيديو أعجبك، ما الذي يلفت انتباهك أولًا؟', opts: [
+      { v: 'creator', t: 'جمال التصميم والألوان والديكور.' }, { v: 'strategist', t: 'ذكاء الحبكة وترتيب الأفكار.' },
+      { v: 'orchestrator', t: 'دقة التنظيم والتوقيت خلف الكواليس.' }, { v: 'arbitrageur', t: 'تكلفته وأرباحه وكيف نجح تجاريًا.' }
+    ]},
+    { id: 'q2', q: '2. أي نشاط تنسى فيه الوقت لو تفرغت له يومًا كاملًا؟', opts: [
+      { v: 'creator', t: 'ابتكار شكل أو منتج أو تصميم جديد.' }, { v: 'arbitrageur', t: 'اقتناص بضاعة بسعر لقطة وبيعها بمكسب.' },
+      { v: 'orchestrator', t: 'فرز وترتيب مكان أو تشغيل خطوات منظمة.' }, { v: 'strategist', t: 'بناء أداة أو جدول يحل مشكلة تلقائيًا.' }
+    ]},
+    { id: 'q3', q: '3. عندما يعجبك منتج أو خدمة جديدة، ما أول فكرة تخطر ببالك؟', opts: [
+      { v: 'creator', t: 'أستطيع تطوير شكله وتغليفه ليصبح أرقى.' }, { v: 'arbitrageur', t: 'كم يكلف في مصنعه ولمن أبيع كمية منه؟' },
+      { v: 'orchestrator', t: 'أعجبتني سرعة وانضباط تسليمه.' }, { v: 'strategist', t: 'ما التقنية التي جعلته يعمل بهذه السلاسة؟' }
+    ]}
+  ]},
+  { title: 'المجموعة 2 من 5', items: [
+    { id: 'q4', q: '4. أي خامة أو مجال ترتاح للتعامل معه أكثر؟', opts: [
+      { v: 'mat_liquid', t: 'السوائل والتركيبات والقوام (كريمات، زيوت، منظفات، مستخلصات).' },
+      { v: 'mat_gloss', t: 'المعادن والأسطح اللامعة (فضة، نحاس، إستانلس، تلميع سيارات).' },
+      { v: 'mat_warm', t: 'الخامات الدافئة والعبوات (جلد، خشب، جريد نخيل، قماش).' },
+      { v: 'mat_bio', t: 'الأغذية والزراعة (أعشاب، تمور، خضار، مخبوزات).' },
+      { v: 'mat_digital', t: 'الشاشات وتصميم المواقع والخدمات (بدون خامات يدوية).' }
+    ]},
+    { id: 'q5', q: '5. كيف تشعر لو جلست في مكان عمل واحد مغلق طوال اليوم؟', opts: [
+      { v: 'loc_kinetic', t: 'أختنق من القعدة؛ أنشط بالحركة والتوصيل وزيارة أماكن جديدة.' },
+      { v: 'loc_stationary', t: 'أرتاح في مكاني الثابت المنظم أعمل داخله بهدوء.' },
+      { v: 'loc_hybrid', t: 'أفضل العمل من غرفتي/موبايلي والتحرك عند الحاجة فقط.' }
+    ]},
+    { id: 'q6', q: '6. كيف تتعلم مهارة أو أداة جديدة بأسرع وقت؟', opts: [
+      { v: 'learn_trial', t: 'أجرب بيدي وأركب قوالب جاهزة حتى تعمل.' },
+      { v: 'learn_people', t: 'أنزل السوق وأتعلم من الصنايعية والتجار مباشرة.' },
+      { v: 'learn_study', t: 'أقرأ الخطوات والمعادلات وأطبقها بالجرام والمللي.' }
+    ]}
+  ]},
+  { title: 'المجموعة 3 من 5', items: [
+    { id: 'q7', q: '7. ما أكثر شيء كان يؤجلك عن بدء مشروعك؟', opts: [
+      { v: 'blk_math', t: 'الحسابات والأرقام أو البرمجة.' }, { v: 'blk_sell', t: 'الحرج من البيع المباشر والفصال.' },
+      { v: 'blk_capital', t: 'الخوف من تجميد الفلوس في بضاعة راكدة.' }, { v: 'blk_perf', t: 'التشتت بين عدة أفكار أو انتظار الكمال.' }
+    ]},
+    { id: 'q8', q: '8. أي مهمة تحب إلغاءها من يومك تمامًا؟', opts: [
+      { v: 'hate_retail', t: 'الفصال اليومي مع الزبون الفردي على قطعة واحدة.' }, { v: 'hate_factory', t: 'الوقفة اليدوية الطويلة في التصنيع.' },
+      { v: 'hate_field', t: 'اللف اليومي في الشوارع والمواصلات.' }, { v: 'hate_screen', t: 'الجلوس الصامت أمام الكمبيوتر طوال النهار.' }
+    ]},
+    { id: 'q9', q: '9. ما أقصى مدة تصبر فيها قبل رؤية أول عائد مالي؟', opts: [
+      { v: 'pace_fast', t: 'أسبوع إلى أسبوعين (أحب حركة الكاش السريعة).' },
+      { v: 'pace_med', t: 'شهر إلى 45 يومًا لتجهيز عينة متقنة.' },
+      { v: 'pace_slow', t: 'شهران أو أكثر لتطوير مركب أو براند قوي.' }
+    ]}
+  ]},
+  { title: 'المجموعة 4 من 5', items: [
+    { id: 'q10', q: '10. لو توقف دخلك الحالي 3 أشهر أثناء التأسيس، ما وضعك؟', opts: [
+      { v: 'runway_ok', t: 'مصاريف معيشتي مغطاة بأمان.' }, { v: 'runway_tight', t: 'أحتاج أن يبدأ المشروع صغيرًا بجانب عملي.' },
+      { v: 'runway_no', t: 'لا أتحمل توقف الدخل أو المخاطرة بأصل المبلغ.' }
+    ]},
+    { id: 'q11', q: '11. كيف تفضل إدارة المهام التي لا تتقنها؟', opts: [
+      { v: 'mode_outsource', t: 'أتفق مع مصنع/ورشة بالقطعة وشركة شحن وحاسبة جاهزة.' },
+      { v: 'mode_partner', t: 'أشارك صديقًا يكمل الجزء الناقص.' },
+      { v: 'mode_hire', t: 'أستعين بفني أو مندوب باليومية/العمولة.' }
+    ]},
+    { id: 'q12', q: '12. أي نتيجة تشعرك بتحقيق ذاتك بعد عام؟', opts: [
+      { v: 'mot_creation', t: 'منتج أو موقع أو خدمة من ابتكاري تحمل اسمي.' },
+      { v: 'mot_wealth', t: 'مضاعفة رأس مالي وتوسيع تجارتي.' },
+      { v: 'mot_freedom', t: 'حرية وقتي ودخل مستقر من منظومة منظمة.' }
+    ]}
+  ]}
+];
+
+function esc(s) { return String(s || '').replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"').replace(/'/g, '''); }
+function termHtml(ar, en) { const s = esc(en); return `${ar ? ar + ' ' : ''}<span class="en-term">${s}</span><button type="button" class="copy-btn" data-en="${s}" onclick="copyEnTerm(this)">نسخ</button>`; }
+function copyEnTerm(btn) { const t = btn.getAttribute('data-en') || ''; if (navigator.clipboard && t) navigator.clipboard.writeText(t).then(() => { btn.textContent = 'تم ✓'; setTimeout(() => btn.textContent = 'نسخ', 1200); }); }
+
+function renderQuizPage() {
+  const g = QUESTION_PAGES[curPage - 1];
+  if (!g) return;
+  document.getElementById('page-title-lbl').textContent = g.title;
+  document.getElementById('page-step-lbl').textContent = `خطوة ${curPage} / 5`;
+  document.getElementById('page-prog-bar').style.width = (curPage * 20) + '%';
+  document.getElementById('prev-page-btn').style.visibility = curPage === 1 ? 'hidden' : 'visible';
+  document.getElementById('questions-mount').innerHTML = g.items.map(it => {
+    const sel = state.ans[it.id] || '';
+    return `<div class="q-block" id="qb-${it.id}"><span class="q-title">${esc(it.q)}</span><div class="opts">${it.opts.map(o => `<button type="button" class="opt" aria-pressed="${sel === o.v ? 'true' : 'false'}" onclick="selectOpt('${it.id}','${o.v}',this)"><span>${esc(o.t)}</span><span class="opt-check">✓</span></button>`).join('')}</div></div>`;
+  }).join('');
 }
 
-function termHtml(arLabel, enTerm) {
-  const safeEn = esc(enTerm);
-  return `${arLabel ? arLabel + ' ' : ''}<span class="en-term">${safeEn}</span><button type="button" class="copy-btn" data-en="${safeEn}" onclick="copyEnTerm(this)">نسخ</button>`;
+function selectOpt(qId, val, btnEl) {
+  state.ans[qId] = val;
+  const b = document.getElementById('qb-' + qId);
+  if (b) { b.classList.remove('missing'); b.querySelectorAll('.opt').forEach(x => x.setAttribute('aria-pressed', 'false')); }
+  btnEl.setAttribute('aria-pressed', 'true');
+  saveLocal();
 }
 
-function copyEnTerm(btn) {
-  const txt = btn.getAttribute('data-en') || '';
-  if (navigator.clipboard && txt) {
-    navigator.clipboard.writeText(txt).then(() => {
-      const old = btn.textContent;
-      btn.textContent = 'تم ✓';
-      setTimeout(() => { btn.textContent = old; }, 1200);
-    });
-  }
-}
-
-async function syncLiveFX() {
-  try {
-    const r = await fetch('https://open.er-api.com/v6/latest/USD');
-    if (r.ok) {
-      const d = await r.json();
-      if (d && d.rates && d.rates.EGP) {
-        FX.USD = d.rates.EGP;
-        FX.SAR = FX.USD / (d.rates.SAR || 3.75);
-        FX.AED = FX.USD / (d.rates.AED || 3.6725);
-        const el = document.getElementById('fx-usd');
-        if (el) el.textContent = FX.USD.toFixed(2) + ' EGP';
+function nextPage() {
+  const g = QUESTION_PAGES[curPage - 1];
+  if (g) {
+    for (const it of g.items) {
+      if (!state.ans[it.id]) {
+        const b = document.getElementById('qb-' + it.id);
+        if (b) { b.classList.add('missing'); b.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        return;
       }
     }
-  } catch (e) {}
-  updateCapPreview();
+  }
+  if (curPage === 4 && partnerParams) { showPartnerReport(); return; }
+  goPage(curPage + 1);
+}
+
+function prevPage() { if (curPage > 1) goPage(curPage - 1); }
+
+function goPage(p) {
+  curPage = p;
+  document.getElementById('quiz-page-card').classList.toggle('hidden', p < 1 || p > 4);
+  document.getElementById('page-5-card').classList.toggle('hidden', p !== 5);
+  document.getElementById('page-6-card').classList.toggle('hidden', p !== 6);
+  document.getElementById('page-7-card').classList.toggle('hidden', p !== 7);
+  if (p >= 1 && p <= 4) renderQuizPage();
+  if (p === 6) { if (!state.rec) state.rec = computeBestProject(); renderCapsulePage(); }
+  if (p === 7) { if (!state.rec) state.rec = computeBestProject(); renderWorkspacePage(); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 2. قاعدة بيانات الـ 30 مشروعًا المضغوطة [id, title, en, drives(c,a,o,s), mats, mob, fields, envs, raws, adopters, assets, hateBonus, pace, isNovel, legal, modelDesc, clusters, kwAr, kwEn, calcTitle, calcLabels, calcDef, exp, risk]
+const RAW_30 = [
+  ['p01_white_label_brand','علامة تجارية بنظام الوايت لابل (منتج مصنع جاهز بهويتك وتغليفك)','White Label Brand',[22,20,8,8],['mat_warm','mat_liquid'],['loc_hybrid','loc_stationary'],['general','arts_design'],['metro_city','border_port_city'],['workshops_markets'],['online_consumers','local_shops_cafes'],['home_room','warehouse','none'],'hate_factory','pace_fast',false,'craft_brand','شراء منتج عالي الجودة بدون اسم من مصنع محلي بكمية صغيرة، وتصميم عبوته وهويته لبيعه بعلامتك الخاصة.',['مصانع العبور والعاشر وبرج العرب (التصنيع للغير).','درب البرابرة والعتبة والمنشية لعلب التغليف.'],['مصانع تصنيع للغير وايت لابل مصر','علب تغليف فاخرة درب البرابرة'],['White label low MOQ','Private label packaging'],'حاسبة وحدة الوايت لابل',['سعر المنتج جاهزًا','العبوة والملصق','الفحص والتعبئة','الشحن','إعلان البيعة'],[85,22,5,30,40,275],'صمم عبوة وهوية لـ 15 قطعة فقط من مصنع محلي واعرضها للبيع أونلاين قبل طلب كمية.','احتفظ بمورد بديل لنفس المواصفة.'],
+  ['p02_nocode_web_creator','استوديو بناء مواقع ومنصات تفاعلية بالذكاء الاصطناعي وبدون برمجة','No-Code & AI Web Studio',[24,6,6,20],['mat_digital'],['loc_hybrid','loc_stationary'],['arts_design','general','eng_tech'],['metro_city','touristic_city'],['no_special_raw','workshops_markets'],['local_shops_cafes','online_consumers'],['home_room','none'],'hate_factory','pace_fast',false,'b2b_trade','تصميم مواقع حجز وصفحات هبوط بيعية للعيادات والمطاعم والفنادق بأدوات الذكاء الاصطناعي والـ No-Code.',['منصات البناء البصري والاستضافة (Framer / Webflow / Vercel / AI).'],['بناء مواقع للشركات بدون برمجة','تصميم صفحات هبوط للعيادات'],['No-code web agency','AI landing page builder'],'حاسبة مشروع الموقع بدون كود',['الدومين والاستضافة','قوالب وأدوات AI','ساعات التصميم','التسويق','احتياطي التعديل'],[450,250,500,300,200,3500],'صمم نموذج موقع حي لعيادة أو مطعم في منطقتك في يومين واعرضه جاهزًا على هاتف صاحب النشاط.','حدد 3 صفحات ومرتين تعديل فقط في العقد.'],
+  ['p03_service_invention','ابتكار خدمة عملية متخصصة توفر وقت الأسر والمهنيين بالباقة','Productized Local Service',[20,10,22,8],['mat_digital','mat_warm'],['loc_kinetic','loc_hybrid'],['general','arts_design'],['metro_city','touristic_city'],['no_special_raw'],['village_farmers','local_shops_cafes','online_consumers'],['home_room','none','vehicle'],'hate_factory','pace_fast',true,'b2b_trade','تحويل مهمة مرهقة للأسر أو أصحاب العقارات (تنظيم وتجهيز المنازل أو إدارة الشقق المفروشة) إلى باقة خدمة مسعّرة.',['شبكة الفنيين المحليين وموردي أدوات التنظيم والنظافة الفندقية.'],['إدارة شقق فندقية وخدمات منزلية','تصميم باقات خدمات للأسر'],['Productized local service','Property concierge'],'حاسبة باقة الخدمة',['أجر المساعد باليومية','الخامات المستهلكة','الانتقالات','التسويق','احتياطي الضمان'],[250,80,60,70,40,850],'نفذ الباقة لـ 5 عملاء في منطقتك بسعر تجريبي مقابل تقييم مكتوب وقس طلب التكرار.','ضع قائمة فحص مكتوبة من 10 نقاط لكل زيارة.'],
+  ['p04_liquid_cosmetics_lab','علامة تركيبات العناية الطبيعية ومستحضرات القوام المتقن بالتصنيع التعاقدي','Natural Cosmetics Microbrand',[25,8,10,12],['mat_liquid'],['loc_stationary','loc_hybrid'],['science_chem','general','arts_design'],['metro_city','touristic_city'],['workshops_markets','crops_herbs_farms'],['online_consumers','local_shops_cafes'],['home_room','workshop'],'', 'pace_med',false,'cosmetics_liquid','ابتكار تركيبة عناية طبيعية للبشرة أو الشعر وضبط قوامها، وتصنيعها بكميات صغيرة لدى مصنع مرخص (Toll Manufacturing).',['شارع الجيش والعتبة للزيوت والخامات، وحارة الصالحية والمنشية للعبوات.'],['خامات مستحضرات تجميل شارع الجيش','مصانع تصنيع للغير هيئة الدواء'],['Cosmetic rheology formulation','Toll manufacturing skincare'],'حاسبة عبوة المستحضر (100 مل)',['الخامات والزيوت','أجرة التصنيع بالمصنع','العبوة والملصق','الشحن وعينة Tester','إعلان البيعة'],[55,20,22,35,45,295],'وزع 20 عينة صغيرة (20 مل) لتجربة ملمس القوام وابدأ الدفعة عند طلب 5 عملاء العبوة الكاملة.','التزم باختبار ثبات القوام والتصنيع بمصنع مرخص بهيئة الدواء.'],
+  ['p05_bio_agri_compound','ابتكار وتحضير مستخلص حيوي آمن لوقاية وتغذية المحاصيل والتوزيع التعاقدي','Bio-Agri Formulation MVP',[24,8,8,18],['mat_liquid','mat_bio'],['loc_stationary','loc_hybrid'],['science_chem','agri_vet'],['rural_village'],['crops_herbs_farms','palm_dates_waste'],['village_farmers'],['home_room'],'', 'pace_slow',true,'agri_bio','تحضير مستخلص نباتي آمن لعلاج آفة أو تغذية محاصيل قريتك، واختباره مع المزارعين ثم التعاقد مع مكاتب المستلزمات الزراعية.',['شارع الجيش والعتبة للزيوت النباتية الخام وأدوات القياس، وحارة الصالحية للعبوات.'],['زيوت نباتية خام ومستخلص النيم','عبوات HDPE للمخصبات جملة'],['Botanical biopesticide formulation','B2B agri distributor'],'حاسبة اللتر المركز وهامش الموزع',['المستخلصات الفعالة للتر','عبوة HDPE والملصق','التحضير والقياس','النقل للموزع','عمولة الموزع (20%)'],[65,12,8,10,35,185],'جرب 10 عبوات مع 5 مزارعين في قريتك ووثق النتيجة بالصور قبل وبعد بـ 7 أيام.','يُمنع استخدام كيماويات سامة بالسكن ويُشترط التسجيل للتداول الواسع.'],
+  ['p06_specialty_cleaners_auto','تركيب وتوريد منظفات متخصصة ومواد تلميع للكافيهات ومغاسل السيارات','B2B Detailing & Cleaning',[18,18,12,8],['mat_liquid','mat_gloss'],['loc_kinetic','loc_stationary'],['science_chem','general'],['metro_city','rural_village'],['workshops_markets'],['local_shops_cafes','village_farmers'],['warehouse','workshop','vehicle','home_room'],'', 'pace_fast',false,'cosmetics_liquid','توريد جراكن 5 و10 لتر بتركيز قياسي (مزيل دهون مطابخ، شامبو وملمع سيارات) للمغاسل والمطاعم نقدًا بنظام استرداد الجركن.',['شارع الجيش والعتبة وباب الشعرية والمنشية لخامات المنظفات والجراكن.'],['خامات منظفات وملمعات سيارات شارع الجيش','جراكن HDPE جملة'],['B2B cleaning supplies','Auto detailing formulation'],'حاسبة جركن الـ 10 لتر',['الخامات الفعالة','الجركن والغطاء','الخلط وقياس pH','التوصيل','عينات التجربة'],[145,25,10,15,10,280],'جرب عينة 1 لتر عمليًا أمام صاحب مغسلة أو مطعم في دقيقتين لقفل البيعة.','التزم بمعادلة الـ pH والتهوية الجيدة.'],
+  ['p07_silver_mens_jewelry','معمل تصميم وعلامة حُلي فضية وإكسسوارات رجالية وسياحية عيار 925 لدى الصاغة','925 Silver Jewelry Microbrand',[26,10,6,8],['mat_gloss'],['loc_hybrid','loc_stationary'],['arts_design','general'],['metro_city','touristic_city'],['workshops_markets','palm_dates_waste'],['online_consumers','tourists_visitors'],['home_room','shop_office','none'],'hate_factory','pace_med',false,'silver_craft','تصميم خواتم وإكسسوارات فضة عيار 925 وتنفيذها بالقطعة لدى ورش السبك في الصاغة ودمغها رسميًا.',['الصاغة والجمالية وخان الخليلي بالقاهرة، والمنشية بالإسكندرية، وأسواق أسوان.'],['ورشة سبك فضة الصاغة الجمالية','سعر جرام الفضة السويسري','دمغ الفضة 925'],['Lost wax casting 925 silver','Men signet ring CAD'],'حاسبة قطعة الفضة بالجرام',['تكلفة جرامات الفضة بالقطعة','أجرة السبك والدمغة','علبة القطيفة والتلميع','الشحن أو البازار','إعلان البيعة'],[420,140,45,50,75,1150],'نفذ 4 عينات لموديلين في الصاغة واعرضها بالحجز المسبق بمقاس الأصبع.','أرسل جدول قياس الأصبع للعميل قبل الشحن وحدث السعر وفق جرام الفضة.'],
+  ['p08_leather_edc_microbrand','علامة متخصصة للمحافظ النحيفة والمنتجات الجلدية بالتصنيع بالقطعة','Leather EDC Microbrand',[24,12,8,8],['mat_warm'],['loc_hybrid','loc_stationary'],['arts_design','general'],['metro_city'],['workshops_markets'],['online_consumers'],['home_room','warehouse','none'],'hate_factory','pace_med',false,'craft_brand','تصميم محفظة كروت نحيفة أو منظم إكسسوارات من جلد طبيعي وتصنيعه بالقطعة لدى ورشة في باب الشعرية أو المنشية.',['باب الشعرية والجمالية والروبيكي بالقاهرة، والمنشية بالإسكندرية.'],['تجار جلد طبيعي باب الشعرية','ورشة تصنيع محافظ جلد للغير'],['Full grain leather Egypt','Minimalist EDC wallet'],'حاسبة القطعة الجلدية',['تكلفة الجلد والإكسسوار','مصنعية الورشة','علبة التغليف','الشحن','إعلان البيعة'],[110,45,15,35,35,330],'نفذ 5 عينات فقط وصورها في إضاءة طبيعية واعرضها للبيع قبل تصنيع 50 قطعة.','افحص كل قطعة مستلمة مقارنة بعينة الماستر.'],
+  ['p09_eco_palm_craft','علامة لتصميم وحدات إضاءة وديكور وحقائب عصرية من جريد النخيل للسياح','Palm Eco-Design Microbrand',[25,10,8,6],['mat_warm'],['loc_hybrid','loc_stationary'],['arts_design','general','agri_vet'],['touristic_city','rural_village'],['palm_dates_waste'],['tourists_visitors','online_consumers'],['home_room','workshop','roof'],'', 'pace_med',true,'craft_brand','تحويل جريد وألياف النخيل بتصميم عصري قابل للطي (Flat-pack) إلى وحدات إضاءة وحقائب مطعمة بالجلد للسياح والفنادق.',['قرى النخيل ومراكز الحرف في أسوان والنوبة والفيوم والوادي الجديد.'],['منتجات جريد النخيل العصرية','ورش حرف يدوية أسوان'],['Palm midrib lighting design','Flat-pack tourist souvenir'],'حاسبة القطعة البيئية للسياحة',['معالجة جريد النخيل','أجرة الحرفي','مكملات (جلد/إضاءة)','تغليف السفر','عمولة البازار/الفندق'],[20,65,45,25,60,420],'صمم 3 قطع بوزن أقل من 400 جرام لتدخل حقيبة السائح واعرضها في فندق بيئي أو بازار.','التزم بالصنفرة الناعمة والتصميم القابل للطي.'],
+  ['p10_hotel_bedding_textiles','علامة للملايات الفندقية الثابتة (بجيوب عميقة 40 سم) وفوط الوافل','Specialized Home Textiles',[18,16,14,6],['mat_warm'],['loc_hybrid','loc_stationary'],['general','arts_design'],['metro_city'],['workshops_markets'],['online_consumers','tourists_visitors'],['home_room','warehouse','workshop'],'', 'pace_med',false,'craft_brand','شراء قماش قطني فندقي وتفصيله لدى مشغل خياطة بالقطعة بمواصفة جيوب عميقة 40 سم وأستك محكم للمراتب العالية.',['المحلة الكبرى والأزهر والغورية للأقمشة، ومشاغل جسر السويس والعامرية.'],['قماش قطن فندقي جملة الأزهر','مشغل خياطة ملايات للغير'],['Deep pocket fitted sheet','Waffle weave towel'],'حاسبة طقم الملاية الفندقية',['أمتار القماش والأستك','أجرة المشغل','حقيبة التغليف','الشحن','إعلان البيعة'],[260,55,25,45,55,620],'فصل 3 أطقم واغسل عينة القماش فعليًا للتأكد من عدم الانكماش وصور ثباتها على مرتبة عالية.','اختبر القماش بالغسيل الفعلي قبل شراء التوب.'],
+  ['p11_kids_stem_boxes','تصميم وإنتاج صناديق الأنشطة والتجارب التعليمية الخشبية للأطفال','Kids STEM & Activity Box',[22,8,14,14],['mat_warm','mat_digital'],['loc_hybrid','loc_stationary'],['arts_design','science_chem','general'],['metro_city'],['workshops_markets','no_special_raw'],['online_consumers','local_shops_cafes'],['home_room','none'],'', 'pace_med',false,'craft_brand','تصميم صندوق نشاط شهري (تركيبات خشبية بتقطيع ليزر لدى ورشة أو تجارب آمنة) مع كتيب مصور للأمهات والحضانات.',['ورش تقطيع الليزر في باب الشعرية والعبور وسموحة، والفجالة للمكونات.'],['ورش تقطيع ليزر ألعاب خشبية','مكونات أنشطة تعليمية الفجالة'],['Montessori laser cut box','STEM subscription box'],'حاسبة صندوق النشاط التعليمي',['مكونات الصندوق والخشب','تقطيع الليزر والكتيب','علبة الصندوق','الشحن','التسويق'],[75,35,25,40,45,340],'جرب صندوقًا واحدًا مع 5 أطفال أمام أمهاتهم وصور تفاعلهم.','تجنب القطع الحادة للأطفال أقل من 4 سنوات.'],
+  ['p12_wood_brass_desk','علامة لتصميم منظمات المكاتب ووحدات الديكور من الخشب الطبيعي والنحاس','Wood & Brass Desk Brand',[24,10,8,10],['mat_warm','mat_gloss'],['loc_hybrid','loc_stationary'],['arts_design','eng_tech'],['metro_city','touristic_city'],['workshops_markets'],['online_consumers','tourists_visitors'],['home_room','workshop'],'', 'pace_med',false,'craft_brand','تصميم حوامل لابتوب ومنظمات مكتب تدمج الخشب الطبيعي بالنحاس وتنفيذها بالقطعة لدى ورش CNC.',['ورش الأخشاب والـ CNC في دمياط وجسر السويس، وورش النحاس بالجمالية.'],['ورش CNC أخشاب طبيعية','منظمات مكتب خشب Desk Setup'],['Wooden desk organizer brass','CNC wood manufacturing'],'حاسبة منظم المكتب',['الخشب والنحاس','أجرة الـ CNC والتشطيب','التغليف المبطن','الشحن','إعلان البيعة'],[160,90,35,50,65,650],'نفذ 3 قطع واعرضها على 10 من المهندسين وأصحاب المكاتب.','اشترط استخدام خشب مجفف لمنع التقوس.'],
+  ['p13_smart_arbitrage_flip','وكالة تدوير الصفقات واقتناص بضائع الجملة السريعة (تدوير الكاش)','Smart Inventory Arbitrage',[6,28,10,10],['mat_warm','mat_gloss','mat_digital'],['loc_hybrid','loc_stationary'],['general'],['metro_city','border_port_city'],['workshops_markets'],['local_shops_cafes','online_consumers'],['warehouse','home_room','shop_office'],'', 'pace_fast',false,'b2b_trade','رصد البضائع سريعة السحب أو تصفيات المستوردين السليمة، واختبار عرضها لمدة 48 ساعة ثم شرائها بخصم الكاش وتصريفها في أسبوعين.',['الموسكي والعتبة والنزهة الجديدة بالقاهرة، والمنشية وبورسعيد.'],['تصفيات مستوردين ومصانع كاش','جملة الجملة الموسكي والمنشية'],['Inventory arbitrage cash cycle','Wholesale flipping'],'حاسبة صفقة التدوير للوحدة',['سعر شراء الوحدة كاش','النقل والفرز','التغليف المحسن','إعلان التصريف','خصم البيع السريع'],[140,8,7,20,10,245],'اعرض عينة من 5 قطع للبيع لمدة 48 ساعة قبل شراء الكرتونة الكاملة.','افحص كل قطعة عند الاستلام ولا تشترِ بضاعة راكدة.'],
+  ['p14_kinetic_b2b_route','وكالة توريد وتوزيع ميداني متحرك للمستهلكات اليومية للكافيهات والعيادات بالكاش','B2B Mobile Route Distribution',[4,24,20,6],['mat_warm','mat_gloss'],['loc_kinetic'],['general'],['metro_city','touristic_city','rural_village'],['workshops_markets','no_special_raw'],['local_shops_cafes'],['vehicle','warehouse','home_room'],'', 'pace_fast',false,'b2b_trade','التخصص في 3 أصناف إجبارية الاستهلاك أسبوعيًا (بكر كاشير، أكواب وعلب تغليف، قفازات) وتوزيعها بخط سير ثابت نقدًا.',['شارع الجمهورية والعتبة ودرب البرابرة ومصانع العبور وبرج العرب.'],['مصنع بكر كاشير حراري جملة','مصنع أكواب ورقية كافيهات'],['B2B route sales distribution','Thermal POS rolls'],'حاسبة الكرتونة في خط التوزيع',['سعر شراء الكرتونة جملة','النقل والوقود','التحميل','التوالف والعينات','خصم الدفع النقدي'],[420,15,5,5,10,515],'مر بعينات 3 أصناف على 15 كافيه أو عيادة واجمع 5 طلبات تسلمها بعد 48 ساعة نقدًا.','ممنوع البيع بالآجل (الشكك) لحماية السيولة.'],
+  ['p15_zero_stock_b2b_broker','وكالة وساطة توريد تعاقدي بالعينات والطلب المسبق للمحلات والشركات','Sample-Based B2B Broker',[6,26,10,12],['mat_warm','mat_digital'],['loc_kinetic','loc_hybrid'],['general'],['metro_city','border_port_city'],['workshops_markets'],['local_shops_cafes'],['none','home_room'],'', 'pace_fast',false,'b2b_trade','الاتفاق مع 3 مصانع على كتالوج عينات وأسعار جملة، وأخذ طلبية مؤكدة بعربون من المحلات أو الشركات ثم التوريد.',['مصانع العاشر والعبور وبرج العرب وأسواق الجملة الكبرى.'],['توريد مستلزمات شركات بالطلب','عقود وساطة وتوريد B2B'],['Zero-inventory B2B brokerage','Pre-order wholesale'],'حاسبة صفقة التوريد بالطلب',['سعر تسليم المصنع','النقل للمشتري','شنطة العينات والانتقال','رسوم الفاتورة','تأمين المطابقة'],[8000,350,150,200,100,10200],'اعرض 3 عينات من مصنع محلي على 10 محلات ونفذ أول توريدة بعربون المشتري.','أضف 48 ساعة أمان على موعد المصنع.'],
+  ['p16_aswan_dates_coffee','علامة لمربيات التمور الفاخرة والقهوة المختصة الأفريقية والكركديه للسياح والكافيهات','Specialty Dates & Coffee',[16,22,14,6],['mat_bio','mat_warm'],['loc_stationary','loc_hybrid'],['agri_vet','general'],['touristic_city','border_port_city'],['african_coffee_spices','palm_dates_waste'],['tourists_visitors','local_shops_cafes'],['warehouse','shop_office','home_room'],'', 'pace_fast',false,'food_kitchen','تحويل التمور الفاخرة والبن الأفريقي والكركديه إلى عبوات هدايا سياحية ومربيات وتوليفات قهوة مختصة للكافيهات والفنادق.',['أسواق أسوان وإدفو وتجار الحاصلات الأفريقية، ودرب البرابرة للعبوات.'],['برطمانات زجاج للمربى جملة','أكياس قهوة بصمام','تجارة البن والتمور أسوان'],['Specialty coffee private label','Artisanal date jam'],'حاسبة عبوة التمور/القهوة (250 جم)',['الخامة والتحميص/التحضير','البرطمان/الكيس والملصق','الفرز والنقل','عمولة البازار/الفندق','عينات التذوق'],[48,16,7,25,9,160],'جهز 20 عبوة فقط واعرضها في 3 فنادق بيئية أو بازارات سياحية وقس سرعة البيع.','قارن سعر الخامة محليًا بمستوردي الجملة في القاهرة.'],
+  ['p17_reverse_logistics_hub','مركز فحص وإعادة تغليف وتسييل مرتجعات المتاجر الإلكترونية','Returns Refurbishing Hub',[6,24,20,10],['mat_warm'],['loc_stationary','loc_hybrid'],['general'],['metro_city'],['workshops_markets'],['online_consumers','local_shops_cafes'],['warehouse','vacant_apt','home_room'],'', 'pace_fast',false,'b2b_trade','استلام المرتجعات السليمة من براندات الملابس، كيّها بالبخار وإعادة تغليفها وتصريفها في عروض تصفية سريعة.',['شارع الجمهورية لمكاوي البخار، ودرب البرابرة لأكياس الشحن.'],['مكواة بخار عمودية جملة','أكياس شحن درب البرابرة'],['Reverse logistics refurbishing','Flash sale liquidation'],'حاسبة تجهيز القطعة المرتجعة',['سعر استلام القطعة السليمة','الكي والكيس الجديد','النقل والفرز','إعلان التصفية','احتياطي الفرز'],[95,8,5,18,7,185],'استلم 15 قطعة مرتجعة بالأمانة من صفحة ملابس وجهزها وبعها خلال 48 ساعة.','لا تشترِ لوط مرتجعات مغلق بدون فحص كل قطعة.'],
+  ['p18_micro_export_crafts','مكتب تصدير مصغر عبر الإنترنت للمنتجات الحرفية المصرية بالعملة الصعبة','Cross-Border Micro-Export',[14,22,8,18],['mat_warm','mat_digital'],['loc_hybrid','loc_stationary'],['general','arts_design'],['metro_city','touristic_city'],['workshops_markets','palm_dates_waste'],['online_consumers'],['home_room','none'],'', 'pace_med',false,'b2b_trade','انتقاء قطع حرفية مصرية خفيفة الوزن غير قابلة للكسر وتصويرها وشحنها دوليًا بالقطعة عبر البريد السريع (EMS).',['ورش الجمالية وخان الخليلي والفيوم وأسوان، وخدمة البريد السريع الدولي EMS.'],['شحن البريد السريع الدولي EMS','ورش حرف يدوية للتصدير'],['Cross-border micro-export','EMS international shipping'],'حاسبة تصدير الطرد (1 كجم)',['سعر شراء القطعة محليًا','التغليف الواقي للصدمات','الشحن الدولي EMS','عمولة المنصة والدفع','التسويق الرقمي'],[280,45,520,130,120,1550],'اعرض 10 قطع مصورة احترافيًا للمشترين بالخارج ولا تشترِ المخزون إلا بعد أول طلب مدفوع.','تجنب القطع الزجاجية أو الثقيلة في البداية.'],
+  ['p19_regional_fmcg_supply','وكالة توزيع جملة المواد الغذائية والورقيات الأساسية للسوبرماركت والمطاعم','Regional FMCG Distributor',[2,24,22,8],['mat_bio','mat_warm'],['loc_kinetic','loc_stationary'],['general'],['metro_city','rural_village'],['workshops_markets','crops_herbs_farms'],['local_shops_cafes'],['warehouse','vehicle','shop_office'],'', 'pace_fast',false,'food_kitchen','التخصص في 5 أصناف أساسية سريعة الدوران (بقوليات، زيوت، مناديل، فويل، أكياس) وتوزيعها كاش لـ 30 محلًا.',['سوق العبور ومصانع العاشر وبرج العرب وتجار المنشية.'],['مصانع تعبئة بقوليات جملة','مصانع فويل وورقيات'],['FMCG cash van distribution','Grocery wholesale'],'حاسبة بالة الجملة الغذائية',['سعر البالة من المصنع','النقل والتعتيق','التوزيع للمحل','التوالف','خصم الكاش'],[680,12,10,4,9,765],'اجمع طلبات مسبقة لـ 5 أصناف من 20 سوبرماركت في حيك قبل سحب البضاعة.','الالتزام بالجرد اليومي والبيع النقدي فقط.'],
+  ['p20_cloud_kitchen_prep','مطبخ سحابي ووحدة تجهيز وتوريد غذائي موزون (Cloud Kitchen & B2B Prep)','Cloud Kitchen & Food Prep',[12,14,26,8],['mat_bio','mat_liquid'],['loc_stationary'],['general','agri_vet'],['metro_city','touristic_city'],['workshops_markets','crops_herbs_farms'],['local_shops_cafes','online_consumers'],['workshop','shop_office','vacant_apt','home_room'],'', 'pace_fast',false,'food_kitchen','إنتاج 3 أصناف محددة بمقادير موزونة بالجرام داخل مطبخ تحضير مرخص، والتوريد اليومي للكافيهات والمكاتب.',['شارع الجمهورية ودرب البرابرة للمعدات والتغليف، وسوق العبور للخامات.'],['تجهيزات مطابخ استانلس','علب تغليف غذائي جملة','اشتراطات سلامة الغذاء'],['Cloud kitchen recipe costing','Food cost percentage'],'حاسبة تكلفة الوجبة بالجرام',['الخامات الغذائية بالجرام','الغاز والكهرباء','عبوة التغليف الحراري','التوصيل أو العمولة','الهدر والعينات'],[52,12,10,22,9,160],'وزع 15 عينة موزونة على 5 كافيهات ومكاتب شركات لكسب أول عقد توريد أسبوعي.','يُمنع التشغيل التجاري كثيف الأبخرة في شقة سكنية غير مرخصة.'],
+  ['p21_agri_solar_drying','وحدة تجفيف شمسي/حراري صحي وتجهيز للنباتات العطرية والمحاصيل على السطح','Solar Agri-Drying Unit',[18,12,20,14],['mat_bio'],['loc_stationary'],['science_chem','agri_vet','general'],['rural_village','touristic_city'],['crops_herbs_farms','palm_dates_waste'],['local_shops_cafes','tourists_visitors'],['roof','land'],'', 'pace_med',false,'food_kitchen','تركيب صواني وشباك تجفيف معزولة غذائيًا على السطح لتجفيف الأعشاب العطرية والكركديه والطماطم وتعبئتها بالفاكيوم.',['المزارع المحلية بالقرية/المحافظة، وشارع الجمهورية لشباك الاستانلس والفاكيوم.'],['صواني وشبك تجفيف أعشاب','ماكينة فاكيوم تغليف غذائي'],['Solar cabinet herb dryer','Sun-dried tomatoes B2B'],'حاسبة الكيلو المجفف الصافي',['المحصول الأخضر لـ 1 كجم جاف','الغسيل والفرز','عبوة الفاكيوم والملصق','الشحن للمدينة','إرسال العينات'],[65,18,12,12,8,180],'نفذ صندوق تجفيف شبكي واحد على السطح وجفف 10 كجم خام واعرض 5 عينات على مطاعم وعطارين.','افحص نسبة الرطوبة قبل التغليف لمنع التعفن.'],
+  ['p22_vacuum_prepped_veggies','وحدة تجهيز وتقطيع الخضروات الطازجة المفرغة من الهواء (Vacuum) للمطاعم','Vacuum Prepped Veggies',[6,16,24,6],['mat_bio'],['loc_stationary','loc_kinetic'],['agri_vet','general'],['metro_city'],['crops_herbs_farms','workshops_markets'],['local_shops_cafes','online_consumers'],['workshop','shop_office','vehicle'],'', 'pace_fast',false,'food_kitchen','شراء الخضار فجرًا، غسله وتجفيفه وتقطيعه آليًا وسحب الهواء منه (Vacuum) وتوريده صباحًا للمطاعم والبيوت.',['سوق العبور ووكالة الحضرة، وشارع الجمهورية لقطاعات الخضار والفاكيوم.'],['قطاعة خضروات صناعية','ماكينة فاكيوم غرفية'],['Fresh-cut vacuum vegetables','Restaurant prep supplier'],'حاسبة كيلو الخضار بالفاكيوم',['الخضار الخام شاملة التقشير','الغسيل والتجفيف','كيس الفاكيوم السميك','التوصيل الصباحي','هامش العينات'],[22,5,4,5,2,52],'جهز 10 كجم بصل وبطاطس مقشرة بالفاكيوم واعرضها على 3 مطاعم قريبة للتوريد اليومي.','التجفيف التام من الماء قبل سحب الهواء ضروري.'],
+  ['p23_healthy_meal_subs','مشروع اشتراكات الوجبات والسناكس الصحية الموزونة بالسعرات للموظفين والرياضيين','Healthy Food Subscription',[18,8,22,12],['mat_bio'],['loc_stationary','loc_hybrid'],['agri_vet','science_chem','general'],['metro_city'],['no_special_raw','crops_herbs_farms'],['online_consumers','local_shops_cafes'],['workshop','home_room'],'', 'pace_fast',false,'food_kitchen','تجهيز باقات أسبوعية مدفوعة مقدمًا لسناكس ووجبات محسوبة السعرات والبروتين وتوصيلها للصالات الرياضية والمكاتب.',['بين الصورين والمنشية للمكسرات والشوفان جملة، ودرب البرابرة للعلب المقسمة.'],['خامات سناكس صحية وشوفان جملة','علب وجبات صحية مايكروويف'],['Healthy meal prep subscription','Macro food cost'],'حاسبة باقة الاشتراك الأسبوعي',['المكونات الصحية لـ 5 أيام','الـ 5 علب والملصق','التحضير والطهي','التوصيل المجمع','التسويق'],[320,45,60,75,50,780],'اعرض 10 علب تذوق في جيم أو مكتب قريب لجمع أول 5 مشتركين يدفعون أسبوعيًا.','الالتزام بالموعد اليومي وثبات وزن البروتين.'],
+  ['p24_packaging_boxes_unit','ورشة تصنيع وتشكيل علب الكرتون وصناديق الشحن بكميات مرنة للبراندات','Small-Batch Box Workshop',[16,16,22,6],['mat_warm'],['loc_stationary'],['eng_tech','arts_design','general'],['metro_city'],['workshops_markets'],['local_shops_cafes','online_consumers'],['workshop','warehouse'],'', 'pace_fast',false,'craft_brand','شراء فرخات الكرتون المضلع بالجملة وتكسيرها بمقاسات قياسية لتلبية طلبات البراندات الصغيرة بدءًا من 200 علبة.',['السبتية والعبور والعاشر وبرج العرب لمكابس التكسير وفرخات الكرتون.'],['فرخات كرتون مضلع جملة العبور','مكبس تكسير كرتون واسطمبات'],['Die-cut shipping boxes low MOQ','Corrugated box calculator'],'حاسبة إنتاج 100 علبة شحن',['فرخات الكرتون لـ 100 علبة','التكسير والكهرباء','الطباعة السلك سكرين','التوصيل','هدر القص'],[380,70,50,50,25,820],'اجمع 5 طلبات لـ 200 علبة قياسية بعربون 50% من المتاجر الإلكترونية قبل سحب الكرتون.','سعّر كل طلبية بسعر فرخ الكرتون يوم استلام العربون.'],
+  ['p25_preventive_maint_b2b','وكالة عقود الصيانة الوقائية الدورية لماكينات الكافيهات ومعدات العيادات','B2B Preventive Maintenance',[10,14,22,16],['mat_gloss','mat_liquid'],['loc_kinetic'],['eng_tech','science_chem','general'],['metro_city','touristic_city'],['workshops_markets','no_special_raw'],['local_shops_cafes'],['vehicle','none','home_room'],'', 'pace_fast',false,'b2b_trade','التعاقد باشتراك شهري ثابت لزيارة وقائية مجدولة (إزالة تكلس، تغيير جوانات وفلاتر، وضبط ضغط) تمنع تعطل الكافيه.',['شارع الجمهورية والسبتية بالقاهرة والعطارين بالإسكندرية لقطع الغيار.'],['قطع غيار ماكينات إسبريسو','عقود صيانة وقائية للكافيهات'],['B2B preventive maintenance','Espresso descaling SOP'],'حاسبة عقد الصيانة الشهري',['الجوانات والفلاتر وإزالة التكلس','الانتقالات','أجر المساعد','إهلاك عدة القياس','اكتساب العقد'],[180,60,150,30,50,950],'قدم فحصًا مجانيًا لضغط الماكينة وأملاح المياه لـ 5 كافيهات لتوقيع أول عقدين.','احصر عملاءك في نطاق متقارب لتلبية الطوارئ.'],
+  ['p26_mobile_auto_detailing','وحدة متنقلة لتلميع وحماية السيارات والعناية الفائقة بالأسطح (Auto Detailing)','Mobile Auto Detailing',[20,12,18,6],['mat_gloss','mat_liquid'],['loc_kinetic'],['general','eng_tech'],['metro_city','touristic_city'],['no_special_raw','workshops_markets'],['online_consumers','local_shops_cafes'],['vehicle','workshop','home_room'],'', 'pace_fast',false,'b2b_trade','الذهاب لموقع العميل بحقيبة معدات تلميع وبخار جاف ومركبات بولش ونانو سيراميك لإعادة لمعة السيارة كالمرآة.',['شارع الجمهورية والتوفيقية بالقاهرة والمنشية بالإسكندرية لمعدات التلميع.'],['معدات تلميع سيارات التوفيقية','خامات بولش ونانو سيراميك'],['Mobile auto detailing','Paint correction ceramic'],'حاسبة جلسة التلميع للسيارة',['مركبات البولش والنانو والفوط','الانتقال والكهرباء','أجر المساعد','إهلاك الماكينات','إعلان جلب العميل'],[220,80,150,40,90,1350],'لمع سيارتين وصور فيديو يوضح نصف الكبوت الباهت بجوار النصف اللامع لجلب أول 10 حجوزات.','استخدم سرعات منخفضة لحماية ورنيش السيارة.'],
+  ['p27_whatsapp_ai_b2b','وكالة أتمتة الردود وحجز المواعيد والطلبات عبر واتساب الرسمي للعيادات والمتاجر','B2B WhatsApp AI Automation',[16,8,12,28],['mat_digital'],['loc_hybrid','loc_stationary'],['eng_tech','general'],['metro_city'],['no_special_raw','workshops_markets'],['local_shops_cafes','online_consumers'],['home_room','none'],'', 'pace_fast',false,'b2b_trade','ربط واتساب الرسمي (Meta Cloud API) بمنصات الأتمتة ليرد ويسجل الحجوزات والطلبات تلقائيًا 24 ساعة.',['واجهة Meta Cloud API الرسمية ومنصات Make / n8n / Supabase.'],['ربط واتساب كلاود API الرسمي','أتمتة حجز مواعيد العيادات'],['WhatsApp Cloud API automation','n8n B2B workflow'],'حاسبة باقة أتمتة العيادة/المتجر',['الاستضافة ورسائل API','اشتراكات منصات الأتمتة','ساعات الإعداد','التسويق','الدعم الفني'],[200,150,350,250,100,2200],'اعرض تجربة مجانية لمدة 5 أيام لنموذج يعمل على هاتفك أمام 10 عيادات أو متاجر.','التزم بالواجهة الرسمية المعتمدة من Meta فقط.'],
+  ['p28_pos_barcode_erp','خدمة تأسيس أنظمة الكاشير والجرد السحابي بالباركود للمحلات والمخازن (تسليم مفتاح)','Turnkey POS & Barcode Setup',[6,12,22,24],['mat_digital','mat_gloss'],['loc_kinetic','loc_hybrid'],['eng_tech','general'],['metro_city','rural_village'],['workshops_markets','no_special_raw'],['local_shops_cafes'],['home_room','vehicle','none'],'', 'pace_fast',false,'b2b_trade','جرد المحل فعليًا، تكويد الأصناف ولصق استيكرات الباركود الحراري، وربط المبيعات بموبايل صاحب المحل في 48 ساعة.',['مول البستان وشارع الجمهورية بالقاهرة، وسموحة والعطارين بالإسكندرية.'],['جملة طابعات وقارئ باركود مول البستان','بكر استيكر باركود حراري'],['Turnkey POS barcode setup','Thermal label printer'],'حاسبة تكويد محل تجاري',['قارئ وطابعة الباركود','بكر استيكرات الباركود','أجر مساعد الجرد','البرنامج والانتقالات','التسويق'],[3200,350,600,450,200,7800],'كود قسمًا واحدًا في محل ملابس أو قطع غيار خلال 3 ساعات ليرى صاحب المحل الدقة بنفسه.','استخدم طابعات حرارية أصلية بضمان الوكيل.'],
+  ['p29_niche_marketplace_dir','منصة دليل تفاعلي متخصص للخدمات المهنية والفنيين الموثوقين في منطقتك','Hyper-Local Niche Directory',[20,14,10,24],['mat_digital'],['loc_hybrid','loc_stationary'],['eng_tech','arts_design','general'],['metro_city','touristic_city'],['no_special_raw'],['online_consumers','local_shops_cafes'],['home_room','none'],'', 'pace_med',false,'b2b_trade','بناء موقع دليل محلي لحي سكني كبير يضم مقدمي الخدمات المفحوصين مقابل اشتراك ظهور شهري ثابت.',['منصات الاستضافة السحابية (Vercel / Supabase) وبوابات الدفع الإلكتروني.'],['تصميم موقع دليل خدمات محلي','بوابات الدفع للاشتراكات'],['Hyper-local niche directory','Featured listing model'],'حاسبة المنصة (20 مشترك شهريًا)',['الاستضافة والدومين','إعلانات جلب الزوار','التحقق من الفنيين','رسوم الدفع','التطوير'],[350,1200,300,150,200,5000],'ابدأ بصفحة لحي واحد وقطاع واحد واجمع 20 طلبًا حقيقيًا ووجهها لـ 3 فنيين قبل طلب الاشتراك.','اعتمد الاشتراك الشهري الثابت بدل العمولة.'],
+  ['p30_sme_costing_advisory','خدمة ضبط التكاليف وحسابات الهدر وتسعير المنتجات للورش والمطاعم الصغيرة','SME Costing & Margin Advisory',[6,12,18,28],['mat_digital'],['loc_hybrid','loc_kinetic'],['general','eng_tech','science_chem'],['metro_city'],['workshops_markets'],['local_shops_cafes'],['home_room','none'],'', 'pace_fast',false,'b2b_trade','بناء قوالب حساب تكلفة ومعادلات تسعير مبسطة تكشف الهدر وتضبط هامش المساهمة للورش والمطاعم في جلستين.',['المناطق الصناعية والتجارية والتجمعات الحرفية ومتاجر الأونلاين.'],['شيت حساب تكلفة المنتج والهدر','ضبط تسعير المنتجات'],['Unit economics costing sheet','Contribution margin advisory'],'حاسبة باقة ضبط التكاليف',['انتقالات المعاينة والجرد','ساعات بناء الشيت','طباعة دليل التسعير','التسويق','جلسة المتابعة'],[120,400,80,200,150,2500],'راجع تسعير 3 أصناف مجانًا لصاحب مطعم أو ورشة واكشف له الصنف الخاسر ليتعاقد معك.','سلم العميل أداة مبسطة يدخل فيها سعر الخامة فقط.']
+];
+
+const CATALOG_30 = RAW_30.map(x => ({
+  id: x[0], title: x[1], en: x[2],
+  drives: { creator: x[3][0], arbitrageur: x[3][1], orchestrator: x[3][2], strategist: x[3][3] },
+  mats: x[4], mob: x[5], fields: x[6], envs: x[7], raws: x[8], adopters: x[9], assets: x[10],
+  hateBonus: x[11], pace: x[12], isNovel: x[13], legal: x[14], modelDesc: x[15],
+  clusters: x[16], kwAr: x[17], kwEn: x[18],
+  calc: { title: x[19], labels: x[20], def: { c1: x[21][0], c2: x[21][1], c3: x[21][2], c4: x[21][3], c5: x[21][4], price: x[21][5] } },
+  exp: x[22], risk: x[23]
+}));
+
+function computeBestProject() {
+  const a = state.ans, u = state.user, assets = state.assets, am = state.assetMeta, cap = u.capEGP;
+  const drives = { creator: 0, arbitrageur: 0, orchestrator: 0, strategist: 0 };
+  [a.q1, a.q2, a.q3].forEach(v => { if (drives[v] !== undefined) drives[v] += 2.5; });
+  if (a.q12 === 'mot_creation') drives.creator += 2;
+  if (a.q12 === 'mot_wealth') drives.arbitrageur += 2;
+  if (a.q12 === 'mot_freedom') { drives.orchestrator += 1.5; drives.strategist += 1.5; }
+
+  const dKeys = Object.keys(drives).sort((x, y) => drives[y] - drives[x]);
+  const top1 = dKeys[0], top2 = dKeys[1], spread = drives[top1] - drives[dKeys[3]];
+  const topologyType = spread <= 2.0 ? 'balanced' : (drives[top1] - drives[top2] <= 2.0 ? 'hybrid' : 'single');
+  const mat = a.q4 || 'mat_warm', mobility = a.q5 || 'loc_hybrid', learn = a.q6 || 'learn_trial', blocker = a.q7 || 'blk_capital', hate = a.q8 || 'hate_retail', pace = a.q9 || 'pace_med';
+
+  const scored = CATALOG_30.map(p => {
+    let s = 0;
+    if (topologyType === 'balanced') s += ((p.drives.creator + p.drives.arbitrageur + p.drives.orchestrator + p.drives.strategist) / 4) * 0.8;
+    else if (topologyType === 'hybrid') {
+      s += p.drives[top1] + p.drives[top2] * 0.95;
+      if (p.drives[top1] >= 16 && p.drives[top2] >= 16) s += 18;
+    } else s += p.drives[top1] * 1.3 + p.drives[top2] * 0.4;
+
+    if (p.mats[0] === mat) s += 32; else if (p.mats.includes(mat)) s += 20;
+    if (p.mob[0] === mobility) s += 18; else if (p.mob.includes(mobility)) s += 10; else if (mobility === 'loc_kinetic' && !p.mob.includes('loc_kinetic')) s -= 12;
+    if (p.fields[0] === u.field && u.field !== 'general') s += 24; else if (p.fields.includes(u.field)) s += 10;
+
+    if (u.edu === 'literate' || u.edu === 'basic') {
+      if (['p27_whatsapp_ai_b2b','p29_niche_marketplace_dir','p30_sme_costing_advisory','p05_bio_agri_compound'].includes(p.id)) s -= 60;
+      if (['p14_kinetic_b2b_route','p13_smart_arbitrage_flip','p26_mobile_auto_detailing'].includes(p.id)) s += 14;
+    }
+    if (p.id === 'p02_nocode_web_creator' && mat === 'mat_digital' && (top1 === 'creator' || topologyType === 'hybrid') && (learn === 'learn_trial' || blocker === 'blk_math')) s += 22;
+    if (p.id === 'p01_white_label_brand' && hate === 'hate_factory' && (top1 === 'creator' || top2 === 'arbitrageur')) s += 24;
+    if (p.id === 'p03_service_invention' && u.localRaw === 'no_special_raw' && (top1 === 'creator' || top2 === 'orchestrator')) s += 24;
+
+    if (p.envs.includes(u.envType)) s += 14;
+    if (p.raws[0] === u.localRaw && u.localRaw !== 'workshops_markets') s += 26; else if (p.raws.includes(u.localRaw)) s += 12;
+    if (p.adopters[0] === u.firstAdopter) s += 16; else if (p.adopters.includes(u.firstAdopter)) s += 8;
+    if (assets.some(as => p.assets.includes(as))) s += 16;
+
+    if ((assets.includes('roof') || assets.includes('land')) && p.id === 'p21_agri_solar_drying') s += (am.util === 'sunny_ventilated' || u.envType === 'rural_village' || u.resGov.includes('أسوان') || u.resGov.includes('الصعيد')) ? 45 : 25;
+    if (assets.includes('home_room') && !assets.includes('roof') && !assets.includes('land') && !assets.includes('warehouse') && p.id === 'p05_bio_agri_compound' && (u.field === 'science_chem' || u.field === 'agri_vet') && u.envType === 'rural_village') s += 36;
+    if ((assets.includes('warehouse') || assets.includes('shop_office')) && p.id === 'p16_aswan_dates_coffee' && (u.localRaw === 'african_coffee_spices' || u.localRaw === 'palm_dates_waste')) s += 28;
+    if (assets.includes('vehicle') && ['p14_kinetic_b2b_route','p26_mobile_auto_detailing','p19_regional_fmcg_supply'].includes(p.id)) s += 22;
+    if ((assets.includes('workshop') || assets.includes('warehouse')) && p.id === 'p24_packaging_boxes_unit') s += 20;
+
+    if (p.hateBonus === hate) s += 15;
+    if (hate === 'hate_field' && p.mob[0] === 'loc_kinetic') s -= 45;
+    if (hate === 'hate_screen' && p.mats[0] === 'mat_digital') s -= 45;
+    if (hate === 'hate_factory' && ['p22_vacuum_prepped_veggies','p24_packaging_boxes_unit'].includes(p.id)) s -= 25;
+    if (p.pace === pace) s += 10;
+    if (u.age === '46+' && p.mob[0] === 'loc_kinetic') s -= 12;
+
+    return { proj: p, score: s };
+  }).sort((x, y) => y.score - x.score);
+
+  const p = scored[0].proj;
+  const isPremium = cap >= 120000, isLowCap = cap < 15000;
+  const actualAssetGov = am.gov === 'نفس محافظة ومكان إقامتي' ? u.resGov : am.gov;
+
+  let customTitle = `${p.title} (${termHtml('', p.en)})`;
+  if (isPremium) customTitle = `نسخة Premium: ${p.title} (${termHtml('', p.en)})`;
+  else if (isLowCap) customTitle = `مسار البدء بالعينات (MVP): ${p.title} (${termHtml('', p.en)})`;
+
+  const modeDirectives = {
+    mode_outsource: 'التنفيذ بالقطعة لدى مصنع/ورشة خارجية مع استخدام الحاسبة المدمجة.',
+    mode_partner: 'التنفيذ بالمشاركة مع شريك يكمل الجانب التشغيلي أو البيعي.',
+    mode_hire: 'التنفيذ عبر الاستعانة بفني أو مندوب باليومية/العمولة.'
+  };
+  const isQuietHome = (assets.includes('home_room') || assets.includes('vacant_apt')) && am.util === 'residential_quiet';
+  let assetDirective = assets.includes('none') ? `التشغيل من (${u.resGov}) بدون عقار ثابت.` : `استغلال الأصل في (${actualAssetGov} — ${am.area} م²) للفحص والتغليف والإدارة.`;
+  if (p.legal === 'food_kitchen' && isQuietHome && p.id !== 'p21_agri_solar_drying') assetDirective = `تنبيه: الأصل في (${actualAssetGov}) سكني؛ يتم التحضير في مطبخ مرخص مشترك وليس داخل الشقة.`;
+  else if (p.legal === 'agri_bio' && isQuietHome) assetDirective = `تنبيه: التحضير الأولي بغرفتك في (${actualAssetGov}) يقتصر على المستخلصات النباتية الآمنة فقط.`;
+
+  const runwayDirective = a.q10 === 'runway_no' ? 'ابدأ هذا المسار كمشروع جانبي بجانب دخلك الأساسي وبنظام الحجز المسبق فقط.' : (isPremium ? 'تنبيه: اختبر استعداد شريحة A+ للدفع بعينة أولية قبل صرف الميزانية الكاملة.' : '');
+  const c1 = Math.round(cap * 0.42), c2 = Math.round(cap * 0.18), c3 = Math.round(cap * 0.22), c4 = cap - (c1 + c2 + c3);
+
+  return {
+    id: p.id, title: customTitle, modelDesc: p.modelDesc,
+    execLine: `${assetDirective} | ${modeDirectives[a.q11 || 'mode_outsource']}`,
+    runwayLine: runwayDirective, isNovel: p.isNovel,
+    capSplit: [
+      { item: isLowCap ? 'تنفيذ العينات الأولية (MVP) لدى مورد/مصنع خارجي' : 'تمويل الدفعة الأولى / التجهيز الأساسي', amount: c1 },
+      { item: 'العبوات، الهوية، وأدوات الفحص والتسليم', amount: c2 },
+      { item: 'تجربة اختبار الطلب والوصول لأول 10 عملاء', amount: c3 },
+      { item: 'احتياطي سيولة نقدية لحماية التشغيل', amount: c4 }
+    ],
+    clusters: p.clusters, kwAr: p.kwAr, kwEn: p.kwEn, legal: p.legal,
+    calcConfig: { title: p.calc.title, labels: p.calc.labels, defaults: { ...p.calc.def } },
+    firstExperiment: p.exp, risk: p.risk,
+    fiveSteps: [
+      'حدد المواصفة القياسية للعينة الأولى.',
+      'اجمع 3 عروض أسعار من الموردين وسجلها في مساحة مشروعك.',
+      'نفّذ عينة الاختبار (MVP) واضبط تكلفتها في الحاسبة.',
+      'اعرض العينة للبيع الفعلي واكسب أول زبون راضٍ.',
+      'استخدم تقييم أول زبون راضٍ لجلب الـ 10 عملاء التاليين.'
+    ]
+  };
+}
+
+function getLegalMatrix(cat) {
+  const v = 'نوفمبر 2026';
+  if (cat === 'agri_bio') return [{ stage: '1. التجربة الأولية', req: 'قصر التحضير على المستخلصات النباتية الطبيعية الآمنة', auth: 'السلامة البيئية', url: 'https://www.eeaa.gov.eg', date: v }, { stage: '2. التداول التجاري', req: 'التسجيل بلجنة مبيدات الآفات الزراعية أو التصنيع بمصنع مرخص', auth: 'وزارة الزراعة', url: 'https://www.apc.gov.eg', date: v }];
+  if (cat === 'cosmetics_liquid') return [{ stage: '1. قبل البيع التجاري', req: 'التصنيع لدى مصنع مرخص والإخطار بهيئة الدواء المصرية', auth: 'هيئة الدواء (EDA)', url: 'https://www.edaegypt.gov.eg', date: v }, { stage: '2. التأسيس الرسمي', req: 'البطاقة الضريبية والسجل التجاري (قانون 152 لسنة 2020)', auth: 'تنمية المشروعات', url: 'https://www.msmeda.org.eg', date: v }];
+  if (cat === 'silver_craft') return [{ stage: '1. دمغ المشغولات', req: 'دمغ القطع الفضية عيار 925 بالدمغة الرسمية', auth: 'الدمغة والموازين', url: 'https://www.msit.gov.eg', date: v }, { stage: '2. التأسيس وحماية الاسم', req: 'السجل التجاري وتسجيل العلامة التجارية', auth: 'التجارة الداخلية', url: 'https://www.itda.gov.eg', date: v }];
+  if (cat === 'food_kitchen') return [{ stage: '1. صلاحية المكان', req: 'ترخيص المحال العامة واشتراطات سلامة الغذاء', auth: 'سلامة الغذاء (NFSA)', url: 'https://www.nfsa.gov.eg', date: v }, { stage: '2. التشغيل الرسمي', req: 'البطاقة الضريبية والشهادات الصحية', auth: 'مصلحة الضرائب', url: 'https://www.eta.gov.eg', date: v }];
+  return [{ stage: '1. التصنيع أو التوريد', req: 'التعامل مع ورش ومصانع مرخصة بفواتير مصدر', auth: 'التنمية الصناعية (IDA)', url: 'https://www.ida.gov.eg', date: v }, { stage: '2. التأسيس الرسمي', req: 'البطاقة الضريبية والسجل التجاري وحوافز المشروعات الصغيرة', auth: 'تنمية المشروعات', url: 'https://www.msmeda.org.eg', date: v }];
+}
+
+function toggleAsset(btnEl, key) {
+  const box = document.getElementById('asset-cards-box');
+  if (key === 'none') {
+    state.assets = ['none'];
+    box.querySelectorAll('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    btnEl.setAttribute('aria-pressed', 'true');
+  } else {
+    state.assets = state.assets.filter(a => a !== 'none');
+    const noneBtn = box.querySelector('[data-asset="none"]');
+    if (noneBtn) noneBtn.setAttribute('aria-pressed', 'false');
+    if (state.assets.includes(key)) { state.assets = state.assets.filter(a => a !== key); btnEl.setAttribute('aria-pressed', 'false'); }
+    else { state.assets.push(key); btnEl.setAttribute('aria-pressed', 'true'); }
+    if (!state.assets.length) { state.assets = ['none']; if (noneBtn) noneBtn.setAttribute('aria-pressed', 'true'); }
+  }
+  const panel = document.getElementById('asset-details-panel');
+  if (panel) panel.style.display = state.assets.includes('none') ? 'none' : 'block';
+  saveLocal();
+}
+
+function locateByGPS() {
+  const st = document.getElementById('gps-status');
+  if (!navigator.geolocation) { st.textContent = 'GPS غير مدعوم.'; return; }
+  st.textContent = 'جاري التحديد...';
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const lat = Math.round(pos.coords.latitude * 100) / 100, lng = Math.round(pos.coords.longitude * 100) / 100;
+      state.assetMeta.coords = { lat, lng };
+      st.textContent = `تم الربط (${lat}, ${lng})`;
+    },
+    () => { st.textContent = 'تعذر الوصول لـ GPS.'; }
+  );
 }
 
 function getCapInEGP() {
-  const el = document.getElementById('in-capital');
-  const cEl = document.getElementById('in-cap-curr');
+  const el = document.getElementById('in-capital'), cEl = document.getElementById('in-cap-curr');
   const val = el ? parseFloat(el.value) : 20000;
   if (isNaN(val) || val <= 0) return 20000;
-  const c = cEl ? cEl.value : 'EGP';
-  return Math.round(val * (FX[c] || 1));
+  return Math.round(val * (FX[cEl ? cEl.value : 'EGP'] || 1));
 }
 
-function fmtMoney(egpAmount) {
-  const rate = FX[dispCurr] || 1;
-  const v = egpAmount / rate;
-  const s = SYM[dispCurr] || 'ج.م';
-  if (dispCurr === 'EGP') return Math.round(v).toLocaleString('ar-EG') + ' ' + s;
-  return v.toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' ' + s;
+function fmtMoney(egp) {
+  const v = egp / (FX[dispCurr] || 1), s = SYM[dispCurr] || 'ج.م';
+  return dispCurr === 'EGP' ? Math.round(v).toLocaleString('ar-EG') + ' ' + s : v.toLocaleString('en-US', { maximumFractionDigits: 1 }) + ' ' + s;
 }
 
 function updateCapPreview() {
@@ -411,301 +553,6 @@ function changeCurrency() {
   if (curPage === 7 && state.rec) renderWorkspacePage();
 }
 
-const QUESTION_PAGES = [
-  {
-    title: 'المجموعة 1 من 5',
-    items: [
-      {
-        id: 'q1',
-        q: '1. في عمل فني أو فيديو أعجبك، ما الذي يلفت انتباهك أولًا؟',
-        opts: [
-          { v: 'creator', t: 'جمال التصميم والألوان والديكور.' },
-          { v: 'strategist', t: 'ذكاء الحبكة وترتيب الأفكار.' },
-          { v: 'orchestrator', t: 'دقة التنظيم والتوقيت خلف الكواليس.' },
-          { v: 'arbitrageur', t: 'تكلفته وأرباحه وكيف نجح تجاريًا.' }
-        ]
-      },
-      {
-        id: 'q2',
-        q: '2. أي نشاط تنسى فيه الوقت لو تفرغت له يومًا كاملًا؟',
-        opts: [
-          { v: 'creator', t: 'ابتكار شكل أو منتج أو تصميم جديد.' },
-          { v: 'arbitrageur', t: 'اقتناص بضاعة بسعر لقطة وبيعها بمكسب.' },
-          { v: 'orchestrator', t: 'فرز وترتيب مكان أو تشغيل خطوات منظمة.' },
-          { v: 'strategist', t: 'بناء أداة أو جدول يحل مشكلة تلقائيًا.' }
-        ]
-      },
-      {
-        id: 'q3',
-        q: '3. عندما يعجبك منتج أو خدمة جديدة، ما أول فكرة تخطر ببالك؟',
-        opts: [
-          { v: 'creator', t: 'أستطيع تطوير شكله وتغليفه ليصبح أرقى.' },
-          { v: 'arbitrageur', t: 'كم يكلف في مصنعه ولمن أبيع كمية منه؟' },
-          { v: 'orchestrator', t: 'أعجبتني سرعة وانضباط تسليمه.' },
-          { v: 'strategist', t: 'ما التقنية التي جعلته يعمل بهذه السلاسة؟' }
-        ]
-      }
-    ]
-  },
-  {
-    title: 'المجموعة 2 من 5',
-    items: [
-      {
-        id: 'q4',
-        q: '4. أي خامة أو مجال ترتاح للتعامل معه أكثر؟',
-        opts: [
-          { v: 'mat_liquid', t: 'السوائل والتركيبات والقوام (كريمات، زيوت، منظفات، مستخلصات).' },
-          { v: 'mat_gloss', t: 'المعادن والأسطح اللامعة (فضة، نحاس، إستانلس، تلميع سيارات).' },
-          { v: 'mat_warm', t: 'الخامات الدافئة والعبوات (جلد، خشب، جريد نخيل، قماش).' },
-          { v: 'mat_bio', t: 'الأغذية والزراعة (أعشاب، تمور، خضار، مخبوزات).' },
-          { v: 'mat_digital', t: 'الشاشات وتصميم المواقع والخدمات (بدون خامات يدوية).' }
-        ]
-      },
-      {
-        id: 'q5',
-        q: '5. كيف تشعر لو جلست في مكان عمل واحد مغلق طوال اليوم؟',
-        opts: [
-          { v: 'loc_kinetic', t: 'أختنق من القعدة؛ أنشط بالحركة والتوصيل وزيارة أماكن جديدة.' },
-          { v: 'loc_stationary', t: 'أرتاح في مكاني الثابت المنظم أعمل داخله بهدوء.' },
-          { v: 'loc_hybrid', t: 'أفضل العمل من غرفتي/موبايلي والتحرك عند الحاجة فقط.' }
-        ]
-      },
-      {
-        id: 'q6',
-        q: '6. كيف تتعلم مهارة أو أداة جديدة بأسرع وقت؟',
-        opts: [
-          { v: 'learn_trial', t: 'أجرب بيدي وأركب قوالب جاهزة حتى تعمل.' },
-          { v: 'learn_people', t: 'أنزل السوق وأتعلم من الصنايعية والتجار مباشرة.' },
-          { v: 'learn_study', t: 'أقرأ الخطوات والمعادلات وأطبقها بالجرام والمللي.' }
-        ]
-      }
-    ]
-  },
-  {
-    title: 'المجموعة 3 من 5',
-    items: [
-      {
-        id: 'q7',
-        q: '7. ما أكثر شيء كان يؤجلك عن بدء مشروعك؟',
-        opts: [
-          { v: 'blk_math', t: 'الحسابات والأرقام أو البرمجة.' },
-          { v: 'blk_sell', t: 'الحرج من البيع المباشر والفصال.' },
-          { v: 'blk_capital', t: 'الخوف من تجميد الفلوس في بضاعة راكدة.' },
-          { v: 'blk_perf', t: 'التشتت بين عدة أفكار أو انتظار الكمال.' }
-        ]
-      },
-      {
-        id: 'q8',
-        q: '8. أي مهمة تحب إلغاءها من يومك تمامًا؟',
-        opts: [
-          { v: 'hate_retail', t: 'الفصال اليومي مع الزبون الفردي على قطعة واحدة.' },
-          { v: 'hate_factory', t: 'الوقفة اليدوية الطويلة في التصنيع.' },
-          { v: 'hate_field', t: 'اللف اليومي في الشوارع والمواصلات.' },
-          { v: 'hate_screen', t: 'الجلوس الصامت أمام الكمبيوتر طوال النهار.' }
-        ]
-      },
-      {
-        id: 'q9',
-        q: '9. ما أقصى مدة تصبر فيها قبل رؤية أول عائد مالي؟',
-        opts: [
-          { v: 'pace_fast', t: 'أسبوع إلى أسبوعين (أحب حركة الكاش السريعة).' },
-          { v: 'pace_med', t: 'شهر إلى 45 يومًا لتجهيز عينة متقنة.' },
-          { v: 'pace_slow', t: 'شهران أو أكثر لتطوير مركب أو براند قوي.' }
-        ]
-      }
-    ]
-  },
-  {
-    title: 'المجموعة 4 من 5',
-    items: [
-      {
-        id: 'q10',
-        q: '10. لو توقف دخلك الحالي 3 أشهر أثناء التأسيس، ما وضعك؟',
-        opts: [
-          { v: 'runway_ok', t: 'مصاريف معيشتي مغطاة بأمان.' },
-          { v: 'runway_tight', t: 'أحتاج أن يبدأ المشروع صغيرًا بجانب عملي.' },
-          { v: 'runway_no', t: 'لا أتحمل توقف الدخل أو المخاطرة بأصل المبلغ.' }
-        ]
-      },
-      {
-        id: 'q11',
-        q: '11. كيف تفضل إدارة المهام التي لا تتقنها؟',
-        opts: [
-          { v: 'mode_outsource', t: 'أتفق مع مصنع/ورشة بالقطعة وشركة شحن وحاسبة جاهزة.' },
-          { v: 'mode_partner', t: 'أشارك صديقًا يكمل الجزء الناقص.' },
-          { v: 'mode_hire', t: 'أستعين بفني أو مندوب باليومية/العمولة.' }
-        ]
-      },
-      {
-        id: 'q12',
-        q: '12. أي نتيجة تشعرك بتحقيق ذاتك بعد عام؟',
-        opts: [
-          { v: 'mot_creation', t: 'منتج أو موقع أو خدمة من ابتكاري تحمل اسمي.' },
-          { v: 'mot_wealth', t: 'مضاعفة رأس مالي وتوسيع تجارتي.' },
-          { v: 'mot_freedom', t: 'حرية وقتي ودخل مستقر من منظومة منظمة.' }
-        ]
-      }
-    ]
-  }
-];
-
-function renderQuizPage() {
-  const group = QUESTION_PAGES[curPage - 1];
-  if (!group) return;
-  document.getElementById('page-title-lbl').textContent = group.title;
-  document.getElementById('page-step-lbl').textContent = `خطوة ${curPage} / 5`;
-  document.getElementById('page-prog-bar').style.width = (curPage * 20) + '%';
-  document.getElementById('prev-page-btn').style.visibility = curPage === 1 ? 'hidden' : 'visible';
-
-  const mount = document.getElementById('questions-mount');
-  mount.innerHTML = group.items.map(item => {
-    const sel = state.ans[item.id] || '';
-    const optsHtml = item.opts.map(o => {
-      const pressed = sel === o.v ? 'true' : 'false';
-      return `
-        <button type="button" class="opt" aria-pressed="${pressed}" onclick="selectOpt('${item.id}', '${o.v}', this)">
-          <span>${esc(o.t)}</span>
-          <span class="opt-check">✓</span>
-        </button>
-      `;
-    }).join('');
-    return `
-      <div class="q-block" id="qb-${item.id}">
-        <span class="q-title">${esc(item.q)}</span>
-        <div class="opts">${optsHtml}</div>
-      </div>
-    `;
-  }).join('');
-}
-
-function selectOpt(qId, val, btnEl) {
-  state.ans[qId] = val;
-  const block = document.getElementById('qb-' + qId);
-  if (block) {
-    block.classList.remove('missing');
-    block.querySelectorAll('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
-  }
-  btnEl.setAttribute('aria-pressed', 'true');
-  saveLocal();
-}
-
-function nextPage() {
-  const group = QUESTION_PAGES[curPage - 1];
-  if (group) {
-    for (const item of group.items) {
-      if (!state.ans[item.id]) {
-        const b = document.getElementById('qb-' + item.id);
-        if (b) {
-          b.classList.add('missing');
-          b.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-        return;
-      }
-    }
-  }
-  if (curPage === 4 && partnerParams) {
-    showPartnerReport();
-    return;
-  }
-  goPage(curPage + 1);
-}
-
-function prevPage() {
-  if (curPage > 1) goPage(curPage - 1);
-}
-
-function goPage(p) {
-  curPage = p;
-  document.getElementById('quiz-page-card').classList.toggle('hidden', p < 1 || p > 4);
-  document.getElementById('page-5-card').classList.toggle('hidden', p !== 5);
-  document.getElementById('page-6-card').classList.toggle('hidden', p !== 6);
-  document.getElementById('page-7-card').classList.toggle('hidden', p !== 7);
-
-  if (p >= 1 && p <= 4) renderQuizPage();
-  if (p === 6) {
-    if (!state.rec) state.rec = computeBestProject();
-    renderCapsulePage();
-  }
-  if (p === 7) {
-    if (!state.rec) state.rec = computeBestProject();
-    renderWorkspacePage();
-  }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-let mapObj = null;
-let mapPin = null;
-
-function toggleAsset(btnEl, key) {
-  const box = document.getElementById('asset-cards-box');
-  if (key === 'none') {
-    state.assets = ['none'];
-    box.querySelectorAll('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
-    btnEl.setAttribute('aria-pressed', 'true');
-  } else {
-    state.assets = state.assets.filter(a => a !== 'none');
-    const noneBtn = box.querySelector('[data-asset="none"]');
-    if (noneBtn) noneBtn.setAttribute('aria-pressed', 'false');
-
-    if (state.assets.includes(key)) {
-      state.assets = state.assets.filter(a => a !== key);
-      btnEl.setAttribute('aria-pressed', 'false');
-    } else {
-      state.assets.push(key);
-      btnEl.setAttribute('aria-pressed', 'true');
-    }
-    if (!state.assets.length) {
-      state.assets = ['none'];
-      if (noneBtn) noneBtn.setAttribute('aria-pressed', 'true');
-    }
-  }
-  const panel = document.getElementById('asset-details-panel');
-  if (panel) panel.style.display = state.assets.includes('none') ? 'none' : 'block';
-  saveLocal();
-}
-
-function locateByGPS() {
-  const st = document.getElementById('gps-status');
-  if (!navigator.geolocation) { st.textContent = 'GPS غير مدعوم.'; return; }
-  st.textContent = 'جاري التحديد...';
-  navigator.geolocation.getCurrentPosition(
-    pos => {
-      const lat = Math.round(pos.coords.latitude * 100) / 100;
-      const lng = Math.round(pos.coords.longitude * 100) / 100;
-      state.assetMeta.coords = { lat, lng };
-      st.textContent = `تم الربط (${lat}, ${lng})`;
-      if (mapObj) {
-        mapObj.setView([lat, lng], 12);
-        if (mapPin) mapPin.setLatLng([lat, lng]);
-        else mapPin = L.marker([lat, lng]).addTo(mapObj);
-      }
-    },
-    () => { st.textContent = 'تعذر الوصول لـ GPS.'; }
-  );
-}
-
-function toggleMapPin() {
-  const wrap = document.getElementById('asset-map-wrap');
-  const show = wrap.style.display !== 'block';
-  wrap.style.display = show ? 'block' : 'none';
-  if (show && window.L) {
-    setTimeout(() => {
-      if (!mapObj) {
-        mapObj = L.map('leaflet-map').setView([31.2001, 29.9187], 11);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mapObj);
-        mapObj.on('click', e => {
-          const lat = Math.round(e.latlng.lat * 100) / 100;
-          const lng = Math.round(e.latlng.lng * 100) / 100;
-          state.assetMeta.coords = { lat, lng };
-          if (mapPin) mapPin.setLatLng(e.latlng);
-          else mapPin = L.marker(e.latlng).addTo(mapObj);
-          document.getElementById('gps-status').textContent = `تم التحديد (${lat}, ${lng})`;
-        });
-      } else { mapObj.invalidateSize(); }
-    }, 150);
-  }
-}
-
 function readPage5Inputs() {
   state.user.name = document.getElementById('in-name').value.trim() || 'صديقنا';
   state.user.age = document.getElementById('in-age').value;
@@ -717,7 +564,6 @@ function readPage5Inputs() {
   state.user.localRaw = document.getElementById('in-local-raw').value;
   state.user.firstAdopter = document.getElementById('in-first-adopter').value;
   state.user.capEGP = getCapInEGP();
-
   if (!state.assets.includes('none')) {
     state.assetMeta.own = document.getElementById('in-asset-own').value;
     state.assetMeta.gov = document.getElementById('in-asset-gov').value;
@@ -727,656 +573,10 @@ function readPage5Inputs() {
   saveLocal();
 }
 
-const CATALOG_30 = [
-  {
-    id: 'p01_white_label_brand',
-    title: 'علامة تجارية بنظام الوايت لابل (منتج مصنع جاهز بهويتك وتغليفك)',
-    en: 'White Label Brand',
-    drives: { creator: 22, arbitrageur: 20, orchestrator: 8, strategist: 8 },
-    mats: ['mat_warm', 'mat_liquid'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['general', 'arts_design'],
-    envs: ['metro_city', 'border_port_city'], raws: ['workshops_markets'], adopters: ['online_consumers', 'local_shops_cafes'],
-    assets: ['home_room', 'warehouse', 'none'], hateBonus: 'hate_factory', pace: 'pace_fast', isNovel: false, legal: 'craft_brand',
-    modelDesc: 'شراء منتج عالي الجودة بدون اسم من مصنع محلي بكمية صغيرة، وتصميم عبوته وهويته لبيعه بعلامتك الخاصة.',
-    clusters: ['مصانع العبور والعاشر وبرج العرب (التصنيع للغير).', 'درب البرابرة والعتبة والمنشية لعلب التغليف.'],
-    kwAr: ['مصانع تصنيع للغير وايت لابل مصر', 'علب تغليف فاخرة درب البرابرة'], kwEn: ['White label low MOQ', 'Private label packaging'],
-    calc: { title: 'حاسبة وحدة الوايت لابل', labels: ['سعر المنتج جاهزًا من المصنع', 'تكلفة العبوة والملصق', 'الفحص والتعبئة', 'الشحن', 'إعلان البيعة (CAC)'], def: { c1: 85, c2: 22, c3: 5, c4: 30, c5: 40, price: 275 } },
-    exp: 'صمم عبوة وهوية لـ 15 قطعة فقط من مصنع محلي واعرضها للبيع أونلاين قبل طلب كمية.',
-    risk: 'تجنب الاعتماد على مصنع واحد؛ احتفظ بمورد بديل لنفس المواصفة.'
-  },
-  {
-    id: 'p02_nocode_web_creator',
-    title: 'استوديو بناء مواقع ومنصات تفاعلية بالذكاء الاصطناعي وبدون برمجة',
-    en: 'No-Code & AI Web Studio',
-    drives: { creator: 24, strategist: 20, orchestrator: 6, arbitrageur: 6 },
-    mats: ['mat_digital'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['arts_design', 'general', 'eng_tech'],
-    envs: ['metro_city', 'touristic_city'], raws: ['no_special_raw', 'workshops_markets'], adopters: ['local_shops_cafes', 'online_consumers'],
-    assets: ['home_room', 'none'], hateBonus: 'hate_factory', pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'تصميم مواقع حجز وصفحات هبوط بيعية للعيادات والمطاعم والفنادق بأدوات الذكاء الاصطناعي والـ No-Code مقابل رسوم تأسيس واشتراك شهري.',
-    clusters: ['منصات البناء البصري والاستضافة (Framer / Webflow / Vercel / AI).'],
-    kwAr: ['بناء مواقع للشركات بدون برمجة', 'تصميم صفحات هبوط للعيادات والمطاعم'], kwEn: ['No-code web agency', 'AI landing page builder'],
-    calc: { title: 'حاسبة تسعير مشروع الموقع بدون كود', labels: ['الدومين والاستضافة', 'اشتراكات القوالب والـ AI', 'ساعات التصميم', 'تسويق وجلب العميل', 'احتياطي التعديلات'], def: { c1: 450, c2: 250, c3: 500, c4: 300, c5: 200, price: 3500 } },
-    exp: 'صمم نموذج موقع حي لعيادة أو مطعم في منطقتك في يومين واعرضه جاهزًا على هاتف صاحب النشاط.',
-    risk: 'حدد في الاتفاق 3 صفحات ومرتين تعديل فقط بسعر واضح.'
-  },
-  {
-    id: 'p03_service_invention',
-    title: 'ابتكار خدمة عملية متخصصة توفر وقت الأسر والمهنيين بالباقة',
-    en: 'Productized Local Service',
-    drives: { creator: 20, orchestrator: 22, arbitrageur: 10, strategist: 8 },
-    mats: ['mat_digital', 'mat_warm'], mob: ['loc_kinetic', 'loc_hybrid'], fields: ['general', 'arts_design'],
-    envs: ['metro_city', 'touristic_city'], raws: ['no_special_raw'], adopters: ['village_farmers', 'local_shops_cafes', 'online_consumers'],
-    assets: ['home_room', 'none', 'vehicle'], hateBonus: 'hate_factory', pace: 'pace_fast', isNovel: true, legal: 'b2b_trade',
-    modelDesc: 'تحويل مهمة مرهقة للأسر أو أصحاب العقارات (تنظيم وتجهيز المنازل، أو إدارة وصيانة الشقق المفروشة والسياحية) إلى باقة خدمة مسعّرة بالزيارة أو الاشتراك.',
-    clusters: ['شبكة الفنيين المحليين وموردي أدوات التنظيم والنظافة الفندقية بالجملة.'],
-    kwAr: ['إدارة شقق فندقية وخدمات منزلية', 'تصميم باقات خدمات للأسر'], kwEn: ['Productized local service', 'Property concierge service'],
-    calc: { title: 'حاسبة باقة الخدمة (لكل عميل/زيارة)', labels: ['أجر المساعد باليومية', 'الخامات المستهلكة', 'الانتقالات', 'التسويق', 'احتياطي الضمان'], def: { c1: 250, c2: 80, c3: 60, c4: 70, c5: 40, price: 850 } },
-    exp: 'نفذ الباقة لـ 5 عملاء في منطقتك بسعر تجريبي مقابل تقييم مكتوب وقس نسبة طلب التكرار الشهري.',
-    risk: 'ضع قائمة فحص (Checklist) مكتوبة من 10 نقاط لضمان ثبات جودة الخدمة.'
-  },
-  {
-    id: 'p04_liquid_cosmetics_lab',
-    title: 'علامة تركيبات العناية الطبيعية ومستحضرات القوام المتقن بالتصنيع التعاقدي',
-    en: 'Natural Cosmetics Microbrand',
-    drives: { creator: 25, strategist: 12, orchestrator: 10, arbitrageur: 8 },
-    mats: ['mat_liquid'], mob: ['loc_stationary', 'loc_hybrid'], fields: ['science_chem', 'general', 'arts_design'],
-    envs: ['metro_city', 'touristic_city'], raws: ['workshops_markets', 'crops_herbs_farms'], adopters: ['online_consumers', 'local_shops_cafes'],
-    assets: ['home_room', 'workshop'], pace: 'pace_med', isNovel: false, legal: 'cosmetics_liquid',
-    modelDesc: 'ابتكار تركيبة عناية طبيعية للبشرة أو الشعر وضبط قوامها، وتصنيعها وتعبئتها بكميات صغيرة لدى مصنع مرخص (Toll Manufacturing).',
-    clusters: ['شارع الجيش والعتبة للزيوت والخامات، وحارة الصالحية والمنشية للعبوات.'],
-    kwAr: ['خامات مستحضرات تجميل شارع الجيش', 'عبوات سيروم وكريم حارة الصالحية', 'مصانع تصنيع للغير هيئة الدواء'], kwEn: ['Cosmetic rheology formulation', 'Toll manufacturing skincare'],
-    calc: { title: 'حاسبة عبوة المستحضر (100 مل)', labels: ['الخامات والزيوت الفعالة', 'أجرة التصنيع بالمصنع المرخص', 'العبوة بالمضخة والملصق', 'الشحن وعينة Tester', 'إعلان البيعة (CAC)'], def: { c1: 55, c2: 20, c3: 22, c4: 35, c5: 45, price: 295 } },
-    exp: 'وزع 20 عينة صغيرة (20 مل) لتجربة ملمس القوام؛ وابدأ الدفعة عند طلب 5 عملاء شراء العبوة الكاملة.',
-    risk: 'اختبر ثبات القوام 30 يومًا والتزم بالتصنيع والإخطار عبر مصنع مرخص بهيئة الدواء.'
-  },
-  {
-    id: 'p05_bio_agri_compound',
-    title: 'ابتكار وتحضير مستخلص حيوي آمن لوقاية وتغذية المحاصيل والتوزيع التعاقدي',
-    en: 'Bio-Agri Formulation MVP',
-    drives: { creator: 24, strategist: 18, orchestrator: 8, arbitrageur: 8 },
-    mats: ['mat_liquid', 'mat_bio'], mob: ['loc_stationary', 'loc_hybrid'], fields: ['science_chem', 'agri_vet'],
-    envs: ['rural_village'], raws: ['crops_herbs_farms', 'palm_dates_waste'], adopters: ['village_farmers'],
-    assets: ['home_room'], pace: 'pace_slow', isNovel: true, legal: 'agri_bio',
-    modelDesc: 'تحضير مستخلص نباتي/حيوي آمن لعلاج آفة أو تغذية محاصيل قريتك، واختباره مع المزارعين المحيطين ثم التعاقد مع مكاتب المستلزمات الزراعية لتوزيعه.',
-    clusters: ['شارع الجيش والعتبة للزيوت النباتية الخام وأدوات القياس، وحارة الصالحية للعبوات.'],
-    kwAr: ['زيوت نباتية خام ومستخلص النيم شارع الجيش', 'عبوات HDPE للمخصبات جملة'], kwEn: ['Botanical biopesticide formulation', 'B2B agri distributor contract'],
-    calc: { title: 'حاسبة اللتر المركز وهامش الموزع الزراعي', labels: ['المستخلصات الفعالة للتر', 'عبوة HDPE والملصق', 'التحضير والقياس', 'النقل للموزع', 'عمولة مكتب المستلزمات (20%)'], def: { c1: 65, c2: 12, c3: 8, c4: 10, c5: 35, price: 185 } },
-    exp: 'جرب 10 عبوات مع 5 مزارعين في قريتك ووثق النتيجة بالصور قبل وبعد بـ 7 أيام.',
-    risk: 'يُمنع استخدام كيماويات سامة بالسكن، ويُشترط التسجيل بوزارة الزراعة أو التصنيع بمصنع مرخص للتداول الواسع.'
-  },
-  {
-    id: 'p06_specialty_cleaners_auto',
-    title: 'تركيب وتوريد منظفات متخصصة ومواد تلميع للكافيهات ومغاسل السيارات',
-    en: 'B2B Detailing & Cleaning Formulations',
-    drives: { creator: 18, arbitrageur: 18, orchestrator: 12, strategist: 8 },
-    mats: ['mat_liquid', 'mat_gloss'], mob: ['loc_kinetic', 'loc_stationary'], fields: ['science_chem', 'general'],
-    envs: ['metro_city', 'rural_village'], raws: ['workshops_markets'], adopters: ['local_shops_cafes', 'village_farmers'],
-    assets: ['warehouse', 'workshop', 'vehicle', 'home_room'], pace: 'pace_fast', isNovel: false, legal: 'cosmetics_liquid',
-    modelDesc: 'توريد جراكن 5 و10 لتر بتركيز قياسي (مزيل دهون المطابخ، شامبو وملمع إطارات السيارات) للمغاسل والمطاعم نقدًا بنظام استرداد الجركن.',
-    clusters: ['شارع الجيش والعتبة وباب الشعرية والمنشية لخامات المنظفات والجراكن.'],
-    kwAr: ['خامات منظفات وملمعات سيارات شارع الجيش', 'جراكن HDPE جملة'], kwEn: ['B2B institutional cleaning supplies', 'Auto detailing formulation'],
-    calc: { title: 'حاسبة جركن الـ 10 لتر للمغاسل والمطاعم', labels: ['الخامات الفعالة للجركن', 'الجركن والغطاء', 'الخلط وقياس pH', 'التوصيل', 'عينات التجربة'], def: { c1: 145, c2: 25, c3: 10, c4: 15, c5: 10, price: 280 } },
-    exp: 'جرب عينة 1 لتر عمليًا أمام صاحب مغسلة أو مطعم في دقيقتين لإثبات الفاعلية وقفل البيعة.',
-    risk: 'التزم بمعادلة الـ pH والتهوية الجيدة عند التحضير.'
-  },
-  {
-    id: 'p07_silver_mens_jewelry',
-    title: 'معمل تصميم وعلامة حُلي فضية وإكسسوارات رجالية وسياحية عيار 925 بالتصنيع لدى الصاغة',
-    en: '925 Silver Jewelry Microbrand',
-    drives: { creator: 26, arbitrageur: 10, orchestrator: 6, strategist: 8 },
-    mats: ['mat_gloss'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['arts_design', 'general'],
-    envs: ['metro_city', 'touristic_city'], raws: ['workshops_markets', 'palm_dates_waste'], adopters: ['online_consumers', 'tourists_visitors'],
-    assets: ['home_room', 'shop_office', 'none'], hateBonus: 'hate_factory', pace: 'pace_med', isNovel: false, legal: 'silver_craft',
-    modelDesc: 'تصميم خواتم وإكسسوارات فضة عيار 925 وتنفيذها بالقطعة لدى ورش السبك في الصاغة ودمغها رسميًا وبيعها في علب فاخرة.',
-    clusters: ['الصاغة والجمالية وخان الخليلي بالقاهرة، والمنشية بالإسكندرية، وأسواق أسوان.'],
-    kwAr: ['ورشة سبك فضة الصاغة الجمالية', 'سعر جرام الفضة السويسري', 'دمغ الفضة 925'], kwEn: ['Lost wax casting 925 silver', 'Men signet ring CAD'],
-    calc: { title: 'حاسبة تسعير قطعة الفضة الأوتوماتيكية (بالجرام)', labels: ['تكلفة جرامات الفضة الخام بالقطعة', 'أجرة السبك والتشطيب والدمغة', 'علبة القطيفة وقماشة التلميع', 'الشحن أو عمولة البازار', 'إعلان البيعة (CAC)'], def: { c1: 420, c2: 140, c3: 45, c4: 50, c5: 75, price: 1150 } },
-    exp: 'نفذ 4 عينات لموديلين في الصاغة واعرضها بالحجز المسبق بمقاس الأصبع.',
-    risk: 'أرسل جدول قياس الأصبع بالسنتيمتر للعميل قبل الشحن وحدث السعر وفق جرام الفضة اليومي.'
-  },
-  {
-    id: 'p08_leather_edc_microbrand',
-    title: 'علامة تجارية متخصصة للمحافظ النحيفة والمنتجات الجلدية بالتصنيع بالقطعة',
-    en: 'Leather EDC Microbrand',
-    drives: { creator: 24, arbitrageur: 12, orchestrator: 8, strategist: 8 },
-    mats: ['mat_warm'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['arts_design', 'general'],
-    envs: ['metro_city'], raws: ['workshops_markets'], adopters: ['online_consumers'],
-    assets: ['home_room', 'warehouse', 'none'], hateBonus: 'hate_factory', pace: 'pace_med', isNovel: false, legal: 'craft_brand',
-    modelDesc: 'تصميم محفظة كروت نحيفة أو منظم إكسسوارات من جلد طبيعي وتصنيعه بالقطعة لدى ورشة في باب الشعرية أو المنشية.',
-    clusters: ['باب الشعرية والجمالية والروبيكي بالقاهرة، والمنشية بالإسكندرية.'],
-    kwAr: ['تجار جلد طبيعي باب الشعرية', 'ورشة تصنيع محافظ جلد للغير'], kwEn: ['Full grain leather Egypt', 'Minimalist EDC wallet'],
-    calc: { title: 'حاسبة القطعة الجلدية وهامش المساهمة', labels: ['تكلفة الجلد الطبيعي والإكسسوار', 'مصنعية الورشة بالقطعة', 'علبة التغليف', 'الشحن', 'إعلان البيعة (CAC)'], def: { c1: 110, c2: 45, c3: 15, c4: 35, c5: 35, price: 330 } },
-    exp: 'نفذ 5 عينات فقط وصورها في إضاءة طبيعية واعرضها للبيع قبل تصنيع 50 قطعة.',
-    risk: 'افحص كل قطعة مستلمة من الورشة مقارنة بعينة الماستر.'
-  },
-  {
-    id: 'p09_eco_palm_craft',
-    title: 'علامة لتصميم وحدات إضاءة وديكور وحقائب عصرية من جريد النخيل للسياح والفنادق',
-    en: 'Palm Eco-Design Microbrand',
-    drives: { creator: 25, arbitrageur: 10, orchestrator: 8, strategist: 6 },
-    mats: ['mat_warm'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['arts_design', 'general', 'agri_vet'],
-    envs: ['touristic_city', 'rural_village'], raws: ['palm_dates_waste'], adopters: ['tourists_visitors', 'online_consumers'],
-    assets: ['home_room', 'workshop', 'roof'], pace: 'pace_med', isNovel: true, legal: 'craft_brand',
-    modelDesc: 'تحويل جريد وألياف النخيل بتصميم عصري قابل للطي (Flat-pack) إلى وحدات إضاءة وحقائب مطعمة بالجلد للسياح والفنادق البيئية.',
-    clusters: ['قرى النخيل ومراكز الحرف في أسوان والنوبة والفيوم والوادي الجديد.'],
-    kwAr: ['منتجات جريد النخيل العصرية', 'ورش حرف يدوية أسوان'], kwEn: ['Palm midrib lighting design', 'Flat-pack tourist souvenir'],
-    calc: { title: 'حاسبة القطعة الديكورية من الخامات البيئية', labels: ['معالجة جريد/ألياف النخيل', 'أجرة الحرفي', 'مكملات (جلد/إضاءة/دهان)', 'تغليف السفر وبطاقة القصة', 'عمولة البازار أو الفندق'], def: { c1: 20, c2: 65, c3: 45, c4: 25, c5: 60, price: 420 } },
-    exp: 'صمم 3 قطع بوزن أقل من 400 جرام لتدخل حقيبة السائح واعرضها في فندق بيئي أو بازار.',
-    risk: 'التزم بالصنفرة الناعمة والوزن الخفيف القابل للطي في حقيبة الطائرة.'
-  },
-  {
-    id: 'p10_hotel_bedding_textiles',
-    title: 'علامة للملايات الفندقية الثابتة (بجيوب عميقة 40 سم) وفوط الوافل بالتصنيع لدى الغير',
-    en: 'Specialized Home Textile Microbrand',
-    drives: { creator: 18, arbitrageur: 16, orchestrator: 14, strategist: 6 },
-    mats: ['mat_warm'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['general', 'arts_design'],
-    envs: ['metro_city'], raws: ['workshops_markets'], adopters: ['online_consumers', 'tourists_visitors'],
-    assets: ['home_room', 'warehouse', 'workshop'], pace: 'pace_med', isNovel: false, legal: 'craft_brand',
-    modelDesc: 'شراء قماش قطني فندقي وتفصيله لدى مشغل خياطة بالقطعة بمواصفة جيوب عميقة 40 سم وأستك محكم للمراتب العالية.',
-    clusters: ['المحلة الكبرى والأزهر والغورية للأقمشة، ومشاغل جسر السويس والعامرية.'],
-    kwAr: ['قماش قطن فندقي جملة الأزهر والمحلة', 'مشغل خياطة ملايات للغير'], kwEn: ['Deep pocket fitted sheet', 'Waffle weave towel'],
-    calc: { title: 'حاسبة طقم الملاية الفندقية', labels: ['أمتار القماش القطني والأستك', 'أجرة القص والخياطة بالمشغل', 'حقيبة التغليف', 'الشحن', 'إعلان البيعة (CAC)'], def: { c1: 260, c2: 55, c3: 25, c4: 45, c5: 55, price: 620 } },
-    exp: 'فصل 3 أطقم واغسل عينة القماش فعليًا للتأكد من عدم الانكماش وصور ثباتها على مرتبة عالية.',
-    risk: 'اختبر القماش بالغسيل الفعلي قبل شراء التوب الكامل.'
-  },
-  {
-    id: 'p11_kids_stem_boxes',
-    title: 'تصميم وإنتاج صناديق الأنشطة والتجارب التعليمية الخشبية للأطفال',
-    en: 'Kids STEM & Activity Box',
-    drives: { creator: 22, orchestrator: 14, strategist: 14, arbitrageur: 8 },
-    mats: ['mat_warm', 'mat_digital'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['arts_design', 'science_chem', 'general'],
-    envs: ['metro_city'], raws: ['workshops_markets', 'no_special_raw'], adopters: ['online_consumers', 'local_shops_cafes'],
-    assets: ['home_room', 'none'], pace: 'pace_med', isNovel: false, legal: 'craft_brand',
-    modelDesc: 'تصميم صندوق نشاط شهري (تركيبات خشبية بتقطيع ليزر لدى ورشة أو تجارب آمنة) مع كتيب مصور للأمهات والحضانات.',
-    clusters: ['ورش تقطيع الليزر في باب الشعرية والعبور وسموحة، والفجالة ودرب البرابرة للمكونات.'],
-    kwAr: ['ورش تقطيع ليزر ألعاب خشبية منتسوري', 'مكونات أنشطة تعليمية الفجالة'], kwEn: ['Montessori laser cut box', 'STEM subscription box'],
-    calc: { title: 'حاسبة صندوق النشاط التعليمي', labels: ['مكونات الصندوق والخشب', 'تقطيع الليزر والكتيب', 'علبة الصندوق', 'الشحن', 'التسويق'], def: { c1: 75, c2: 35, c3: 25, c4: 40, c5: 45, price: 340 } },
-    exp: 'جرب صندوقًا واحدًا مع 5 أطفال أمام أمهاتهم وصور تفاعلهم.',
-    risk: 'تجنب القطع الصغيرة الحادة للأطفال أقل من 4 سنوات.'
-  },
-  {
-    id: 'p12_wood_brass_desk',
-    title: 'علامة لتصميم منظمات المكاتب ووحدات الديكور من الخشب الطبيعي والنحاس',
-    en: 'Wood & Brass Desk Microbrand',
-    drives: { creator: 24, arbitrageur: 10, orchestrator: 8, strategist: 10 },
-    mats: ['mat_warm', 'mat_gloss'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['arts_design', 'eng_tech'],
-    envs: ['metro_city', 'touristic_city'], raws: ['workshops_markets'], adopters: ['online_consumers', 'tourists_visitors'],
-    assets: ['home_room', 'workshop'], pace: 'pace_med', isNovel: false, legal: 'craft_brand',
-    modelDesc: 'تصميم حوامل لابتوب ومنظمات مكتب تدمج الخشب الطبيعي بالنحاس وتنفيذها بالقطعة لدى ورش CNC.',
-    clusters: ['ورش الأخشاب والـ CNC في دمياط وجسر السويس، وورش النحاس بالجمالية.'],
-    kwAr: ['ورش CNC أخشاب طبيعية بالقطعة', 'منظمات مكتب خشب Desk Setup'], kwEn: ['Wooden desk organizer brass', 'CNC wood contract manufacturing'],
-    calc: { title: 'حاسبة منظم المكتب (خشب ونحاس)', labels: ['الخشب الطبيعي والنحاس', 'أجرة الـ CNC والتشطيب', 'التغليف المبطن', 'الشحن', 'إعلان البيعة'], def: { c1: 160, c2: 90, c3: 35, c4: 50, c5: 65, price: 650 } },
-    exp: 'نفذ 3 قطع واعرضها على 10 من المهندسين وأصحاب المكاتب.',
-    risk: 'اشترط استخدام خشب مجفف (Kiln-dried) لمنع التقوس.'
-  },
-  {
-    id: 'p13_smart_arbitrage_flip',
-    title: 'وكالة تدوير الصفقات واقتناص بضائع الجملة السريعة (تدوير الكاش)',
-    en: 'Smart Inventory Arbitrage',
-    drives: { arbitrageur: 28, orchestrator: 10, creator: 6, strategist: 10 },
-    mats: ['mat_warm', 'mat_gloss', 'mat_digital'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['general'],
-    envs: ['metro_city', 'border_port_city'], raws: ['workshops_markets'], adopters: ['local_shops_cafes', 'online_consumers'],
-    assets: ['warehouse', 'home_room', 'shop_office'], pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'رصد البضائع سريعة السحب أو تصفيات المستوردين السليمة، واختبار عرضها لمدة 48 ساعة ثم شرائها بخصم الكاش وتصريفها في أسبوعين.',
-    clusters: ['الموسكي والعتبة والنزهة الجديدة بالقاهرة، والمنشية وبورسعيد.'],
-    kwAr: ['تصفيات مستوردين ومصانع كاش', 'جملة الجملة الموسكي والمنشية'], kwEn: ['Inventory arbitrage cash cycle', 'Wholesale flipping GMROI'],
-    calc: { title: 'حاسبة صفقة التدوير السريع للوحدة', labels: ['سعر شراء الوحدة بالكاش', 'النقل والفرز', 'التغليف المحسن', 'إعلان التصريف', 'خصم البيع السريع'], def: { c1: 140, c2: 8, c3: 7, c4: 20, c5: 10, price: 245 } },
-    exp: 'اعرض عينة من 5 قطع للبيع لمدة 48 ساعة قبل شراء الكرتونة الكاملة.',
-    risk: 'افحص كل قطعة عند الاستلام ولا تشترِ بضاعة راكدة.'
-  },
-  {
-    id: 'p14_kinetic_b2b_route',
-    title: 'وكالة توريد وتوزيع ميداني متحرك للمستهلكات اليومية للكافيهات والعيادات بالكاش',
-    en: 'B2B Mobile Route Distribution',
-    drives: { arbitrageur: 24, orchestrator: 20, creator: 4, strategist: 6 },
-    mats: ['mat_warm', 'mat_gloss'], mob: ['loc_kinetic'], fields: ['general'],
-    envs: ['metro_city', 'touristic_city', 'rural_village'], raws: ['workshops_markets', 'no_special_raw'], adopters: ['local_shops_cafes'],
-    assets: ['vehicle', 'warehouse', 'home_room'], pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'التخصص في 3 أصناف إجبارية الاستهلاك أسبوعيًا (بكر كاشير، أكواب وعلب تغليف، قفازات ومناديل) وتوزيعها بخط سير ثابت نقدًا.',
-    clusters: ['شارع الجمهورية والعتبة ودرب البرابرة ومصانع العبور وبرج العرب.'],
-    kwAr: ['مصنع بكر كاشير حراري جملة', 'مصنع أكواب ورقية وتغليف كافيهات'], kwEn: ['B2B route sales distribution', 'Thermal POS rolls wholesale'],
-    calc: { title: 'حاسبة الكرتونة في خط التوزيع', labels: ['سعر شراء الكرتونة جملة', 'النقل والوقود', 'التحميل', 'التوالف والعينات', 'خصم الدفع النقدي'], def: { c1: 420, c2: 15, c3: 5, c4: 5, c5: 10, price: 515 } },
-    exp: 'مر بعينات 3 أصناف على 15 كافيه أو عيادة واجمع 5 طلبات تسلمها بعد 48 ساعة نقدًا.',
-    risk: 'ممنوع البيع بالآجل (الشكك) لحماية سيولة رأس المال.'
-  },
-  {
-    id: 'p15_zero_stock_b2b_broker',
-    title: 'وكالة وساطة توريد تعاقدي بالعينات والطلب المسبق للمحلات والشركات (بدون مخزون)',
-    en: 'Sample-Based B2B Broker',
-    drives: { arbitrageur: 26, strategist: 12, orchestrator: 10, creator: 6 },
-    mats: ['mat_warm', 'mat_digital'], mob: ['loc_kinetic', 'loc_hybrid'], fields: ['general'],
-    envs: ['metro_city', 'border_port_city'], raws: ['workshops_markets'], adopters: ['local_shops_cafes'],
-    assets: ['none', 'home_room'], pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'الاتفاق مع 3 مصانع على كتالوج عينات وأسعار جملة، وأخذ طلبية مؤكدة بعربون من المحلات أو الشركات ثم التوريد المباشر.',
-    clusters: ['مصانع العاشر والعبور وبرج العرب وأسواق الجملة الكبرى.'],
-    kwAr: ['توريد مستلزمات شركات وفنادق بالطلب', 'عقود وساطة وتوريد B2B'], kwEn: ['Zero-inventory B2B brokerage', 'Pre-order wholesale sourcing'],
-    calc: { title: 'حاسبة صفقة التوريد بالطلب المسبق', labels: ['سعر تسليم المصنع للدفعة', 'النقل للمشتري', 'شنطة العينات والانتقالات', 'رسوم الفاتورة', 'تأمين المطابقة'], def: { c1: 8000, c2: 350, c3: 150, c4: 200, c5: 100, price: 10200 } },
-    exp: 'اعرض 3 عينات من مصنع محلي على 10 محلات ونفذ أول توريدة بعربون المشتري.',
-    risk: 'أضف 48 ساعة أمان على موعد تسليم المصنع قبل وعد العميل.'
-  },
-  {
-    id: 'p16_aswan_dates_coffee',
-    title: 'علامة لمربيات التمور الفاخرة والقهوة المختصة الأفريقية والكركديه للسياح والكافيهات',
-    en: 'Specialty Dates & African Coffee',
-    drives: { arbitrageur: 22, creator: 16, orchestrator: 14, strategist: 6 },
-    mats: ['mat_bio', 'mat_warm'], mob: ['loc_stationary', 'loc_hybrid'], fields: ['agri_vet', 'general'],
-    envs: ['touristic_city', 'border_port_city'], raws: ['african_coffee_spices', 'palm_dates_waste'], adopters: ['tourists_visitors', 'local_shops_cafes'],
-    assets: ['warehouse', 'shop_office', 'home_room'], pace: 'pace_fast', isNovel: false, legal: 'food_kitchen',
-    modelDesc: 'تحويل التمور الفاخرة والبن الأفريقي والكركديه إلى عبوات هدايا سياحية ومربيات وتوليفات قهوة مختصة للكافيهات والفنادق البيئية.',
-    clusters: ['أسواق أسوان وإدفو وتجار الحاصلات الأفريقية، ودرب البرابرة للعبوات وأكياس الصمام.'],
-    kwAr: ['برطمانات زجاج للمربى جملة', 'أكياس قهوة بصمام', 'تجارة البن الأفريقي والتمور أسوان'], kwEn: ['Specialty coffee private label', 'Artisanal date jam souvenir'],
-    calc: { title: 'حاسبة عبوة التمور/القهوة (250 جم)', labels: ['الخامة والتحميص/التحضير', 'البرطمان/الكيس بصمام والملصق', 'الفرز والنقل', 'عمولة البازار أو الفندق', 'عينات التذوق'], def: { c1: 48, c2: 16, c3: 7, c4: 25, c5: 9, price: 160 } },
-    exp: 'جهز 20 عبوة فقط واعرضها في 3 فنادق بيئية أو بازارات سياحية وقس سرعة البيع.',
-    risk: 'قارن سعر وجودة الخامة محليًا بمستوردي الجملة في القاهرة قبل الشراء الكمي.'
-  },
-  {
-    id: 'p17_reverse_logistics_hub',
-    title: 'مركز فحص وإعادة تغليف وتسييل مرتجعات المتاجر الإلكترونية',
-    en: 'Returns Refurbishing Hub',
-    drives: { arbitrageur: 24, orchestrator: 20, creator: 6, strategist: 10 },
-    mats: ['mat_warm'], mob: ['loc_stationary', 'loc_hybrid'], fields: ['general'],
-    envs: ['metro_city'], raws: ['workshops_markets'], adopters: ['online_consumers', 'local_shops_cafes'],
-    assets: ['warehouse', 'vacant_apt', 'home_room'], pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'استلام المرتجعات السليمة من براندات الملابس، كيّها بالبخار وإعادة تغليفها وتصريفها في عروض تصفية سريعة مقابل نسبة.',
-    clusters: ['شارع الجمهورية لمكاوي البخار، ودرب البرابرة لأكياس الشحن.'],
-    kwAr: ['مكواة بخار عمودية جملة', 'أكياس شحن ذاتية اللصق درب البرابرة'], kwEn: ['Reverse logistics refurbishing', 'Flash sale liquidation'],
-    calc: { title: 'حاسبة تجهيز وتسييل القطعة المرتجعة', labels: ['سعر استلام القطعة السليمة', 'الكي والكيس الجديد', 'النقل والفرز', 'إعلان التصفية', 'احتياطي الفرز'], def: { c1: 95, c2: 8, c3: 5, c4: 18, c5: 7, price: 185 } },
-    exp: 'استلم 15 قطعة مرتجعة بالأمانة من صفحة ملابس وجهزها وبعها خلال 48 ساعة.',
-    risk: 'لا تشترِ لوط مرتجعات مغلق بدون فحص كل قطعة واستبعاد التالف.'
-  },
-  {
-    id: 'p18_micro_export_crafts',
-    title: 'مكتب تصدير مصغر عبر الإنترنت للمنتجات الحرفية المصرية بالعملة الصعبة',
-    en: 'Cross-Border Micro-Export',
-    drives: { arbitrageur: 22, strategist: 18, creator: 14, orchestrator: 8 },
-    mats: ['mat_warm', 'mat_digital'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['general', 'arts_design'],
-    envs: ['metro_city', 'touristic_city'], raws: ['workshops_markets', 'palm_dates_waste'], adopters: ['online_consumers'],
-    assets: ['home_room', 'none'], pace: 'pace_med', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'انتقاء قطع حرفية مصرية خفيفة الوزن غير قابلة للكسر وتصويرها وشحنها دوليًا بالقطعة عبر البريد السريع (EMS).',
-    clusters: ['ورش الجمالية وخان الخليلي والفيوم وأسوان، وخدمة البريد السريع الدولي EMS.'],
-    kwAr: ['شحن البريد السريع الدولي EMS مصر', 'ورش حرف يدوية للتصدير'], kwEn: ['Cross-border micro-export', 'EMS international shipping'],
-    calc: { title: 'حاسبة تصدير الطرد الخفيف (1 كجم)', labels: ['سعر شراء القطعة محليًا', 'التغليف الواقي للصدمات', 'الشحن الدولي السريع EMS', 'عمولة المنصة وبوابة الدفع', 'التسويق الرقمي'], def: { c1: 280, c2: 45, c3: 520, c4: 130, c5: 120, price: 1550 } },
-    exp: 'اعرض 10 قطع مصورة احترافيًا للمشترين بالخارج ولا تشترِ المخزون إلا بعد أول طلب مدفوع.',
-    risk: 'تجنب القطع الزجاجية أو الثقيلة في البداية لحماية هامش الشحن.'
-  },
-  {
-    id: 'p19_regional_fmcg_supply',
-    title: 'وكالة توزيع جملة المواد الغذائية والورقيات الأساسية للسوبرماركت والمطاعم',
-    en: 'Regional FMCG Distributor',
-    drives: { arbitrageur: 24, orchestrator: 22, creator: 2, strategist: 8 },
-    mats: ['mat_bio', 'mat_warm'], mob: ['loc_kinetic', 'loc_stationary'], fields: ['general'],
-    envs: ['metro_city', 'rural_village'], raws: ['workshops_markets', 'crops_herbs_farms'], adopters: ['local_shops_cafes'],
-    assets: ['warehouse', 'vehicle', 'shop_office'], pace: 'pace_fast', isNovel: false, legal: 'food_kitchen',
-    modelDesc: 'التخصص في 5 أصناف أساسية سريعة الدوران (بقوليات، زيوت، مناديل، فويل، أكياس) وتوزيعها كاش لـ 30 محلًا في منطقتك.',
-    clusters: ['سوق العبور ومصانع العاشر وبرج العرب وتجار المنشية.'],
-    kwAr: ['مصانع تعبئة بقوليات ومواد غذائية جملة', 'مصانع فويل وورقيات'], kwEn: ['FMCG cash van distribution', 'Grocery wholesale turnover'],
-    calc: { title: 'حاسبة بالة/كرتونة الجملة الغذائية', labels: ['سعر البالة من المصنع', 'النقل والتعتيق', 'التوزيع للمحل', 'التوالف', 'خصم الكاش'], def: { c1: 680, c2: 12, c3: 10, c4: 4, c5: 9, price: 765 } },
-    exp: 'اجمع طلبات مسبقة لـ 5 أصناف من 20 سوبرماركت في حيك قبل سحب البضاعة.',
-    risk: 'الالتزام بالجرد اليومي والبيع النقدي فقط.'
-  },
-  {
-    id: 'p20_cloud_kitchen_prep',
-    title: 'مطبخ سحابي ووحدة تجهيز وتوريد غذائي موزون (Cloud Kitchen & B2B Prep)',
-    en: 'Cloud Kitchen & Food Prep',
-    drives: { orchestrator: 26, arbitrageur: 14, creator: 12, strategist: 8 },
-    mats: ['mat_bio', 'mat_liquid'], mob: ['loc_stationary'], fields: ['general', 'agri_vet'],
-    envs: ['metro_city', 'touristic_city'], raws: ['workshops_markets', 'crops_herbs_farms'], adopters: ['local_shops_cafes', 'online_consumers'],
-    assets: ['workshop', 'shop_office', 'vacant_apt', 'home_room'], pace: 'pace_fast', isNovel: false, legal: 'food_kitchen',
-    modelDesc: 'إنتاج 3 أصناف محددة بمقادير موزونة بالجرام داخل مطبخ تحضير مرخص، والتوريد اليومي للكافيهات والمكاتب مع التوصيل.',
-    clusters: ['شارع الجمهورية ودرب البرابرة للمعدات والتغليف، وسوق العبور والحضرة للخامات.'],
-    kwAr: ['تجهيزات مطابخ استانلس شارع الجمهورية', 'علب تغليف غذائي جملة', 'اشتراطات سلامة الغذاء للمطابخ'], kwEn: ['Cloud kitchen recipe costing', 'Food cost percentage'],
-    calc: { title: 'حاسبة تكلفة الوجبة بالجرام (Food Cost)', labels: ['الخامات الغذائية بالجرام', 'الغاز والكهرباء والتحضير', 'عبوة التغليف الحراري', 'التوصيل أو العمولة', 'الهدر والعينات'], def: { c1: 52, c2: 12, c3: 10, c4: 22, c5: 9, price: 160 } },
-    exp: 'وزع 15 عينة موزونة على 5 كافيهات ومكاتب شركات لكسب أول عقد توريد أسبوعي.',
-    risk: 'يُمنع التشغيل التجاري كثيف الأبخرة في شقة سكنية غير مرخصة؛ استعن بمطبخ مرخص.'
-  },
-  {
-    id: 'p21_agri_solar_drying',
-    title: 'وحدة تجفيف شمسي/حراري صحي وتجهيز للنباتات العطرية والمحاصيل على السطح',
-    en: 'Solar Agri-Drying Unit',
-    drives: { orchestrator: 20, creator: 18, strategist: 14, arbitrageur: 12 },
-    mats: ['mat_bio'], mob: ['loc_stationary'], fields: ['science_chem', 'agri_vet', 'general'],
-    envs: ['rural_village', 'touristic_city'], raws: ['crops_herbs_farms', 'palm_dates_waste'], adopters: ['local_shops_cafes', 'tourists_visitors'],
-    assets: ['roof', 'land'], pace: 'pace_med', isNovel: false, legal: 'food_kitchen',
-    modelDesc: 'تركيب صواني وشباك تجفيف معزولة غذائيًا على السطح لتجفيف الأعشاب العطرية والكركديه والطماطم وتعبئتها بالفاكيوم للمطاعم والعطارة.',
-    clusters: ['المزارع المحلية بالقرية/المحافظة، وشارع الجمهورية ودرب البرابرة لشباك الاستانلس والفاكيوم.'],
-    kwAr: ['صواني وشبك تجفيف أعشاب استانلس', 'ماكينة فاكيوم تغليف غذائي'], kwEn: ['Solar cabinet herb dryer', 'Sun-dried tomatoes B2B'],
-    calc: { title: 'حاسبة الكيلو المجفف الصافي', labels: ['المحصول الأخضر لإنتاج 1 كجم جاف', 'الغسيل والفرز', 'عبوة الفاكيوم والملصق', 'الشحن للمدينة', 'إرسال العينات'], def: { c1: 65, c2: 18, c3: 12, c4: 12, c5: 8, price: 180 } },
-    exp: 'نفذ صندوق تجفيف شبكي واحد على السطح وجفف 10 كجم خام واعرض 5 عينات على مطاعم وعطارين.',
-    risk: 'افحص نسبة الرطوبة قبل التغليف لمنع التعفن.'
-  },
-  {
-    id: 'p22_vacuum_prepped_veggies',
-    title: 'وحدة تجهيز وتقطيع الخضروات الطازجة المفرغة من الهواء (Vacuum) للمطاعم',
-    en: 'Vacuum Prepped Veggies Unit',
-    drives: { orchestrator: 24, arbitrageur: 16, creator: 6, strategist: 6 },
-    mats: ['mat_bio'], mob: ['loc_stationary', 'loc_kinetic'], fields: ['agri_vet', 'general'],
-    envs: ['metro_city'], raws: ['crops_herbs_farms', 'workshops_markets'], adopters: ['local_shops_cafes', 'online_consumers'],
-    assets: ['workshop', 'shop_office', 'vehicle'], pace: 'pace_fast', isNovel: false, legal: 'food_kitchen',
-    modelDesc: 'شراء الخضار فجرًا، غسله وتجفيفه وتقطيعه آليًا وسحب الهواء منه (Vacuum) وتوريده صباحًا للمطاعم والبيوت.',
-    clusters: ['سوق العبور ووكالة الحضرة، وشارع الجمهورية لقطاعات الخضار وماكينات الفاكيوم.'],
-    kwAr: ['قطاعة خضروات صناعية شارع الجمهورية', 'ماكينة فاكيوم غرفية وأكياس غذائية'], kwEn: ['Fresh-cut vacuum vegetables', 'Restaurant kitchen prep supplier'],
-    calc: { title: 'حاسبة كيلو الخضار المجهز بالفاكيوم', labels: ['الخضار الخام شاملة فاقد التقشير', 'الغسيل والتجفيف والكهرباء', 'كيس الفاكيوم السميك', 'التوصيل الصباحي', 'هامش العينات'], def: { c1: 22, c2: 5, c3: 4, c4: 5, c5: 2, price: 52 } },
-    exp: 'جهز 10 كجم بصل وبطاطس مقشرة بالفاكيوم واعرضها على 3 مطاعم قريبة للتوريد اليومي.',
-    risk: 'التجفيف التام من الماء قبل سحب الهواء ضروري لمنع تغير اللون.'
-  },
-  {
-    id: 'p23_healthy_meal_subs',
-    title: 'مشروع اشتراكات الوجبات والسناكس الصحية الموزونة بالسعرات للموظفين والرياضيين',
-    en: 'Healthy Food Subscription',
-    drives: { orchestrator: 22, creator: 18, strategist: 12, arbitrageur: 8 },
-    mats: ['mat_bio'], mob: ['loc_stationary', 'loc_hybrid'], fields: ['agri_vet', 'science_chem', 'general'],
-    envs: ['metro_city'], raws: ['no_special_raw', 'crops_herbs_farms'], adopters: ['online_consumers', 'local_shops_cafes'],
-    assets: ['workshop', 'home_room'], pace: 'pace_fast', isNovel: false, legal: 'food_kitchen',
-    modelDesc: 'تجهيز باقات أسبوعية مدفوعة مقدمًا لسناكس ووجبات محسوبة السعرات والبروتين وتوصيلها للصالات الرياضية والمكاتب.',
-    clusters: ['بين الصورين والمنشية للمكسرات والشوفان جملة، ودرب البرابرة للعلب المقسمة.'],
-    kwAr: ['خامات سناكس صحية وشوفان جملة', 'علب وجبات صحية مقسمة مايكروويف'], kwEn: ['Healthy meal prep subscription', 'Macro food cost calculator'],
-    calc: { title: 'حاسبة باقة الاشتراك الأسبوعي (5 أيام)', labels: ['المكونات الصحية لـ 5 أيام', 'الـ 5 علب المقسمة والملصق', 'التحضير والطهي', 'التوصيل المجمع', 'التسويق'], def: { c1: 320, c2: 45, c3: 60, c4: 75, c5: 50, price: 780 } },
-    exp: 'اعرض 10 علب تذوق في جيم أو مكتب قريب لجمع أول 5 مشتركين يدفعون أسبوعيًا.',
-    risk: 'الالتزام بالموعد اليومي وثبات وزن البروتين.'
-  },
-  {
-    id: 'p24_packaging_boxes_unit',
-    title: 'ورشة تصنيع وتشكيل علب الكرتون وصناديق الشحن بكميات مرنة للبراندات',
-    en: 'Small-Batch Box Workshop',
-    drives: { orchestrator: 22, creator: 16, arbitrageur: 16, strategist: 6 },
-    mats: ['mat_warm'], mob: ['loc_stationary'], fields: ['eng_tech', 'arts_design', 'general'],
-    envs: ['metro_city'], raws: ['workshops_markets'], adopters: ['local_shops_cafes', 'online_consumers'],
-    assets: ['workshop', 'warehouse'], pace: 'pace_fast', isNovel: false, legal: 'craft_brand',
-    modelDesc: 'شراء فرخات الكرتون المضلع بالجملة وتكسيرها بمقاسات قياسية لتلبية طلبات البراندات الصغيرة بدءًا من 200 علبة.',
-    clusters: ['السبتية والعبور والعاشر وبرج العرب لمكابس التكسير وفرخات الكرتون.'],
-    kwAr: ['فرخات كرتون مضلع جملة العبور', 'مكبس تكسير كرتون واسطمبات علب'], kwEn: ['Die-cut shipping boxes low MOQ', 'Corrugated box cost calculator'],
-    calc: { title: 'حاسبة إنتاج 100 علبة شحن كرتون', labels: ['فرخات الكرتون لـ 100 علبة', 'التكسير والكهرباء', 'الطباعة السلك سكرين', 'التوصيل', 'هدر القص'], def: { c1: 380, c2: 70, c3: 50, c4: 50, c5: 25, price: 820 } },
-    exp: 'اجمع 5 طلبات لـ 200 علبة قياسية بعربون 50% من المتاجر الإلكترونية قبل سحب الكرتون.',
-    risk: 'سعّر كل طلبية بسعر فرخ الكرتون يوم استلام العربون.'
-  },
-  {
-    id: 'p25_preventive_maint_b2b',
-    title: 'وكالة عقود الصيانة الوقائية الدورية لماكينات الكافيهات ومعدات العيادات',
-    en: 'B2B Preventive Maintenance',
-    drives: { orchestrator: 22, strategist: 16, arbitrageur: 14, creator: 10 },
-    mats: ['mat_gloss', 'mat_liquid'], mob: ['loc_kinetic'], fields: ['eng_tech', 'science_chem', 'general'],
-    envs: ['metro_city', 'touristic_city'], raws: ['workshops_markets', 'no_special_raw'], adopters: ['local_shops_cafes'],
-    assets: ['vehicle', 'none', 'home_room'], pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'التعاقد باشتراك شهري ثابت لزيارة وقائية مجدولة (إزالة تكلس، تغيير جوانات وفلاتر، وضبط ضغط) تمنع تعطل الكافيه أو العيادة.',
-    clusters: ['شارع الجمهورية والسبتية بالقاهرة والعطارين بالإسكندرية لقطع الغيار والجوانات.'],
-    kwAr: ['قطع غيار ماكينات إسبريسو شارع الجمهورية', 'عقود صيانة وقائية للكافيهات والعيادات'], kwEn: ['B2B preventive maintenance retainer', 'Espresso machine descaling SOP'],
-    calc: { title: 'حاسبة عقد الصيانة الوقائية الشهري', labels: ['الجوانات والفلاتر ومواد إزالة التكلس', 'الانتقالات', 'أجر المساعد', 'إهلاك عدة القياس', 'اكتساب العقد'], def: { c1: 180, c2: 60, c3: 150, c4: 30, c5: 50, price: 950 } },
-    exp: 'قدم فحصًا مجانيًا لضغط الماكينة وأملاح المياه لـ 5 كافيهات في منطقتك لتوقيع أول عقدين.',
-    risk: 'احصر عملاءك في نطاق متقارب لتلبية الطوارئ بسرعة.'
-  },
-  {
-    id: 'p26_mobile_auto_detailing',
-    title: 'وحدة متنقلة لتلميع وحماية السيارات والعناية الفائقة بالأسطح (Auto Detailing)',
-    en: 'Mobile Auto Detailing',
-    drives: { orchestrator: 18, creator: 20, arbitrageur: 12, strategist: 6 },
-    mats: ['mat_gloss', 'mat_liquid'], mob: ['loc_kinetic'], fields: ['general', 'eng_tech'],
-    envs: ['metro_city', 'touristic_city'], raws: ['no_special_raw', 'workshops_markets'], adopters: ['online_consumers', 'local_shops_cafes'],
-    assets: ['vehicle', 'workshop', 'home_room'], pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'الذهاب لموقع العميل بحقيبة معدات تلميع وبخار جاف ومركبات بولش ونانو سيراميك لإعادة لمعة السيارة كالمرآة.',
-    clusters: ['شارع الجمهورية والتوفيقية بالقاهرة والمنشية بالإسكندرية لمعدات وخامات التلميع.'],
-    kwAr: ['معدات تلميع سيارات التوفيقية', 'خامات بولش ونانو سيراميك جملة'], kwEn: ['Mobile auto detailing', 'Paint correction ceramic coating'],
-    calc: { title: 'حاسبة جلسة التلميع والحماية للسيارة', labels: ['مركبات البولش والنانو والفوط', 'الانتقال والكهرباء', 'أجر المساعد', 'إهلاك الماكينات', 'إعلان جلب العميل'], def: { c1: 220, c2: 80, c3: 150, c4: 40, c5: 90, price: 1350 } },
-    exp: 'لمع سيارتين وصور فيديو يوضح نصف الكبوت الباهت بجوار النصف اللامع لجلب أول 10 حجوزات.',
-    risk: 'استخدم سرعات دوران منخفضة وفوم مناسب لحماية ورنيش السيارة.'
-  },
-  {
-    id: 'p27_whatsapp_ai_b2b',
-    title: 'وكالة أتمتة الردود وحجز المواعيد والطلبات عبر واتساب الرسمي للعيادات والمتاجر',
-    en: 'B2B WhatsApp AI Automation',
-    drives: { strategist: 28, creator: 16, orchestrator: 12, arbitrageur: 8 },
-    mats: ['mat_digital'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['eng_tech', 'general'],
-    envs: ['metro_city'], raws: ['no_special_raw', 'workshops_markets'], adopters: ['local_shops_cafes', 'online_consumers'],
-    assets: ['home_room', 'none'], pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'ربط واتساب الرسمي (Meta Cloud API) بمنصات الأتمتة ليرد ويسجل الحجوزات والطلبات تلقائيًا 24 ساعة مقابل اشتراك شهري.',
-    clusters: ['واجهة Meta Cloud API الرسمية ومنصات Make / n8n / Supabase.'],
-    kwAr: ['ربط واتساب كلاود API الرسمي', 'أتمتة حجز مواعيد العيادات n8n'], kwEn: ['WhatsApp Cloud API automation', 'n8n B2B workflow'],
-    calc: { title: 'حاسبة باقة أتمتة العيادة/المتجر', labels: ['الاستضافة ورسائل API', 'اشتراكات منصات الأتمتة', 'ساعات الإعداد', 'التسويق', 'الدعم الفني'], def: { c1: 200, c2: 150, c3: 350, c4: 250, c5: 100, price: 2200 } },
-    exp: 'اعرض تجربة مجانية لمدة 5 أيام لنموذج يعمل على هاتفك أمام 10 عيادات أو متاجر.',
-    risk: 'التزم بالواجهة الرسمية المعتمدة من Meta فقط لمنع حظر الأرقام.'
-  },
-  {
-    id: 'p28_pos_barcode_erp',
-    title: 'خدمة تأسيس أنظمة الكاشير والجرد السحابي بالباركود للمحلات والمخازن (تسليم مفتاح)',
-    en: 'Turnkey POS & Barcode Setup',
-    drives: { strategist: 24, orchestrator: 22, arbitrageur: 12, creator: 6 },
-    mats: ['mat_digital', 'mat_gloss'], mob: ['loc_kinetic', 'loc_hybrid'], fields: ['eng_tech', 'general'],
-    envs: ['metro_city', 'rural_village'], raws: ['workshops_markets', 'no_special_raw'], adopters: ['local_shops_cafes'],
-    assets: ['home_room', 'vehicle', 'none'], pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'جرد المحل فعليًا، تكويد الأصناف ولصق استيكرات الباركود الحراري، وربط المبيعات بموبايل صاحب المحل في 48 ساعة.',
-    clusters: ['مول البستان وشارع الجمهورية بالقاهرة، وسموحة والعطارين بالإسكندرية لطابعات الباركود.'],
-    kwAr: ['جملة طابعات وقارئ باركود مول البستان', 'بكر استيكر باركود حراري العتبة'], kwEn: ['Turnkey POS barcode setup', 'Thermal label printer'],
-    calc: { title: 'حاسبة تأسيس وتكويد محل تجاري كامل', labels: ['قارئ وطابعة الباركود', 'بكر استيكرات الباركود', 'أجر مساعد الجرد واللصق', 'البرنامج السحابي والانتقالات', 'التسويق'], def: { c1: 3200, c2: 350, c3: 600, c4: 450, c5: 200, price: 7800 } },
-    exp: 'كود قسمًا واحدًا في محل ملابس أو قطع غيار خلال 3 ساعات ليرى صاحب المحل الدقة بنفسه.',
-    risk: 'استخدم طابعات حرارية أصلية بضمان الوكيل.'
-  },
-  {
-    id: 'p29_niche_marketplace_dir',
-    title: 'منصة دليل تفاعلي متخصص للخدمات المهنية والفنيين الموثوقين في منطقتك',
-    en: 'Hyper-Local Niche Directory',
-    drives: { strategist: 24, creator: 20, arbitrageur: 14, orchestrator: 10 },
-    mats: ['mat_digital'], mob: ['loc_hybrid', 'loc_stationary'], fields: ['eng_tech', 'arts_design', 'general'],
-    envs: ['metro_city', 'touristic_city'], raws: ['no_special_raw'], adopters: ['online_consumers', 'local_shops_cafes'],
-    assets: ['home_room', 'none'], pace: 'pace_med', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'بناء موقع دليل محلي لحي سكني كبير يضم مقدمي الخدمات المفحوصين مقابل اشتراك ظهور شهري ثابت.',
-    clusters: ['منصات الاستضافة السحابية (Vercel / Supabase) وبوابات الدفع الإلكتروني.'],
-    kwAr: ['تصميم موقع دليل خدمات محلي', 'بوابات الدفع الإلكتروني للاشتراكات'], kwEn: ['Hyper-local niche directory', 'Featured listing subscription'],
-    calc: { title: 'حاسبة المنصة (لكل 20 مشترك شهريًا)', labels: ['الاستضافة والدومين شهريًا', 'إعلانات جلب الزوار', 'التحقق من الفنيين', 'رسوم الدفع الإلكتروني', 'التطوير التقني'], def: { c1: 350, c2: 1200, c3: 300, c4: 150, c5: 200, price: 5000 } },
-    exp: 'ابدأ بصفحة لحي واحد وقطاع واحد واجمع 20 طلبًا حقيقيًا ووجهها لـ 3 فنيين قبل طلب الاشتراك.',
-    risk: 'اعتمد الاشتراك الشهري الثابت بدل العمولة على كل مكالمة.'
-  },
-  {
-    id: 'p30_sme_costing_advisory',
-    title: 'خدمة ضبط التكاليف وحسابات الهدر وتسعير المنتجات للورش والمطاعم الصغيرة',
-    en: 'SME Costing & Margin Advisory',
-    drives: { strategist: 28, orchestrator: 18, arbitrageur: 12, creator: 6 },
-    mats: ['mat_digital'], mob: ['loc_hybrid', 'loc_kinetic'], fields: ['general', 'eng_tech', 'science_chem'],
-    envs: ['metro_city'], raws: ['workshops_markets'], adopters: ['local_shops_cafes'],
-    assets: ['home_room', 'none'], pace: 'pace_fast', isNovel: false, legal: 'b2b_trade',
-    modelDesc: 'بناء قوالب حساب تكلفة ومعادلات تسعير مبسطة تكشف الهدر وتضبط هامش المساهمة للورش والمطاعم في جلستين عمليتين.',
-    clusters: ['المناطق الصناعية والتجارية والتجمعات الحرفية ومتاجر الأونلاين.'],
-    kwAr: ['شيت حساب تكلفة المنتج والهدر للمطاعم والورش', 'ضبط تسعير المنتجات وهامش المساهمة'], kwEn: ['Unit economics costing sheet', 'Contribution margin advisory'],
-    calc: { title: 'حاسبة باقة ضبط التكاليف للورشة/المطعم', labels: ['انتقالات المعاينة والجرد', 'ساعات بناء شيت التكاليف', 'طباعة دليل التسعير المبسط', 'التسويق', 'جلسة المتابعة'], def: { c1: 120, c2: 400, c3: 80, c4: 200, c5: 150, price: 2500 } },
-    exp: 'راجع تسعير 3 أصناف مجانًا لصاحب مطعم أو ورشة واكشف له الصنف الخاسر ليتعاقد معك فورًا.',
-    risk: 'سلم العميل أداة مبسطة يدخل فيها سعر الخامة فيظهر له سعر البيع فورًا.'
-  }
-];
-
-function computeBestProject() {
-  const a = state.ans;
-  const u = state.user;
-  const assets = state.assets;
-  const am = state.assetMeta;
-  const cap = u.capEGP;
-
-  const drives = { creator: 0, arbitrageur: 0, orchestrator: 0, strategist: 0 };
-  [a.q1, a.q2, a.q3].forEach(v => { if (drives[v] !== undefined) drives[v] += 2.5; });
-  if (a.q12 === 'mot_creation') drives.creator += 2;
-  if (a.q12 === 'mot_wealth') drives.arbitrageur += 2;
-  if (a.q12 === 'mot_freedom') { drives.orchestrator += 1.5; drives.strategist += 1.5; }
-
-  const dKeys = Object.keys(drives).sort((x, y) => drives[y] - drives[x]);
-  const top1 = dKeys[0];
-  const top2 = dKeys[1];
-  const spread = drives[top1] - drives[dKeys[3]];
-
-  let topologyType = 'single';
-  if (spread <= 2.0) topologyType = 'balanced';
-  else if (drives[top1] - drives[top2] <= 2.0) topologyType = 'hybrid';
-
-  const mat = a.q4 || 'mat_warm';
-  const mobility = a.q5 || 'loc_hybrid';
-  const learn = a.q6 || 'learn_trial';
-  const blocker = a.q7 || 'blk_capital';
-  const hate = a.q8 || 'hate_retail';
-  const pace = a.q9 || 'pace_med';
-
-  const scored = CATALOG_30.map(p => {
-    let score = 0;
-    if (topologyType === 'balanced') {
-      score += ((p.drives.creator + p.drives.arbitrageur + p.drives.orchestrator + p.drives.strategist) / 4) * 0.8;
-    } else if (topologyType === 'hybrid') {
-      score += (p.drives[top1] || 0) * 1.0 + (p.drives[top2] || 0) * 0.95;
-      if ((p.drives[top1] || 0) >= 16 && (p.drives[top2] || 0) >= 16) score += 18;
-    } else {
-      score += (p.drives[top1] || 0) * 1.3 + (p.drives[top2] || 0) * 0.4;
-    }
-
-    if (p.mats[0] === mat) score += 32;
-    else if (p.mats.includes(mat)) score += 20;
-
-    if (p.mob[0] === mobility) score += 18;
-    else if (p.mob.includes(mobility)) score += 10;
-    else if (mobility === 'loc_kinetic' && !p.mob.includes('loc_kinetic')) score -= 12;
-
-    if (p.fields[0] === u.field && u.field !== 'general') score += 24;
-    else if (p.fields.includes(u.field)) score += 10;
-
-    if (u.edu === 'literate' || u.edu === 'basic') {
-      if (['p27_whatsapp_ai_b2b', 'p29_niche_marketplace_dir', 'p30_sme_costing_advisory', 'p05_bio_agri_compound'].includes(p.id)) score -= 60;
-      if (['p14_kinetic_b2b_route', 'p13_smart_arbitrage_flip', 'p26_mobile_auto_detailing'].includes(p.id)) score += 14;
-    }
-
-    if (p.id === 'p02_nocode_web_creator' && mat === 'mat_digital' && (top1 === 'creator' || topologyType === 'hybrid')) {
-      if (learn === 'learn_trial' || blocker === 'blk_math') score += 22;
-    }
-    if (p.id === 'p01_white_label_brand' && hate === 'hate_factory' && (top1 === 'creator' || top2 === 'arbitrageur')) score += 24;
-    if (p.id === 'p03_service_invention' && u.localRaw === 'no_special_raw' && (top1 === 'creator' || top2 === 'orchestrator')) score += 24;
-
-    if (learn === 'learn_study' && ['p04_liquid_cosmetics_lab', 'p05_bio_agri_compound', 'p30_sme_costing_advisory'].includes(p.id)) score += 10;
-    if (learn === 'learn_people' && ['p13_smart_arbitrage_flip', 'p14_kinetic_b2b_route', 'p15_zero_stock_b2b_broker'].includes(p.id)) score += 10;
-
-    if (p.envs.includes(u.envType)) score += 14;
-    if (p.raws[0] === u.localRaw && u.localRaw !== 'workshops_markets') score += 26;
-    else if (p.raws.includes(u.localRaw)) score += 12;
-
-    if (p.adopters[0] === u.firstAdopter) score += 16;
-    else if (p.adopters.includes(u.firstAdopter)) score += 8;
-
-    if (assets.some(as => p.assets.includes(as))) score += 16;
-
-    if ((assets.includes('roof') || assets.includes('land')) && p.id === 'p21_agri_solar_drying') {
-      score += (am.util === 'sunny_ventilated' || u.envType === 'rural_village' || u.resGov.includes('أسوان') || u.resGov.includes('الصعيد')) ? 45 : 25;
-    }
-    if (assets.includes('home_room') && !assets.includes('roof') && !assets.includes('land') && !assets.includes('warehouse')) {
-      if (p.id === 'p05_bio_agri_compound' && (u.field === 'science_chem' || u.field === 'agri_vet') && u.envType === 'rural_village') score += 36;
-    }
-    if ((assets.includes('warehouse') || assets.includes('shop_office')) && p.id === 'p16_aswan_dates_coffee' && (u.localRaw === 'african_coffee_spices' || u.localRaw === 'palm_dates_waste')) score += 28;
-    if (assets.includes('vehicle') && ['p14_kinetic_b2b_route', 'p26_mobile_auto_detailing', 'p19_regional_fmcg_supply'].includes(p.id)) score += 22;
-    if ((assets.includes('workshop') || assets.includes('warehouse')) && p.id === 'p24_packaging_boxes_unit') score += 20;
-
-    if (p.hateBonus === hate) score += 15;
-    if (hate === 'hate_field' && p.mob[0] === 'loc_kinetic') score -= 45;
-    if (hate === 'hate_screen' && p.mats[0] === 'mat_digital') score -= 45;
-    if (hate === 'hate_factory' && ['p22_vacuum_prepped_veggies', 'p24_packaging_boxes_unit'].includes(p.id)) score -= 25;
-
-    if (p.pace === pace) score += 10;
-    if (u.age === '46+' && p.mob[0] === 'loc_kinetic') score -= 12;
-
-    return { proj: p, score };
-  }).sort((x, y) => y.score - x.score);
-
-  const p = scored[0].proj;
-  const isPremium = cap >= 120000;
-  const isLowCap = cap < 15000;
-  const actualAssetGov = am.gov === 'نفس محافظة ومكان إقامتي' ? u.resGov : am.gov;
-
-  let customTitle = `${p.title} (${termHtml('', p.en)})`;
-  if (isPremium) customTitle = `نسخة Premium: ${p.title} (${termHtml('', p.en)})`;
-  else if (isLowCap) customTitle = `مسار البدء بالعينات (MVP): ${p.title} (${termHtml('', p.en)})`;
-
-  // سطر توجيهي مختصر ومباشر يربط الأصل وأسلوب التنفيذ والأمان المالي بدون شرح مطول
-  const modeDirectives = {
-    mode_outsource: 'التنفيذ بالقطعة لدى مصنع/ورشة خارجية مع استخدام الحاسبة المدمجة.',
-    mode_partner: 'التنفيذ بالمشاركة مع شريك يكمل الجانب التشغيلي أو البيعي.',
-    mode_hire: 'التنفيذ عبر الاستعانة بفني أو مندوب باليومية/العمولة.'
-  };
-  const isQuietHome = (assets.includes('home_room') || assets.includes('vacant_apt')) && am.util === 'residential_quiet';
-  let assetDirective = assets.includes('none')
-    ? `التشغيل من (${u.resGov}) بدون عقار ثابت.`
-    : `استغلال الأصل في (${actualAssetGov} — ${am.area} م²) للفحص والتغليف والإدارة.`;
-
-  if (p.legal === 'food_kitchen' && isQuietHome && p.id !== 'p21_agri_solar_drying') {
-    assetDirective = `تنبيه: الأصل في (${actualAssetGov}) سكني؛ يتم التحضير في مطبخ مرخص مشترك وليس داخل الشقة.`;
-  } else if (p.legal === 'agri_bio' && isQuietHome) {
-    assetDirective = `تنبيه: التحضير الأولي بغرفتك في (${actualAssetGov}) يقتصر على المستخلصات النباتية الآمنة فقط.`;
-  }
-
-  const runwayDirective = a.q10 === 'runway_no'
-    ? 'ابدأ هذا المسار كمشروع جانبي بجانب دخلك الأساسي وبنظام الحجز المسبق فقط.'
-    : (isPremium ? 'تنبيه: اختبر استعداد شريحة A+ للدفع بعينة أولية قبل صرف الميزانية الكاملة.' : '');
-
-  const c1 = Math.round(cap * 0.42);
-  const c2 = Math.round(cap * 0.18);
-  const c3 = Math.round(cap * 0.22);
-  const c4 = cap - (c1 + c2 + c3);
-
-  return {
-    id: p.id,
-    title: customTitle,
-    modelDesc: p.modelDesc,
-    execLine: `${assetDirective} | ${modeDirectives[a.q11 || 'mode_outsource']}`,
-    runwayLine: runwayDirective,
-    isNovel: p.isNovel,
-    capSplit: [
-      { item: isLowCap ? 'تنفيذ العينات الأولية (MVP) لدى مورد/مصنع خارجي' : 'تمويل الدفعة الأولى / التجهيز الأساسي', amount: c1 },
-      { item: 'العبوات، الهوية، وأدوات الفحص والتسليم', amount: c2 },
-      { item: 'تجربة اختبار الطلب والوصول لأول 10 عملاء', amount: c3 },
-      { item: 'احتياطي سيولة نقدية لحماية التشغيل', amount: c4 }
-    ],
-    clusters: p.clusters,
-    kwAr: p.kwAr,
-    kwEn: p.kwEn,
-    legal: p.legal,
-    calcConfig: { title: p.calc.title, labels: p.calc.labels, defaults: { ...p.calc.def } },
-    firstExperiment: p.exp,
-    risk: p.risk,
-    fiveSteps: [
-      'حدد المواصفة القياسية للعينة الأولى.',
-      'اجمع 3 عروض أسعار من الموردين وسجلها في مساحة مشروعك.',
-      'نفّذ عينة الاختبار (MVP) واضبط تكلفتها في الحاسبة.',
-      'اعرض العينة للبيع الفعلي واكسب أول زبون راضٍ.',
-      'استخدم تقييم أول زبون راضٍ لجلب الـ 10 عملاء التاليين.'
-    ]
-  };
-}
-
-function getLegalMatrix(cat) {
-  const vDate = 'نوفمبر 2026';
-  if (cat === 'agri_bio') {
-    return [
-      { stage: '1. التجربة الأولية', req: 'قصر التحضير على المستخلصات النباتية الطبيعية غير الخطرة', auth: 'السلامة البيئية', url: 'https://www.eeaa.gov.eg', date: vDate },
-      { stage: '2. التداول التجاري', req: 'التسجيل بلجنة مبيدات الآفات الزراعية أو التصنيع بمصنع مرخص', auth: 'وزارة الزراعة', url: 'https://www.apc.gov.eg', date: vDate }
-    ];
-  }
-  if (cat === 'cosmetics_liquid') {
-    return [
-      { stage: '1. قبل البيع التجاري', req: 'التصنيع لدى مصنع مرخص والإخطار بهيئة الدواء المصرية', auth: 'هيئة الدواء (EDA)', url: 'https://www.edaegypt.gov.eg', date: vDate },
-      { stage: '2. التأسيس الرسمي', req: 'البطاقة الضريبية والسجل التجاري (قانون 152 لسنة 2020)', auth: 'جهاز تنمية المشروعات', url: 'https://www.msmeda.org.eg', date: vDate }
-    ];
-  }
-  if (cat === 'silver_craft') {
-    return [
-      { stage: '1. دمغ المشغولات', req: 'دمغ القطع الفضية عيار 925 بالدمغة الرسمية', auth: 'مصلحة الدمغة والموازين', url: 'https://www.msit.gov.eg', date: vDate },
-      { stage: '2. التأسيس وحماية الاسم', req: 'السجل التجاري وتسجيل العلامة التجارية', auth: 'تنمية التجارة الداخلية', url: 'https://www.itda.gov.eg', date: vDate }
-    ];
-  }
-  if (cat === 'food_kitchen') {
-    return [
-      { stage: '1. صلاحية المكان', req: 'ترخيص المحال العامة واشتراطات سلامة الغذاء', auth: 'سلامة الغذاء (NFSA)', url: 'https://www.nfsa.gov.eg', date: vDate },
-      { stage: '2. التشغيل الرسمي', req: 'البطاقة الضريبية والشهادات الصحية', auth: 'مصلحة الضرائب', url: 'https://www.eta.gov.eg', date: vDate }
-    ];
-  }
-  return [
-    { stage: '1. التصنيع أو التوريد', req: 'التعامل مع ورش ومصانع مرخصة بفواتير مصدر', auth: 'التنمية الصناعية (IDA)', url: 'https://www.ida.gov.eg', date: vDate },
-    { stage: '2. التأسيس الرسمي', req: 'البطاقة الضريبية والسجل التجاري وحوافز المشروعات الصغيرة', auth: 'جهاز تنمية المشروعات', url: 'https://www.msmeda.org.eg', date: vDate }
-  ];
-}
-
 function showResultCapsule() {
   readPage5Inputs();
   state.rec = computeBestProject();
-  if (state.rec && state.rec.calcConfig) {
-    state.ws.calc = { ...state.rec.calcConfig.defaults };
-  }
+  if (state.rec && state.rec.calcConfig) state.ws.calc = { ...state.rec.calcConfig.defaults };
   saveLocal();
   goPage(6);
 }
@@ -1385,112 +585,57 @@ function renderCapsulePage() {
   const r = state.rec;
   if (!r) return;
   const cap = state.user.capEGP;
-  const mount = document.getElementById('capsule-mount');
+  const splitRows = r.capSplit.map(s => `<tr><td>${esc(s.item)}</td><td><strong>${fmtMoney(s.amount)}</strong></td></tr>`).join('');
+  const legalRows = getLegalMatrix(r.legal).map(l => `<tr><td><strong>${esc(l.stage)}</strong></td><td>${esc(l.req)}</td><td><a href="${esc(l.url)}" target="_blank" rel="noopener" class="btn ghost sm">${esc(l.auth)} ↗</a></td></tr>`).join('');
+  const kwHtml = r.kwAr.concat(r.kwEn).map(k => termHtml('', k)).join(' ');
 
-  const splitRows = r.capSplit.map(s => `
-    <tr>
-      <td>${esc(s.item)}</td>
-      <td><strong>${fmtMoney(s.amount)}</strong></td>
-    </tr>
-  `).join('');
-
-  const legalRows = getLegalMatrix(r.legal).map(l => `
-    <tr>
-      <td><strong>${esc(l.stage)}</strong></td>
-      <td>${esc(l.req)}</td>
-      <td><a href="${esc(l.url)}" target="_blank" rel="noopener" class="btn ghost sm">${esc(l.auth)} ↗</a></td>
-    </tr>
-  `).join('');
-
-  const kwArHtml = r.kwAr.map(k => termHtml('', k)).join(' ');
-  const kwEnHtml = r.kwEn.map(k => termHtml('', k)).join(' ');
-
-  mount.innerHTML = `
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px;">
+  document.getElementById('capsule-mount').innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
       <span class="tag solid">مشروعك المقترح</span>
       <button type="button" class="btn ghost sm" onclick="goPage(5)">تعديل البيانات أو رأس المال</button>
     </div>
-
     <div class="box strong">
       <h2>${r.title}</h2>
       <p style="margin-bottom:6px;">${esc(r.modelDesc)}</p>
-      <p style="font-size:0.86rem; font-weight:600; margin-bottom:6px;">${esc(r.execLine)}</p>
-      ${r.runwayLine ? `<p style="font-size:0.84rem; background:var(--soft); padding:6px 10px; border-radius:var(--radius-sm); margin-bottom:6px;">${esc(r.runwayLine)}</p>` : ''}
-      <p class="muted" style="font-size:0.78rem;">
-        ${r.isNovel ? 'مسار ابتكاري جديد (أرقام افتراضية للاختبار الأولي).' : 'أرقام استرشادية (نوفمبر 2026 — هامش تغير ±15% إلى ±25% حسب سعر الصرف).'}
-      </p>
+      <p style="font-size:.86rem;font-weight:600;margin-bottom:6px;">${esc(r.execLine)}</p>
+      ${r.runwayLine ? `<p style="font-size:.84rem;background:var(--soft);padding:6px 10px;border-radius:var(--r-sm);margin-bottom:6px;">${esc(r.runwayLine)}</p>` : ''}
+      <p class="muted" style="font-size:.78rem;">${r.isNovel ? 'مسار ابتكاري جديد (أرقام افتراضية للاختبار الأولي).' : 'أرقام استرشادية (نوفمبر 2026 — هامش تغير ±15% إلى ±25% حسب سعر الصرف).'}</p>
     </div>
-
     <h3>1. توزيع رأس المال (${fmtMoney(cap)})</h3>
-    <div class="table-wrap">
-      <table class="mono-tbl">
-        <thead><tr><th>البند</th><th>المبلغ</th></tr></thead>
-        <tbody>${splitRows}</tbody>
-      </table>
-    </div>
-
+    <div class="table-wrap"><table class="mono-tbl"><thead><tr><th>البند</th><th>المبلغ</th></tr></thead><tbody>${splitRows}</tbody></table></div>
     <div class="grid-2" style="margin:16px 0;">
-      <div class="box strong" style="margin-bottom:0;">
-        <h3>2. أول تجربة لاختبار الطلب</h3>
-        <p style="font-size:0.88rem;">${esc(r.firstExperiment)}</p>
-      </div>
-      <div class="box" style="margin-bottom:0;">
-        <h3>3. أهم مخاطرة يجب الانتباه لها</h3>
-        <p style="font-size:0.88rem;">${esc(r.risk)}</p>
-      </div>
+      <div class="box strong" style="margin-bottom:0;"><h3>2. أول تجربة لاختبار الطلب</h3><p style="font-size:.88rem;">${esc(r.firstExperiment)}</p></div>
+      <div class="box" style="margin-bottom:0;"><h3>3. أهم مخاطرة يجب الانتباه لها</h3><p style="font-size:.88rem;">${esc(r.risk)}</p></div>
     </div>
-
-    <div class="box">
-      <h3>4. خطوات التنفيذ الخمس</h3>
-      <ol style="padding-right:20px; font-size:0.88rem;">
-        ${r.fiveSteps.map(s => `<li>${esc(s)}</li>`).join('')}
-      </ol>
-    </div>
-
-    <div class="box">
-      <h3>5. أين تجد الموردين؟</h3>
-      <ul style="padding-right:18px; font-size:0.86rem; margin-bottom:10px;">
-        ${r.clusters.map(c => `<li>${esc(c)}</li>`).join('')}
-      </ul>
-      <div style="line-height:2;">${kwArHtml} ${kwEnHtml}</div>
-    </div>
-
+    <div class="box"><h3>4. خطوات التنفيذ الخمس</h3><ol style="padding-right:20px;font-size:.88rem;">${r.fiveSteps.map(s => `<li>${esc(s)}</li>`).join('')}</ol></div>
+    <div class="box"><h3>5. أين تجد الموردين؟</h3><ul style="padding-right:18px;font-size:.86rem;margin-bottom:10px;">${r.clusters.map(c => `<li>${esc(c)}</li>`).join('')}</ul><div style="line-height:2;">${kwHtml}</div></div>
     <h3>6. الإجراءات القانونية والجهات الرسمية</h3>
-    <div class="table-wrap">
-      <table class="mono-tbl">
-        <thead><tr><th>المرحلة</th><th>الإجراء</th><th>الجهة الرسمية</th></tr></thead>
-        <tbody>${legalRows}</tbody>
-      </table>
-    </div>
-
-    <div class="box strong" style="background:var(--soft); margin-top:18px;">
+    <div class="table-wrap"><table class="mono-tbl"><thead><tr><th>المرحلة</th><th>الإجراء</th><th>الجهة الرسمية</th></tr></thead><tbody>${legalRows}</tbody></table></div>
+    <div class="box strong" style="background:var(--soft);margin-top:18px;">
       <h3>افتح مساحة مشروعك الشخصية (الحاسبة + جدول الموردين)</h3>
       <div class="grid-2" style="margin:10px 0;">
         <input type="text" id="cap-name" value="${esc(state.user.name === 'صديقنا' ? '' : state.user.name)}" placeholder="اسمك">
         <input type="email" id="cap-email" value="${esc(state.user.email)}" placeholder="بريدك الإلكتروني (اختياري)" dir="ltr" style="text-align:left;">
       </div>
-      <div class="row-between" style="margin-top:8px; padding-top:10px;">
+      <div class="row-between" style="margin-top:8px;padding-top:10px;">
         <button type="button" class="btn ghost sm" onclick="sharePartnerLink()">اختبر توافق شريك</button>
         <button type="button" class="btn" onclick="openWorkspace()">افتح مساحة مشروعي ←</button>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function genToken() {
-  const a = new Uint8Array(12);
+  const a = new Uint8Array(10);
   if (window.crypto && window.crypto.getRandomValues) window.crypto.getRandomValues(a);
-  else for (let i = 0; i < 12; i++) a[i] = Math.floor(Math.random() * 256);
+  else for (let i = 0; i < 10; i++) a[i] = Math.floor(Math.random() * 256);
   return Array.from(a, b => b.toString(16).padStart(2, '0')).join('');
 }
 
 function openWorkspace() {
-  const nEl = document.getElementById('cap-name');
-  const eEl = document.getElementById('cap-email');
+  const nEl = document.getElementById('cap-name'), eEl = document.getElementById('cap-email');
   if (nEl && nEl.value.trim()) state.user.name = nEl.value.trim();
   if (eEl && eEl.value.trim()) state.user.email = eEl.value.trim();
   if (!state.user.token) state.user.token = genToken();
-
   document.getElementById('nav-ws-btn').classList.remove('hidden');
   saveLocal();
   goPage(7);
@@ -1501,104 +646,56 @@ function renderWorkspacePage() {
   state.rec = r;
   const uName = state.user.name || 'صديقنا';
   const wsUrl = `${window.location.origin}${window.location.pathname}?ws_token=${state.user.token || genToken()}`;
-
   const quotes = state.ws.quotes;
-  let minLanded = Infinity;
-  quotes.forEach(q => {
-    const l = q.price + (q.ship / Math.max(q.moq, 1)) + (q.price * (q.waste / 100));
-    if (l < minLanded) minLanded = l;
-  });
-
+  let minL = Infinity;
+  quotes.forEach(q => { const l = q.price + (q.ship / Math.max(q.moq, 1)) + (q.price * (q.waste / 100)); if (l < minL) minL = l; });
   const qRows = quotes.map((q, idx) => {
     const landed = q.price + (q.ship / Math.max(q.moq, 1)) + (q.price * (q.waste / 100));
-    const best = quotes.length > 1 && Math.abs(landed - minLanded) < 0.01;
-    return `
-      <tr>
-        <td><strong>${esc(q.name)}</strong><div class="muted" style="font-size:0.74rem;">${esc(q.area)}</div></td>
-        <td>${esc(q.mat)}</td>
-        <td>${fmtMoney(q.price)}</td>
-        <td>${q.moq}</td>
-        <td><strong>${fmtMoney(Math.round(landed))}</strong> ${best ? '<span class="tag solid">الأفضل</span>' : ''}</td>
-        <td><button type="button" class="btn ghost sm" onclick="delQuote(${idx})">حذف</button></td>
-      </tr>
-    `;
+    const best = quotes.length > 1 && Math.abs(landed - minL) < 0.01;
+    return `<tr><td><strong>${esc(q.name)}</strong></td><td>${esc(q.mat)}</td><td>${fmtMoney(q.price)}</td><td>${q.moq}</td><td><strong>${fmtMoney(Math.round(landed))}</strong> ${best ? '<span class="tag solid">الأفضل</span>' : ''}</td><td><button type="button" class="btn ghost sm" onclick="delQuote(${idx})">حذف</button></td></tr>`;
   }).join('');
 
-  const cfg = r.calcConfig;
-  const c = state.ws.calc;
+  const cfg = r.calcConfig, c = state.ws.calc;
   const varCost = (c.c1 || 0) + (c.c2 || 0) + (c.c3 || 0) + (c.c4 || 0) + (c.c5 || 0);
-  const margin = (c.price || 0) - varCost;
-  const marginPct = c.price > 0 ? Math.round((margin / c.price) * 100) : 0;
+  const margin = (c.price || 0) - varCost, marginPct = c.price > 0 ? Math.round((margin / c.price) * 100) : 0;
 
-  const mount = document.getElementById('workspace-mount');
-  mount.innerHTML = `
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px; padding-bottom:12px; border-bottom:1px solid var(--line);">
-      <div>
-        <h2>أهلًا يا ${esc(uName)}</h2>
-        <p class="muted" style="font-size:0.84rem;">${r.title}</p>
-      </div>
-      <div style="display:flex; gap:6px;">
-        <button type="button" class="btn ghost sm" onclick="copyWsLink('${wsUrl}', this)">نسخ رابط مساحتي</button>
+  document.getElementById('workspace-mount').innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line);">
+      <div><h2>أهلًا يا ${esc(uName)}</h2><p class="muted" style="font-size:.84rem;">${r.title}</p></div>
+      <div style="display:flex;gap:6px;">
+        <button type="button" class="btn ghost sm" onclick="copyWsLink('${wsUrl}',this)">نسخ رابط مساحتي</button>
         <button type="button" class="btn ghost sm" onclick="emailWsLink('${wsUrl}')">إرسال للبريد</button>
       </div>
     </div>
-
     <h3>1. ${esc(cfg.title)}</h3>
     <div class="grid-3" style="margin-bottom:10px;">
-      <div><label class="muted" style="font-size:0.75rem;">${esc(cfg.labels[0])}</label><input type="number" id="uc-1" value="${c.c1}" oninput="recalcWsUnit()"></div>
-      <div><label class="muted" style="font-size:0.75rem;">${esc(cfg.labels[1])}</label><input type="number" id="uc-2" value="${c.c2}" oninput="recalcWsUnit()"></div>
-      <div><label class="muted" style="font-size:0.75rem;">${esc(cfg.labels[2])}</label><input type="number" id="uc-3" value="${c.c3}" oninput="recalcWsUnit()"></div>
-      <div><label class="muted" style="font-size:0.75rem;">${esc(cfg.labels[3])}</label><input type="number" id="uc-4" value="${c.c4}" oninput="recalcWsUnit()"></div>
-      <div><label class="muted" style="font-size:0.75rem;">${esc(cfg.labels[4])}</label><input type="number" id="uc-5" value="${c.c5}" oninput="recalcWsUnit()"></div>
-      <div><label style="font-size:0.76rem; font-weight:700;">سعر البيع للوحدة</label><input type="number" id="uc-p" value="${c.price}" oninput="recalcWsUnit()"></div>
+      <div><label class="muted" style="font-size:.75rem;">${esc(cfg.labels[0])}</label><input type="number" id="uc-1" value="${c.c1}" oninput="recalcWsUnit()"></div>
+      <div><label class="muted" style="font-size:.75rem;">${esc(cfg.labels[1])}</label><input type="number" id="uc-2" value="${c.c2}" oninput="recalcWsUnit()"></div>
+      <div><label class="muted" style="font-size:.75rem;">${esc(cfg.labels[2])}</label><input type="number" id="uc-3" value="${c.c3}" oninput="recalcWsUnit()"></div>
+      <div><label class="muted" style="font-size:.75rem;">${esc(cfg.labels[3])}</label><input type="number" id="uc-4" value="${c.c4}" oninput="recalcWsUnit()"></div>
+      <div><label class="muted" style="font-size:.75rem;">${esc(cfg.labels[4])}</label><input type="number" id="uc-5" value="${c.c5}" oninput="recalcWsUnit()"></div>
+      <div><label style="font-size:.76rem;font-weight:700;">سعر البيع للوحدة</label><input type="number" id="uc-p" value="${c.price}" oninput="recalcWsUnit()"></div>
     </div>
-    <div class="box strong" id="uc-summary">
-      التكلفة المتغيرة: <strong>${fmtMoney(varCost)}</strong> | صافي هامش المساهمة: <strong>${fmtMoney(margin)} (${marginPct}%)</strong>
-    </div>
-
+    <div class="box strong" id="uc-summary">التكلفة المتغيرة: <strong>${fmtMoney(varCost)}</strong> | صافي هامش المساهمة: <strong>${fmtMoney(margin)} (${marginPct}%)</strong></div>
     <h3 style="margin-top:20px;">2. مقارنة عروض أسعار الموردين</h3>
     <div class="box">
       <div class="grid-3" style="margin-bottom:8px;">
-        <input type="text" id="q-in-name" placeholder="اسم المورد">
-        <input type="text" id="q-in-area" placeholder="المنطقة">
-        <input type="text" id="q-in-mat" placeholder="الخامة">
+        <input type="text" id="q-in-name" placeholder="اسم المورد"><input type="text" id="q-in-area" placeholder="المنطقة"><input type="text" id="q-in-mat" placeholder="الخامة">
       </div>
       <div class="grid-3">
-        <input type="number" id="q-in-price" placeholder="سعر الوحدة" min="1">
-        <input type="number" id="q-in-moq" placeholder="أقل كمية MOQ" value="50" min="1">
-        <input type="number" id="q-in-ship" placeholder="تكلفة النقل" value="150" min="0">
+        <input type="number" id="q-in-price" placeholder="سعر الوحدة" min="1"><input type="number" id="q-in-moq" placeholder="أقل كمية MOQ" value="50" min="1"><input type="number" id="q-in-ship" placeholder="تكلفة النقل" value="150" min="0">
       </div>
       <div class="grid-2" style="margin-top:8px;">
-        <input type="number" id="q-in-waste" placeholder="نسبة الهدر %" value="3" min="0">
-        <button type="button" class="btn" onclick="addQuote()">+ إضافة العرض</button>
+        <input type="number" id="q-in-waste" placeholder="نسبة الهدر %" value="3" min="0"><button type="button" class="btn" onclick="addQuote()">+ إضافة العرض</button>
       </div>
     </div>
-    <div class="table-wrap">
-      <table class="mono-tbl">
-        <thead><tr><th>المورد</th><th>الخامة</th><th>السعر</th><th>MOQ</th><th>التكلفة الكلية للوحدة</th><th>حذف</th></tr></thead>
-        <tbody>${qRows || '<tr><td colspan="6" class="muted" style="text-align:center;">سجل أول عرض سعر من السوق بالأعلى.</td></tr>'}</tbody>
-      </table>
-    </div>
-
+    <div class="table-wrap"><table class="mono-tbl"><thead><tr><th>المورد</th><th>الخامة</th><th>السعر</th><th>MOQ</th><th>التكلفة الكلية للوحدة</th><th>حذف</th></tr></thead><tbody>${qRows || '<tr><td colspan="6" class="muted" style="text-align:center;">سجل أول عرض سعر من السوق بالأعلى.</td></tr>'}</tbody></table></div>
     <h3 style="margin-top:20px;">3. مهام التأسيس</h3>
-    ${r.fiveSteps.map((st, idx) => {
-      const done = Boolean(state.ws.tasks['t_' + idx]);
-      return `
-        <div class="task-item ${done ? 'done' : ''}" onclick="toggleTask(${idx})">
-          <span class="opt-check" style="${done ? 'background:#111;color:#fff;border-color:#111;' : ''}">${done ? '✓' : ''}</span>
-          <span>${idx + 1}. ${esc(st)}</span>
-        </div>
-      `;
-    }).join('')}
-
+    ${r.fiveSteps.map((st, idx) => { const d = Boolean(state.ws.tasks['t_' + idx]); return `<div class="task-item ${d ? 'done' : ''}" onclick="toggleTask(${idx})"><span class="opt-check" style="${d ? 'background:#111;color:#fff;border-color:#111;' : ''}">${d ? '✓' : ''}</span><span>${idx + 1}. ${esc(st)}</span></div>`; }).join('')}
     <div class="row-between">
       <button type="button" class="btn ghost sm" onclick="goPage(6)">→ رجوع لخطة المشروع</button>
-      <div style="display:flex; gap:6px;">
-        <button type="button" class="btn ghost sm" onclick="exportDataJSON()">تنزيل بياناتي</button>
-        <button type="button" class="btn ghost sm" onclick="clearAllData()">حذف البيانات</button>
-      </div>
-    </div>
-  `;
+      <div style="display:flex;gap:6px;"><button type="button" class="btn ghost sm" onclick="exportDataJSON()">تنزيل بياناتي</button><button type="button" class="btn ghost sm" onclick="clearAllData()">حذف البيانات</button></div>
+    </div>`;
 }
 
 function recalcWsUnit() {
@@ -1610,143 +707,41 @@ function recalcWsUnit() {
   c.c5 = parseFloat(document.getElementById('uc-5').value) || 0;
   c.price = parseFloat(document.getElementById('uc-p').value) || 0;
   saveLocal();
-  const varCost = c.c1 + c.c2 + c.c3 + c.c4 + c.c5;
-  const margin = c.price - varCost;
-  const marginPct = c.price > 0 ? Math.round((margin / c.price) * 100) : 0;
-  const box = document.getElementById('uc-summary');
-  if (box) box.innerHTML = `التكلفة المتغيرة: <strong>${fmtMoney(varCost)}</strong> | صافي هامش المساهمة: <strong>${fmtMoney(margin)} (${marginPct}%)</strong>`;
+  const v = c.c1 + c.c2 + c.c3 + c.c4 + c.c5, m = c.price - v, p = c.price > 0 ? Math.round((m / c.price) * 100) : 0;
+  const b = document.getElementById('uc-summary');
+  if (b) b.innerHTML = `التكلفة المتغيرة: <strong>${fmtMoney(v)}</strong> | صافي هامش المساهمة: <strong>${fmtMoney(m)} (${p}%)</strong>`;
 }
 
 function addQuote() {
-  const name = document.getElementById('q-in-name').value.trim();
-  const area = document.getElementById('q-in-area').value.trim() || '—';
-  const mat = document.getElementById('q-in-mat').value.trim() || 'خامة';
-  const price = parseFloat(document.getElementById('q-in-price').value);
-  const moq = parseInt(document.getElementById('q-in-moq').value, 10) || 1;
-  const ship = parseFloat(document.getElementById('q-in-ship').value) || 0;
-  const waste = parseFloat(document.getElementById('q-in-waste').value) || 0;
+  const name = document.getElementById('q-in-name').value.trim(), area = document.getElementById('q-in-area').value.trim() || '—', mat = document.getElementById('q-in-mat').value.trim() || 'خامة';
+  const price = parseFloat(document.getElementById('q-in-price').value), moq = parseInt(document.getElementById('q-in-moq').value, 10) || 1, ship = parseFloat(document.getElementById('q-in-ship').value) || 0, waste = parseFloat(document.getElementById('q-in-waste').value) || 0;
   if (!name || isNaN(price) || price <= 0) return;
   state.ws.quotes.push({ name, area, mat, price, moq, ship, waste });
-  saveLocal();
-  renderWorkspacePage();
+  saveLocal(); renderWorkspacePage();
 }
 
-function delQuote(idx) {
-  state.ws.quotes.splice(idx, 1);
-  saveLocal();
-  renderWorkspacePage();
-}
-
-function toggleTask(idx) {
-  const k = 't_' + idx;
-  state.ws.tasks[k] = !state.ws.tasks[k];
-  saveLocal();
-  renderWorkspacePage();
-}
-
-function copyWsLink(url, btn) {
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(url).then(() => {
-      const old = btn.textContent;
-      btn.textContent = 'تم النسخ ✓';
-      setTimeout(() => { btn.textContent = old; }, 1400);
-    });
-  }
-}
-
-function emailWsLink(url) {
-  const em = state.user.email || prompt('أدخل بريدك الإلكتروني:');
-  if (!em) return;
-  state.user.email = em.trim();
-  saveLocal();
-  window.location.href = `mailto:${encodeURIComponent(state.user.email)}?subject=${encodeURIComponent('مساحة مشروعي')}&body=${encodeURIComponent(url)}`;
-}
-
-function sharePartnerLink() {
-  const baseUrl = window.location.origin + window.location.pathname;
-  const pUrl = `${baseUrl}?partner_check=1&hq1=${encodeURIComponent(state.ans.q1 || '')}&hq8=${encodeURIComponent(state.ans.q8 || '')}`;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(pUrl).then(() => alert('تم نسخ رابط اختبار الشريك.'));
-  }
-}
-
-function checkPartnerUrl() {
-  const p = new URLSearchParams(window.location.search);
-  if (p.get('partner_check') === '1') {
-    partnerParams = { hq1: p.get('hq1') || '', hq8: p.get('hq8') || '' };
-    const b = document.getElementById('partner-banner');
-    b.classList.remove('hidden');
-    b.innerHTML = `<strong>اختبار توافق الشريك:</strong> أجب عن الأسئلة لحساب درجة التكامل.`;
-  }
-}
-
-function showPartnerReport() {
-  let score = 55;
-  if (state.ans.q1 !== partnerParams.hq1) score += 25;
-  if (state.ans.q8 !== partnerParams.hq8) score += 15;
-  const b = document.getElementById('partner-banner');
-  b.innerHTML = `<h3>نسبة التكامل مع شريكك: ${score}%</h3><button type="button" class="btn sm" style="margin-top:8px;" onclick="window.location.href=window.location.pathname">ابدأ تجربتك المستقلة</button>`;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function saveLocal() {
-  try { localStorage.setItem('ebda2_clean_v12', JSON.stringify(state)); } catch (e) {}
-}
-
+function delQuote(i) { state.ws.quotes.splice(i, 1); saveLocal(); renderWorkspacePage(); }
+function toggleTask(i) { state.ws.tasks['t_' + i] = !state.ws.tasks['t_' + i]; saveLocal(); renderWorkspacePage(); }
+function copyWsLink(u, b) { if (navigator.clipboard) navigator.clipboard.writeText(u).then(() => { b.textContent = 'تم النسخ ✓'; setTimeout(() => b.textContent = 'نسخ رابط مساحتي', 1400); }); }
+function emailWsLink(u) { const e = state.user.email || prompt('أدخل بريدك الإلكتروني:'); if (!e) return; state.user.email = e.trim(); saveLocal(); window.location.href = `mailto:${encodeURIComponent(state.user.email)}?subject=${encodeURIComponent('مساحة مشروعي')}&body=${encodeURIComponent(u)}`; }
+function sharePartnerLink() { const u = `${window.location.origin}${window.location.pathname}?partner_check=1&hq1=${encodeURIComponent(state.ans.q1 || '')}&hq8=${encodeURIComponent(state.ans.q8 || '')}`; if (navigator.clipboard) navigator.clipboard.writeText(u).then(() => alert('تم نسخ رابط اختبار الشريك.')); }
+function checkPartnerUrl() { const p = new URLSearchParams(window.location.search); if (p.get('partner_check') === '1') { partnerParams = { hq1: p.get('hq1') || '', hq8: p.get('hq8') || '' }; const b = document.getElementById('partner-banner'); b.classList.remove('hidden'); b.innerHTML = `<strong>اختبار توافق الشريك:</strong> أجب عن الأسئلة لحساب درجة التكامل.`; } }
+function showPartnerReport() { let s = 55; if (state.ans.q1 !== partnerParams.hq1) s += 25; if (state.ans.q8 !== partnerParams.hq8) s += 15; const b = document.getElementById('partner-banner'); b.innerHTML = `<h3>نسبة التكامل مع شريكك: ${s}%</h3><button type="button" class="btn sm" style="margin-top:8px;" onclick="window.location.href=window.location.pathname">ابدأ تجربتك المستقلة</button>`; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function saveLocal() { try { localStorage.setItem('ebda2_v13', JSON.stringify(state)); } catch (e) {} }
 function loadLocal() {
   try {
-    const raw = localStorage.getItem('ebda2_clean_v12');
-    if (!raw) return;
+    const raw = localStorage.getItem('ebda2_v13'); if (!raw) return;
     const d = JSON.parse(raw);
-    if (d.ans) state.ans = d.ans;
-    if (d.assets) state.assets = d.assets;
-    if (d.assetMeta) state.assetMeta = { ...state.assetMeta, ...d.assetMeta };
-    if (d.user) state.user = { ...state.user, ...d.user };
-    if (d.rec) state.rec = d.rec;
-    if (d.ws) state.ws = { ...state.ws, ...d.ws };
-
-    if (state.user.name && state.user.name !== 'صديقنا') document.getElementById('in-name').value = state.user.name;
-    if (state.user.age) document.getElementById('in-age').value = state.user.age;
-    if (state.user.edu) document.getElementById('in-edu').value = state.user.edu;
-    if (state.user.field) document.getElementById('in-field').value = state.user.field;
-    if (state.user.gender) document.getElementById('in-gender').value = state.user.gender;
-    if (state.user.resGov) document.getElementById('in-res-gov').value = state.user.resGov;
-    if (state.user.envType) document.getElementById('in-env-type').value = state.user.envType;
-    if (state.user.localRaw) document.getElementById('in-local-raw').value = state.user.localRaw;
-    if (state.user.firstAdopter) document.getElementById('in-first-adopter').value = state.user.firstAdopter;
-    if (state.user.capEGP) document.getElementById('in-capital').value = state.user.capEGP;
-
-    document.querySelectorAll('#asset-cards-box .opt').forEach(b => {
-      b.setAttribute('aria-pressed', state.assets.includes(b.getAttribute('data-asset')) ? 'true' : 'false');
-    });
-    const panel = document.getElementById('asset-details-panel');
-    if (panel) panel.style.display = state.assets.includes('none') ? 'none' : 'block';
-
+    if (d.ans) state.ans = d.ans; if (d.assets) state.assets = d.assets; if (d.assetMeta) state.assetMeta = { ...state.assetMeta, ...d.assetMeta };
+    if (d.user) state.user = { ...state.user, ...d.user }; if (d.rec) state.rec = d.rec; if (d.ws) state.ws = { ...state.ws, ...d.ws };
     if (state.user.token) document.getElementById('nav-ws-btn').classList.remove('hidden');
-
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('ws_token') && Object.keys(state.ans).length === 12) {
-      goPage(7);
-    }
+    const p = new URLSearchParams(window.location.search);
+    if (p.get('ws_token') && Object.keys(state.ans).length === 12) goPage(7);
   } catch (e) {}
 }
-
-function exportDataJSON() {
-  const s = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(state, null, 2));
-  const a = document.createElement('a');
-  a.href = s;
-  a.download = 'mashro3i.json';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-}
-
-function clearAllData() {
-  if (confirm('حذف كافة البيانات؟')) {
-    try { localStorage.removeItem('ebda2_clean_v12'); } catch (e) {}
-    window.location.href = window.location.pathname;
-  }
-}
+function exportDataJSON() { const a = document.createElement('a'); a.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(state, null, 2)); a.download = 'mashro3i.json'; document.body.appendChild(a); a.click(); a.remove(); }
+function clearAllData() { if (confirm('حذف كافة البيانات؟')) { try { localStorage.removeItem('ebda2_v13'); } catch (e) {} window.location.href = window.location.pathname; } }
+async function syncLiveFX() { try { const r = await fetch('https://open.er-api.com/v6/latest/USD'); if (r.ok) { const d = await r.json(); if (d && d.rates && d.rates.EGP) { FX.USD = d.rates.EGP; FX.SAR = FX.USD / (d.rates.SAR || 3.75); FX.AED = FX.USD / (d.rates.AED || 3.6725); document.getElementById('fx-usd').textContent = FX.USD.toFixed(2) + ' EGP'; } } } catch (e) {} updateCapPreview(); }
 
 loadLocal();
 if (curPage >= 1 && curPage <= 4) renderQuizPage();

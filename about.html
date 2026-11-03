@@ -1,764 +1,109 @@
-# Generate production-ready index.html and about.html files
-
-about_html = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مدرسة رائد الأعمال والأسس العلمية | ابدأ مشروعك — اكتشف نفسك</title>
-    <meta name="description" content="الكتاب المنهجي لتأسيس المشروعات الصغيرة في مصر، معادلة النجاح، مراحل العمل، والأسس العلمية المعتمدة في التقييم والفرز وتركيب الفرص.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        :root {
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F5F5F5;
-            --bg-element: #FAFAFA;
-            --text-primary: #111111;
-            --text-secondary: #777777;
-            --text-muted: #AAAAAA;
-            --border-color: #E5E5E5;
-            --btn-primary-bg: #111111;
-            --btn-primary-text: #FFFFFF;
-            --radius-lg: 16px;
-            --radius-md: 10px;
-            --radius-sm: 6px;
-            --transition: 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'IBM Plex Sans Arabic', system-ui, -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-size: 0.96rem;
-            line-height: 1.9;
-            padding: 0 20px 80px 20px;
-        }
-
-        .en-term {
-            font-family: 'Inter', system-ui, sans-serif;
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            direction: ltr;
-            unicode-bidi: isolate;
-            display: inline-block;
-        }
-
-        .top-nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.96);
-            border-bottom: 1px solid var(--border-color);
-            padding: 14px 0;
-            margin: 0 -20px 44px -20px;
-        }
-
-        .top-nav-inner {
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 14px;
-        }
-
-        .brand-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: var(--btn-primary-bg);
-            color: var(--btn-primary-text);
-            border: 1px solid var(--btn-primary-bg);
-            padding: 10px 20px;
-            border-radius: var(--radius-md);
-            font-size: 0.88rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-primary:hover { opacity: 0.88; }
-
-        .container {
-            max-width: 820px;
-            margin: 0 auto;
-        }
-
-        .hero-header {
-            margin-bottom: 48px;
-            padding-bottom: 32px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .eyebrow {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 4px 12px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 16px;
-        }
-
-        .hero-header h1 {
-            font-size: clamp(1.65rem, 4.5vw, 2.15rem);
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 16px;
-            letter-spacing: -0.3px;
-        }
-
-        .hero-header p {
-            font-size: 1.02rem;
-            color: var(--text-secondary);
-            line-height: 1.85;
-        }
-
-        .book-toc {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 24px 28px;
-            margin-bottom: 48px;
-        }
-
-        .book-toc h2 {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .book-toc ol {
-            padding-right: 22px;
-            font-size: 0.9rem;
-            line-height: 2;
-        }
-
-        .book-toc a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .book-toc a:hover { text-decoration: underline; }
-
-        .chapter-section {
-            margin-bottom: 60px;
-            padding-top: 16px;
-        }
-
-        .chapter-number {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.76rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .chapter-section h2 {
-            font-size: 1.45rem;
-            font-weight: 700;
-            margin-bottom: 18px;
-            line-height: 1.45;
-        }
-
-        .chapter-section h3 {
-            font-size: 1.12rem;
-            font-weight: 700;
-            margin: 24px 0 10px 0;
-        }
-
-        .prose-p {
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-
-        .quote-block {
-            background: var(--bg-secondary);
-            border-right: 3px solid var(--text-primary);
-            padding: 18px 22px;
-            border-radius: var(--radius-md);
-            margin: 22px 0;
-            font-weight: 500;
-        }
-
-        .grid-2col {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 16px;
-            margin: 24px 0;
-        }
-
-        .info-card {
-            background: var(--bg-element);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 22px 24px;
-        }
-
-        .info-card.strong-card {
-            background: var(--bg-primary);
-            border: 1.5px solid var(--text-primary);
-        }
-
-        .info-card h3 {
-            margin-top: 0;
-            font-size: 1.02rem;
-            margin-bottom: 10px;
-        }
-
-        .info-card ul {
-            padding-right: 18px;
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-        }
-
-        .info-card.strong-card ul { color: var(--text-primary); }
-        .info-card li { margin-bottom: 8px; }
-
-        .timeline-box {
-            background: var(--bg-element);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 26px;
-            margin: 28px 0;
-        }
-
-        .timeline-step {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 22px;
-            padding-bottom: 22px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .timeline-step:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .step-badge {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 0.85rem;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .step-timeframe {
-            font-size: 0.76rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 2px 10px;
-            border-radius: 12px;
-            display: inline-block;
-            margin-top: 6px;
-        }
-
-        .mono-table-wrapper {
-            overflow-x: auto;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            margin: 20px 0;
-        }
-
-        table.mono-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-            text-align: right;
-        }
-
-        table.mono-table th, table.mono-table td {
-            padding: 12px 14px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: top;
-        }
-
-        table.mono-table th {
-            background: var(--bg-secondary);
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .term-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 2px 10px;
-            border-radius: var(--radius-sm);
-            font-size: 0.84rem;
-            font-weight: 600;
-            margin: 0 3px;
-            vertical-align: middle;
-        }
-
-        .copy-term-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 0.75rem;
-            padding: 2px 4px;
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-        }
-
-        .copy-term-btn:hover { color: var(--text-primary); }
-
-        .glossary-search {
-            width: 100%;
-            padding: 13px 16px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            font-size: 0.92rem;
-            background: var(--bg-element);
-            color: var(--text-primary);
-            margin-bottom: 20px;
-            outline: none;
-        }
-
-        .glossary-search:focus {
-            border-color: var(--text-primary);
-            background: var(--bg-primary);
-        }
-
-        .glossary-card {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 18px 20px;
-            margin-bottom: 12px;
-        }
-
-        .glossary-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 8px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .academic-references-box {
-            background: var(--bg-element);
-            border: 1.5px solid var(--text-primary);
-            border-radius: var(--radius-lg);
-            padding: 30px;
-            margin-top: 52px;
-        }
-
-        .academic-references-box h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .academic-list {
-            padding-right: 20px;
-            font-size: 0.86rem;
-            color: var(--text-secondary);
-            line-height: 1.9;
-        }
-
-        .academic-list li { margin-bottom: 12px; }
-        .academic-list strong { color: var(--text-primary); }
-
-        .footer-cta {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 36px 28px;
-            text-align: center;
-            margin-top: 52px;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * { transition: none !important; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اعرف أكثر عن ريادة الأعمال | ابدأ مشروعك</title>
+<meta name="description" content="اعرف أكثر عن ريادة الأعمال، قاموس المصطلحات، والمراجع العلمية.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#111111;--paper:#fff;--soft:#f5f5f5;--line:#e5e5e5;--mute:#777777}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:400 0.96rem/1.85 'IBM Plex Sans Arabic',system-ui,sans-serif;color:var(--ink);background:var(--paper);padding:0 16px 64px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:740px;margin:0 auto}
+a{color:inherit}
+.bar{border-bottom:1px solid var(--line);margin:0 -16px 28px;padding:12px 16px;background:rgba(255,255,255,0.96);position:sticky;top:0}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:700;text-decoration:none;font-size:1.05rem}
+h1{font-size:clamp(1.45rem,4.5vw,2rem);line-height:1.45;margin-bottom:10px}
+h2{font-size:1.18rem;line-height:1.6;margin:26px 0 8px}
+p{margin-bottom:12px}
+.muted{color:var(--mute);font-size:.88rem}
+.card{border:1px solid var(--line);border-radius:12px;padding:clamp(18px,4vw,28px);margin-top:24px}
+.btn{font:inherit;font-size:0.9rem;font-weight:600;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:10px;padding:10px 20px;cursor:pointer;text-decoration:none;display:inline-block}
+.list{padding-right:20px;margin-bottom:14px}
+.list li{margin-bottom:6px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}
+.cols>div{border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.cols h3{font-size:0.98rem;margin-bottom:6px}
+.search{width:100%;font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:10px;margin:8px 0 14px}
+.g{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px}
+.g header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.en{direction:ltr;unicode-bidi:isolate;font-family:Inter,sans-serif;font-size:.84rem;background:var(--soft);padding:2px 8px;border-radius:6px}
+.copy{font:inherit;font-size:.78rem;margin-inline-start:6px;background:none;border:1px solid var(--line);border-radius:6px;padding:1px 8px;cursor:pointer}
+</style>
 </head>
 <body>
+<div class="bar"><div class="wrap">
+  <a class="brand" href="about.html">اعرف أكثر عن ريادة الأعمال</a>
+  <a class="btn" href="index.html">اعرف أكتر عن نفسك</a>
+</div></div>
 
-    <nav class="top-nav">
-        <div class="top-nav-inner">
-            <a href="index.html" class="brand-title">
-                <span>ابدأ مشروعك — مدرسة رائد الأعمال</span>
-            </a>
-            <a href="index.html" class="btn-primary">
-                <span>ابدأ تجربة «اكتشف نفسك» ←</span>
-            </a>
-        </div>
-    </nav>
+<main class="wrap">
+  <h1>اعرف أكثر عن ريادة الأعمال</h1>
+  <p class="muted">ننطلق من أصولك وطباعك والبيئة المحيطة بك لبناء فرصة تجارية بأقل مخاطرة.</p>
 
-    <main class="container">
-        <header class="hero-header">
-            <span class="eyebrow">الدليل المنهجي والأساس العلمي الموثق</span>
-            <h1>لماذا نبدأ بطبيعتك الحسية وأصولك، وكيف يعمل محرك الفرز والتقييم العلمي؟</h1>
-            <p>
-                هذه الصفحة هي الكتاب التأسيسي لمنصة «ابدأ مشروعك». تشرح لك قواعد السوق المصري، ومعادلة النجاح الرباعية، وخريطة المراحل الزمنية حتى كسب «أول زبون راضٍ بأقل تكلفة»، وتوثق الأسس العلمية التي بُني عليها نظام التقييم السلوكي وفرز وتركيب المشروعات.
-            </p>
-        </header>
+  <h2>الأصل مقابل الالتزام</h2>
+  <div class="cols">
+    <div><h3>بداية متسرعة</h3><ul class="list"><li>استنزاف السيولة في الإيجار والديكور والماكينات قبل أول بيعة.</li><li>شراء كميات ضخمة قبل اختبار الطلب الحقيقي.</li></ul></div>
+    <div><h3>بداية محسوبة</h3><ul class="list"><li>اختبار السوق بأبسط عينة قابلة للبيع (MVP).</li><li>التصنيع بالقطعة لدى ورش ومصانع قائمة.</li></ul></div>
+  </div>
 
-        <nav class="book-toc" aria-label="فهرس الكتاب">
-            <h2>فهرس الدليل المنهجي:</h2>
-            <ol>
-                <li><a href="#ch1">الفصل الأول: كتالوج العمل المصري والفرق بين الأصل والالتزام</a></li>
-                <li><a href="#ch2">الفصل الثاني: معادلة النجاح الرباعية وفلسفة «أول زبون راضٍ»</a></li>
-                <li><a href="#ch3">الفصل الثالث: خريطة المراحل الزمنية لإدارة التقدم (مدرسة التأسيس)</a></li>
-                <li><a href="#ch4">الفصل الرابع: الأسس العلمية المستخدمة في التقييم والفرز وتركيب المشروعات</a></li>
-                <li><a href="#ch5">الفصل الخامس: فيزياء الأرقام، هامش الخطأ، والمشروعات المبتكرة</a></li>
-                <li><a href="#ch6">الفصل السادس: قاموس المصطلحات العملية القابل للنسخ</a></li>
-                <li><a href="#ch7">الفصل السابع: ثبت المراجع والدراسات العلمية والكتب المعتمدة</a></li>
-            </ol>
-        </nav>
+  <h2>قاموس المصطلحات التجارية</h2>
+  <input id="q" class="search" type="search" placeholder="ابحث عن مصطلح (مثال: MVP أو هامش المساهمة)..." autocomplete="off">
+  <div id="list"></div>
+  <p id="none" class="muted" hidden>لا يوجد مصطلح مطابق.</p>
 
-        <!-- الفصل الأول -->
-        <section class="chapter-section" id="ch1">
-            <span class="chapter-number">CHAPTER 01 — ASSET VS. LIABILITY MINDSET</span>
-            <h2>الفصل الأول: كتالوج العمل المصري والفرق بين «الأصل» و«الالتزام»</h2>
-            <p class="prose-p">
-                أغلب من يخسرون مدخراتهم في أول مشروع يبدأون بالسؤال الخطأ: <strong>«إيه المشروع اللي ماشي اليومين دول؟»</strong>، فيقلدون فكرة نجحت مع شخص آخر له طبع مختلف، ومكان مختلف، وعلاقات مختلفة. فيذهب المبتدئ ليستأجر محلًا باهظًا ويدفع ديكورات ويشتري ماكينات قبل أن يبيع قطعة واحدة.
-            </p>
-            <div class="quote-block">
-                «الأصل الحقيقي هو أي مورد تملكه أو تستطيع الوصول إليه بتكلفة ثابتة شبه صفرية ليضع مالًا في جيبك: غرفة في مسكنك، سطح بيت، مخزن، سيارة، خامة بيئية مهدرة في محافظتك كجريد النخيل، أو علم تخصصي درسته. أما الالتزام فهو كل إيجار أو ديكور أو ماكينة تبتلع سيولتك كل شهر قبل التحقق من وجود مشترٍ.»
-            </div>
-            <div class="grid-2col">
-                <div class="info-card">
-                    <h3>بداية الهواة (استنزاف السيولة)</h3>
-                    <ul>
-                        <li>إنفاق 70% من رأس المال في الإيجار والديكور والمعدات قبل أول بيعة.</li>
-                        <li>تقليد مشروع يتعارض مع طبيعة الشخص (مثل حبس شخص ميداني يعشق الحركة داخل محل ثابت).</li>
-                        <li>شراء كميات ضخمة للحصول على خصم جملة قبل اختبار السعر والطلب.</li>
-                    </ul>
-                </div>
-                <div class="info-card strong-card">
-                    <h3>بداية المحترفين (التأسيس الرشيق)</h3>
-                    <ul>
-                        <li>البدء بـ الحد الأدنى للمنتج <span class="term-pill"><span class="en-term">Minimum Viable Product - MVP</span><button type="button" class="copy-term-btn" onclick="copyText('Minimum Viable Product - MVP', this)">[نسخ]</button></span> بعينات صغيرة.</li>
-                        <li>استغلال التصنيع لدى الغير <span class="term-pill"><span class="en-term">Contract Manufacturing</span><button type="button" class="copy-term-btn" onclick="copyText('Contract Manufacturing', this)">[نسخ]</button></span> لدى ورش قائمة بدل شراء ماكينات.</li>
-                        <li>فصل مكان السكن عن مكان الأصل عن السوق المستهدف للبيع.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+  <h2>المراجع والأسس العلمية المعتمدة</h2>
+  <div class="card" style="margin-top:10px;background:var(--soft);">
+    <ul class="list" style="font-size:0.86rem;">
+      <li><strong>التوجيه المهني السلوكي:</strong> Holland, J. L. (1997) <em>RIASEC Vocational Model (O*NET)</em> & Savickas, M. L. (2005) <em>Career Construction Theory</em>.</li>
+      <li><strong>حالة التدفق والاندماج الزمني:</strong> Csikszentmihalyi, M. (1990) <em>Flow: The Psychology of Optimal Experience</em>.</li>
+      <li><strong>البصمة الحسية والتفاعل مع الخامات:</strong> Malafouris, L. (2013) <em>Material Engagement Theory</em> & Sennett, R. (2008) <em>The Craftsman</em>.</li>
+      <li><strong>ريادة الأعمال بالأصول المتاحة والابتكار الرشيق:</strong> Sarasvathy, S. D. (2001) <em>Effectuation Theory</em> & Ries, E. (2011) <em>The Lean Startup</em>.</li>
+      <li><strong>تحييد العوائق الإدراكية:</strong> Bandura, A. (1997) <em>Self-Efficacy</em> & Kahneman, D. (1979) <em>Prospect Theory</em>.</li>
+    </ul>
+  </div>
 
-        <!-- الفصل الثاني -->
-        <section class="chapter-section" id="ch2">
-            <span class="chapter-number">CHAPTER 02 — THE SUCCESS EQUATION & FIRST CUSTOMER</span>
-            <h2>الفصل الثاني: معادلة النجاح الرباعية وفلسفة «أول زبون راضٍ بأقل تكلفة»</h2>
-            <p class="prose-p">
-                النجاح التجاري في السوق الحقيقي يقوم على أربعة أركان مترابطة:
-                <strong>(1) حل المشكلة الصحيحة</strong> التي تمثل وجعًا حقيقيًا للعميل،
-                <strong>(2) بالشكل الصحيح</strong> المتقن غير المعقد،
-                <strong>(3) في التوقيت والمكان الصحيحين</strong> حيث يتواجد المتبني الأول للفكرة <span class="term-pill"><span class="en-term">Early Adopter</span><button type="button" class="copy-term-btn" onclick="copyText('Early Adopter', this)">[نسخ]</button></span>،
-                <strong>(4) بالتسعير السليم</strong> الذي يغطي التكلفة الكلية ويحقق هامش المساهمة <span class="term-pill"><span class="en-term">Contribution Margin</span><button type="button" class="copy-term-btn" onclick="copyText('Contribution Margin', this)">[نسخ]</button></span>.
-            </p>
-            <div class="quote-block">
-                «في أول 60 يومًا، لا تقس نجاحك بحجم التدفق المالي الضخم؛ المقياس الحقيقي للنجاح في البداية هو أن تكسب أول زبون بأقل تكلفة ممكنة، وأن يخرج هذا الزبون راضيًا تمامًا عن تجربته معك، لأن الزبون الراضي يتحول تلقائيًا إلى مسوّق يجلب لك عشرة زبائن آخرين دون تكلفة إعلانية.»
-            </div>
-        </section>
+  <div class="card">
+    <h2>جاهز لتحديد فرصتك؟</h2>
+    <p class="muted">أجب عن الأسئلة المختصرة في 5 خطوات سريعة.</p>
+    <a class="btn" href="index.html">اعرف أكتر عن نفسك ←</a>
+  </div>
+</main>
 
-        <!-- الفصل الثالث -->
-        <section class="chapter-section" id="ch3">
-            <span class="chapter-number">CHAPTER 03 — STAGED TIMELINE ROADMAP</span>
-            <h2>الفصل الثالث: خريطة المراحل الزمنية لإدارة التقدم</h2>
-            <div class="timeline-box">
-                <div class="timeline-step">
-                    <div class="step-badge">1</div>
-                    <div>
-                        <h4>مرحلة الاكتشاف ومطابقة الأصول (الأسبوع الأول)</h4>
-                        <p style="font-size:0.88rem; color:var(--text-secondary);">تحديد النواة الفطرية (خالق، تاجر، منظم، ميداني، رقمي)، البصمة الحسية للخامة، وجرد الأصول المتاحة ومكانها الجغرافي.</p>
-                        <span class="step-timeframe">الإطار الزمني: 7 أيام — المؤشر: تحديد فرصة واحدة مبررة</span>
-                    </div>
-                </div>
-                <div class="timeline-step">
-                    <div class="step-badge">2</div>
-                    <div>
-                        <h4>مرحلة استكشاف الموردين والتحقق القانوني (الأسبوع الثاني والثالث)</h4>
-                        <p style="font-size:0.88rem; color:var(--text-secondary);">النزول لتجمعات الموردين أو مصادر الخامات المحلية، جمع 3 عروض أسعار حقيقية، ومراجعة الاشتراطات التنظيمية للنشاط.</p>
-                        <span class="step-timeframe">الإطار الزمني: 14 يومًا — المؤشر: تسجيل 3 عروض أسعار وحساب تكلفة الوحدة</span>
-                    </div>
-                </div>
-                <div class="timeline-step">
-                    <div class="step-badge">3</div>
-                    <div>
-                        <h4>مرحلة العينة الأولية واختبار الطلب (الأسبوع الرابع والخامس)</h4>
-                        <p style="font-size:0.88rem; color:var(--text-secondary);">إنتاج عينة أولية صغيرة (3 إلى 10 وحدات فقط) وعرضها على المتبني الأول (السياح، أهل القرية، المحلات، أو الجمهور المستهدف).</p>
-                        <span class="step-timeframe">الإطار الزمني: 14 يومًا — المؤشر: إتمام أول بيعة حقيقية بدون تجميد السيولة</span>
-                    </div>
-                </div>
-                <div class="timeline-step">
-                    <div class="step-badge">4</div>
-                    <div>
-                        <h4>مرحلة إرضاء أول زبون وبناء التكرار (الشهر الثاني)</h4>
-                        <p style="font-size:0.88rem; color:var(--text-secondary);">قياس رضا أول مشتري، تحسين المنتج بناءً على ملاحظاته، وتثبيت قناة التوزيع أو التعاقد مع موزع أوسع.</p>
-                        <span class="step-timeframe">الإطار الزمني: 30 يومًا — المؤشر: جلب عملاء جدد عن طريق ترشيح العميل الأول</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- الفصل الرابع: الأسس العلمية المفصلة -->
-        <section class="chapter-section" id="ch4">
-            <span class="chapter-number">CHAPTER 04 — SCIENTIFIC ASSESSMENT & FILTERING ENGINE</span>
-            <h2>الفصل الرابع: الأسس العلمية المستخدمة في التقييم، الفرز، وتركيب المشروعات</h2>
-            <p class="prose-p">
-                لا يعتمد محرك «ابدأ مشروعك» على الأسئلة المباشرة السطحية التي يسهل التحيز فيها، بل يستخدم **منهجية التقاطع متعدد الزوايا** عبر **6 طبقات علمية** لتحليل إجابات المستخدم وفرز وتركيب المشروع الأكثر اتساقًا مع واقعه:
-            </p>
-
-            <div class="mono-table-wrapper">
-                <table class="mono-table">
-                    <thead>
-                        <tr>
-                            <th>الطبقة العلمية في المحرك</th>
-                            <th>ماذا تقيس وكيف تفرز المشروعات؟</th>
-                            <th>النظرية أو المرجع العلمي المعتمد</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>1. النواة الفطرية وحالة التدفق غير المباشرة</strong><br><span class="en-term">Flow & Intrinsic Drive</span></td>
-                            <td>تقيس عبر مواقف غير مباشرة (مثل ما يشد انتباهك في عمل فني أو فيلم، وكيف تفصل ذهنك من الإجهاد) هل محركك الأساسي هو <strong>الخلق والتشكيل</strong> (بغض النظر عن الأداة)، أم <strong>اقتناص الصفقات وتدوير المال</strong>، أم <strong>بناء الأنظمة وضبط التشغيل</strong>.</td>
-                            <td>نظرية التدفق النفسي (Csikszentmihalyi, 1990) ونموذج الميول المهنية (Holland RIASEC & O*NET).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2. البوصلة المكانية والحركية</strong><br><span class="en-term">Spatial Mobility vs. Confinement</span></td>
-                            <td>تفرز بين <strong>النمط الميداني المستكشف</strong> الذي يختنق من الجلوس في محل ثابت وينتعش بالحركة والتوصيل وفتح أسواق جديدة، وبين <strong>النمط المتمركز</strong> الذي يبدع داخل معمل أو مطبخ أو غرفة منظمة.</td>
-                            <td>علم النفس البيئي ونظرية البيئات السلوكية (Barker, 1968) وأبحاث أنماط الاستكشاف (Fisher, 2009).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>3. البصمة الحسية للخامات</strong><br><span class="en-term">Material & Haptic Affinity</span></td>
-                            <td>تحدد نوع المادة التي يرتاح الإنسان للتعامل معها: <strong>القوام والسوائل والمركبات</strong> (كريمات، صوصات، مبيدات حيوية)، <strong>الأسطح اللامعة والمعادن</strong> (فضة، إستانلس، سيارات)، <strong>الخامات الدافئة والليفية</strong> (جلد، خشب، جريد نخيل، أقمشة)، أم <strong>النباتات والأغذية</strong>.</td>
-                            <td>نظرية التفاعل المادي (Malafouris, 2013 - Oxford) وعلم الإدراك اللمسي (Lederman & Klatzky, 1987).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4. المنطق التفعالي والموارد المتاحة</strong><br><span class="en-term">Effectuation & Local Resource Synthesis</span></td>
-                            <td>بدل افتراض موارد غير موجودة، يبدأ المحرك مما يملكه المستخدم فعلًا (المستوى التعليمي كخريج علوم أو زراعة أو فنون أو محو أمية، نوع الأصل ومكانه في مدينة سياحية أو قرية ريفية، والخامات البيئية الرخيصة المحيطة به) لتركيب فرصة مفصلة.</td>
-                            <td>نظرية التفعيل الريادي ومبدأ "العصفور في اليد والخسارة المقبولة" (Sarasvathy, 2001) والابتكار المقتصد (Jugaad Innovation).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>5. المتبني الأول وموقع السوق</strong><br><span class="en-term">Early Adopter & Tri-Location</span></td>
-                            <td>يفصل المحرك بين 3 مواقع: (مكان الإقامة، مكان الأصل، ومكان العميل الأول المستهدف كالسياح في أسوان أو مزارعي القرية أو محلات الجملة بالمدن الكبرى).</td>
-                            <td>نظرية انتشار الابتكارات والمتبنين الأوائل (Everett Rogers, 1962 - <em>Diffusion of Innovations</em>).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>6. عزل العائق النفسي وبناء الأداة التعويضية</strong><br><span class="en-term">Cognitive Blocker Scaffolding</span></td>
-                            <td>يفصل بين "الشغف" و"العائق" (مثل حب تصميم الحُلي الفضية مع الخوف من الحسابات). لا يستبعد المشروع بسبب العائق، بل يزود المستخدم بأداة جاهزة (حاسبة مبسطة أو تصنيع لدى الغير) لتحييد العائق.</td>
-                            <td>نظرية الفاعلية الذاتية (Bandura, 1997) وأبحاث القلق الحسابي وتنظيم الفعل الريادي (Frese, 2009).</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- الفصل الخامس -->
-        <section class="chapter-section" id="ch5">
-            <span class="chapter-number">CHAPTER 05 — FINANCIAL PHYSICS & ERROR MARGINS</span>
-            <h2>الفصل الخامس: فيزياء الأرقام، هامش الخطأ، والتمييز بين المشروع القائم والمبتكر</h2>
-            <p class="prose-p">
-                الاقتصاد الحقيقي متغير باستمرار؛ لذلك يلتزم محرك المنصة بقاعدتين علميتين عند عرض أي تقديرات مالية:
-            </p>
-            <ul style="padding-right:20px; line-height:2; margin-bottom:16px;">
-                <li><strong>المشروعات ذات البيانات المتداولة:</strong> تُعرض تقديراتها مربوطة بـ <strong>سقف رأس مالك الفعلي</strong> مع نص صريح على وجود <strong>هامش خطأ وتغير سعري بنسبة (±15% إلى 25%)</strong> نتيجة تغير سعر الصرف والتضخم بين تاريخ نشر المرجع ووقت قراءة النتيجة.</li>
-                <li><strong>المشروعات الابتكارية المركبة الجديدة:</strong> عندما يركّب المحرك فرصة جديدة من تقاطع تخصصك وبيئتك (مثل استخلاص مركب حيوي زراعي أو منتج بيئي من جريد النخيل)، يعلن النظام بوضوح أن <strong>الأرقام افتراضية أولية تحتاج إلى تحقق ميداني عبر عينة الاختبار</strong>.</li>
-            </ul>
-        </section>
-
-        <!-- الفصل السادس: القاموس -->
-        <section class="chapter-section" id="ch6">
-            <span class="chapter-number">CHAPTER 06 — INTERACTIVE BUSINESS GLOSSARY</span>
-            <h2>الفصل السادس: قاموس المصطلحات العملية (انسخ المصطلح وابحث كالمحترفين)</h2>
-            <input type="search" id="glossary-search" class="glossary-search" placeholder="ابحث بالعربية أو الإنجليزية (مثال: MVP، هامش المساهمة، Effectuation، MOQ)..." autocomplete="off">
-            <div id="glossary-list"></div>
-            <p id="glossary-empty" style="display:none; color:var(--text-secondary);">لا يوجد مصطلح مطابق لبحثك.</p>
-        </section>
-
-        <!-- الفصل السابع: المراجع العلمية والأكاديمية في آخر الصفحة -->
-        <section class="academic-references-box" id="ch7">
-            <span class="chapter-number">CHAPTER 07 — SCIENTIFIC & ACADEMIC BIBLIOGRAPHY</span>
-            <h2>المراجع والدراسات العلمية والكتب المعتمدة في بناء النظام</h2>
-            <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:18px;">
-                تستند منهجية الأسئلة غير المباشرة، ومعادلات الفرز، وتوجيه نماذج العمل في منصة «ابدأ مشروعك» إلى المراجع العلمية والكتب الأكاديمية التالية (مع عدم الادعاء بأن التقييم تشخيص إكلينيكي أو دراسة جدوى ملزمة):
-            </p>
-            <ol class="academic-list">
-                <li>
-                    <strong>نظرية التفعيل الريادي والبدء بالموارد المتاحة (Effectuation Theory):</strong>
-                    Sarasvathy, S. D. (2001). <em>Causation and Effectuation: Toward a Theoretical Shift from Economic Inevitability to Entrepreneurial Contingency</em>. Academy of Management Review, 26(2), 243–263; & Sarasvathy, S. D. (2008). <em>Effectuation: Elements of Entrepreneurial Expertise</em>. Edward Elgar Publishing.
-                </li>
-                <li>
-                    <strong>القياس السلوكي للميول المهنية وبناء المسار (Career Construction & RIASEC):</strong>
-                    Holland, J. L. (1997). <em>Making Vocational Choices: A Theory of Vocational Personalities and Work Environments</em> (3rd ed.). Psychological Assessment Resources; & Savickas, M. L. (2005). <em>The Theory and Practice of Career Construction</em>. In S. D. Brown & R. W. Lent (Eds.), Career Development and Counseling. Wiley. (مدعوم بقواعد بيانات <strong>U.S. Department of Labor O*NET</strong> وإطار المهارات الأوروبي <strong>ESCO</strong>).
-                </li>
-                <li>
-                    <strong>سيكولوجية التدفق والاندماج الزمني غير المباشر (Flow State Psychology):</strong>
-                    Csikszentmihalyi, M. (1990). <em>Flow: The Psychology of Optimal Experience</em>. Harper & Row; & Deci, E. L., & Ryan, R. M. (2000). <em>Self-Determination Theory and the Facilitation of Intrinsic Motivation</em>. American Psychologist, 55(1), 68–78.
-                </li>
-                <li>
-                    <strong>نظرية التفاعل المادي والبصمة الحسية للخامات (Material Engagement & Haptic Perception):</strong>
-                    Malafouris, L. (2013). <em>How Things Shape the Mind: A Theory of Material Engagement</em>. MIT Press; Sennett, R. (2008). <em>The Craftsman</em>. Yale University Press; & Lederman, S. J., & Klatzky, R. L. (1987). <em>Hand Movements: A Window into Haptic Object Recognition</em>. Cognitive Psychology, 19(3), 342–368.
-                </li>
-                <li>
-                    <strong>علم النفس البيئي والحركة المكانية مقابل الثبات (Environmental Psychology & Spatial Mobility):</strong>
-                    Barker, R. G. (1968). <em>Ecological Psychology: Concepts and Methods for Studying the Environment of Human Behavior</em>. Stanford University Press; & Fisher, H. (2009). <em>Why Him? Why Her? How to Find and Keep Lasting Love</em> (Dopamine/Explorer Temperament Research).
-                </li>
-                <li>
-                    <strong>تحييد العوائق الإدراكية والقلق الحسابي (Self-Efficacy, Math Anxiety & Action Regulation):</strong>
-                    Bandura, A. (1997). <em>Self-Efficacy: The Exercise of Control</em>. W. H. Freeman; Ashcraft, M. H. (2002). <em>Math Anxiety: Personal, Educational, and Cognitive Consequences</em>. Current Directions in Psychological Science, 11(5), 181–185; & Frese, M. (2009). <em>Toward a Psychology of Entrepreneurship: An Action Theory Perspective</em>. Foundations and Trends in Entrepreneurship.
-                </li>
-                <li>
-                    <strong>اليقظة الريادية، الابتكار المقتصد، والشركات الرشيقة (Alertness, Jugaad & Lean Startup):</strong>
-                    Kirzner, I. M. (1973). <em>Competition and Entrepreneurship</em>. University of Chicago Press; Radjou, N., Prabhu, J., & Ahuja, S. (2012). <em>Jugaad Innovation: Think Frugal, Be Flexible, Generate Breakthrough Growth</em>. Jossey-Bass; & Ries, E. (2011). <em>The Lean Startup</em>. Crown Business.
-                </li>
-                <li>
-                    <strong>انتشار الابتكارات، المتبني الأول، وتجنب الخسارة (Early Adopters & Prospect Theory):</strong>
-                    Rogers, E. M. (2003). <em>Diffusion of Innovations</em> (5th ed.). Free Press; Kahneman, D., & Tversky, A. (1979). <em>Prospect Theory: An Analysis of Decision under Risk</em>. Econometrica, 47(2), 263–291; & Kiyosaki, R. T. (1997). <em>Rich Dad Poor Dad</em>.
-                </li>
-            </ol>
-        </section>
-
-        <div class="footer-cta">
-            <h2 style="font-size:1.35rem; margin-bottom:10px;">جاهز لتكتشف إمكانياتك وتبني كبسولة مشروعك؟</h2>
-            <p style="color:var(--text-secondary); max-width:540px; margin:0 auto 20px auto;">
-                انتقل الآن إلى تجربة «اكتشف نفسك» وأجب عن المواقف غير المباشرة وحدد أصولك ومكانك بدقة.
-            </p>
-            <a href="index.html" class="btn-primary">
-                <span>ابدأ تجربة «اكتشف نفسك» الآن ←</span>
-            </a>
-        </div>
-    </main>
-
-    <script>
-        const GLOSSARY_DATA = [
-            ['نموذج العمل', 'Business Model', 'الطريقة التي يصنع بها مشروعك قيمة للعميل ويحولها إلى إيرادات مستمرة.', 'بيع نفس المنتج بالقطعة للسياح نموذج عمل مختلف عن توريده بالجملة للمطاعم.'],
-            ['القيمة المقترحة', 'Value Proposition', 'السبب المحدد الذي يجعل العميل يشتري منك أنت ويترك البدائل.', 'ملاية بجيوب عميقة 40 سم وأستك كلبس لا تنخلع من المراتب العالية.'],
-            ['الحد الأدنى للمنتج', 'Minimum Viable Product - MVP', 'أبسط نسخة أولية قابلة للبيع تختبر بها استعداد العميل للدفع الفعلي بأقل تكلفة.', 'تصنيع 5 عينات فقط من موديل واحد وعرضها للبيع قبل إنتاج 100 قطعة.'],
-            ['المتبني الأول', 'Early Adopter', 'الشريحة الأولى من العملاء الأكثر احتياجًا لحلك والأسرع استعدادًا لتجربته وشرائه.', 'السياح في أسوان بالنسبة لمنتجات جريد النخيل الفنية، أو مزارعو قريتك بالنسبة لمركب حيوي زراعي.'],
-            ['العلامة التجارية المتخصصة', 'Microbrand', 'براند صغير مستقل يركز بعمق على شريحة محددة ومنتج متقن بدل منافسة المصانع في السلع العامة.', 'براند متخصص في الحُلي الفضية الرجالية أو الحقائب الجلدية النحيفة.'],
-            ['التصنيع لدى الغير', 'Contract Manufacturing', 'الاتفاق مع ورشة أو مصنع قائم لتصنيع منتجك بمواصفاتك واسمك بالقطعة دون شراء ماكينات.', 'سبك خواتم الفضة في ورش الصاغة بالمصنعية بدل شراء فرن ومسبك.'],
-            ['المطبخ السحابي', 'Cloud Kitchen', 'وحدة تحضير غذائي مرخصة مخصصة للتوصيل والتوريد فقط دون صالة طعام أو إيجار شارع رئيسي.', 'تجهيز وجبات موزونة أو أصناف للكافيهات من مساحة مرخصة منخفضة الإيجار.'],
-            ['هامش المساهمة', 'Contribution Margin', 'المبلغ المتبقي من سعر بيع الوحدة بعد خصم كل التكاليف المتغيرة المباشرة (خامة + تصنيع + تغليف + شحن + إعلان).', 'بيع القطعة بـ 400 ج.م وتكلفتها المتغيرة 280 ج.م يترك 120 ج.م لتغطية المصاريف الثابتة والربح.'],
-            ['تكلفة اكتساب العميل', 'Customer Acquisition Cost - CAC', 'إجمالي ما تنفقه في التسويق والمبيعات مقسومًا على عدد العملاء الذين اشتروا فعليًا.', 'إنفاق 1000 ج.م إعلانات أثمر عن 10 مشترين يعني أن تكلفة اكتساب العميل 100 ج.م.'],
-            ['الحد الأدنى للطلب', 'Minimum Order Quantity - MOQ', 'أقل كمية يوافق المورد أو الورشة على بيعها أو تصنيعها لك بسعر الجملة.', 'اختيار ورشة تقبل MOQ 30 قطعة في البداية يحمي سيولتك من التجميد.'],
-            ['التكلفة الكلية الواصلة للوحدة', 'Landed Unit Cost', 'سعر شراء الوحدة مضافًا إليه نصيبها من النقل والشحن ونسبة الهدر أو التالف.', 'خامة بـ 100 ج.م + 8 ج.م نقل للوحدة + 4 ج.م هدر = التكلفة الفعلية 112 ج.م.'],
-            ['التفعيل بالموارد المتاحة', 'Effectuation - Bird in Hand', 'منهجية ريادية تبدأ بتحليل ما تملكه الآن (مهارة، أصل، خامة محلية، علاقات) لبناء فرصة بأقل خسارة محتملة.', 'استغلال خريج علوم لغرفته وخامات قريته لابتكار منتج زراعي محلي بأقل رأس مال.']
-        ];
-
-        function normalizeArabic(str) {
-            return String(str || '').toLowerCase()
-                .replace(/[\u064B-\u0652\u0640]/g, '')
-                .replace(/[أإآ]/g, 'ا')
-                .replace(/ة/g, 'ه')
-                .replace(/ى/g, 'ي');
-        }
-
-        function copyText(text, btn) {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(() => {
-                    const old = btn.textContent;
-                    btn.textContent = '[تم النسخ ✓]';
-                    setTimeout(() => btn.textContent = old, 1500);
-                });
-                return;
-            }
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            ta.style.position = 'fixed';
-            ta.style.opacity = '0';
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand('copy'); btn.textContent = '[تم النسخ ✓]'; } catch (e) {}
-            ta.remove();
-            setTimeout(() => btn.textContent = '[نسخ]', 1500);
-        }
-
-        const listEl = document.getElementById('glossary-list');
-        const cards = GLOSSARY_DATA.map(([ar, en, def, ex]) => {
-            const card = document.createElement('div');
-            card.className = 'glossary-card';
-            card.dataset.search = normalizeArabic(ar + ' ' + en + ' ' + def + ' ' + ex);
-            card.innerHTML = `
-                <div class="glossary-card-header">
-                    <strong>${ar}</strong>
-                    <span class="term-pill">
-                        <span class="en-term">${en}</span>
-                        <button type="button" class="copy-term-btn">[نسخ]</button>
-                    </span>
-                </div>
-                <p style="font-size:0.9rem; margin-bottom:6px;">${def}</p>
-                <p style="font-size:0.84rem; color:var(--text-secondary);"><strong>مثال:</strong> ${ex}</p>
-            `;
-            const btn = card.querySelector('.copy-term-btn');
-            btn.addEventListener('click', () => copyText(en, btn));
-            listEl.appendChild(card);
-            return card;
-        });
-
-        document.getElementById('glossary-search').addEventListener('input', (e) => {
-            const q = normalizeArabic(e.target.value.trim());
-            let visible = 0;
-            cards.forEach(c => {
-                const match = c.dataset.search.includes(q);
-                c.style.display = match ? 'block' : 'none';
-                if (match) visible++;
-            });
-            document.getElementById('glossary-empty').style.display = visible === 0 ? 'block' : 'none';
-        });
-
-        try { if (window.lucide) lucide.createIcons(); } catch (e) {}
-    </script>
+<script>
+const G = [
+  ['نموذج العمل', 'Business Model', 'الطريقة التي يصنع بها مشروعك قيمة للعميل ويحولها لإيراد.', 'بيع المنتج بالقطعة للأفراد أو باشتراك شهري للشركات.'],
+  ['القيمة المقترحة', 'Value Proposition', 'السبب المحدد الذي يدفع العميل للشراء منك.', 'حل مشكلة حقيقية في المنتج التقليدي.'],
+  ['الحد الأدنى للمنتج', 'Minimum Viable Product - MVP', 'أبسط عينة قابلة للبيع لاختبار استعداد الناس للدفع.', 'تنفيذ 5 عينات فقط قبل إنتاج دفعة كاملة.'],
+  ['العلامة التجارية المتخصصة', 'Microbrand', 'براند صغير مستقل يركز على شريحة محددة ومنتج متقن.', 'براند متخصص في منتج واحد عالي الجودة.'],
+  ['الوايت لابل', 'White Label', 'شراء منتج جاهز من مصنع ووضع هويتك وتغليفك الخاص عليه.', 'التركيز على التسويق والعبوة دون تأسيس مصنع.'],
+  ['التصنيع لدى الغير', 'Contract Manufacturing', 'اتفاق مع ورشة أو مصنع قائم لتصنيع منتجك بالقطعة.', 'توفير ثمن الماكينات في بداية المشروع.'],
+  ['الحد الأدنى للطلب', 'Minimum Order Quantity - MOQ', 'أقل كمية يوافق المورد على بيعها بسعر الجملة.', 'اختيار مورد بـ MOQ صغير يحمي سيولتك.'],
+  ['تكلفة اكتساب العميل', 'Customer Acquisition Cost - CAC', 'إجمالي التسويق مقسومًا على عدد المشترين الفعليين.', 'صرفت 500 ج.م إعلانات واشترى 10 عملاء = 50 ج.م للعميل.'],
+  ['هامش المساهمة', 'Contribution Margin', 'المتبقي من سعر البيع بعد خصم كل التكاليف المتغيرة للوحدة.', 'يغطي المصاريف الثابتة وصافي ربحك.']
+];
+const norm = s => s.toLowerCase().replace(/[\u064B-\u0652\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+function h(t, c, x) { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+const list = document.getElementById('list');
+const cards = G.map(([ar, en, def, ex]) => {
+  const c = h('div', 'g'), top = h('header'), right = h('span');
+  right.append(h('b', 0, ar + ' '), h('span', 'en', en));
+  const btn = h('button', 'copy', 'نسخ'); btn.type = 'button';
+  btn.onclick = () => { if (navigator.clipboard) navigator.clipboard.writeText(en).then(() => { btn.textContent = 'تم ✓'; setTimeout(() => btn.textContent = 'نسخ', 1200); }); };
+  right.append(btn); top.append(right);
+  c.append(top, h('p', 0, def), h('p', 'muted', 'مثال: ' + ex));
+  c.dataset.k = norm(ar + ' ' + en + ' ' + def);
+  list.append(c); return c;
+});
+document.getElementById('q').addEventListener('input', e => {
+  const q = norm(e.target.value.trim()); let n = 0;
+  cards.forEach(c => { const show = c.dataset.k.includes(q); c.hidden = !show; if (show) n++; });
+  document.getElementById('none').hidden = n > 0;
+});
+</script>
 </body>
 </html>
-"""
-
-with open("about.html", "w", encoding="utf-8") as f:
-    f.write(about_html)
-
-print("about.html written successfully, size:", len(about_html))

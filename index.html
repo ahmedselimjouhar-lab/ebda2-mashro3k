@@ -1,215 +1,170 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>اعرف أكثر عن نفسك | Know Yourself Better</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--ink:#111111;--paper:#FFFFFF;--soft:#F5F5F5;--elem:#FAFAFA;--line:#DFDFE2;--mute:#6E6E73;--r-lg:14px;--r-md:10px;--r-sm:6px}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'IBM Plex Sans Arabic','Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none}
-body{background:var(--paper);color:var(--ink);font-size:.96rem;line-height:1.75;padding:0 16px 64px}
-input,select,textarea,.en-term{user-select:text!important;-webkit-user-select:text!important}
-.en-term{font-family:'Inter',sans-serif;direction:ltr;unicode-bidi:isolate;display:inline-block;background:var(--soft);border:1px solid var(--line);padding:1px 8px;border-radius:var(--r-sm);font-size:.82rem;font-weight:500;color:var(--ink)}
-.copy-btn{font-size:.74rem;background:var(--paper);color:var(--mute);border:1px solid var(--line);border-radius:var(--r-sm);padding:1px 7px;margin-inline-start:4px;cursor:pointer}
-.copy-btn:hover{border-color:var(--ink);color:var(--ink)}
-
-.bar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);margin:0 -16px 24px;padding:12px 16px}
-.wrap{max-width:760px;margin:0 auto}
-.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.brand{font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none;cursor:pointer}
-.nav-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.ticker{font-size:.76rem;color:var(--mute);background:var(--elem);border:1px solid var(--line);padding:4px 10px;border-radius:99px}
-.ticker strong{color:var(--ink);font-family:'Inter',sans-serif}
-.select-sm{width:auto;padding:5px 9px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:.78rem;cursor:pointer}
-
-.lang-switch{display:inline-flex;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--elem)}
-.lang-btn{border:none;background:transparent;color:var(--ink);padding:5px 10px;font-size:.78rem;font-weight:600;cursor:pointer}
-.lang-btn.active{background:var(--ink);color:var(--paper)}
-
-.btn{font:inherit;font-size:.9rem;font-weight:600;background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:var(--r-md);padding:11px 20px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:opacity .15s}
-.btn:hover{opacity:.88}
-.btn.ghost{background:var(--paper);color:var(--ink);border-color:var(--line);font-weight:500}
-.btn.ghost:hover{border-color:var(--ink);background:var(--soft)}
-.btn.sm{padding:5px 11px;font-size:.78rem}
-
-.hero{text-align:center;margin-bottom:20px}
-h1{font-size:clamp(1.35rem,4vw,1.8rem);line-height:1.4;font-weight:700}
-h2{font-size:1.15rem;line-height:1.5;margin-bottom:10px}
-h3{font-size:.98rem;line-height:1.5;margin-bottom:8px}
-.muted{color:var(--mute);font-size:.85rem}
-
-.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(18px,4vw,28px);margin-bottom:20px}
-.prog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:.82rem;font-weight:600;color:var(--mute)}
-.prog{height:4px;background:var(--soft);border-radius:4px;margin-bottom:20px;overflow:hidden}
-.prog i{display:block;height:100%;background:var(--ink);transition:width .2s ease}
-
-.q-block{margin-bottom:20px;padding:6px;border-radius:var(--r-md)}
-.q-block.missing{background:var(--soft);border:1.5px dashed var(--ink);padding:12px}
-.q-title{display:block;font-weight:600;font-size:.94rem;margin-bottom:8px}
-.opts{display:grid;gap:8px}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:8px}
-
-.opt{text-align:start;font:inherit;font-size:.88rem;background:var(--elem);color:var(--ink);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;transition:all .14s ease;width:100%}
-.opt:hover{border-color:var(--ink);background:var(--soft)}
-.opt.selected,.opt[aria-pressed="true"]{background:var(--ink)!important;color:var(--paper)!important;border-color:var(--ink)!important;font-weight:600}
-.opt-check{width:18px;height:18px;border:1.5px solid var(--mute);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0;color:transparent}
-.opt.selected .opt-check,.opt[aria-pressed="true"] .opt-check{background:var(--paper)!important;color:var(--ink)!important;border-color:var(--paper)!important;font-weight:700}
-
-input[type="text"],input[type="number"],input[type="email"],select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);color:var(--ink);font:inherit;font-size:.88rem}
-input:focus,select:focus{outline:none;border-color:var(--ink);background:var(--elem)}
-
-.box{background:var(--soft);border:1px solid var(--line);border-radius:var(--r-md);padding:15px 18px;margin-bottom:14px}
-.box.strong{background:var(--paper);border:1.5px solid var(--ink)}
-.tag{display:inline-block;font-size:.74rem;font-weight:600;padding:2px 10px;border-radius:99px;border:1px solid var(--line);background:var(--soft)}
-.tag.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-
-.mode-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
-.mode-tab{padding:12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--elem);color:var(--ink);font-weight:600;font-size:.88rem;cursor:pointer;text-align:center;transition:all .15s}
-.mode-tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-
-.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md);margin:10px 0}
-table.mono-tbl{width:100%;border-collapse:collapse;font-size:.83rem;text-align:start}
-table.mono-tbl th,table.mono-tbl td{padding:10px 12px;border-bottom:1px solid var(--line)}
-table.mono-tbl th{background:var(--soft);font-weight:600}
-
-.row-between{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
-.task-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:8px;cursor:pointer;background:var(--paper)}
-.task-item.done{background:var(--ink);color:var(--paper)}
-.hidden{display:none!important}
-@media(max-width:640px){.grid-2,.mode-tabs{grid-template-columns:1fr}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="اكتشف نوع العمل والمهنة التي تتوافق مع اهتماماتك وطريقة اندماجك في المهام اليومية.">
+  <title>ابدأ مشروعك | اكتشف نوع العمل المناسب لك</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body oncontextmenu="return false">
-
-<div class="bar">
-  <div class="wrap">
-    <a class="brand" id="ui-brand" onclick="window.App && App.goPage(1)">اعرف أكثر عن نفسك</a>
-    <div class="nav-group">
-      <div class="lang-switch">
-        <button type="button" class="lang-btn active" id="btn-lang-ar" onclick="window.App && App.setLang('ar')">العربية</button>
-        <button type="button" class="lang-btn" id="btn-lang-en" onclick="window.App && App.setLang('en')">English</button>
-      </div>
-      <span class="ticker"><span id="ui-usd-lbl">الدولار:</span> <strong id="fx-usd">56.15 EGP</strong></span>
-      <select id="curr-select" class="select-sm" onchange="window.App && App.changeCurrency()">
-        <option value="EGP">EGP (ج.م)</option>
-        <option value="USD">USD ($)</option>
-        <option value="SAR">SAR (ر.س)</option>
-        <option value="AED">AED (د.إ)</option>
-      </select>
-      <a class="btn ghost sm" id="ui-about-link" href="about.html">اعرف أكثر عن ريادة الأعمال</a>
-      <button type="button" class="btn ghost sm hidden" id="nav-ws-btn" onclick="window.App && App.goPage(7)">مساحتي الشخصية</button>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="index.html" aria-label="ابدأ من جديد">ابدأ مشروعك</a>
+      <nav class="nav">
+        <a class="text-link" href="about.html" id="about-link">كيف يعمل الاختبار؟</a>
+        <div class="language" aria-label="Language">
+          <button type="button" class="lang-btn active" data-lang="ar">مصري</button>
+          <button type="button" class="lang-btn" data-lang="en">English</button>
+        </div>
+      </nav>
     </div>
-  </div>
-</div>
-
-<main class="wrap">
-  <header class="hero">
-    <h1 id="ui-hook">اكتشف نفسك، واكتشف مسارات وفرصًا لم تكن تعرف أنها لديك.</h1>
   </header>
 
-  <div id="partner-banner" class="box strong hidden"></div>
+  <main class="shell main-shell">
+    <section id="intro" class="panel intro-panel">
+      <p class="eyebrow" id="intro-eyebrow">اكتشاف مهني</p>
+      <h1 id="intro-title">مش لازم تحب اسم الوظيفة. المهم تحب اللي بتعمله كل يوم.</h1>
+      <p class="lead" id="intro-lead">فيه ناس بتستمتع بحل الأرقام، وناس بتنسى الوقت وهي بتصمم، أو تعالج، أو تبني، أو تقود فريق. الاختبار ده بيقارن ميولك لطبيعة المهام بملفات مهنية، عشان يديك نقطة بداية واقعية لا حكم نهائي على مستقبلك.</p>
+      <div class="intro-facts">
+        <div><strong id="fact-one-title">24 موقفًا</strong><span id="fact-one-copy">تقيس أنواع الأنشطة التي تميل إليها</span></div>
+        <div><strong id="fact-two-title">6 إشارات اندماج</strong><span id="fact-two-copy">تسأل عن فقدان الإحساس بالوقت والرغبة في الاستمرار</span></div>
+        <div><strong id="fact-three-title">نتيجة واحدة واضحة</strong><span id="fact-three-copy">مهنة مرشحة وخطوة أولى تناسب ظروفك</span></div>
+      </div>
+      <p class="note" id="intro-note">اختار اللي هتعمله فعلًا، مش اللي شكله أذكى أو أكثر احترامًا في نظر الناس. مفيش إجابة صح أو غلط.</p>
+      <div class="actions">
+        <button type="button" class="btn primary" id="start-btn">ابدأ اكتشاف نفسك <span aria-hidden="true">←</span></button>
+        <button type="button" class="btn secondary" id="resume-btn" hidden>كمّل من آخر مرة</button>
+      </div>
+      <p class="privacy-note" id="privacy-note">إجاباتك محفوظة على نفس الجهاز فقط. الموقع لا يرسلها إلى واتساب أو إلى خادم خارجي.</p>
+    </section>
 
-  <!-- صفحات الأسئلة (1 إلى 4) — المجموعة الأولى مضمنة مباشرة لضمان الظهور الفوري -->
-  <section class="card" id="quiz-page-card">
-    <div class="prog-head">
-      <span id="page-title-lbl">المجموعة 1 من 5: بصمة وقت الفراغ والترفيه</span>
-      <span id="page-step-lbl">1 / 5</span>
-    </div>
-    <div class="prog"><i id="page-prog-bar" style="width:20%"></i></div>
-    <div id="questions-mount">
-      <div class="q-block" id="qb-q1">
-        <span class="q-title">1. أي تجربة ترفيهية تشد انتباهك وتندمج معها أكثر؟</span>
-        <div class="opts">
-          <button type="button" class="opt" data-qid="q1" data-val="cinema"><span>السينما: الكادر البصري المتقن، الألوان، والتصميم خلف الكواليس.</span><span class="opt-check">✓</span></button>
-          <button type="button" class="opt" data-qid="q1" data-val="theater"><span>المسرح والفعاليات الحية: طاقة الحضور المباشر والتفاعل اللحظي مع الناس.</span><span class="opt-check">✓</span></button>
-          <button type="button" class="opt" data-qid="q1" data-val="mystery"><span>أفلام الغموض والوثائقيات: تفكيك الألغاز وترتيب الأحداث المنطقي.</span><span class="opt-check">✓</span></button>
-          <button type="button" class="opt" data-qid="q1" data-val="real_action"><span>لا تستهويني الفنون الأدائية؛ أفضل الحركة الواقعية أو التجارة أو العمل بيدي.</span><span class="opt-check">✓</span></button>
+    <section id="quiz" class="panel hidden" aria-live="polite">
+      <div class="step-head">
+        <div>
+          <p class="eyebrow" id="quiz-eyebrow">ميولك للأنشطة</p>
+          <h2 id="quiz-title">أي نوع من العمل تختاره بإرادتك؟</h2>
         </div>
+        <span class="step-counter" id="step-counter">1 / 4</span>
       </div>
-      <div class="q-block" id="qb-q2">
-        <span class="q-title">2. في أوقات فراغك، أي إيقاع تفضله عندما تتابع محتوى أو تتسلى؟</span>
-        <div class="opts">
-          <button type="button" class="opt" data-qid="q2" data-val="series"><span>المسلسلات الطويلة: أستمتع ببناء التفاصيل وتطور الأحداث خطوة بخطوة.</span><span class="opt-check">✓</span></button>
-          <button type="button" class="opt" data-qid="q2" data-val="movies"><span>الأفلام المكثفة: أفضل القصة التي تبدأ وتُحسم بالكامل في ساعتين.</span><span class="opt-check">✓</span></button>
-          <button type="button" class="opt" data-qid="q2" data-val="books"><span>الكتب والمقالات الطويلة: أحب التركيز العميق وبناء المعنى في ذهني.</span><span class="opt-check">✓</span></button>
-          <button type="button" class="opt" data-qid="q2" data-val="tiktok"><span>المقاطع السريعة (تيك توك / ريلز): ألتقط الفكرة والترند في ثوانٍ وأنتقل لغيرها.</span><span class="opt-check">✓</span></button>
+      <div class="progress-track"><span id="progress-fill" style="width:0%"></span></div>
+      <p class="scale-help" id="scale-help">قيّم كل موقف من واقع اختيارك الطبيعي، بعيدًا عن الراتب أو المكانة الاجتماعية.</p>
+      <div id="question-list" class="question-list"></div>
+      <div class="actions between">
+        <button type="button" class="btn secondary" id="quiz-back">السابق</button>
+        <button type="button" class="btn primary" id="quiz-next">التالي</button>
+      </div>
+      <p class="validation" id="quiz-validation" role="alert" hidden></p>
+    </section>
+
+    <section id="flow" class="panel hidden" aria-live="polite">
+      <div class="step-head">
+        <div>
+          <p class="eyebrow" id="flow-eyebrow">إشارات الاندماج</p>
+          <h2 id="flow-title">في أي نوع من المهام ممكن تنسى الوقت؟</h2>
         </div>
+        <span class="step-counter" id="flow-counter">5 / 9</span>
       </div>
-      <div class="q-block" id="qb-q3">
-        <span class="q-title">3. لو تفرغت يومًا كاملًا بلا رقيب، أي نشاط ينسيك الوقت تمامًا؟</span>
-        <div class="opts">
-          <button type="button" class="opt" data-qid="q3" data-val="creator"><span>ابتكار تصميم أو شكل أو منتج أو محتوى جديد من خيالي.</span><span class="opt-check">✓</span></button>
-          <button type="button" class="opt" data-qid="q3" data-val="arbitrageur"><span>البحث عن فرص بيع وشراء وصفقات سريعة تضاعف العائد.</span><span class="opt-check">✓</span></button>
-          <button type="button" class="opt" data-qid="q3" data-val="orchestrator"><span>تنظيم مكان، أو تنسيق جدول ومهام، أو إدارة حدث بدقة.</span><span class="opt-check">✓</span></button>
-          <button type="button" class="opt" data-qid="q3" data-val="strategist"><span>فهم كيف تعمل الأنظمة والأدوات وبناء حلول ذكية للمشكلات.</span><span class="opt-check">✓</span></button>
+      <div class="progress-track"><span id="flow-progress-fill" style="width:55.6%"></span></div>
+      <p class="scale-help" id="flow-help">فكّر في تجربة حقيقية مررت بها، أو أقرب نشاط تتوقع أنك ستندمج فيه. لا تختار الإجابة لمجرد أنها تبدو مثالية.</p>
+      <div id="flow-list" class="question-list"></div>
+      <div class="actions between">
+        <button type="button" class="btn secondary" id="flow-back">السابق</button>
+        <button type="button" class="btn primary" id="flow-next">التالي</button>
+      </div>
+      <p class="validation" id="flow-validation" role="alert" hidden></p>
+    </section>
+
+    <section id="trace" class="panel hidden" aria-live="polite">
+      <div class="step-head">
+        <div><p class="eyebrow" id="trace-eyebrow">بصمة السلوك والاهتمامات اليومية</p><h2 id="trace-title">بعيدًا عن وصفك لنفسك، ماذا تفعل تلقائيًا؟</h2></div>
+        <span class="step-counter" id="trace-counter">7 / 9</span>
+      </div>
+      <div class="progress-track"><span id="trace-progress-fill" style="width:66.7%"></span></div>
+      <p class="scale-help" id="trace-help">اختر الأقرب لما تفعله فعلًا، وليس لما تتمنى أن تكون عليه. هذه إشارات استكشافية وليست أحكامًا على شخصيتك.</p>
+      <div id="trace-list" class="question-list"></div>
+      <div class="actions between"><button type="button" class="btn secondary" id="trace-back">السابق</button><button type="button" class="btn primary" id="trace-next">التالي</button></div>
+      <p class="validation" id="trace-validation" role="alert" hidden></p>
+    </section>
+
+    <section id="workstyle" class="panel hidden" aria-live="polite">
+      <div class="step-head">
+        <div><p class="eyebrow" id="workstyle-eyebrow">طريقة العمل التي تناسبك</p><h2 id="workstyle-title">كيف تحب أن يكون شكل يوم العمل؟</h2></div>
+        <span class="step-counter" id="workstyle-counter">8 / 9</span>
+      </div>
+      <div class="progress-track"><span id="workstyle-progress-fill" style="width:77.8%"></span></div>
+      <p class="scale-help" id="workstyle-help">هذه الأسئلة لا تقيس الطموح أو النجاح؛ إنها تساعد على التمييز بين الوظيفة والعمل الحر والمشروع المستقل وتأسيس شركة.</p>
+      <div id="workstyle-list" class="question-list"></div>
+      <div class="actions between"><button type="button" class="btn secondary" id="workstyle-back">السابق</button><button type="button" class="btn primary" id="workstyle-next">التالي</button></div>
+      <p class="validation" id="workstyle-validation" role="alert" hidden></p>
+    </section>
+
+    <section id="profile" class="panel hidden">
+      <div class="step-head">
+        <div>
+          <p class="eyebrow" id="profile-eyebrow">الواقع العملي</p>
+          <h2 id="profile-title">خلّينا نربط ميولك بظروفك الحالية.</h2>
         </div>
+        <span class="step-counter" id="profile-counter">8 / 9</span>
       </div>
-    </div>
-    <div class="row-between">
-      <button type="button" class="btn ghost" id="prev-page-btn" style="visibility:hidden" onclick="window.App && App.prevPage()">→ السابق</button>
-      <button type="button" class="btn" id="next-page-btn" onclick="window.App && App.nextPage()">التالي ←</button>
-    </div>
-  </section>
-
-  <!-- الصفحة 5: الخلفية والبلد والأصول ورأس المال -->
-  <section class="card hidden" id="page-5-card">
-    <div class="prog-head">
-      <span id="ui-p5-title">المجموعة 5 من 5: بياناتك وبيئتك</span>
-      <span>5 / 5</span>
-    </div>
-    <div class="prog"><i style="width:100%"></i></div>
-
-    <div class="grid-2" style="margin-bottom:12px;">
-      <div><label class="q-title" id="lbl-name" for="in-name">الاسم</label><input type="text" id="in-name" placeholder="..."></div>
-      <div><label class="q-title" id="lbl-age" for="in-age">الفئة العمرية</label><select id="in-age"></select></div>
-    </div>
-
-    <div class="grid-3" style="margin-bottom:12px;">
-      <div><label class="q-title" id="lbl-edu" for="in-edu">المستوى التعليمي</label><select id="in-edu"></select></div>
-      <div><label class="q-title" id="lbl-field" for="in-field">مجال الدراسة أو الخبرة</label><select id="in-field"></select></div>
-      <div><label class="q-title" id="lbl-country" for="in-country">البلد / النطاق الجغرافي</label><select id="in-country"></select></div>
-    </div>
-
-    <div class="grid-3" style="margin-bottom:16px;">
-      <div><label class="q-title" id="lbl-env-type" for="in-env-type">طبيعة مدينتك أو منطقتك</label><select id="in-env-type"></select></div>
-      <div><label class="q-title" id="lbl-local-raw" for="in-local-raw">أبرز ميزة أو مورد في محيطك</label><select id="in-local-raw"></select></div>
-      <div><label class="q-title" id="lbl-first-adopter" for="in-first-adopter">أقرب شريحة تتعامل معها</label><select id="in-first-adopter"></select></div>
-    </div>
-
-    <label class="q-title" id="lbl-assets-box">الأصول أو الأدوات المتاحة لديك حاليًا (اضغط للاختيار)</label>
-    <div class="grid-3" id="asset-cards-box" style="margin-bottom:14px;"></div>
-
-    <div id="asset-details-panel" class="box" style="margin-bottom:16px;">
-      <div class="grid-3">
-        <div><label class="q-title" id="lbl-asset-own" for="in-asset-own">حالة الأصل</label><select id="in-asset-own"></select></div>
-        <div><label class="q-title" id="lbl-asset-area" for="in-asset-area">المساحة التقريبية (م²)</label><input type="number" id="in-asset-area" value="16" min="2"></div>
-        <div><label class="q-title" id="lbl-asset-util" for="in-asset-util">طبيعة المكان</label><select id="in-asset-util"></select></div>
+      <p class="scale-help" id="profile-help">البيانات دي لا تقلل من توافقك مع مهنة بسبب السن أو الفلوس. هي بتغيّر طريقة البداية والخطوة العملية المقترحة.</p>
+      <div class="form-grid">
+        <label class="field wide"><span id="label-name">تحب نناديك بإيه؟ (اختياري)</span><input id="p-name" type="text" maxlength="50" placeholder="اسمك"></label>
+        <label class="field"><span id="label-education">مستواك التعليمي الحالي</span><select id="p-education"><option value="none">بدون مؤهل بعد الإعدادية</option><option value="secondary">ثانوي</option><option value="diploma">دبلوم / معهد</option><option value="bachelor">بكالوريوس / ليسانس</option><option value="postgrad">دراسات عليا</option><option value="professional">تدريب أو شهادات مهنية</option></select></label>
+        <label class="field"><span id="label-field">أقرب مجال لدراستك أو خبرتك</span><select id="p-field"><option value="none">لسه ببدأ / مجال مختلف</option><option value="arts">فن وإعلام وتصميم</option><option value="business">تجارة وإدارة وماليات</option><option value="tech">تكنولوجيا وبرمجة وبيانات</option><option value="engineering">هندسة وصناعة وصيانة</option><option value="health">طب ورعاية صحية</option><option value="education">تعليم وتدريب</option><option value="science">علوم وبحث</option><option value="hospitality">ضيافة وأغذية</option><option value="other">مجال آخر</option></select></label>
+        <label class="field"><span id="label-experience">سنوات الخبرة العملية</span><select id="p-experience"><option value="0">لسه من غير خبرة</option><option value="1">أقل من سنتين</option><option value="3">من سنتين إلى 5</option><option value="6">أكثر من 5 سنوات</option></select></label>
+        <label class="field"><span id="label-hours">الوقت المتاح للتجربة أو التعلم أسبوعيًا</span><select id="p-hours"><option value="2">ساعة إلى 3 ساعات</option><option value="5">4 إلى 7 ساعات</option><option value="9">8 إلى 12 ساعة</option><option value="16">أكثر من 12 ساعة</option></select></label>
+        <label class="field"><span id="label-budget">ميزانية تقدر تخصصها للتجربة الأولى</span><select id="p-budget"><option value="0">من غير إنفاق حاليًا</option><option value="low">محدودة</option><option value="medium">متوسطة</option><option value="high">مرنة</option></select></label>
+        <label class="field"><span id="label-location">المدينة أو المحافظة / البلد</span><input id="p-location" type="text" maxlength="80" placeholder="مثال: الإسكندرية، مصر"></label>
+        <label class="field"><span id="label-city-type">طبيعة المكان الذي تعيش أو تعمل فيه</span><select id="p-city-type"><option value="unknown">غير محدد</option><option value="large">مدينة كبيرة</option><option value="industrial">منطقة صناعية أو ميناء</option><option value="tourist">مدينة سياحية أو ساحلية</option><option value="rural">قرية أو منطقة زراعية</option><option value="small">مدينة صغيرة أو ضاحية</option></select></label>
+        <label class="field"><span id="label-runway">إلى متى تستطيع تحمل دخل غير منتظم؟</span><select id="p-runway"><option value="unknown">لا أعرف / أفضل عدم الإجابة</option><option value="none">لا أستطيع حاليًا</option><option value="short">أقل من 3 أشهر</option><option value="medium">3 إلى 6 أشهر</option><option value="long">أكثر من 6 أشهر</option></select></label>
+        <fieldset class="field wide resources-field"><legend id="label-tools">إيه المتاح عندك حاليًا؟ (اختار كل اللي ينطبق)</legend>
+          <div class="check-grid">
+            <label class="check"><input type="checkbox" name="tool" value="phone"><span id="tool-phone">موبايل</span></label>
+            <label class="check"><input type="checkbox" name="tool" value="computer"><span id="tool-computer">كمبيوتر أو لابتوب</span></label>
+            <label class="check"><input type="checkbox" name="tool" value="camera"><span id="tool-camera">كاميرا أو ميكروفون</span></label>
+            <label class="check"><input type="checkbox" name="tool" value="tools"><span id="tool-tools">أدوات أو معدات عملية</span></label>
+            <label class="check"><input type="checkbox" name="tool" value="workspace"><span id="tool-workspace">مكان أقدر أشتغل أو أتدرب فيه</span></label>
+            <label class="check"><input type="checkbox" name="tool" value="network"><span id="tool-network">معارف أو علاقات في مجال مهني</span></label>
+            <label class="check"><input type="checkbox" name="tool" value="vehicle"><span id="tool-vehicle">وسيلة انتقال أو نقل</span></label>
+            <label class="check"><input type="checkbox" name="tool" value="storage"><span id="tool-storage">مخزن أو مساحة تخزين</span></label>
+            <label class="check"><input type="checkbox" name="tool" value="land"><span id="tool-land">أرض أو سطح أو مساحة خارجية</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="field wide resources-field"><legend id="label-access">ما الذي تستطيع الوصول إليه في محيطك؟</legend>
+          <div class="check-grid">
+            <label class="check"><input type="checkbox" name="access" value="suppliers"><span id="access-suppliers">موردون وتجار جملة</span></label>
+            <label class="check"><input type="checkbox" name="access" value="workshops"><span id="access-workshops">ورش وفنيون</span></label>
+            <label class="check"><input type="checkbox" name="access" value="farms"><span id="access-farms">مزارع ومنتجون زراعيون</span></label>
+            <label class="check"><input type="checkbox" name="access" value="tourism"><span id="access-tourism">فنادق وأنشطة سياحية</span></label>
+            <label class="check"><input type="checkbox" name="access" value="businesses"><span id="access-businesses">محلات وشركات محلية</span></label>
+            <label class="check"><input type="checkbox" name="access" value="schools"><span id="access-schools">مدارس ومراكز تعليم</span></label>
+            <label class="check"><input type="checkbox" name="access" value="health"><span id="access-health">مؤسسات صحية</span></label>
+            <label class="check"><input type="checkbox" name="access" value="factories"><span id="access-factories">مصانع ومناطق إنتاج</span></label>
+          </div>
+        </fieldset>
       </div>
-    </div>
+      <div class="actions between">
+        <button type="button" class="btn secondary" id="profile-back">السابق</button>
+        <button type="button" class="btn primary" id="show-results">اكتشف المهنة الأقرب لي</button>
+      </div>
+    </section>
 
-    <div class="grid-2" style="margin-bottom:6px;">
-      <div><label class="q-title" id="lbl-capital" for="in-capital">الميزانية المتاحة (أدخل 0 إذا كنت تبحث عن وظيفة فقط)</label><input type="number" id="in-capital" value="20000" min="0" step="500" oninput="window.App && App.updateCapPreview()"></div>
-      <div><label class="q-title" id="lbl-cap-curr" for="in-cap-curr">عملة الإدخال</label><select id="in-cap-curr" onchange="window.App && App.updateCapPreview()"><option value="EGP">EGP (ج.م)</option><option value="USD">USD ($)</option><option value="SAR">SAR (ر.س)</option><option value="AED">AED (د.إ)</option></select></div>
-    </div>
-    <p id="cap-preview-note" class="muted" style="font-size:.78rem;"></p>
+    <section id="results" class="panel hidden" aria-live="polite">
+      <div id="result-mount"></div>
+    </section>
 
-    <div class="row-between">
-      <button type="button" class="btn ghost" id="btn-p5-back" onclick="window.App && App.goPage(4)">→ السابق</button>
-      <button type="button" class="btn" id="btn-p5-go" onclick="window.App && App.showResults()">اكشف مسارك المهني والريادي ←</button>
-    </div>
-  </section>
+    <footer class="site-footer">
+      <span id="footer-copy">أداة استكشاف مهني أولية — ليست تشخيصًا نفسيًا أو ضمانًا للنجاح.</span>
+      <button type="button" class="text-button" id="reset-btn">امسح الإجابات وابدأ من جديد</button>
+    </footer>
+  </main>
 
-  <!-- الصفحة 6: النتيجة المزدوجة (مسار الوظائف 2026 + مسار المشروع المركب) -->
-  <section class="card hidden" id="page-6-card"><div id="capsule-mount"></div></section>
-
-  <!-- الصفحة 7: المساحة الشخصية التفاعلية -->
-  <section class="card hidden" id="page-7-card"><div id="workspace-mount"></div></section>
-</main>
-
-<script src="engine.js"></script>
+  <script src="career-map.js" defer></script>
+  <script src="engine.js" defer></script>
 </body>
 </html>

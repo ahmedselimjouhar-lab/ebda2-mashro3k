@@ -2,98 +2,105 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>اعرف أكثر عن ريادة الأعمال | Learn More About Entrepreneurship</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اعرف أكثر عن ريادة الأعمال والمهن | Entrepreneurship & Careers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#111111;--paper:#fff;--soft:#f5f5f5;--elem:#fafafa;--line:#dfdfe2;--mute:#6e6e73}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'IBM Plex Sans Arabic','Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-body{font-size:.96rem;line-height:1.85;color:var(--ink);background:var(--paper);padding:0 16px 64px}
-.wrap{max-width:740px;margin:0 auto}
-a{color:inherit}
-.bar{border-bottom:1px solid var(--line);margin:0 -16px 28px;padding:12px 16px;background:rgba(255,255,255,.96);position:sticky;top:0;z-index:100}
+:root{--ink:#111111;--paper:#FFFFFF;--soft:#F5F5F5;--elem:#FAFAFA;--line:#DFDFE2;--mute:#6E6E73;--r-lg:14px;--r-md:10px;--r-sm:6px}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'IBM Plex Sans Arabic','Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none}
+body{background:var(--paper);color:var(--ink);font-size:.96rem;line-height:1.8;padding:0 16px 64px}
+input,.en-term{user-select:text!important;-webkit-user-select:text!important}
+.wrap{max-width:760px;margin:0 auto}
+.bar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);margin:0 -16px 24px;padding:12px 16px}
 .bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.brand{font-weight:700;text-decoration:none;font-size:1.05rem}
-.nav-right{display:flex;align-items:center;gap:8px}
-.lang-switch{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--elem)}
+.brand{font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none}
+.nav-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lang-switch{display:inline-flex;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--elem)}
 .lang-btn{border:none;background:transparent;color:var(--ink);padding:5px 10px;font-size:.78rem;font-weight:600;cursor:pointer}
 .lang-btn.active{background:var(--ink);color:var(--paper)}
-h1{font-size:clamp(1.45rem,4.5vw,2rem);line-height:1.45;margin-bottom:10px}
-h2{font-size:1.18rem;line-height:1.6;margin:26px 0 8px}
-p{margin-bottom:12px}
-.muted{color:var(--mute);font-size:.88rem}
-.card{border:1px solid var(--line);border-radius:12px;padding:clamp(18px,4vw,28px);margin-top:24px}
-.btn{font:inherit;font-size:.88rem;font-weight:600;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:10px;padding:9px 18px;cursor:pointer;text-decoration:none;display:inline-block}
-.list{padding-inline-start:20px;margin-bottom:14px}
+.btn{font:inherit;font-size:.88rem;font-weight:600;background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:var(--r-md);padding:9px 18px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(18px,4vw,28px);margin-bottom:20px}
+h1{font-size:clamp(1.35rem,4vw,1.8rem);line-height:1.4;margin-bottom:8px}
+h2{font-size:1.15rem;line-height:1.5;margin:18px 0 10px}
+h3{font-size:.98rem;margin-bottom:6px}
+.muted{color:var(--mute);font-size:.86rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.box{background:var(--soft);border:1px solid var(--line);border-radius:var(--r-md);padding:15px 18px}
+.list{padding-inline-start:20px;font-size:.88rem}
 .list li{margin-bottom:6px}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}
-.cols>div{border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-.cols h3{font-size:.98rem;margin-bottom:6px}
-.search{width:100%;font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:10px;margin:8px 0 14px}
-.g{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:10px}
+.search{width:100%;font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:var(--r-md);margin:8px 0 14px;background:var(--paper)}
+.g{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 16px;margin-bottom:10px;background:var(--elem)}
 .g header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
-.en{direction:ltr;unicode-bidi:isolate;font-family:Inter,sans-serif;font-size:.84rem;background:var(--soft);padding:2px 8px;border-radius:6px}
-.copy{font:inherit;font-size:.78rem;margin-inline-start:6px;background:none;border:1px solid var(--line);border-radius:6px;padding:1px 8px;cursor:pointer}
+.en-term{direction:ltr;unicode-bidi:isolate;font-family:'Inter',sans-serif;font-size:.82rem;background:var(--paper);border:1px solid var(--line);padding:1px 8px;border-radius:var(--r-sm)}
+.copy-btn{font:inherit;font-size:.75rem;margin-inline-start:6px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:1px 8px;cursor:pointer}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
 </style>
 </head>
-<body>
-<div class="bar"><div class="wrap">
-  <a class="brand" id="ab-brand" href="about.html">اعرف أكثر عن ريادة الأعمال</a>
-  <div class="nav-right">
-    <div class="lang-switch">
-      <button type="button" class="lang-btn active" id="btn-ar" onclick="setAbLang('ar')">مصري</button>
-      <button type="button" class="lang-btn" id="btn-en" onclick="setAbLang('en')">English</button>
+<body oncontextmenu="return false">
+
+<div class="bar">
+  <div class="wrap">
+    <a class="brand" id="ab-brand" href="about.html">اعرف أكثر عن ريادة الأعمال والمهن</a>
+    <div class="nav-group">
+      <div class="lang-switch">
+        <button type="button" class="lang-btn active" id="btn-ar" onclick="setAbLang('ar')">العربية</button>
+        <button type="button" class="lang-btn" id="btn-en" onclick="setAbLang('en')">English</button>
+      </div>
+      <a class="btn" id="ab-cta-top" href="index.html">اعرف أكثر عن نفسك</a>
     </div>
-    <a class="btn" id="ab-cta-top" href="index.html">اعرف أكتر عن نفسك</a>
   </div>
-</div></div>
+</div>
 
 <main class="wrap">
-  <h1 id="ab-h1">اعرف أكثر عن ريادة الأعمال</h1>
-  <p class="muted" id="ab-sub">ننطلق من أصولك وطباعك والبيئة المحيطة بك لبناء فرصة تجارية بأقل مخاطرة.</p>
-
-  <h2 id="ab-h2-1">الأصل مقابل الالتزام</h2>
-  <div class="cols" id="ab-cols"></div>
-
-  <h2 id="ab-h2-2">قاموس المصطلحات التجارية</h2>
-  <input id="q" class="search" type="search" autocomplete="off">
-  <div id="list"></div>
-  <p id="none" class="muted" hidden></p>
-
-  <h2 id="ab-h2-3">المراجع والأسس العلمية المعتمدة</h2>
-  <div class="card" style="margin-top:10px;background:var(--soft);">
-    <ul class="list" style="font-size:0.86rem;">
-      <li><strong>Vocational & Career Construction:</strong> Holland, J. L. (1997) <em>RIASEC Model (O*NET)</em> & Savickas, M. L. (2005) <em>Career Construction Theory</em>.</li>
-      <li><strong>Flow State Psychology:</strong> Csikszentmihalyi, M. (1990) <em>Flow: The Psychology of Optimal Experience</em>.</li>
-      <li><strong>Haptic & Material Engagement:</strong> Malafouris, L. (2013) <em>Material Engagement Theory</em> & Sennett, R. (2008) <em>The Craftsman</em>.</li>
-      <li><strong>Effectuation & Lean Validation:</strong> Sarasvathy, S. D. (2001) <em>Effectuation Theory</em> & Ries, E. (2011) <em>The Lean Startup</em>.</li>
-      <li><strong>Self-Efficacy & Loss Aversion:</strong> Bandura, A. (1997) <em>Self-Efficacy</em> & Kahneman, D. (1979) <em>Prospect Theory</em>.</li>
-    </ul>
-  </div>
-
   <div class="card">
-    <h2 id="ab-cta-h2" style="margin-top:0;">جاهز لتحديد فرصتك؟</h2>
-    <a class="btn" id="ab-cta-bot" href="index.html">اعرف أكتر عن نفسك ←</a>
+    <h1 id="ab-h1">اعرف أكثر عن ريادة الأعمال والمهن الحديثة</h1>
+    <p class="muted" id="ab-sub">كيف نكتشف مسارك المهني أو مشروعك المناسب من طباعك التلقائية وأوقات فراغك وأدواتك المتاحة؟</p>
+
+    <h2 id="ab-h2-1">الوظيفة المناسبة مقابل المشروع المستقل</h2>
+    <div class="grid-2" id="ab-cols"></div>
+
+    <h2 id="ab-h2-2">قاموس مصطلحات ريادة الأعمال وسوق العمل (2026)</h2>
+    <input id="q" class="search" type="search" autocomplete="off">
+    <div id="list"></div>
+    <p id="none" class="muted" hidden></p>
+
+    <h2 id="ab-h2-3">الأسس العلمية المعتمدة</h2>
+    <div class="box">
+      <ul class="list">
+        <li><strong>علم نفس الترفيه والشخصية:</strong> Rentfrow, P. J., & Gosling, S. D. — <em>Media & Leisure Preferences as Personality Indicators</em>.</li>
+        <li><strong>التوجيه المهني وبناء المسار:</strong> Holland, J. L. (1997) <em>RIASEC Vocational Model</em> & Savickas, M. L. (2005) <em>Career Construction Theory</em>.</li>
+        <li><strong>حالة التدفق والاندماج الزمني:</strong> Csikszentmihalyi, M. (1990) <em>Flow: The Psychology of Optimal Experience</em>.</li>
+        <li><strong>ريادة الأعمال بالموارد المتاحة:</strong> Sarasvathy, S. D. (2001) <em>Effectuation Theory</em> & Ries, E. (2011) <em>The Lean Startup</em>.</li>
+      </ul>
+    </div>
+
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <strong id="ab-cta-h2">هل أنت مستعد لاكتشاف بوصلتك المهنية والريادية؟</strong>
+      <a class="btn" id="ab-cta-bot" href="index.html">اعرف أكثر عن نفسك ←</a>
+    </div>
   </div>
 </main>
 
 <script>
+document.addEventListener('keydown', e => {
+  if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C','i','j','c'].includes(e.key)) || (e.ctrlKey && ['U','S','u','s'].includes(e.key))) e.preventDefault();
+});
+
 let LG = 'ar';
 try { LG = localStorage.getItem('ebda2_lang') || 'ar'; } catch (e) {}
 const t = p => p[LG === 'ar' ? 0 : 1];
 
 const G = [
-  [['نموذج العمل','Business Model'], 'Business Model', ['الطريقة التي يصنع بها مشروعك قيمة للعميل ويحولها لإيراد.','How your business creates value for customers and turns it into revenue.'], ['بيع المنتج بالقطعة للأفراد أو باشتراك شهري للشركات.','Selling per piece to consumers vs. monthly B2B subscriptions.']],
-  [['القيمة المقترحة','Value Proposition'], 'Value Proposition', ['السبب المحدد الذي يدفع العميل للشراء منك.','The clear reason a buyer chooses you over alternatives.'], ['حل مشكلة حقيقية في المنتج التقليدي.','Solving a specific frustration in standard products.']],
-  [['الحد الأدنى للمنتج','Minimum Viable Product'], 'Minimum Viable Product - MVP', ['أبسط عينة قابلة للبيع لاختبار استعداد الناس للدفع.','The simplest sellable sample to test real buyer willingness to pay.'], ['تنفيذ 5 عينات فقط قبل إنتاج دفعة كاملة.','Making 5 samples before producing a 50-unit batch.']],
-  [['العلامة التجارية المتخصصة','Microbrand'], 'Microbrand', ['براند صغير مستقل يركز على شريحة محددة ومنتج متقن.','An independent small brand focused on a specific niche and hero product.'], ['براند متخصص في منتج واحد عالي الجودة.','A brand built around one well-crafted item.']],
-  [['الوايت لابل','White Label'], 'White Label', ['شراء منتج جاهز من مصنع ووضع هويتك وتغليفك الخاص عليه.','Buying ready-made unbranded products from a factory and applying your own branding.'], ['التركيز على التسويق والعبوة دون تأسيس مصنع.','Focusing on packaging and marketing without owning machinery.']],
-  [['التصنيع لدى الغير','Contract Manufacturing'], 'Contract Manufacturing', ['اتفاق مع ورشة أو مصنع قائم لتصنيع منتجك بالقطعة.','Hiring an existing workshop or factory to produce your item per piece.'], ['توفير ثمن الماكينات في بداية المشروع.','Saving equipment capex at launch.']],
-  [['الحد الأدنى للطلب','Minimum Order Quantity'], 'Minimum Order Quantity - MOQ', ['أقل كمية يوافق المورد على بيعها بسعر الجملة.','The smallest quantity a supplier agrees to sell at wholesale price.'], ['اختيار مورد بـ MOQ صغير يحمي سيولتك.','Choosing a low-MOQ supplier protects your cash flow.']],
-  [['تكلفة اكتساب العميل','Customer Acquisition Cost'], 'Customer Acquisition Cost - CAC', ['إجمالي التسويق مقسومًا على عدد المشترين الفعليين.','Total marketing spend divided by the number of paying customers acquired.'], ['صرفت 500 ج.م إعلانات واشترى 10 عملاء = 50 ج.م للعميل.','Spend 500 EGP on ads for 10 buyers = 50 EGP CAC.']],
-  [['هامش المساهمة','Contribution Margin'], 'Contribution Margin', ['المتبقي من سعر البيع بعد خصم كل التكاليف المتغيرة للوحدة.','Selling price minus all direct variable costs per unit.'], ['يغطي المصاريف الثابتة وصافي ربحك.','Covers fixed overhead and net profit.']]
+  [['نموذج العمل','Business Model'], 'Business Model', ['الطريقة التي يصنع بها المشروع قيمة للعميل ويحولها إلى دخل مستدام.','How a venture creates value for clients and converts it into revenue.']],
+  [['الحد الأدنى للمنتج','Minimum Viable Product'], 'Minimum Viable Product - MVP', ['أبسط عينة أو خدمة أولية قابلة للبيع لاختبار السوق بأقل تكلفة.','The simplest sellable sample or service to validate real demand at minimal cost.']],
+  [['العلامة التجارية المتخصصة','Microbrand'], 'Microbrand', ['علامة تجارية رشيقة تركز على منتج متقن وشريحة عملاء محددة.','A lean independent brand focused on a specific niche and hero product.']],
+  [['الوايت لابل','White Label'], 'White Label', ['شراء منتج جاهز من مصنع ووضع هويتك وتغليفك الخاص عليه دون تأسيس مصنع.','Sourcing ready unbranded products from a factory and applying your own brand identity.']],
+  [['تصميم التجارب','Experience Design'], 'Experiential Curation', ['ابتكار رحلات أو فعاليات أو خدمات تفاعلية حية تترك أثرًا لدى العميل.','Designing immersive trips, events, or interactive services rather than static goods.']],
+  [['التطوير بدون كود','No-Code Development'], 'No-Code & AI Building', ['بناء مواقع ومنصات وأنظمة أتمتة باستخدام أدوات بصرية وذكاء اصطناعي دون برمجة تقليدية.','Building websites, apps, and workflows using visual tools and AI without manual coding.']],
+  [['هامش المساهمة','Contribution Margin'], 'Contribution Margin', ['ما يتبقى من سعر البيع بعد خصم جميع التكاليف المتغيرة المباشرة للوحدة.','Selling price minus all direct variable costs per unit.']],
+  [['تكلفة اكتساب العميل','Customer Acquisition Cost'], 'Customer Acquisition Cost - CAC', ['إجمالي مصروفات التسويق مقسومًا على عدد العملاء المشترين فعليًا.','Total marketing spend divided by the number of paying customers acquired.']]
 ];
 
 const norm = s => s.toLowerCase().replace(/[\u064B-\u0652\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
@@ -104,34 +111,34 @@ function renderAb() {
   document.getElementById('btn-ar').classList.toggle('active', LG === 'ar');
   document.getElementById('btn-en').classList.toggle('active', LG === 'en');
 
-  document.getElementById('ab-brand').textContent = t(['اعرف أكثر عن ريادة الأعمال','Learn More About Entrepreneurship']);
-  document.getElementById('ab-cta-top').textContent = t(['اعرف أكتر عن نفسك','Know Yourself Better']);
-  document.getElementById('ab-h1').textContent = t(['اعرف أكثر عن ريادة الأعمال','Learn More About Entrepreneurship']);
-  document.getElementById('ab-sub').textContent = t(['ننطلق من أصولك وطباعك والبيئة المحيطة بك لبناء فرصة تجارية بأقل مخاطرة.','Starting from your nature, assets, and local environment to build a de-risked business opportunity.']);
-  document.getElementById('ab-h2-1').textContent = t(['الأصل مقابل الالتزام','Assets vs. Liabilities']);
-  document.getElementById('ab-h2-2').textContent = t(['قاموس المصطلحات التجارية','Business Glossary']);
-  document.getElementById('ab-h2-3').textContent = t(['المراجع والأسس العلمية المعتمدة','Scientific & Academic References']);
-  document.getElementById('ab-cta-h2').textContent = t(['جاهز لتحديد فرصتك؟','Ready to discover your opportunity?']);
-  document.getElementById('ab-cta-bot').textContent = t(['اعرف أكتر عن نفسك ←','Know Yourself Better →']);
-  document.getElementById('q').placeholder = t(['ابحث عن مصطلح (مثال: MVP أو هامش المساهمة)...','Search terms (e.g., MVP or Contribution Margin)...']);
+  document.getElementById('ab-brand').textContent = t(['اعرف أكثر عن ريادة الأعمال والمهن','Learn More About Entrepreneurship & Careers']);
+  document.getElementById('ab-cta-top').textContent = t(['اعرف أكثر عن نفسك','Know Yourself Better']);
+  document.getElementById('ab-h1').textContent = t(['اعرف أكثر عن ريادة الأعمال والمهن الحديثة','Entrepreneurship & Modern Career Paths']);
+  document.getElementById('ab-sub').textContent = t(['كيف نكتشف مسارك المهني أو مشروعك المناسب من طباعك التلقائية وأوقات فراغك وأدواتك المتاحة؟','How we uncover your ideal career or business path from your leisure habits, early strengths, and available tools.']);
+  document.getElementById('ab-h2-1').textContent = t(['متى تبدأ بوظيفة حديثة ومتى تبدأ بمشروع مستقل؟','When to Start with a Career vs. an Independent Venture']);
+  document.getElementById('ab-h2-2').textContent = t(['قاموس مصطلحات ريادة الأعمال وسوق العمل (2026)','Entrepreneurship & Job Market Glossary (2026)']);
+  document.getElementById('ab-h2-3').textContent = t(['الأسس العلمية المعتمدة','Scientific & Academic Foundations']);
+  document.getElementById('ab-cta-h2').textContent = t(['هل أنت مستعد لاكتشاف بوصلتك المهنية والريادية؟','Ready to discover your career and venture compass?']);
+  document.getElementById('ab-cta-bot').textContent = t(['اعرف أكثر عن نفسك ←','Know Yourself Better →']);
+  document.getElementById('q').placeholder = t(['ابحث عن مصطلح (مثال: MVP أو No-Code)...','Search terms (e.g., MVP or No-Code)...']);
   document.getElementById('none').textContent = t(['لا يوجد مصطلح مطابق.','No matching term found.']);
 
   document.getElementById('ab-cols').innerHTML = LG === 'ar'
-    ? `<div><h3>بداية متسرعة</h3><ul class="list"><li>استنزاف السيولة في الإيجار والديكور والماكينات قبل أول بيعة.</li><li>شراء كميات ضخمة قبل اختبار الطلب الحقيقي.</li></ul></div><div><h3>بداية محسوبة</h3><ul class="list"><li>اختبار السوق بأبسط عينة قابلة للبيع (MVP).</li><li>التصنيع بالقطعة لدى ورش ومصانع قائمة.</li></ul></div>`
-    : `<div><h3>Rushed Start</h3><ul class="list"><li>Draining cash on rent, decor, and machines before the first sale.</li><li>Buying bulk inventory before validating real demand.</li></ul></div><div><h3>Calculated Start</h3><ul class="list"><li>Testing the market with a Minimum Viable Product (MVP).</li><li>Outsourcing per-piece to existing workshops.</li></ul></div>`;
+    ? `<div class="box"><h3>مسار المهن والوظائف الحديثة</h3><ul class="list"><li>مثالي للخريج الجديد أو من يحتاج دخلًا شهريًا آمنًا وخبرة عملية في السوق قبل المخاطرة.</li><li>يكشف لك مسميات وظيفية حديثة في سوق 2026 تتطابق مع شغفك الفطري دون تجميد رأس مال.</li></ul></div><div class="box"><h3>مسار المشروع المستقل (الدالة المركبة)</h3><ul class="list"><li>يربط بين نواتك الإبداعية أو التنظيمية، وخبرتك السابقة، وبيئتك لبناء فرصة مفصلة على مقاسك.</li><li>يبدأ بأبسط عينة اختبار (MVP) ضمن سقف ميزانيتك دون اقتراض.</li></ul></div>`
+    : `<div class="box"><h3>Modern Career Path</h3><ul class="list"><li>Ideal for fresh graduates or anyone seeking stable income and market mastery before risking capital.</li><li>Uncovers high-demand 2026 job titles aligned with your natural flow state.</li></ul></div><div class="box"><h3>Composite Venture Path</h3><ul class="list"><li>Combines your core drive, early skills, and local environment into a tailored business model.</li><li>Starts with a lean Minimum Viable Product (MVP) strictly within your budget.</li></ul></div>`;
 
   const list = document.getElementById('list');
   list.innerHTML = '';
-  G.forEach(([titlePair, en, defPair, exPair]) => {
+  G.forEach(([titlePair, en, defPair]) => {
     const c = document.createElement('div'); c.className = 'g';
     c.dataset.k = norm(titlePair[0] + ' ' + titlePair[1] + ' ' + en + ' ' + defPair[0] + ' ' + defPair[1]);
-    c.innerHTML = `<header><span><b>${t(titlePair)} </b><span class="en">${en}</span><button type="button" class="copy" data-en="${en}">${t(['نسخ','Copy'])}</button></span></header><p>${t(defPair)}</p><p class="muted">${t(['مثال: ','Example: '])}${t(exPair)}</p>`;
+    c.innerHTML = `<header><span><b>${t(titlePair)} </b><span class="en-term">${en}</span><button type="button" class="copy-btn" data-en="${en}">${t(['نسخ','Copy'])}</button></span></header><p style="font-size:.88rem;margin-top:4px;">${t(defPair)}</p>`;
     list.appendChild(c);
   });
 }
 
 document.addEventListener('click', e => {
-  const b = e.target.closest('.copy[data-en]');
+  const b = e.target.closest('.copy-btn[data-en]');
   if (b && navigator.clipboard) {
     navigator.clipboard.writeText(b.getAttribute('data-en')).then(() => {
       b.textContent = t(['تم ✓','Copied ✓']);

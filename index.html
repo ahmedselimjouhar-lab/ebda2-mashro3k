@@ -521,11 +521,91 @@ function computeBestProject() {
   };
 }
 
-// تشغيل فوري وآمن عند تحميل الصفحة
+function setLang(lang) {
+  LG = lang;
+  try { localStorage.setItem('ebda2_lang', lang); } catch (e) {}
+  document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.getElementById('btn-lang-ar').classList.toggle('active', lang === 'ar');
+  document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+
+  document.getElementById('ui-brand').textContent = tr(UI.brand);
+  document.getElementById('ui-about-link').textContent = tr(UI.about);
+  document.getElementById('nav-ws-btn').textContent = tr(UI.wsBtn);
+  document.getElementById('ui-usd-lbl').textContent = tr(UI.usdLbl);
+  document.getElementById('ui-hook').textContent = tr(UI.hook);
+  document.getElementById('prev-page-btn').textContent = tr(UI.prev);
+  document.getElementById('next-page-btn').textContent = tr(UI.next);
+  document.getElementById('ui-p5-title').textContent = tr(UI.p5Title);
+  document.getElementById('lbl-name').textContent = tr(UI.name);
+  document.getElementById('lbl-age').textContent = tr(UI.age);
+  document.getElementById('lbl-edu').textContent = tr(UI.edu);
+  document.getElementById('lbl-field').textContent = tr(UI.field);
+  document.getElementById('lbl-gender').textContent = tr(UI.gender);
+  document.getElementById('lbl-res-gov').textContent = tr(UI.resGov);
+  document.getElementById('lbl-env-type').textContent = tr(UI.envType);
+  document.getElementById('lbl-local-raw').textContent = tr(UI.localRaw);
+  document.getElementById('lbl-first-adopter').textContent = tr(UI.firstAdopter);
+  document.getElementById('lbl-assets-box').textContent = tr(UI.assetsBox);
+  document.getElementById('lbl-asset-own').textContent = tr(UI.assetOwn);
+  document.getElementById('lbl-asset-gov').textContent = tr(UI.assetGov);
+  document.getElementById('lbl-asset-area').textContent = tr(UI.assetArea);
+  document.getElementById('lbl-asset-util').textContent = tr(UI.assetUtil);
+  document.getElementById('lbl-gps').textContent = tr(UI.gps);
+  document.getElementById('lbl-capital').textContent = tr(UI.capital);
+  document.getElementById('lbl-cap-curr').textContent = tr(UI.capCurr);
+  document.getElementById('btn-p5-back').textContent = tr(UI.prev);
+  document.getElementById('btn-p5-go').textContent = tr(UI.showPlan);
+
+  populatePage5Selects();
+  syncInputsFromState();
+  updateCapPreview();
+
+  if (curPage >= 1 && curPage <= 4) renderQuizPage();
+  if (curPage === 6) renderCapsulePage();
+  if (curPage === 7) renderWorkspacePage();
+}
+
+function syncInputsFromState() {
+  if (state.user.name) document.getElementById('in-name').value = state.user.name;
+  if (state.user.age) document.getElementById('in-age').value = state.user.age;
+  if (state.user.edu) document.getElementById('in-edu').value = state.user.edu;
+  if (state.user.field) document.getElementById('in-field').value = state.user.field;
+  if (state.user.gender) document.getElementById('in-gender').value = state.user.gender;
+  if (state.user.resGov) document.getElementById('in-res-gov').value = state.user.resGov;
+  if (state.user.envType) document.getElementById('in-env-type').value = state.user.envType;
+  if (state.user.localRaw) document.getElementById('in-local-raw').value = state.user.localRaw;
+  if (state.user.firstAdopter) document.getElementById('in-first-adopter').value = state.user.firstAdopter;
+  if (state.user.capEGP) document.getElementById('in-capital').value = state.user.capEGP;
+  const panel = document.getElementById('asset-details-panel');
+  if (panel) panel.style.display = state.assets.includes('none') ? 'none' : 'block';
+}
+
+function populatePage5Selects() {
+  Object.keys(SELECT_OPTS).forEach(id => {
+    const selEl = document.getElementById(id);
+    if (!selEl) return;
+    const curVal = selEl.value;
+    selEl.innerHTML = SELECT_OPTS[id].map(([val, lblPair]) => `<option value="${val}">${esc(tr(lblPair))}</option>`).join('');
+    if (curVal) selEl.value = curVal;
+  });
+
+  const box = document.getElementById('asset-cards-box');
+  if (box) {
+    box.innerHTML = ASSET_LIST.map(([k, lblPair]) => {
+      const isSel = state.assets.includes(k);
+      return `<button type="button" class="opt ${isSel ? 'selected' : ''}" data-asset="${k}" aria-pressed="${isSel ? 'true' : 'false'}"><span>${esc(tr(lblPair))}</span><span class="opt-check">✓</span></button>`;
+    }).join('');
+  }
+}
+
 loadLocal();
 setLang(LG);
+if (curPage >= 1 && curPage <= 4) renderQuizPage();
 checkPartnerUrl();
 syncLiveFX();
 const urlP = new URLSearchParams(window.location.search);
 if (urlP.get('ws_token') && Object.keys(state.ans).length === 12) goPage(7);
 </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+EBDA2 MASHRO3K V5 — DEPLOY CHECKLIST
+
+A. GitHub
+1. Set repository visibility to PRIVATE.
+2. Upload the contents of this folder to the repository root.
+3. Keep api/assessment.js inside an /api folder at the root.
+4. Commit to the branch linked to Vercel Production (usually main).
+
+B. Vercel
+1. Root Directory: repository root.
+2. Framework Preset: Other.
+3. Build Command: leave empty (no build step required).
+4. Settings > Environment Variables:
+   Name: ASSESSMENT_SECRET
+   Value: create locally with: openssl rand -hex 32
+   Environments: Production (and Preview if needed).
+5. Save the variable and create a NEW deployment after adding it.
+
+C. Firewall
+Create a rate-limit rule for /api/assessment. Start with a moderate limit (for example 30 requests per 60 seconds per IP), monitor real users, then tune it. The endpoint issues a signed session token valid for 3 hours.
+
+D. Publish check
+1. Open the Production deployment details and confirm it points to the latest commit.
+2. Open the site in a private/incognito window.
+3. Start the assessment and confirm the first question page loads.
+4. Complete all pages and submit the profile.
+5. Confirm a result is shown.
+
+If the API reports that ASSESSMENT_SECRET is missing, add it in Vercel and redeploy. Do not put this secret in GitHub or frontend code.

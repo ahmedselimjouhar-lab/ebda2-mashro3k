@@ -1,0 +1,32 @@
+EBDA2 MASHRO3K V5 — QA REPORT
+
+Static checks:
+- app.js: node --check passed.
+- api/assessment.js: node --check passed.
+- Questions in server bank: 60.
+- Professional profiles: 31.
+- Initial opportunity ideas: 19.
+
+API checks performed locally with a temporary test secret:
+- Start session returns a signed session token.
+- Question request without a token is rejected (401).
+- Valid token loads question pages.
+- Invalid token is rejected (401).
+- All 10 pages across the five sections load.
+- Public question IDs are opaque HMAC-derived IDs.
+- The 24 interest items are interleaved across RIASEC dimensions so one page does not show four consecutive items from the same dimension.
+- Each question page includes a compact, collapsed academic-reference disclosure; its copy action includes the full citation, institution/tool, and source URL.
+- Public question responses do not contain internal dimension codes, answer keys, or scoring tags.
+- Scoring accepts mapped opaque question IDs and returns a result.
+- A constructed brand-builder profile returns "صانع ومطوّر علامات تجارية".
+- A vendor-orchestration work preference ranks the solo-operator model first.
+- Changing workstyle answers toward personal execution ranks freelance first.
+- Changing to zero budget/no assets does not rewrite the professional identity.
+
+Important limitations:
+- These are code-path tests with synthetic answers, not validation with real Egyptian respondents.
+- The displayed 20-minute duration is a design estimate and must be checked in a pilot.
+- The 5 cognitive domains currently have only 2 short items each; do not interpret them as stable abilities or IQ.
+- Opportunity ideas are hypotheses; no live local demand, price, supplier, or legal verification is performed.
+- Automated real-browser navigation was blocked in this execution environment (Chromium returned ERR_BLOCKED_BY_ADMINISTRATOR for the local test server); a manual browser smoke test is still required after deployment with ASSESSMENT_SECRET configured.
+- A missing ASSESSMENT_SECRET returns HTTP 503 as designed; the function does not silently fall back to unprotected mode.

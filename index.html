@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ar-EG" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="اكتشف طبيعة العمل التي تناسبك، والهوية المهنية، وطريقة تحويل ما تحبه وتستطيع فعله إلى عمل أو مشروع.">
+  <meta name="robots" content="index,follow">
+  <title>ابدأ مشروعك | اكتشف ما يمكنك أن تخلقه</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="index.html" aria-label="ابدأ من جديد">ابدأ مشروعك</a>
+      <nav class="nav"><a class="text-link" href="about.html">المنهجية والمراجع</a></nav>
+    </div>
+  </header>
+
+  <main class="shell main-shell">
+    <section id="intro" class="panel intro-panel">
+      <p class="eyebrow">اكتشاف مهني وريادي</p>
+      <h1>مش لازم تبدأ من فلوس أو من مسمى وظيفة.</h1>
+      <p class="lead">كل واحد فينا بيخلق قيمة بطريقة مختلفة. فيه اللي بيحلل، واللي يصلّح، واللي يصمم، واللي يرعى، واللي يبني منتج أو ينظم شبكة موردين. خلّينا نكتشف نوع الشغل اللي ممكن تستمتع بممارسته، وبعدها نربطه بالمجال وطريقة العمل والموارد المتاحة لك حاليًا.</p>
+      <div class="intro-facts">
+        <div><strong>60 سؤالًا وموقفًا</strong><span>اهتمامات، مواقف يومية، اختيارات تلقائية، وطريقة عمل</span></div>
+        <div><strong>المدة المتوقعة: 20 دقيقة</strong><span>من غير مؤقت أو ضغط زمني؛ خد وقتك في التفكير</span></div>
+        <div><strong>هوية + طريق + فرصة</strong><span>وظيفة أو عمل حر أو مشروع فردي أو شركة أو مسار هجين</span></div>
+      </div>
+      <p class="note">اختار اللي أقرب لتصرفك الحقيقي، مش الإجابة اللي شكلها أذكى أو أكثر احترامًا. مفيش إجابة صح أو غلط في أسئلة الاهتمامات.</p>
+      <div class="actions"><button class="btn primary" id="start-btn" type="button">ابدأ اكتشاف نفسك <span aria-hidden="true">←</span></button><button class="btn secondary" id="resume-btn" type="button" hidden>كمّل من آخر مرة</button></div>
+      <p class="privacy-note">إجاباتك تتحفظ على جهازك لاستكمال الاختبار، وتُرسل إلى خادم الاختبار لحساب النتيجة فقط. لا نحفظ إجاباتك في قاعدة بيانات داخل هذا الإصدار.</p>
+    </section>
+
+    <section id="assessment" class="panel hidden" aria-live="polite">
+      <div class="step-head">
+        <div><p class="eyebrow" id="stage-kicker">ميولك للأنشطة</p><h2 id="stage-title">اختياراتك في مواقف مختلفة</h2></div>
+        <span class="step-counter" id="step-counter">1 / 10</span>
+      </div>
+      <div class="progress-track"><span id="progress-fill"></span></div>
+      <p class="scale-help" id="stage-help">اختار الإجابة الأقرب لك، وفكر في اللي بتعمله فعلًا.</p>
+      <div id="question-list" class="question-list"></div>
+      <p id="question-error" class="validation" role="alert" hidden></p>
+      <div class="actions between"><button class="btn secondary" id="back-btn" type="button">السابق</button><button class="btn primary" id="next-btn" type="button">التالي</button></div>
+    </section>
+
+    <section id="profile" class="panel hidden">
+      <div class="step-head"><div><p class="eyebrow">الواقع العملي</p><h2>خلّينا نربط ميولك بظروفك الحالية.</h2></div><span class="step-counter">الخطوة الأخيرة</span></div>
+      <p class="scale-help">المعلومات دي بتغيّر طريقة البداية والفرص المقترحة، مش قيمتك ولا توافقك مع مهنة. اختار «لا أملك حاليًا» عادي جدًا.</p>
+      <div class="form-grid">
+        <label class="field wide"><span>تحب نناديك بإيه؟ (اختياري)</span><input id="p-name" type="text" maxlength="50" placeholder="اسمك"></label>
+        <label class="field"><span>مستواك التعليمي الحالي</span><select id="p-education"><option value="none">لسه من غير مؤهل بعد الإعدادية</option><option value="secondary">ثانوي</option><option value="diploma">دبلوم / معهد</option><option value="bachelor">بكالوريوس / ليسانس</option><option value="postgrad">دراسات عليا</option><option value="professional">تدريب أو شهادات مهنية</option></select></label>
+        <label class="field"><span>أقرب مجال لدراستك أو خبرتك</span><select id="p-field"><option value="none">لسه ببدأ / مجال مختلف</option><option value="arts">فن وإعلام وتصميم</option><option value="business">تجارة وإدارة وماليات</option><option value="technology">تكنولوجيا وبرمجة وبيانات</option><option value="engineering">هندسة وصناعة وصيانة</option><option value="health">صحة ورعاية</option><option value="education">تعليم وتدريب</option><option value="science">علوم وبحث</option><option value="food">طعام ومنتجات غذائية</option><option value="hospitality">ضيافة وفنادق</option><option value="other">مجال آخر</option></select></label>
+        <label class="field"><span>سنوات الخبرة العملية</span><select id="p-experience"><option value="0">لسه من غير خبرة</option><option value="1">أقل من سنتين</option><option value="3">من سنتين إلى 5</option><option value="6">أكثر من 5 سنوات</option></select></label>
+        <label class="field"><span>الوقت المتاح للتجربة أو التعلم أسبوعيًا</span><select id="p-hours"><option value="2">ساعة إلى 3 ساعات</option><option value="5" selected>4 إلى 7 ساعات</option><option value="9">8 إلى 12 ساعة</option><option value="16">أكثر من 12 ساعة</option></select></label>
+        <label class="field"><span>ميزانية تقدر تخصصها للتجربة الأولى</span><select id="p-budget"><option value="unknown" selected>لسه محددتش / أفضل عدم الإجابة</option><option value="zero">لا أملك ميزانية للاستثمار حاليًا</option><option value="low">ميزانية محدودة</option><option value="medium">ميزانية متوسطة</option><option value="high">ميزانية مرنة</option></select></label>
+        <label class="field"><span>المدينة أو المحافظة</span><input id="p-location" type="text" maxlength="80" placeholder="مثال: الإسكندرية"></label>
+        <label class="field"><span>طبيعة المكان اللي تعيش أو تعمل فيه</span><select id="p-city-type"><option value="unknown">مش محدد</option><option value="large">مدينة كبيرة</option><option value="industrial">منطقة صناعية أو ميناء</option><option value="tourist">مدينة سياحية أو ساحلية</option><option value="rural">قرية أو منطقة زراعية</option><option value="small">مدينة صغيرة أو ضاحية</option></select></label>
+        <label class="field"><span>هل تقدر تتحمل فترة من غير دخل منتظم؟</span><select id="p-runway"><option value="unknown">مش عارف / أفضل عدم الإجابة</option><option value="none">لا، محتاج دخل منتظم حاليًا</option><option value="short">أقل من 3 شهور</option><option value="medium">من 3 إلى 6 شهور</option><option value="long">أكثر من 6 شهور</option></select></label>
+
+        <fieldset class="field wide resources-field"><legend>إيه المتاح عندك حاليًا؟ (اختار كل اللي ينطبق)</legend><div class="check-grid">
+          <label class="check"><input type="checkbox" name="tool" value="phone"><span>موبايل</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="computer"><span>كمبيوتر أو لابتوب</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="internet"><span>اتصال إنترنت</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="camera"><span>كاميرا أو ميكروفون</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="tools"><span>أدوات أو معدات عملية</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="workspace"><span>مكان أقدر أشتغل أو أتدرب فيه</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="network"><span>معارف أو علاقات مهنية</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="vehicle"><span>وسيلة انتقال أو نقل</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="storage"><span>مخزن أو مساحة تخزين</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="land"><span>أرض أو سطح أو مساحة خارجية</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="social"><span>حسابات تواصل أو جمهور</span></label>
+          <label class="check"><input type="checkbox" name="tool" value="website"><span>موقع أو متجر إلكتروني</span></label>
+          <label class="check check-none"><input type="checkbox" name="tool" value="none"><span>لا أملك أي أدوات أو أصول حاليًا</span></label>
+        </div></fieldset>
+
+        <fieldset class="field wide resources-field"><legend>إيه الخدمات أو الجهات اللي تقدر توصل لها؟</legend><div class="check-grid">
+          <label class="check"><input type="checkbox" name="access" value="suppliers"><span>موردون وتجار جملة</span></label>
+          <label class="check"><input type="checkbox" name="access" value="workshops"><span>ورش وفنيون</span></label>
+          <label class="check"><input type="checkbox" name="access" value="farms"><span>مزارع ومنتجون زراعيون</span></label>
+          <label class="check"><input type="checkbox" name="access" value="tourism"><span>فنادق وأنشطة سياحية</span></label>
+          <label class="check"><input type="checkbox" name="access" value="businesses"><span>محلات وشركات محلية</span></label>
+          <label class="check"><input type="checkbox" name="access" value="schools"><span>مدارس ومراكز تعليم</span></label>
+          <label class="check"><input type="checkbox" name="access" value="health"><span>مؤسسات صحية</span></label>
+          <label class="check"><input type="checkbox" name="access" value="factories"><span>مصانع ومناطق إنتاج</span></label>
+          <label class="check"><input type="checkbox" name="access" value="production"><span>تصنيع أو تحميص أو تجهيز لدى طرف خارجي</span></label>
+          <label class="check"><input type="checkbox" name="access" value="packaging"><span>تعبئة أو تغليف أو طباعة ملصقات</span></label>
+          <label class="check"><input type="checkbox" name="access" value="marketing"><span>تصميم أو إعلان أو تسويق</span></label>
+          <label class="check"><input type="checkbox" name="access" value="payment"><span>بوابة دفع أو تحصيل إلكتروني</span></label>
+          <label class="check"><input type="checkbox" name="access" value="shipping"><span>شركة شحن أو توصيل</span></label>
+          <label class="check"><input type="checkbox" name="access" value="platforms"><span>منصات تجارة إلكترونية وخدمات رقمية</span></label>
+          <label class="check"><input type="checkbox" name="access" value="customers"><span>عملاء محتملون أو مجتمع أعرفه</span></label>
+          <label class="check check-none"><input type="checkbox" name="access" value="none"><span>لا أقدر أوصل لموردين أو جهات حاليًا</span></label>
+        </div></fieldset>
+
+        <fieldset class="field wide resources-field"><legend>إيه المجالات اللي بتحبها أو بتتابعها حتى خارج الشغل؟</legend><div class="check-grid">
+          <label class="check"><input type="checkbox" name="domain" value="coffee"><span>القهوة والمشروبات</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="food"><span>الطعام والمنتجات الغذائية</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="hospitality"><span>الفنادق والسفر والضيافة</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="nature"><span>الطبيعة والبيئة والاستدامة</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="animals"><span>الحيوانات ورعايتها</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="arts"><span>الفنون والتصميم والسينما</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="business"><span>التجارة والعلامات التجارية والأسواق</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="technology"><span>التكنولوجيا والمنتجات الرقمية</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="sports"><span>الرياضة والتحليل الرياضي</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="education"><span>التعلم والتعليم</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="health"><span>الصحة والرعاية</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="engineering"><span>السيارات والأجهزة والهندسة</span></label>
+          <label class="check"><input type="checkbox" name="domain" value="community"><span>المجتمع والعلاقات والخدمات</span></label>
+        </div></fieldset>
+
+        <fieldset class="field wide resources-field"><legend>إيه الأثر اللي تتمنى إن شغلك يسيبه؟ (اختياري)</legend><div class="check-grid">
+          <label class="check"><input type="checkbox" name="value" value="sustainability"><span>تقليل الأثر البيئي والاستدامة</span></label>
+          <label class="check"><input type="checkbox" name="value" value="beauty"><span>الجمال والذوق والتجربة</span></label>
+          <label class="check"><input type="checkbox" name="value" value="care"><span>الرعاية وتحسين حياة الناس</span></label>
+          <label class="check"><input type="checkbox" name="value" value="knowledge"><span>المعرفة والتعلم</span></label>
+          <label class="check"><input type="checkbox" name="value" value="independence"><span>الاستقلال وبناء شيء أملكه</span></label>
+          <label class="check"><input type="checkbox" name="value" value="culture"><span>الفن والثقافة</span></label>
+          <label class="check"><input type="checkbox" name="value" value="animals"><span>رعاية الحيوانات والطبيعة</span></label>
+          <label class="check"><input type="checkbox" name="value" value="efficiency"><span>حل المشكلات وتسهيل الحياة</span></label>
+        </div></fieldset>
+
+        <fieldset class="field wide resources-field"><legend>إيه حاجات سبق وعملتها بنفسك؟ (اختار اللي حصل فعلًا)</legend><div class="check-grid">
+          <label class="check"><input type="checkbox" name="experienceType" value="built_brand"><span>بنيت علامة أو طورت منتج</span></label>
+          <label class="check"><input type="checkbox" name="experienceType" value="built_website"><span>أنشأت موقعًا أو أداة رقمية</span></label>
+          <label class="check"><input type="checkbox" name="experienceType" value="sold"><span>بعت منتجًا أو خدمة</span></label>
+          <label class="check"><input type="checkbox" name="experienceType" value="managed_suppliers"><span>نسقت موردين أو خدمات خارجية</span></label>
+          <label class="check"><input type="checkbox" name="experienceType" value="made_content"><span>أنشأت محتوى أو تصميمًا</span></label>
+          <label class="check"><input type="checkbox" name="experienceType" value="analyzed"><span>حللت بيانات أو مشكلات</span></label>
+          <label class="check"><input type="checkbox" name="experienceType" value="taught"><span>علمت أو دربت شخصًا</span></label>
+          <label class="check"><input type="checkbox" name="experienceType" value="repaired"><span>أصلحت أو ركبت شيئًا</span></label>
+          <label class="check"><input type="checkbox" name="experienceType" value="cared"><span>قدمت رعاية أو خدمة مباشرة للناس</span></label>
+          <label class="check"><input type="checkbox" name="experienceType" value="managed_ops"><span>نظمت عمليات أو طلبات أو مواعيد</span></label>
+        </div></fieldset>
+      </div>
+      <p id="profile-error" class="validation" hidden></p>
+      <div class="actions between"><button class="btn secondary" id="profile-back" type="button">السابق</button><button class="btn primary" id="show-results" type="button">اكتشف هويتي وطريق عملي</button></div>
+    </section>
+
+    <section id="results" class="panel hidden" aria-live="polite"><div id="result-mount"></div></section>
+    <footer class="site-footer"><span>أداة استكشاف أولية وليست تشخيصًا نفسيًا أو ضمانًا للنجاح.</span><button type="button" class="text-button" id="reset-btn">امسح الإجابات وابدأ من جديد</button></footer>
+  </main>
+</body>
+</html>
